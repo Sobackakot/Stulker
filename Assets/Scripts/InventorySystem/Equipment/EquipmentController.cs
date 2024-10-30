@@ -19,7 +19,8 @@ public class EquipmentController  : IInitializable, IDisposable
 
     private IInventoryUI equipmentUI;
 
-    public event Func<ItemScrObj, bool> onEquipItemOnPerson;
+    public event Func<ItemScrObj, bool> onAddItemToInventory;
+    public event Action<ItemScrObj> onRemoveItemToInventory;
 
     public readonly List<ItemScrObj> equipmentItem;
     
@@ -42,20 +43,20 @@ public class EquipmentController  : IInitializable, IDisposable
         if (equipmentItem[currentIndex] != null) //if such an item is already equipped
         {
             oldItem = equipmentItem[currentIndex]; //return the item back to inventoryController
-            onEquipItemOnPerson?.Invoke(oldItem);
+            onAddItemToInventory?.Invoke(oldItem);
         } 
         equipmentItem[currentIndex] = newItem;//equip pick item  from inventoryController cell
         equipmentUI.SetNewItemByInventoryCell(newItem); // update UI slots
+        onRemoveItemToInventory?.Invoke(newItem); // Remove from inventoryController cell
     }
    
     public void UnEquipItem(ItemScrObj currentItem)
     {
         byte currentIndex = (byte)currentItem.itemType;
         if (equipmentItem[currentIndex] != null)//if such an item is already equipped
-        {
-            ItemScrObj oldItem = equipmentItem[currentIndex];//return the item back to inventoryController
-            onEquipItemOnPerson?.Invoke(oldItem);
-            equipmentUI.ResetItemByInventoryCell(equipmentItem[currentIndex]);// update UI slots
+        { 
+            onAddItemToInventory?.Invoke(currentItem);
+            equipmentUI.ResetItemByInventoryCell(currentItem);// update UI slots
             equipmentItem[currentIndex] = null;//reset an item's equipmentUI slot 
         } 
     }

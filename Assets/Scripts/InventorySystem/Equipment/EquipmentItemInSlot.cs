@@ -4,14 +4,11 @@ using Zenject;
 
 public class EquipmentItemInSlot : ItemInSlot
 {
-
-    private InventoryController inventoryController;
     private EquipmentController equipmentController;
 
     [Inject]
-    private void Container(InventoryController inventory, EquipmentController equipment)
-    {
-        this.inventoryController = inventory;
+    private void Container(EquipmentController equipment)
+    { 
         this.equipmentController = equipment;
     }
     public override void SetItem(ItemScrObj newItem)

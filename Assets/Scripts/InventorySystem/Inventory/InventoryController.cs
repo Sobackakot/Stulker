@@ -28,12 +28,14 @@ public class InventoryController: IInitializable, IDisposable
     public void Initialize()
     {
         inventoryUI.onSetNewItem += GetCurrentInventory;
-        equipmentController.onEquipItemOnPerson += AddItemToInventory;
+        equipmentController.onAddItemToInventory += AddItemToInventory;
+        equipmentController.onRemoveItemToInventory += RemoveItemFromInventory;
     }
     public void Dispose()
     {
         inventoryUI.onSetNewItem -= GetCurrentInventory;
-        equipmentController.onEquipItemOnPerson -= AddItemToInventory;
+        equipmentController.onAddItemToInventory -= AddItemToInventory;
+        equipmentController.onRemoveItemToInventory -= RemoveItemFromInventory;
     } 
 
     public bool AddItemToInventory(ItemScrObj newItem) //coll from EquipmentController,PickUpItems

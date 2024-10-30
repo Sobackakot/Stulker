@@ -6,12 +6,14 @@ using Zenject;
 public class InventorySlot : MonoBehaviour, IDropHandler   
 {   
     private InventoryController inventoryController;
+    private EquipmentController equipmentController;
     private RectTransform transformSlot;
 
     [Inject]
-    private void Container(InventoryController inventory)
+    private void Container(InventoryController inventory, EquipmentController equipment)
     {
         this.inventoryController = inventory; 
+        equipmentController = equipment;    
     }
     private void Awake()
     {   
@@ -44,11 +46,14 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         pickItemInSlot.SetItem(originItemData); //set the current item's data to a new slot
 
         if (currentItemData != null)
-        { 
+        {
             inventoryController.SwapItemInSlot(dropedItemInSlot.slotIndex, currentItemData);//update the item index in the character's inventoryController list
             dropedItemInSlot.SetItem(currentItemData);//set the current item's data to a new slot
-        } 
-        else dropedItemInSlot.CleareItem();//clear the slot from the data of the previous item
+        }
+        else
+        { 
+            dropedItemInSlot.CleareItem();//clear the slot from the data of the previous item
+        }
     }
 
 }

@@ -16,16 +16,13 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     private Canvas canvas;
 
     private Image itemIcon;
-    private TextMeshProUGUI itemName;
     private TextMeshProUGUI itemAmount;
 
-    private InventoryController inventoryController;
     private EquipmentController equipmentController;
 
     [Inject]
-    private void Container(InventoryController inventory, EquipmentController equipment)
+    private void Container(EquipmentController equipment)
     {
-        this.inventoryController = inventory;
         this.equipmentController = equipment;
     }
 
@@ -79,7 +76,6 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
             if(dataItem.itemType != EquipItems.None) 
             {
                 equipmentController.EquipItem(dataItem);
-                inventoryController.RemoveItemFromInventory(dataItem);
             }  
         }
     } 
