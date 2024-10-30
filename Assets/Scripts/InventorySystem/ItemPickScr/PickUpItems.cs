@@ -16,7 +16,7 @@ public class PickUpItems : Interactable
     public override void Interaction()
     {   
         base.Interaction(); //interaction with default item
-        PickUpItem(); //pick up item in inventory
+        PickUpItem(); //pick up item in inventoryController
     }
     private void PickUpItem()
     {   

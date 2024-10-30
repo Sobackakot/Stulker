@@ -9,9 +9,7 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 {
     public int slotIndex {  get; set; }
     public ItemScrObj dataItem { get; private set;}
-    private InventoryController inventory;
-    private EquipmentController equipment;
-
+     
     private RectTransform pickItemTransform;
     private Transform originalParent;
     private CanvasGroup canvasGroup;
@@ -21,11 +19,14 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     private TextMeshProUGUI itemName;
     private TextMeshProUGUI itemAmount;
 
+    private InventoryController inventoryController;
+    private EquipmentController equipmentController;
+
     [Inject]
     private void Container(InventoryController inventory, EquipmentController equipment)
     {
-        this.inventory = inventory;
-        this.equipment = equipment;
+        this.inventoryController = inventory;
+        this.equipmentController = equipment;
     }
 
     private void Awake()
@@ -33,7 +34,7 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         originalParent = GetComponent<Transform>();  //transform parent object
         pickItemTransform = GetComponent<RectTransform>();//current position of the item
         canvasGroup = GetComponent<CanvasGroup>();
-        canvas = pickItemTransform.GetComponentInParent<Canvas>(); //UI canvas with inventory
+        canvas = pickItemTransform.GetComponentInParent<Canvas>(); //UI canvas with inventoryController
 
         itemIcon = GetComponent<Image>(); //image of the current item 
         itemAmount = pickItemTransform.GetChild(0).GetComponent<TextMeshProUGUI>(); //amount of current item
@@ -71,14 +72,14 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         canvasGroup.alpha = 1f;
         pickItemTransform.SetParent(originalParent); //returns the item to the original position of the parent object
     }
-    public void OnPointerClick(PointerEventData eventData)
+    public virtual void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left && dataItem != null)
         {   
             if(dataItem.itemType != EquipItems.None) 
             {
-                equipment.EquipItem(dataItem);
-                inventory.RemoveItemFromInventory(dataItem);
+                equipmentController.EquipItem(dataItem);
+                inventoryController.RemoveItemFromInventory(dataItem);
             }  
         }
     } 

@@ -43,7 +43,7 @@ public class InputCharacter : IInitializable, IDisposable
         if (context.performed)
         {
             isActiveInventory = !isActiveInventory;
-            onActiveInventory?.Invoke(isActiveInventory); //Switcher  activate  inventory person
+            onActiveInventory?.Invoke(isActiveInventory); //Switcher  activate  inventoryController person
         }
     }
     private void OnInputGetAxisMove(InputAction.CallbackContext context)

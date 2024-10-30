@@ -1,11 +1,12 @@
 
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Zenject;
 
 public class EquipmentSlot : InventorySlot
 { 
-    public EquipFieldScrObj equipField;
+    public EquipFieldScrObj equipField; 
     public override void AddItemInSlot(ItemInSlot item, ItemScrObj data)
     {
         base.AddItemInSlot(item, data);
@@ -17,7 +18,7 @@ public class EquipmentSlot : InventorySlot
     public override void OnDrop(PointerEventData eventData)
     {
         ItemInSlot dropItem = eventData.pointerDrag.GetComponent<ItemInSlot>();
-        if((byte)dropItem.dataItem.itemType == (byte)equipField.fieldType)
+        if((byte)dropItem.dataItem.itemType == (byte)equipField.fieldType) //error
         {
             base.OnDrop(eventData);
         }

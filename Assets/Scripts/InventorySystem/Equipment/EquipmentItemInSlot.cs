@@ -1,8 +1,19 @@
 
 using UnityEngine.EventSystems;
+using Zenject;
 
 public class EquipmentItemInSlot : ItemInSlot
-{ 
+{
+
+    private InventoryController inventoryController;
+    private EquipmentController equipmentController;
+
+    [Inject]
+    private void Container(InventoryController inventory, EquipmentController equipment)
+    {
+        this.inventoryController = inventory;
+        this.equipmentController = equipment;
+    }
     public override void SetItem(ItemScrObj newItem)
     {
         base.SetItem(newItem);
@@ -22,5 +33,15 @@ public class EquipmentItemInSlot : ItemInSlot
     public override void OnEndDrag(PointerEventData eventData)
     {
         base.OnEndDrag(eventData);
+    }
+    public override void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left && dataItem != null)
+        {
+            if (dataItem.itemType != EquipItems.None)
+            { 
+                equipmentController.UnEquipItem(dataItem); 
+            }
+        }
     }
 }

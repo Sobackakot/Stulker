@@ -5,13 +5,13 @@ using Zenject;
 
 public class InventorySlot : MonoBehaviour, IDropHandler   
 {   
-    private InventoryController inventory;
+    private InventoryController inventoryController;
     private RectTransform transformSlot;
 
     [Inject]
     private void Container(InventoryController inventory)
     {
-        this.inventory = inventory; 
+        this.inventoryController = inventory; 
     }
     private void Awake()
     {   
@@ -40,12 +40,12 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     {    
         ItemInSlot pickItemInSlot = transformSlot.GetChild(0).GetComponent<ItemInSlot>();
         ItemScrObj currentItemData = pickItemInSlot.dataItem; //item that needs to be dropped from the current slot
-        inventory.SwapItemInSlot(pickItemInSlot.slotIndex, originItemData);//update the item index in the character's inventory list
+        inventoryController.SwapItemInSlot(pickItemInSlot.slotIndex, originItemData);//update the item index in the character's inventoryController list
         pickItemInSlot.SetItem(originItemData); //set the current item's data to a new slot
 
         if (currentItemData != null)
         { 
-            inventory.SwapItemInSlot(dropedItemInSlot.slotIndex, currentItemData);//update the item index in the character's inventory list
+            inventoryController.SwapItemInSlot(dropedItemInSlot.slotIndex, currentItemData);//update the item index in the character's inventoryController list
             dropedItemInSlot.SetItem(currentItemData);//set the current item's data to a new slot
         } 
         else dropedItemInSlot.CleareItem();//clear the slot from the data of the previous item

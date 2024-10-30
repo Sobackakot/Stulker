@@ -4,17 +4,11 @@ using System.Collections.Generic;
 using Zenject;
 
 public class InventoryController: IInitializable, IDisposable
-{   
-    public event Action onPointerExit;
-
-    private IInventoryUI<ItemScrObj, byte> inventoryUI;
-     
-    public readonly List<ItemScrObj> itemsInventory;
-    private int space = 48;
-     
-    public InventoryController([Inject(Id = "inventoryUI")] IInventoryUI<ItemScrObj, byte> inventoryUI)
+{
+    public InventoryController([Inject(Id = "inventoryUI")] IInventoryUI inventoryUI, EquipmentController equipment)
     {
         this.inventoryUI = inventoryUI;
+        this.equipmentController = equipment;
 
         itemsInventory = new List<ItemScrObj>(space);
         for (int i = 0; i < space; i++)
@@ -23,13 +17,23 @@ public class InventoryController: IInitializable, IDisposable
         }
     }
 
+    private EquipmentController equipmentController;
+    private IInventoryUI inventoryUI;
+     
+    public readonly List<ItemScrObj> itemsInventory;
+    private int space = 48;
+     
+   
+
     public void Initialize()
     {
         inventoryUI.onSetNewItem += GetCurrentInventory;
+        equipmentController.onEquipItemOnPerson += AddItemToInventory;
     }
     public void Dispose()
     {
         inventoryUI.onSetNewItem -= GetCurrentInventory;
+        equipmentController.onEquipItemOnPerson -= AddItemToInventory;
     } 
 
     public bool AddItemToInventory(ItemScrObj newItem) //coll from EquipmentController,PickUpItems
@@ -39,7 +43,7 @@ public class InventoryController: IInitializable, IDisposable
             if (itemsInventory[i] == null)
             {
                 itemsInventory[i] = newItem; 
-                inventoryUI.SetNewItemByInventoryCell( newItem, i); // update inventory slots
+                inventoryUI.SetNewItemByInventoryCell( newItem, i); // update inventoryController slots
                 return true;
             }
         } 
@@ -53,7 +57,7 @@ public class InventoryController: IInitializable, IDisposable
             if (itemsInventory[i] == item)
             {
                 itemsInventory[i] = null;
-                inventoryUI.ResetItemByInventoryCell(item,i);// update inventory slots
+                inventoryUI.ResetItemByInventoryCell(item,i);// update inventoryController slots
                 return;
             }
         }
@@ -63,7 +67,7 @@ public class InventoryController: IInitializable, IDisposable
     {
         if (slotIndex >= 0 && slotIndex < space)
         {
-            UpdateInventoryPerson(newItem); //update item indexes when changing inventory slots
+            UpdateInventoryPerson(newItem); //update item indexes when changing inventoryController slots
             itemsInventory[slotIndex] = newItem;
         } // set new slot for item on Drop  
     }
@@ -79,7 +83,7 @@ public class InventoryController: IInitializable, IDisposable
         }
     }
    
-    public List<ItemScrObj> GetCurrentInventory() //get a list of items from a character's inventory
+    public List<ItemScrObj> GetCurrentInventory() //get a list of items from a character's inventoryController
     {
         return  itemsInventory;
     } 
