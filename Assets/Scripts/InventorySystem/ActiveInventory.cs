@@ -25,7 +25,7 @@ public class ActiveInventory : MonoBehaviour
     }
     private void OnActivate(bool isActive)
     {
-        isActivate = isActive;
+        isActivate = isActive; 
     }
     public void Activate()
     {

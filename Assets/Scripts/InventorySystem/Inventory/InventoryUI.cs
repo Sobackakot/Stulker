@@ -10,11 +10,23 @@ public class InventoryUI: MonoBehaviour, IInventoryUI<ItemScrObj, byte>
     private List<InventorySlot> Slots = new List<InventorySlot>();
 
     public event Func<List<ItemScrObj>> onSetNewItem;
-     
+
+    public bool isCameraActive { get; set; }
+
     private void Awake()
     {
         ItemsInSlot.AddRange(GetComponentsInChildren<ItemInSlot>(false));
         Slots.AddRange(GetComponentsInChildren<InventorySlot>(false)); 
+    }
+    private void OnEnable()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        isCameraActive = false;
+    }
+    private void OnDisable()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        isCameraActive = true;
     }
     private void Start()
     {

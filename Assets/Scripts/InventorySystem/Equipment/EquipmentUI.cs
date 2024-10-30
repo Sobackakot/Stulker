@@ -9,7 +9,8 @@ public class EquipmentUI : MonoBehaviour, IInventoryUI<ItemScrObj, byte>
     private List<EquipmentItemInSlot> itemsInSlots = new List<EquipmentItemInSlot>();
 
     public event Func<List<ItemScrObj>> onSetNewItem;
-     
+
+    public bool isCameraActive { get; set; }
     private void Awake()
     {
         slots.AddRange(GetComponentsInChildren<EquipmentSlot>(false));
