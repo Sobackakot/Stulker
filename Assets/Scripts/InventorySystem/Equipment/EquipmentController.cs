@@ -8,11 +8,11 @@ public class EquipmentController  : InventoryController, IInitializable, IDispos
     public EquipmentController(EquipmentUI equipmentUI) : base(equipmentUI)
     {
         this.equipmentUI = equipmentUI;
-        int indexSlot = System.Enum.GetNames(typeof(EquipItems)).Length; //get the number of slots for equipmentUI items
+        int indexSlot = System.Enum.GetNames(typeof(EquipItems)).Length; //get the number of equipmentSlots for equipmentUI items
         equipmentItem = new List<ItemScrObj>(indexSlot);
         for (int i = 0; i < indexSlot; i++)
         {
-            equipmentItem.Add(null); //initialize item equipmentUI slots
+            equipmentItem.Add(null); //initialize item equipmentUI equipmentSlots
         }
     }
     private EquipmentUI equipmentUI;

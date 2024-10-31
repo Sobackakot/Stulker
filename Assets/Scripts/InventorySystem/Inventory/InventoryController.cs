@@ -39,7 +39,7 @@ public class InventoryController: IInitializable, IDisposable
             if (itemsInventory[i] == null)
             {
                 itemsInventory[i] = newItem; 
-                inventoryUI.SetNewItemByInventoryCell( newItem, i); // update inventoryController slots
+                inventoryUI.SetNewItemByInventoryCell( newItem, i); // update inventoryController equipmentSlots
                 return true;
             }
         } 
@@ -53,7 +53,7 @@ public class InventoryController: IInitializable, IDisposable
             if (itemsInventory[i] == item)
             {
                 itemsInventory[i] = null;
-                inventoryUI.ResetItemByInventoryCell(i);// update inventoryController slots
+                inventoryUI.ResetItemByInventoryCell(i);// update inventoryController equipmentSlots
                 return;
             }
         }
@@ -63,7 +63,7 @@ public class InventoryController: IInitializable, IDisposable
     {
         if (slotIndex >= 0 && slotIndex < space)
         {
-            UpdateInventoryPerson(newItem); //update item indexes when changing inventoryController slots
+            UpdateInventoryPerson(newItem); //update item indexes when changing inventoryController equipmentSlots
             itemsInventory[slotIndex] = newItem;
         } // set new slot for item on Drop  
     }
