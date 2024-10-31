@@ -3,7 +3,8 @@ using UnityEngine.EventSystems;
 using Zenject;
 
 public class EquipmentItemInSlot : ItemInSlot
-{ 
+{
+    public int equipSlotIndex { get; set; }
     public override void SetItem(ItemScrObj newItem)
     {
         base.SetItem(newItem);

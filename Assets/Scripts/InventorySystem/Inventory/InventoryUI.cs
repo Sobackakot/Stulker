@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryUI: MonoBehaviour
+public class InventoryUI: MonoBehaviour, IInventoryUI
 { 
     private List<ItemInSlot> itemsInSlots = new List<ItemInSlot>();
     private List<InventorySlot> inventorySlots = new List<InventorySlot>();

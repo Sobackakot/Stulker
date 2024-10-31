@@ -1,8 +1,6 @@
-
-using System; 
+ 
 using UnityEngine;
-using UnityEngine.EventSystems;
-using Zenject;
+using UnityEngine.EventSystems; 
 
 public class EquipmentSlot : InventorySlot
 { 

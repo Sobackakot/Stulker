@@ -3,12 +3,14 @@ using System;
 using System.Collections.Generic;
 using UnityEngine; 
 
-public class EquipmentUI : InventoryUI
+public class EquipmentUI : MonoBehaviour, IInventoryUI
 { 
     private List<EquipmentSlot> equipmentSlots = new List<EquipmentSlot>();
     private List<EquipmentItemInSlot> equipItemInSlots = new List<EquipmentItemInSlot>();
 
-    public event Func<List<ItemScrObj>> onSetNewItemEquip;
+    public bool isCameraActive { get ; set; }
+
+    public event Func<List<ItemScrObj>> onSetNewItem;
     private void Awake()
     {
         equipmentSlots.AddRange(GetComponentsInChildren<EquipmentSlot>(false));
@@ -18,27 +20,26 @@ public class EquipmentUI : InventoryUI
     {
         for (int i = 0; i < equipmentSlots.Count; i++)
         {
-            equipItemInSlots[i].slotIndex = i;
+            equipItemInSlots[i].equipSlotIndex = i;
         }
     }
-    public override void SetNewItemByInventoryCell(ItemScrObj newItem, short slotIndex)
+    public  void SetNewItemByInventoryCell(ItemScrObj newItem, short slotIndex)
     {
-        EquipFields equipFields = equipmentSlots[slotIndex].equipFieldData.fieldType;
-        if((short)newItem.itemType == (short)equipFields)
+        List<ItemScrObj> items = onSetNewItem?.Invoke();
+        if (slotIndex < items.Count && items[slotIndex] != null) //updates the inventoryController user interface, those equipmentSlots that have been changed
         {
-            List<ItemScrObj> items = onSetNewItemEquip?.Invoke();
-            if (slotIndex < items.Count && items[slotIndex] != null) //updates the inventoryController user interface, those equipmentSlots that have been changed
-            {
-                equipmentSlots[slotIndex].AddItemInSlot(equipItemInSlots[slotIndex], newItem);
-            }
-        } 
+            equipmentSlots[slotIndex].AddItemInSlot(equipItemInSlots[slotIndex], newItem);
+        }
     }
-    public override void ResetItemByInventoryCell(short slot)
+    public  void ResetItemByInventoryCell(short slot)
     {
-        base.ResetItemByInventoryCell(slot);
+        List<ItemScrObj> items = onSetNewItem?.Invoke();
+        if (slot < items.Count) //updates the inventoryController user interface, those equipmentSlots that have been changed
+        {
+            equipmentSlots[slot].RemoveItemInSlot(equipItemInSlots[slot]);
+        }
     }
-    public override void UpdateInventorySlots()
+    public  void UpdateInventorySlots()
     {
-        base.UpdateInventorySlots();
     }
 }

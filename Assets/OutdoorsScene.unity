@@ -2753,6 +2753,12 @@ PrefabInstance:
       propertyPath: rectTransform
       value: 
       objectReference: {fileID: 2024697955}
+    - target: {fileID: 404215818004235781, guid: 9378f1fcb783f09479af1550294a8fca,
+        type: 3}
+      propertyPath: equipFieldData
+      value: 
+      objectReference: {fileID: 11400000, guid: e749233ac85ec534bb42ad8978e21fc9,
+        type: 2}
     - target: {fileID: 494297922135094291, guid: 9378f1fcb783f09479af1550294a8fca,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -2818,11 +2824,23 @@ PrefabInstance:
       propertyPath: rectTransform
       value: 
       objectReference: {fileID: 352613564}
+    - target: {fileID: 740364985856997899, guid: 9378f1fcb783f09479af1550294a8fca,
+        type: 3}
+      propertyPath: equipFieldData
+      value: 
+      objectReference: {fileID: 11400000, guid: 0a39a2ba4e0a21e448fb007710890877,
+        type: 2}
     - target: {fileID: 807424536178540615, guid: 9378f1fcb783f09479af1550294a8fca,
         type: 3}
       propertyPath: rectTransform
       value: 
       objectReference: {fileID: 1920498322}
+    - target: {fileID: 807424536178540615, guid: 9378f1fcb783f09479af1550294a8fca,
+        type: 3}
+      propertyPath: equipFieldData
+      value: 
+      objectReference: {fileID: 11400000, guid: c8091e1d91093cf46b86717635a6c3b6,
+        type: 2}
     - target: {fileID: 866469350385836594, guid: 9378f1fcb783f09479af1550294a8fca,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -2888,6 +2906,12 @@ PrefabInstance:
       propertyPath: rectTransform
       value: 
       objectReference: {fileID: 11121426}
+    - target: {fileID: 1226492809546802093, guid: 9378f1fcb783f09479af1550294a8fca,
+        type: 3}
+      propertyPath: equipFieldData
+      value: 
+      objectReference: {fileID: 11400000, guid: c8091e1d91093cf46b86717635a6c3b6,
+        type: 2}
     - target: {fileID: 1324907247844400728, guid: 9378f1fcb783f09479af1550294a8fca,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -3038,11 +3062,23 @@ PrefabInstance:
       propertyPath: rectTransform
       value: 
       objectReference: {fileID: 1223591989}
+    - target: {fileID: 1445366033960812452, guid: 9378f1fcb783f09479af1550294a8fca,
+        type: 3}
+      propertyPath: equipFieldData
+      value: 
+      objectReference: {fileID: 11400000, guid: f9e70b7f7afa0ff46a9e8c1e6042412d,
+        type: 2}
     - target: {fileID: 1555219336178536175, guid: 9378f1fcb783f09479af1550294a8fca,
         type: 3}
       propertyPath: rectTransform
       value: 
       objectReference: {fileID: 749540719}
+    - target: {fileID: 1555219336178536175, guid: 9378f1fcb783f09479af1550294a8fca,
+        type: 3}
+      propertyPath: equipFieldData
+      value: 
+      objectReference: {fileID: 11400000, guid: 8c3096efdbb74c9468e032cbe733f92d,
+        type: 2}
     - target: {fileID: 1564223690055286522, guid: 9378f1fcb783f09479af1550294a8fca,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -3528,6 +3564,12 @@ PrefabInstance:
       propertyPath: rectTransform
       value: 
       objectReference: {fileID: 1891337844}
+    - target: {fileID: 2587556196399448972, guid: 9378f1fcb783f09479af1550294a8fca,
+        type: 3}
+      propertyPath: equipFieldData
+      value: 
+      objectReference: {fileID: 11400000, guid: 1dc6ebfe017ce7344a8a60dc583e9206,
+        type: 2}
     - target: {fileID: 2651425441684934759, guid: 9378f1fcb783f09479af1550294a8fca,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -3573,6 +3615,12 @@ PrefabInstance:
       propertyPath: rectTransform
       value: 
       objectReference: {fileID: 1248932592}
+    - target: {fileID: 2780782973937572712, guid: 9378f1fcb783f09479af1550294a8fca,
+        type: 3}
+      propertyPath: equipFieldData
+      value: 
+      objectReference: {fileID: 11400000, guid: c8091e1d91093cf46b86717635a6c3b6,
+        type: 2}
     - target: {fileID: 2864327927028051787, guid: 9378f1fcb783f09479af1550294a8fca,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -3668,6 +3716,12 @@ PrefabInstance:
       propertyPath: rectTransform
       value: 
       objectReference: {fileID: 181490180}
+    - target: {fileID: 3170820393801848643, guid: 9378f1fcb783f09479af1550294a8fca,
+        type: 3}
+      propertyPath: equipFieldData
+      value: 
+      objectReference: {fileID: 11400000, guid: c8091e1d91093cf46b86717635a6c3b6,
+        type: 2}
     - target: {fileID: 3257648083155205485, guid: 9378f1fcb783f09479af1550294a8fca,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -3828,6 +3882,12 @@ PrefabInstance:
       propertyPath: rectTransform
       value: 
       objectReference: {fileID: 432981716}
+    - target: {fileID: 4136332550102137799, guid: 9378f1fcb783f09479af1550294a8fca,
+        type: 3}
+      propertyPath: equipFieldData
+      value: 
+      objectReference: {fileID: 11400000, guid: c8091e1d91093cf46b86717635a6c3b6,
+        type: 2}
     - target: {fileID: 4174147329751973494, guid: 9378f1fcb783f09479af1550294a8fca,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -4343,6 +4403,12 @@ PrefabInstance:
       propertyPath: rectTransform
       value: 
       objectReference: {fileID: 758359702}
+    - target: {fileID: 4949121805987934257, guid: 9378f1fcb783f09479af1550294a8fca,
+        type: 3}
+      propertyPath: equipFieldData
+      value: 
+      objectReference: {fileID: 11400000, guid: 8c3096efdbb74c9468e032cbe733f92d,
+        type: 2}
     - target: {fileID: 4972675089943572798, guid: 9378f1fcb783f09479af1550294a8fca,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -4723,6 +4789,12 @@ PrefabInstance:
       propertyPath: rectTransform
       value: 
       objectReference: {fileID: 133422379}
+    - target: {fileID: 5918280302055780464, guid: 9378f1fcb783f09479af1550294a8fca,
+        type: 3}
+      propertyPath: equipFieldData
+      value: 
+      objectReference: {fileID: 11400000, guid: 74ff5dc329295724396ed3655a42f317,
+        type: 2}
     - target: {fileID: 5922161151132009372, guid: 9378f1fcb783f09479af1550294a8fca,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -5308,6 +5380,12 @@ PrefabInstance:
       propertyPath: rectTransform
       value: 
       objectReference: {fileID: 1643784263}
+    - target: {fileID: 7348597974991615369, guid: 9378f1fcb783f09479af1550294a8fca,
+        type: 3}
+      propertyPath: equipFieldData
+      value: 
+      objectReference: {fileID: 11400000, guid: 70d4950fe996d5e42a9c98f0d6f17d93,
+        type: 2}
     - target: {fileID: 7403720874077865468, guid: 9378f1fcb783f09479af1550294a8fca,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -5343,21 +5421,45 @@ PrefabInstance:
       propertyPath: rectTransform
       value: 
       objectReference: {fileID: 1041443142}
+    - target: {fileID: 7426518992033305407, guid: 9378f1fcb783f09479af1550294a8fca,
+        type: 3}
+      propertyPath: equipFieldData
+      value: 
+      objectReference: {fileID: 11400000, guid: d1b5562f50e18dc4e8aed8fffaef1af8,
+        type: 2}
     - target: {fileID: 7561702721027310026, guid: 9378f1fcb783f09479af1550294a8fca,
         type: 3}
       propertyPath: rectTransform
       value: 
       objectReference: {fileID: 1505478204}
+    - target: {fileID: 7561702721027310026, guid: 9378f1fcb783f09479af1550294a8fca,
+        type: 3}
+      propertyPath: equipFieldData
+      value: 
+      objectReference: {fileID: 11400000, guid: 7434622e80b56844f99572855e558c04,
+        type: 2}
     - target: {fileID: 7586377682987547330, guid: 9378f1fcb783f09479af1550294a8fca,
         type: 3}
       propertyPath: rectTransform
       value: 
       objectReference: {fileID: 815164738}
+    - target: {fileID: 7586377682987547330, guid: 9378f1fcb783f09479af1550294a8fca,
+        type: 3}
+      propertyPath: equipFieldData
+      value: 
+      objectReference: {fileID: 11400000, guid: d220c672b6764224bab95e99166ae1a9,
+        type: 2}
     - target: {fileID: 7714249167722060987, guid: 9378f1fcb783f09479af1550294a8fca,
         type: 3}
       propertyPath: rectTransform
       value: 
       objectReference: {fileID: 1727914066}
+    - target: {fileID: 7714249167722060987, guid: 9378f1fcb783f09479af1550294a8fca,
+        type: 3}
+      propertyPath: equipFieldData
+      value: 
+      objectReference: {fileID: 11400000, guid: 0fe8d3c41df8bb9408d637a5400f4517,
+        type: 2}
     - target: {fileID: 7739448845026283451, guid: 9378f1fcb783f09479af1550294a8fca,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -5543,6 +5645,12 @@ PrefabInstance:
       propertyPath: rectTransform
       value: 
       objectReference: {fileID: 457528959}
+    - target: {fileID: 8150800550897463624, guid: 9378f1fcb783f09479af1550294a8fca,
+        type: 3}
+      propertyPath: equipFieldData
+      value: 
+      objectReference: {fileID: 11400000, guid: 8c3096efdbb74c9468e032cbe733f92d,
+        type: 2}
     - target: {fileID: 8155739671363300288, guid: 9378f1fcb783f09479af1550294a8fca,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -5868,6 +5976,12 @@ PrefabInstance:
       propertyPath: rectTransform
       value: 
       objectReference: {fileID: 721043961}
+    - target: {fileID: 8809705690564519971, guid: 9378f1fcb783f09479af1550294a8fca,
+        type: 3}
+      propertyPath: equipFieldData
+      value: 
+      objectReference: {fileID: 11400000, guid: 70710d4b6223b12439aa2c99723f2354,
+        type: 2}
     - target: {fileID: 8861673760811262112, guid: 9378f1fcb783f09479af1550294a8fca,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -5893,11 +6007,23 @@ PrefabInstance:
       propertyPath: rectTransform
       value: 
       objectReference: {fileID: 407532225}
+    - target: {fileID: 8893595523726619150, guid: 9378f1fcb783f09479af1550294a8fca,
+        type: 3}
+      propertyPath: equipFieldData
+      value: 
+      objectReference: {fileID: 11400000, guid: 924098415ca21da45a81f55fcd802c45,
+        type: 2}
     - target: {fileID: 8927188154408426240, guid: 9378f1fcb783f09479af1550294a8fca,
         type: 3}
       propertyPath: rectTransform
       value: 
       objectReference: {fileID: 2093223117}
+    - target: {fileID: 8927188154408426240, guid: 9378f1fcb783f09479af1550294a8fca,
+        type: 3}
+      propertyPath: equipFieldData
+      value: 
+      objectReference: {fileID: 11400000, guid: 8c3096efdbb74c9468e032cbe733f92d,
+        type: 2}
     - target: {fileID: 9047645936809802219, guid: 9378f1fcb783f09479af1550294a8fca,
         type: 3}
       propertyPath: m_AnchorMax.y

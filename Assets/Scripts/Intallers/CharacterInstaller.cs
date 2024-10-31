@@ -1,11 +1,15 @@
 
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
 
 [CreateAssetMenu(fileName = "Installer(Character)", menuName = "Installers/Character")]
 public class CharacterInstaller : ScriptableObjectInstaller
-{    
+{   
+    private const string InventoryUI_ID = "inventoryUI";
+    private const string EquipmentUI_ID = "equipmentUI";
+
     public override void InstallBindings()
     {
         BindCharacter();
@@ -35,9 +39,9 @@ public class CharacterInstaller : ScriptableObjectInstaller
     private void BindInventory()
     {
         // Bind InventoryUI with an identifier
-        Container.Bind<InventoryUI>().FromComponentInHierarchy(this).AsSingle();
+        Container.Bind<IInventoryUI>().WithId(InventoryUI_ID).To<InventoryUI>().FromComponentInHierarchy(this).AsSingle();
 
-        Container.Bind<EquipmentUI>().FromComponentInHierarchy(this).AsSingle();
+        Container.Bind<IInventoryUI>().WithId(EquipmentUI_ID).To<EquipmentUI>().FromComponentInHierarchy(this).AsSingle();
 
         Container.Bind<ActiveInventory>().FromComponentInHierarchy(this).AsSingle(); 
 

@@ -3,48 +3,76 @@ using System;
 using System.Collections.Generic; 
 using Zenject; 
 
-public class EquipmentController  : InventoryController, IInitializable, IDisposable
+public class EquipmentController : IInventoryContoller, IInitializable, IDisposable
 {
-    public EquipmentController(EquipmentUI equipmentUI) : base(equipmentUI)
+    public EquipmentController([Inject(Id = "equipmentUI")] IInventoryUI equipmentUI) 
     {
         this.equipmentUI = equipmentUI;
-        int indexSlot = System.Enum.GetNames(typeof(EquipItems)).Length; //get the number of equipmentSlots for equipmentUI items
-        equipmentItem = new List<ItemScrObj>(indexSlot);
-        for (int i = 0; i < indexSlot; i++)
+        int countSlotsItem = System.Enum.GetNames(typeof(EquipItems)).Length; //get the number of equipmentSlots for equipmentUI items
+        equipmentItems = new List<ItemScrObj>(countSlotsItem);
+        for (int i = 0; i < countSlotsItem; i++)
         {
-            equipmentItem.Add(null); //initialize item equipmentUI equipmentSlots
+            equipmentItems.Add(null); //initialize item equipmentUI equipmentSlots
         }
     }
-    private EquipmentUI equipmentUI;
-    public readonly List<ItemScrObj> equipmentItem;
+    private IInventoryUI equipmentUI;
+    public readonly List<ItemScrObj> equipmentItems;
 
-    public new void Initialize()
+    public void Initialize()
     {
         equipmentUI.onSetNewItem += GetCurrentItems;
     }
-    public new void Dispose()
+    public void Dispose()
     {
         equipmentUI.onSetNewItem -= GetCurrentItems;
     }
       
-    public override bool AddItemToInventory(ItemScrObj newItem)
+    public bool AddItemToInventory(ItemScrObj newItem)
     {
-        return base.AddItemToInventory(newItem);
+        for (byte i = 0; i < equipmentItems.Count; i++)
+        {
+            if (equipmentItems[i] == null)
+            {
+                equipmentItems[i] = newItem;
+                equipmentUI.SetNewItemByInventoryCell(newItem, i); // update inventoryController equipmentSlots
+                return true;
+            }
+        }
+        return false;
     }
-    public override void RemoveItemFromInventory(ItemScrObj item)
+    public void RemoveItemFromInventory(ItemScrObj item)
     {
-        base.RemoveItemFromInventory(item);
+        for (byte i = 0; i < equipmentItems.Count; i++)
+        {
+            if (equipmentItems[i] == item)
+            {
+                equipmentItems[i] = null;
+                equipmentUI.ResetItemByInventoryCell(i);// update inventoryController equipmentSlots
+                return;
+            }
+        }
     }
-    public override void SwapItemInSlot(int slotIndex, ItemScrObj newItem)
+    public void SwapItemInSlot(int slotIndex, ItemScrObj newItem)
     {
-        base.SwapItemInSlot(slotIndex, newItem);
+        if (slotIndex >= 0 && slotIndex < equipmentItems.Count)
+        {
+            UpdateInventoryPerson(newItem); //update item indexes when changing inventoryController equipmentSlots
+            equipmentItems[slotIndex] = newItem;
+        }
     }
-    public override void UpdateInventoryPerson(ItemScrObj newItem)
+    public void UpdateInventoryPerson(ItemScrObj newItem)
     {
-        base.UpdateInventoryPerson(newItem);
+        for (int i = 0; i < equipmentItems.Count; i++)
+        {
+            if (equipmentItems[i] == newItem)
+            {
+                equipmentItems[i] = null; //clearing the original slot when moving an item to another slot
+                return;
+            }
+        }
     }
-    public override List<ItemScrObj> GetCurrentItems()
+    public List<ItemScrObj> GetCurrentItems()
     {
-        return equipmentItem;
+        return equipmentItems;
     }
 }
