@@ -5,10 +5,9 @@ using Zenject;
 
 public class InventoryController: IInitializable, IDisposable
 {
-    public InventoryController([Inject(Id = "inventoryUI")] IInventoryUI inventoryUI, EquipmentController equipment)
+    public InventoryController(InventoryUI inventoryUI)
     {
-        this.inventoryUI = inventoryUI;
-        this.equipmentController = equipment;
+        this.inventoryUI = inventoryUI; 
 
         itemsInventory = new List<ItemScrObj>(space);
         for (int i = 0; i < space; i++)
@@ -16,9 +15,8 @@ public class InventoryController: IInitializable, IDisposable
             itemsInventory.Add(null); // Initialize the list with null values 
         }
     }
-
-    private EquipmentController equipmentController;
-    private IInventoryUI inventoryUI;
+     
+    private InventoryUI inventoryUI;
      
     public readonly List<ItemScrObj> itemsInventory;
     private int space = 48;
@@ -27,18 +25,14 @@ public class InventoryController: IInitializable, IDisposable
 
     public void Initialize()
     {
-        inventoryUI.onSetNewItem += GetCurrentInventory;
-        equipmentController.onAddItemToInventory += AddItemToInventory;
-        equipmentController.onRemoveItemToInventory += RemoveItemFromInventory;
+        inventoryUI.onSetNewItem += GetCurrentItems; 
     }
     public void Dispose()
     {
-        inventoryUI.onSetNewItem -= GetCurrentInventory;
-        equipmentController.onAddItemToInventory -= AddItemToInventory;
-        equipmentController.onRemoveItemToInventory -= RemoveItemFromInventory;
+        inventoryUI.onSetNewItem -= GetCurrentItems; 
     } 
 
-    public bool AddItemToInventory(ItemScrObj newItem) //coll from EquipmentController,PickUpItems
+    public virtual bool AddItemToInventory(ItemScrObj newItem) //coll from EquipmentController,PickUpItems
     { 
         for (byte i = 0; i < itemsInventory.Count; i++)
         {
@@ -52,20 +46,20 @@ public class InventoryController: IInitializable, IDisposable
         return false; // InventoryPerson is full 
     }
 
-    public void RemoveItemFromInventory(ItemScrObj item) // coll from ItemInSlot
+    public virtual void RemoveItemFromInventory(ItemScrObj item) // coll from ItemInSlot
     {
         for (byte i = 0; i < itemsInventory.Count; i++)
         {
             if (itemsInventory[i] == item)
             {
                 itemsInventory[i] = null;
-                inventoryUI.ResetItemByInventoryCell(item,i);// update inventoryController slots
+                inventoryUI.ResetItemByInventoryCell(i);// update inventoryController slots
                 return;
             }
         }
         
     }
-    public void SwapItemInSlot(int slotIndex, ItemScrObj newItem) // coll from class InventorySlot
+    public virtual void SwapItemInSlot(int slotIndex, ItemScrObj newItem) // coll from class InventorySlot
     {
         if (slotIndex >= 0 && slotIndex < space)
         {
@@ -73,7 +67,7 @@ public class InventoryController: IInitializable, IDisposable
             itemsInventory[slotIndex] = newItem;
         } // set new slot for item on Drop  
     }
-    private void UpdateInventoryPerson(ItemScrObj newItem)
+    public virtual void UpdateInventoryPerson(ItemScrObj newItem)
     {
         for (int i = 0; i < itemsInventory.Count; i++)
         {
@@ -85,7 +79,7 @@ public class InventoryController: IInitializable, IDisposable
         }
     }
    
-    public List<ItemScrObj> GetCurrentInventory() //get a list of items from a character's inventoryController
+    public virtual List<ItemScrObj> GetCurrentItems() //get a list of items from a character's inventoryController
     {
         return  itemsInventory;
     } 

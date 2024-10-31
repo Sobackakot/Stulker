@@ -3,55 +3,34 @@ using System;
 using System.Collections.Generic;
 using UnityEngine; 
 
-public class EquipmentUI : MonoBehaviour, IInventoryUI
+public class EquipmentUI : InventoryUI
 { 
     private List<EquipmentSlot> slots = new List<EquipmentSlot>();
-    private List<EquipmentItemInSlot> itemsInSlots = new List<EquipmentItemInSlot>();
-
-    public event Func<List<ItemScrObj>> onSetNewItem;
-
-    public bool isCameraActive { get; set; }
+    private List<EquipmentItemInSlot> equipItemInSlots = new List<EquipmentItemInSlot>();
+      
     private void Awake()
     {
         slots.AddRange(GetComponentsInChildren<EquipmentSlot>(false));
-        itemsInSlots.AddRange(GetComponentsInChildren<EquipmentItemInSlot>(false));
-    } 
-    public void SetNewItemByInventoryCell(ItemScrObj newItem, short index = 0) //coll from InventoryController
-    { 
-        for(short i = 0; i < slots.Count; i++)
-        {
-            EquipFields equipFields = slots[i].equipField.fieldType;
-            if((short)newItem.itemType == (short)equipFields)
-            {
-                slots[i].AddItemInSlot(itemsInSlots[i], newItem);
-                return;
-            }
-        } 
+        equipItemInSlots.AddRange(GetComponentsInChildren<EquipmentItemInSlot>(false));
     }
-    public void ResetItemByInventoryCell(ItemScrObj item = null, short index = 0) //coll from InventoryController
-    { 
-        for(short i = 0; i < slots.Count; i++)
-        {
-            EquipFields equipFields = slots[i].equipField.fieldType;
-            if ((short)item.itemType == (short)equipFields)
-            { 
-                slots[i].RemoveItemInSlot(itemsInSlots[i]);
-            }
-        }
-    }
-    public void UpdateInventorySlots() //coll from InventoryController
+    public override void SetNewItemByInventoryCell(ItemScrObj newItem, short slotIndex)
     {
-        List<ItemScrObj> items = onSetNewItem?.Invoke();
-        for (short i = 0; i < slots.Count; i++) //Updates the inventoryController UI completely when changing characters
+        EquipFields equipFields = slots[slotIndex].equipFieldData.fieldType;
+        if((short)newItem.itemType == (short)equipFields)
         {
-            if (itemsInSlots[i].dataItem != null)
-            {
-                slots[i].RemoveItemInSlot(itemsInSlots[i]);
-            }
-            if (i < items.Count && items[i] != null)
-            {
-                slots[i].AddItemInSlot(itemsInSlots[i], items[i]);
-            }
+            base.SetNewItemByInventoryCell(newItem, slotIndex);
         }
-    } 
+        else
+        {
+            Debug.Log("Not equip slot");
+        }
+    }
+    public override void ResetItemByInventoryCell(short slot)
+    {
+        base.ResetItemByInventoryCell(slot);
+    }
+    public override void UpdateInventorySlots()
+    {
+        base.UpdateInventorySlots();
+    }
 }

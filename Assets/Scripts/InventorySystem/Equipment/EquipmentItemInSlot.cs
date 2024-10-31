@@ -3,14 +3,7 @@ using UnityEngine.EventSystems;
 using Zenject;
 
 public class EquipmentItemInSlot : ItemInSlot
-{
-    private EquipmentController equipmentController;
-
-    [Inject]
-    private void Container(EquipmentController equipment)
-    { 
-        this.equipmentController = equipment;
-    }
+{ 
     public override void SetItem(ItemScrObj newItem)
     {
         base.SetItem(newItem);
@@ -35,10 +28,10 @@ public class EquipmentItemInSlot : ItemInSlot
     {
         if (eventData.button == PointerEventData.InputButton.Left && dataItem != null)
         {
-            if (dataItem.itemType != EquipItems.None)
-            { 
-                equipmentController.UnEquipItem(dataItem); 
-            }
+            //if (dataItem.itemType != EquipItems.None)
+            //{ 
+            //    equipmentController.UnEquipItem(dataItem); 
+            //}
         }
     }
 }

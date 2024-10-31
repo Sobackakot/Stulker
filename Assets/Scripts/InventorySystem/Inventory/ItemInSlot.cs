@@ -73,10 +73,10 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     {
         if (eventData.button == PointerEventData.InputButton.Left && dataItem != null)
         {   
-            if(dataItem.itemType != EquipItems.None) 
-            {
-                equipmentController.EquipItem(dataItem);
-            }  
+            //if(dataItem.itemType != EquipItems.None) 
+            //{
+            //    equipmentController.EquipItem(dataItem);
+            //}  
         }
     } 
 }

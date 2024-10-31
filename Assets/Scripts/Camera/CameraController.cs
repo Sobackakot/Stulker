@@ -5,8 +5,7 @@ using Zenject;
 
 public class CameraController: ILateTickable, IInitializable, IDisposable
 {   
-    public CameraController(InputCamera input, CameraCharacter camera, 
-        [Inject(Id = "inventoryUI")] IInventoryUI inventoryUI)
+    public CameraController(InputCamera input, CameraCharacter camera, InventoryUI inventoryUI)
     {
         this.input = input;
         this.camera = camera;   
@@ -14,7 +13,7 @@ public class CameraController: ILateTickable, IInitializable, IDisposable
     }
     private InputCamera input;
     private CameraCharacter camera;
-    private IInventoryUI inventoryUI;
+    private InventoryUI inventoryUI;
 
 
     public void Initialize()

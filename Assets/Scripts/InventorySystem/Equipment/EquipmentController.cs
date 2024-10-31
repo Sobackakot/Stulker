@@ -3,11 +3,10 @@ using System;
 using System.Collections.Generic; 
 using Zenject; 
 
-public class EquipmentController  : IInitializable, IDisposable
+public class EquipmentController  : InventoryController
 {
-    public EquipmentController([Inject(Id = "equipmentUI")] IInventoryUI equipmentUI)
+    public EquipmentController(EquipmentUI equipmentUI) : base(equipmentUI)
     {
-        this.equipmentUI = equipmentUI; 
 
         int indexSlot = System.Enum.GetNames(typeof(EquipItems)).Length; //get the number of slots for equipmentUI items
         equipmentItem = new List<ItemScrObj>(indexSlot);
@@ -17,51 +16,22 @@ public class EquipmentController  : IInitializable, IDisposable
         }
     }
 
-    private IInventoryUI equipmentUI;
-
-    public event Func<ItemScrObj, bool> onAddItemToInventory;
-    public event Action<ItemScrObj> onRemoveItemToInventory;
-
     public readonly List<ItemScrObj> equipmentItem;
     
-    public void Initialize()
+    public override bool AddItemToInventory(ItemScrObj newItem)
     {
-        equipmentUI.onSetNewItem += GetEquipmentItems;
-    } 
-    public void Dispose()
-    {
-        equipmentUI.onSetNewItem -= GetEquipmentItems;
+        return base.AddItemToInventory(newItem);
     }
-    public void ActiveEquipmentPanel()
+    public override void RemoveItemFromInventory(ItemScrObj item)
     {
-        equipmentUI.UpdateInventorySlots();
+        base.RemoveItemFromInventory(item);
     }
-    public void EquipItem(ItemScrObj newItem) //coll from ItemInSlot
+    public override void SwapItemInSlot(int slotIndex, ItemScrObj newItem)
     {
-        byte currentIndex = (byte)newItem.itemType; // convert from EquipmentScrObj Slot to index 
-        ItemScrObj oldItem = null;
-        if (equipmentItem[currentIndex] != null) //if such an item is already equipped
-        {
-            oldItem = equipmentItem[currentIndex]; //return the item back to inventoryController
-            onAddItemToInventory?.Invoke(oldItem);
-        } 
-        equipmentItem[currentIndex] = newItem;//equip pick item  from inventoryController cell
-        equipmentUI.SetNewItemByInventoryCell(newItem); // update UI slots
-        onRemoveItemToInventory?.Invoke(newItem); // Remove from inventoryController cell
+        base.SwapItemInSlot(slotIndex, newItem);
     }
-   
-    public void UnEquipItem(ItemScrObj currentItem)
+    public override void UpdateInventoryPerson(ItemScrObj newItem)
     {
-        byte currentIndex = (byte)currentItem.itemType;
-        if (equipmentItem[currentIndex] != null)//if such an item is already equipped
-        { 
-            onAddItemToInventory?.Invoke(currentItem);
-            equipmentUI.ResetItemByInventoryCell(currentItem);// update UI slots
-            equipmentItem[currentIndex] = null;//reset an item's equipmentUI slot 
-        } 
+        base.UpdateInventoryPerson(newItem);
     }
-    public List<ItemScrObj> GetEquipmentItems()
-    {
-        return equipmentItem;
-    }  
 }

@@ -4,9 +4,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryUI: MonoBehaviour, IInventoryUI
+public class InventoryUI: MonoBehaviour
 { 
-    private List<ItemInSlot> ItemsInSlot = new List<ItemInSlot>();
+    private List<ItemInSlot> itemsInSlots = new List<ItemInSlot>();
     private List<InventorySlot> Slots = new List<InventorySlot>();
 
     public event Func<List<ItemScrObj>> onSetNewItem;
@@ -15,7 +15,7 @@ public class InventoryUI: MonoBehaviour, IInventoryUI
 
     private void Awake()
     {
-        ItemsInSlot.AddRange(GetComponentsInChildren<ItemInSlot>(false));
+        itemsInSlots.AddRange(GetComponentsInChildren<ItemInSlot>(false));
         Slots.AddRange(GetComponentsInChildren<InventorySlot>(false)); 
     }
     private void OnEnable()
@@ -32,37 +32,37 @@ public class InventoryUI: MonoBehaviour, IInventoryUI
     {
         for(int i  =0; i < Slots.Count; i++)
         {
-            ItemsInSlot[i].slotIndex = i;
+            itemsInSlots[i].slotIndex = i;
         }  
     } 
-    public void SetNewItemByInventoryCell(ItemScrObj newItem, short slotIndex) //coll from InventoryController
+    public virtual void SetNewItemByInventoryCell(ItemScrObj newItem, short slotIndex) //coll from InventoryController
     { 
         List<ItemScrObj> items = onSetNewItem?.Invoke();
         if (slotIndex < items.Count && items[slotIndex] != null) //updates the inventoryController user interface, those slots that have been changed
         { 
-            Slots[slotIndex].AddItemInSlot(ItemsInSlot[slotIndex], newItem);
+            Slots[slotIndex].AddItemInSlot(itemsInSlots[slotIndex], newItem);
         }
     }
-    public void ResetItemByInventoryCell(ItemScrObj item = null, short slot = 0) //coll from InventoryController
+    public virtual void ResetItemByInventoryCell(short slot) //coll from InventoryController
     {
         List<ItemScrObj> items = onSetNewItem?.Invoke();
         if (slot < items.Count) //updates the inventoryController user interface, those slots that have been changed
         {
-            Slots[slot].RemoveItemInSlot(ItemsInSlot[slot]);
+            Slots[slot].RemoveItemInSlot(itemsInSlots[slot]);
         }
     }
-    public void UpdateInventorySlots() //coll from InventoryController
+    public virtual void UpdateInventorySlots() //coll from InventoryController
     { 
         List<ItemScrObj> items = onSetNewItem?.Invoke();
         for (short i = 0; i < Slots.Count; i++) //Updates the inventoryController UI completely when changing characters
         {
-            if (ItemsInSlot[i].dataItem != null)
+            if (itemsInSlots[i].dataItem != null)
             {
-                Slots[i].RemoveItemInSlot(ItemsInSlot[i]);
+                Slots[i].RemoveItemInSlot(itemsInSlots[i]);
             }
             if (i < items.Count && items[i] != null)
             {
-                Slots[i].AddItemInSlot(ItemsInSlot[i], items[i]);
+                Slots[i].AddItemInSlot(itemsInSlots[i], items[i]);
             }
         }
     } 
