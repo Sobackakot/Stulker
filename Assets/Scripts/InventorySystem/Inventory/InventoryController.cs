@@ -18,8 +18,7 @@ public class InventoryController: IInventoryContoller, IInitializable, IDisposab
     private IInventoryUI inventoryUI;
      
     public readonly List<ItemScrObj> itemsInventory;
-    private int space = 48;
-    private EquipmentUI equipmentUI;
+    private int space = 48; 
 
     public void Initialize()
     {

@@ -5,15 +5,13 @@ using Zenject;
 
 public class InventorySlot : MonoBehaviour, IDropHandler   
 {   
-    private InventoryController inventoryController;
-    private EquipmentController equipmentController;
+    private InventoryController inventoryController; 
     private RectTransform transformSlot;
 
     [Inject]
-    private void Container(InventoryController inventory, EquipmentController equipment)
+    private void Container(InventoryController inventory)
     {
-        this.inventoryController = inventory; 
-        equipmentController = equipment;    
+        this.inventoryController = inventory;  
     }
     private void Awake()
     {   

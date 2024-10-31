@@ -16,15 +16,7 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     private Canvas canvas;
 
     private Image itemIcon;
-    private TextMeshProUGUI itemAmount;
-
-    private EquipmentController equipmentController;
-
-    [Inject]
-    private void Container(EquipmentController equipment)
-    {
-        this.equipmentController = equipment;
-    }
+    private TextMeshProUGUI itemAmount; 
 
     private void Awake()
     {   
