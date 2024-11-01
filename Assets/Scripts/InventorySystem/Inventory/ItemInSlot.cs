@@ -14,9 +14,17 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     private Transform originalParent;
     private CanvasGroup canvasGroup;
     private Canvas canvas;
+    public InventorySlot originalSlot {  get; private set; }
 
     private Image itemIcon;
-    private TextMeshProUGUI itemAmount; 
+    private TextMeshProUGUI itemAmount;
+    private EquipmentController equipmentController;
+
+    [Inject]
+    private void Container(EquipmentController equipmenrt)
+    {
+        equipmentController = equipmenrt;
+    }
 
     private void Awake()
     {   
@@ -44,12 +52,14 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         itemAmount.text = " "; 
     }
     public virtual void OnBeginDrag(PointerEventData eventData)
-    {
+    {   
         canvasGroup.blocksRaycasts = false;
         canvasGroup.alpha = 0.6f;
-        originalParent = transform.parent; //save the parent object of the item
+        originalParent = transform.parent; //save the parent object of the item 
+        originalSlot = transform.GetComponentInParent<InventorySlot>();
+
         pickItemTransform.SetParent(canvas.transform); //changing the parent object of an item
-        pickItemTransform.SetAsLastSibling(); //sets item display priority
+        pickItemTransform.SetAsLastSibling(); //sets item display priority  
     }
     public virtual void OnDrag(PointerEventData eventData) //moves an item to the mouse cursor position
     {
@@ -58,17 +68,18 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     public virtual void OnEndDrag(PointerEventData eventData)
     {
         canvasGroup.blocksRaycasts = true;
-        canvasGroup.alpha = 1f;
-        pickItemTransform.SetParent(originalParent); //returns the item to the original position of the parent object
+        canvasGroup.alpha = 1f; 
+        pickItemTransform.SetParent(originalParent); //returns the item to the original position of the parent object   
+        originalSlot = transform.GetComponentInParent<InventorySlot>();
     }
     public virtual void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left && dataItem != null)
-        {   
-            //if(dataItem.itemType != EquipItems.None) 
-            //{
-            //    equipmentController.EquipItem(dataItem);
-            //}  
+        {
+            if (dataItem.itemType != EquipItems.None)
+            { 
+
+            }
         }
     } 
 }

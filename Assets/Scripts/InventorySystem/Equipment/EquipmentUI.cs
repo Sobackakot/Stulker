@@ -23,13 +23,15 @@ public class EquipmentUI : MonoBehaviour, IInventoryUI
             equipItemInSlots[i].equipSlotIndex = i;
         }
     }
-    public  void SetNewItemByInventoryCell(ItemScrObj newItem, short slotIndex)
+    public bool SetNewItemByInventoryCell(ItemScrObj newItem, short slotIndex)
     {
         List<ItemScrObj> items = onSetNewItem?.Invoke();
-        if (slotIndex < items.Count && items[slotIndex] != null) //updates the inventoryController user interface, those equipmentSlots that have been changed
+        if (slotIndex < items.Count && items[slotIndex] == null) //updates the inventoryController user interface, those equipmentSlots that have been changed
         {
             equipmentSlots[slotIndex].AddItemInSlot(equipItemInSlots[slotIndex], newItem);
+            return true;
         }
+        else return false;
     }
     public  void ResetItemByInventoryCell(short slot)
     {
@@ -41,5 +43,17 @@ public class EquipmentUI : MonoBehaviour, IInventoryUI
     }
     public  void UpdateInventorySlots()
     {
+        List<ItemScrObj> items = onSetNewItem?.Invoke();
+        for (short i = 0; i < equipmentSlots.Count; i++) //Updates the inventoryController UI completely when changing characters
+        {
+            if (equipItemInSlots[i].dataItem != null)
+            {
+                equipmentSlots[i].RemoveItemInSlot(equipItemInSlots[i]);
+            }
+            if (i < items.Count && items[i] != null)
+            {
+                equipmentSlots[i].AddItemInSlot(equipItemInSlots[i], items[i]);
+            }
+        }
     }
 }

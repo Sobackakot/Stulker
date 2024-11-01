@@ -33,10 +33,10 @@ public class InventoryController: IInventoryContoller, IInitializable, IDisposab
     { 
         for (byte i = 0; i < itemsInventory.Count; i++)
         {
-            if (itemsInventory[i] == null)
+            if (itemsInventory[i] == null && inventoryUI.SetNewItemByInventoryCell(newItem, i))
             {
-                itemsInventory[i] = newItem; 
-                inventoryUI.SetNewItemByInventoryCell( newItem, i); // update inventoryController equipmentSlots
+                // update inventoryController equipmentSlots
+                itemsInventory[i] = newItem;  
                 return true;
             }
         } 
@@ -78,5 +78,10 @@ public class InventoryController: IInventoryContoller, IInitializable, IDisposab
     public List<ItemScrObj> GetCurrentItems() //get a list of items from a character's inventoryController
     {
         return  itemsInventory;
-    } 
+    }
+
+    public void EquipingItem(ItemScrObj item, short index)
+    {
+        throw new NotImplementedException();
+    }
 }

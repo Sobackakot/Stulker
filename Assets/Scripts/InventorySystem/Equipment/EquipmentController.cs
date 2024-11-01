@@ -31,10 +31,10 @@ public class EquipmentController : IInventoryContoller, IInitializable, IDisposa
     {
         for (byte i = 0; i < equipmentItems.Count; i++)
         {
-            if (equipmentItems[i] == null)
-            {
-                equipmentItems[i] = newItem;
-                equipmentUI.SetNewItemByInventoryCell(newItem, i); // update inventoryController equipmentSlots
+            if (equipmentItems[i] == null && equipmentUI.SetNewItemByInventoryCell(newItem, i))
+            { 
+                // update inventoryController equipmentSlots
+                equipmentItems[i] = newItem; 
                 return true;
             }
         }
@@ -74,5 +74,9 @@ public class EquipmentController : IInventoryContoller, IInitializable, IDisposa
     public List<ItemScrObj> GetCurrentItems()
     {
         return equipmentItems;
+    }
+    public void EquipingItem(ItemScrObj item, short index)
+    {
+        throw new NotImplementedException();
     }
 }

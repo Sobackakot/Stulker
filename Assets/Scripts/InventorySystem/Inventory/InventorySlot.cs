@@ -28,13 +28,14 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     }
     public virtual void OnDrop(PointerEventData eventData)
     {
-        ItemInSlot dropedItem = eventData.pointerDrag.GetComponent<ItemInSlot>();  
+        ItemInSlot dropedItem = eventData.pointerDrag.GetComponent<ItemInSlot>(); 
         ItemScrObj originItemData = dropedItem.dataItem; //cell with an item into which you want to drop the current item
+        
         if (transformSlot.childCount > 0 && originItemData != null)
-        { 
+        {
+            if (!CheckDropItemType(dropedItem)) return; // check if drop item from equip slot on the inventory slot
             DropItemInSlot(originItemData, dropedItem); 
         }
-            
     }
     private void DropItemInSlot(ItemScrObj originItemData, ItemInSlot dropedItemInSlot)
     {    
@@ -52,6 +53,15 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         { 
             dropedItemInSlot.CleareItem();//clear the slot from the data of the previous item
         }
+    }
+    private bool CheckDropItemType(ItemInSlot dropedItem)
+    {   
+        InventorySlot slot = dropedItem.originalSlot;
+        ItemInSlot pickItemInSlot = transformSlot.GetChild(0).GetComponent<ItemInSlot>();
+        if(slot.gameObject.tag == "FastSlot") return false;
+        if (slot.gameObject.tag == "EquipSlot" && pickItemInSlot.dataItem != null)
+            return false;
+        else return true;
     }
 
 }

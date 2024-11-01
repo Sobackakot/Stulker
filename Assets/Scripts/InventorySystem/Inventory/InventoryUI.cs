@@ -2,7 +2,7 @@
 
 using System;
 using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine; 
 
 public class InventoryUI: MonoBehaviour, IInventoryUI
 { 
@@ -35,15 +35,17 @@ public class InventoryUI: MonoBehaviour, IInventoryUI
             itemsInSlots[i].slotIndex = i;
         }  
     } 
-    public virtual void SetNewItemByInventoryCell(ItemScrObj newItem, short slotIndex) //coll from InventoryController
+    public bool SetNewItemByInventoryCell(ItemScrObj newItem, short slotIndex) //coll from InventoryController
     { 
         List<ItemScrObj> items = onSetNewItem?.Invoke();
-        if (slotIndex < items.Count && items[slotIndex] != null) //updates the inventoryController user interface, those equipmentSlots that have been changed
-        { 
+        if (slotIndex < items.Count && items[slotIndex] == null) //updates the inventoryController user interface, those equipmentSlots that have been changed
+        {
             inventorySlots[slotIndex].AddItemInSlot(itemsInSlots[slotIndex], newItem);
+            return true;
         }
+        else return false;
     }
-    public virtual void ResetItemByInventoryCell(short slot) //coll from InventoryController
+    public void ResetItemByInventoryCell(short slot) //coll from InventoryController
     {
         List<ItemScrObj> items = onSetNewItem?.Invoke();
         if (slot < items.Count) //updates the inventoryController user interface, those equipmentSlots that have been changed
@@ -51,7 +53,7 @@ public class InventoryUI: MonoBehaviour, IInventoryUI
             inventorySlots[slot].RemoveItemInSlot(itemsInSlots[slot]);
         }
     }
-    public virtual void UpdateInventorySlots() //coll from InventoryController
+    public void UpdateInventorySlots() //coll from InventoryController
     { 
         List<ItemScrObj> items = onSetNewItem?.Invoke();
         for (short i = 0; i < inventorySlots.Count; i++) //Updates the inventoryController UI completely when changing characters
