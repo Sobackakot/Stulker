@@ -4,15 +4,14 @@ using UnityEngine.EventSystems;
 using Zenject;
 
 public class EquipmentItemInSlot : ItemInSlot
-{
-    public int equipSlotIndex { get; set; }
-  
+{  
+    public int equipSlotIndex { get; set; } 
     public override void SetItem(ItemScrObj newItem)
-    {
+    { 
         base.SetItem(newItem);
     }
     public override void CleareItem()
-    {
+    { 
         base.CleareItem();
     }
     public override void OnBeginDrag(PointerEventData eventData)

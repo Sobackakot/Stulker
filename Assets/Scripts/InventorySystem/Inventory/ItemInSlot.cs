@@ -19,11 +19,13 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     private Image itemIcon;
     private TextMeshProUGUI itemAmount;
     private EquipmentController equipmentController;
+    private IInventoryUI inventoryUI;
 
     [Inject]
-    private void Container(EquipmentController equipmenrt)
+    private void Container(EquipmentController equipmenrt, [Inject(Id = "inventoryUI")]IInventoryUI inventoryUI)
     {
         equipmentController = equipmenrt;
+        this.inventoryUI = inventoryUI;
     }
 
     private void Awake()
@@ -74,12 +76,25 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     }
     public virtual void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Left && dataItem != null)
+        if (eventData.button == PointerEventData.InputButton.Left)
         {
-            if (dataItem.itemType != EquipItems.None)
-            { 
-
-            }
+            UseItem();
         }
     } 
+    private void UseItem()
+    {
+        if (dataItem.itemType != EquipItems.None && dataItem != null)
+        {
+            ItemScrObj oldItem = null;
+            equipmentController.EquipingItem(dataItem,out oldItem);
+            if (oldItem != null)
+            {
+                SetItem(oldItem); 
+            }
+            else
+            {
+                CleareItem(); 
+            }
+        }
+    }
 }

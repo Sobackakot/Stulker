@@ -35,15 +35,13 @@ public class InventoryUI: MonoBehaviour, IInventoryUI
             itemsInSlots[i].slotIndex = i;
         }  
     } 
-    public bool SetNewItemByInventoryCell(ItemScrObj newItem, short slotIndex) //coll from InventoryController
+    public void SetNewItemByInventoryCell(ItemScrObj newItem, short slotIndex) //coll from InventoryController
     { 
         List<ItemScrObj> items = onSetNewItem?.Invoke();
-        if (slotIndex < items.Count && items[slotIndex] == null) //updates the inventoryController user interface, those equipmentSlots that have been changed
+        if (slotIndex < items.Count && items[slotIndex] != null) //updates the inventoryController user interface, those equipmentSlots that have been changed
         {
-            inventorySlots[slotIndex].AddItemInSlot(itemsInSlots[slotIndex], newItem);
-            return true;
-        }
-        else return false;
+            inventorySlots[slotIndex].AddItemInSlot(itemsInSlots[slotIndex], newItem); 
+        } 
     }
     public void ResetItemByInventoryCell(short slot) //coll from InventoryController
     {
@@ -67,5 +65,10 @@ public class InventoryUI: MonoBehaviour, IInventoryUI
                 inventorySlots[i].AddItemInSlot(itemsInSlots[i], items[i]);
             }
         }
-    } 
+    }
+
+    public short GetSlotForItem(ItemScrObj item)
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -9,6 +9,6 @@ public interface IInventoryContoller
     void RemoveItemFromInventory(ItemScrObj item);
     void SwapItemInSlot(int slotIndex, ItemScrObj newItem);
     void UpdateInventoryPerson(ItemScrObj newItem);
-    void EquipingItem(ItemScrObj item, short index);
+    void EquipingItem(ItemScrObj item, out ItemScrObj oldItem);
     List<ItemScrObj> GetCurrentItems();
 }

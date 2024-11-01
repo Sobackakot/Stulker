@@ -33,10 +33,11 @@ public class InventoryController: IInventoryContoller, IInitializable, IDisposab
     { 
         for (byte i = 0; i < itemsInventory.Count; i++)
         {
-            if (itemsInventory[i] == null && inventoryUI.SetNewItemByInventoryCell(newItem, i))
+            if (itemsInventory[i] == null )
             {
                 // update inventoryController equipmentSlots
-                itemsInventory[i] = newItem;  
+                itemsInventory[i] = newItem;
+                inventoryUI.SetNewItemByInventoryCell(newItem, i);
                 return true;
             }
         } 
@@ -80,7 +81,7 @@ public class InventoryController: IInventoryContoller, IInitializable, IDisposab
         return  itemsInventory;
     }
 
-    public void EquipingItem(ItemScrObj item, short index)
+    public void EquipingItem(ItemScrObj item, out ItemScrObj oldItem)
     {
         throw new NotImplementedException();
     }

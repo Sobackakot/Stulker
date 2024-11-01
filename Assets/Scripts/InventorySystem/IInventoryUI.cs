@@ -7,7 +7,8 @@ public interface IInventoryUI
 {
     event Func<List<ItemScrObj>> onSetNewItem;
     bool isCameraActive { get; set; }
-    bool SetNewItemByInventoryCell(ItemScrObj item,short slot);
+    void SetNewItemByInventoryCell(ItemScrObj item,short slot);
     void ResetItemByInventoryCell(short slot);
     void UpdateInventorySlots();
+    short GetSlotForItem(ItemScrObj item);
 }

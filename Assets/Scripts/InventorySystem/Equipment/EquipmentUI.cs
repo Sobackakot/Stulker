@@ -23,15 +23,13 @@ public class EquipmentUI : MonoBehaviour, IInventoryUI
             equipItemInSlots[i].equipSlotIndex = i;
         }
     }
-    public bool SetNewItemByInventoryCell(ItemScrObj newItem, short slotIndex)
+    public void SetNewItemByInventoryCell(ItemScrObj newItem, short slotIndex)
     {
         List<ItemScrObj> items = onSetNewItem?.Invoke();
-        if (slotIndex < items.Count && items[slotIndex] == null) //updates the inventoryController user interface, those equipmentSlots that have been changed
+        if (slotIndex < items.Count && items[slotIndex] != null) //updates the inventoryController user interface, those equipmentSlots that have been changed
         {
             equipmentSlots[slotIndex].AddItemInSlot(equipItemInSlots[slotIndex], newItem);
-            return true;
         }
-        else return false;
     }
     public  void ResetItemByInventoryCell(short slot)
     {
@@ -55,5 +53,16 @@ public class EquipmentUI : MonoBehaviour, IInventoryUI
                 equipmentSlots[i].AddItemInSlot(equipItemInSlots[i], items[i]);
             }
         }
+    }
+    public short GetSlotForItem(ItemScrObj item)
+    {   
+        for(short  i = 0; i < equipmentSlots.Count; i++)
+        {
+            if((short)item.itemType == (short)equipmentSlots[i].equipFieldData.fieldType)
+            { 
+                return i;
+            } 
+        }   
+        return -1;
     }
 }

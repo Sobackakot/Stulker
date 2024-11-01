@@ -1,7 +1,9 @@
 
 using System;
-using System.Collections.Generic; 
-using Zenject; 
+using System.Collections.Generic;
+using Zenject;
+using UnityEngine;
+using UnityEngine.TerrainUtils;
 
 public class EquipmentController : IInventoryContoller, IInitializable, IDisposable
 {
@@ -31,10 +33,11 @@ public class EquipmentController : IInventoryContoller, IInitializable, IDisposa
     {
         for (byte i = 0; i < equipmentItems.Count; i++)
         {
-            if (equipmentItems[i] == null && equipmentUI.SetNewItemByInventoryCell(newItem, i))
+            if (equipmentItems[i] == null)
             { 
                 // update inventoryController equipmentSlots
-                equipmentItems[i] = newItem; 
+                equipmentItems[i] = newItem;
+                equipmentUI.SetNewItemByInventoryCell(newItem, i);
                 return true;
             }
         }
@@ -75,8 +78,15 @@ public class EquipmentController : IInventoryContoller, IInitializable, IDisposa
     {
         return equipmentItems;
     }
-    public void EquipingItem(ItemScrObj item, short index)
+    public void EquipingItem(ItemScrObj item, out ItemScrObj oldItem)
     {
-        throw new NotImplementedException();
+        short index = equipmentUI.GetSlotForItem(item);
+        oldItem = null;
+        if (equipmentItems[index] != null)
+        {
+            oldItem =  equipmentItems[index];  
+        }
+        equipmentItems[index] = item;
+        equipmentUI.SetNewItemByInventoryCell(item,index);
     }
 }
