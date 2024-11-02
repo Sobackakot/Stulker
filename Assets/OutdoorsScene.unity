@@ -24,7 +24,7 @@ RenderSettings:
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 4
+  m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
@@ -352,9 +352,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0875e81486967174aab6697d5a3781ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  number: 15.5
-  number2: 17
-  rb: {fileID: 0}
 --- !u!1001 &235065255
 PrefabInstance:
   m_ObjectHideFlags: 0

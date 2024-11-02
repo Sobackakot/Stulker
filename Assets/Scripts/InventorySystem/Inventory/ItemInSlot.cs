@@ -87,7 +87,7 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     } 
     private void UseItem()
     {
-        if (dataItem.itemType != EquipItems.None && dataItem != null)
+        if (dataItem != null && dataItem.itemType != EquipItems.None)
         {
             ItemScrObj oldItem = null;
             short index = equipmentController.EquipingItem(dataItem,out oldItem);

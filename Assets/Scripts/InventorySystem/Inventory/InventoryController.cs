@@ -61,8 +61,11 @@ public class InventoryController: IInventoryContoller, IInitializable, IDisposab
     }
     public void SetItemToInventory(ItemScrObj item, short index)
     {
-        itemsInventory[index] = item;
-        inventoryUI.SetNewItemByInventoryCell(item, index);
+        if (index >= 0 && index < space)
+        {
+            itemsInventory[index] = item;
+            inventoryUI.SetNewItemByInventoryCell(item, index);
+        }   
     }
 
     

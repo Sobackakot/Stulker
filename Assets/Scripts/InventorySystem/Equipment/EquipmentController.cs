@@ -62,6 +62,7 @@ public class EquipmentController : IInventoryContoller, IInitializable, IDisposa
     {
         equipmentItems[index] = item;
         equipmentUI.SetNewItemByInventoryCell(item, index);
+        Debug.Log("Add equipContr " + index + " = " + item);
     }
 
 
