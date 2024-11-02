@@ -7,11 +7,13 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 {   
     private InventoryController inventoryController; 
     private RectTransform transformSlot;
+    private IInventoryUI inventoryUI;
 
     [Inject]
-    private void Container(InventoryController inventory)
+    private void Container(InventoryController inventory, [Inject(Id = "inventoryUI")] IInventoryUI inventoryUI)
     {
         this.inventoryController = inventory;  
+        this.inventoryUI = inventoryUI;
     }
     private void Awake()
     {   
@@ -52,7 +54,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         else
         { 
             dropedItemInSlot.CleareItem();//clear the slot from the data of the previous item
-        }
+        } 
     }
     private bool CheckDropItemType(ItemInSlot dropedItem)
     {   

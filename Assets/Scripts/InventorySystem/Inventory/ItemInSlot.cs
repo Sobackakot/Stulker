@@ -1,5 +1,6 @@
 
 using TMPro;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -19,13 +20,13 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     private Image itemIcon;
     private TextMeshProUGUI itemAmount;
     private EquipmentController equipmentController;
-    private IInventoryUI inventoryUI;
+    private InventoryController inventoryController; 
 
     [Inject]
-    private void Container(EquipmentController equipmenrt, [Inject(Id = "inventoryUI")]IInventoryUI inventoryUI)
+    private void Container(EquipmentController equipmenrt, InventoryController inventoryController)
     {
-        equipmentController = equipmenrt;
-        this.inventoryUI = inventoryUI;
+        equipmentController = equipmenrt; 
+        this.inventoryController = inventoryController;
     }
 
     private void Awake()
@@ -45,13 +46,16 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         itemAmount.text = dataItem.item.itemAmount.ToString();
         itemIcon.sprite = dataItem.IconItem;
         itemIcon.enabled = true;
+        Debug.Log("SetItem -" + newItem.NameItem);
     }
     public virtual void CleareItem() // coll from InventorySlot
     {
+        Debug.Log("CleareItem - " + dataItem.NameItem);
         dataItem = null;
         itemIcon.sprite = null;
         itemIcon.enabled = false;
-        itemAmount.text = " "; 
+        itemAmount.text = " ";
+        
     }
     public virtual void OnBeginDrag(PointerEventData eventData)
     {   
@@ -86,14 +90,15 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         if (dataItem.itemType != EquipItems.None && dataItem != null)
         {
             ItemScrObj oldItem = null;
-            equipmentController.EquipingItem(dataItem,out oldItem);
+            short index = equipmentController.EquipingItem(dataItem,out oldItem);
             if (oldItem != null)
             {
-                SetItem(oldItem); 
+                inventoryController.RemoveItemFromInventory(dataItem);
+                inventoryController.AddItemToInventory(oldItem);
             }
             else
             {
-                CleareItem(); 
+                inventoryController.RemoveItemFromInventory(dataItem); 
             }
         }
     }

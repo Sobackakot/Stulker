@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine; 
 
 public class EquipmentUI : MonoBehaviour, IInventoryUI
@@ -28,7 +29,8 @@ public class EquipmentUI : MonoBehaviour, IInventoryUI
         List<ItemScrObj> items = onSetNewItem?.Invoke();
         if (slotIndex < items.Count && items[slotIndex] != null) //updates the inventoryController user interface, those equipmentSlots that have been changed
         {
-            equipmentSlots[slotIndex].AddItemInSlot(equipItemInSlots[slotIndex], newItem);
+            equipmentSlots[slotIndex].AddItemInSlot(equipItemInSlots[slotIndex], newItem); 
+            Debug.Log("equipUi Set - slot " + slotIndex + " = " + newItem.NameItem);
         }
     }
     public  void ResetItemByInventoryCell(short slot)
@@ -36,7 +38,8 @@ public class EquipmentUI : MonoBehaviour, IInventoryUI
         List<ItemScrObj> items = onSetNewItem?.Invoke();
         if (slot < items.Count) //updates the inventoryController user interface, those equipmentSlots that have been changed
         {
-            equipmentSlots[slot].RemoveItemInSlot(equipItemInSlots[slot]);
+            Debug.Log("equipUi Reset - slot " + slot + " = " + equipItemInSlots[slot].dataItem.NameItem);
+            equipmentSlots[slot].RemoveItemInSlot(equipItemInSlots[slot]); 
         }
     }
     public  void UpdateInventorySlots()

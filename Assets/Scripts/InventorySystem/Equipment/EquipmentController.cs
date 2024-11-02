@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Zenject;
 using UnityEngine;
 using UnityEngine.TerrainUtils;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 
 public class EquipmentController : IInventoryContoller, IInitializable, IDisposable
 {
@@ -38,6 +39,7 @@ public class EquipmentController : IInventoryContoller, IInitializable, IDisposa
                 // update inventoryController equipmentSlots
                 equipmentItems[i] = newItem;
                 equipmentUI.SetNewItemByInventoryCell(newItem, i);
+                Debug.Log("equipControlle Add to itemsList - " + i + " = "+ newItem);
                 return true;
             }
         }
@@ -51,8 +53,28 @@ public class EquipmentController : IInventoryContoller, IInitializable, IDisposa
             {
                 equipmentItems[i] = null;
                 equipmentUI.ResetItemByInventoryCell(i);// update inventoryController equipmentSlots
+                Debug.Log("equipControlle Remove from itemsList - " + i);
                 return;
             }
+        }
+    }
+    public void SetItemToInventory(ItemScrObj item, short index)
+    {
+        equipmentItems[index] = item;
+        equipmentUI.SetNewItemByInventoryCell(item, index);
+    }
+
+
+    public void ResetItemFromInventory(ItemScrObj item, short index)
+    {
+        if (equipmentItems[index] == item)
+        {
+            equipmentItems[index] = null;
+            equipmentUI.ResetItemByInventoryCell(index);
+        }
+        else
+        {
+            Debug.Log("error reset item");
         }
     }
     public void SwapItemInSlot(int slotIndex, ItemScrObj newItem)
@@ -61,6 +83,7 @@ public class EquipmentController : IInventoryContoller, IInitializable, IDisposa
         {
             UpdateInventoryPerson(newItem); //update item indexes when changing inventoryController equipmentSlots
             equipmentItems[slotIndex] = newItem;
+            Debug.Log("Set new index equipItems List - " + slotIndex + " = " + newItem); 
         }
     }
     public void UpdateInventoryPerson(ItemScrObj newItem)
@@ -70,6 +93,7 @@ public class EquipmentController : IInventoryContoller, IInitializable, IDisposa
             if (equipmentItems[i] == newItem)
             {
                 equipmentItems[i] = null; //clearing the original slot when moving an item to another slot
+                Debug.Log("Clear old index equipItems List - " + i + " = " + newItem);
                 return;
             }
         }
@@ -78,7 +102,7 @@ public class EquipmentController : IInventoryContoller, IInitializable, IDisposa
     {
         return equipmentItems;
     }
-    public void EquipingItem(ItemScrObj item, out ItemScrObj oldItem)
+    public short EquipingItem(ItemScrObj item, out ItemScrObj oldItem)
     {
         short index = equipmentUI.GetSlotForItem(item);
         oldItem = null;
@@ -86,7 +110,7 @@ public class EquipmentController : IInventoryContoller, IInitializable, IDisposa
         {
             oldItem =  equipmentItems[index];  
         }
-        equipmentItems[index] = item;
-        equipmentUI.SetNewItemByInventoryCell(item,index);
+        SetItemToInventory(item, index);
+        return index;
     }
 }
