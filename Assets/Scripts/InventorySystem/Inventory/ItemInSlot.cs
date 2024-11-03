@@ -81,12 +81,12 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            UseItem();
+            Equipping();
         }
     } 
-    private void UseItem()
+    private void Equipping()
     {
-        equipmentController.EquipingItem(dataItem, out ItemScrObj oldItem);
+        equipmentController.UpdateEquip(dataItem, out ItemScrObj oldItem);
         inventoryController.RemoveItemFromInventory(dataItem);
         if (oldItem != null) inventoryController.AddItemToInventory(oldItem);
     }

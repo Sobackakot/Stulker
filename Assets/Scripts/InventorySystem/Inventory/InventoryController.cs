@@ -88,11 +88,11 @@ public class InventoryController: IInventoryContoller, IInitializable, IDisposab
         return  itemsInventory;
     }
 
-    public void EquipingItem(ItemScrObj item, out ItemScrObj oldItem)
+    public void UpdateEquip(ItemScrObj item, out ItemScrObj oldItem)
     {
         if (item != null && item.itemType != EquipItems.None)
         {
-            short index = inventoryUI.GetSlotForItem(item);
+            short index = inventoryUI.GetIndexSlot(item);
             oldItem = SwapItemFromInventory(item, index); 
         }
         else oldItem = null;

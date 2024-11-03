@@ -69,7 +69,7 @@ public class InventoryUI: MonoBehaviour, IInventoryUI
         }
     }
 
-    public short GetSlotForItem(ItemScrObj item)
+    public short GetIndexSlot(ItemScrObj item)
     {
         for (short i = 0; i < inventorySlots.Count; i++)
         {

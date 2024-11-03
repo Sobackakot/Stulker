@@ -57,7 +57,7 @@ public class EquipmentUI : MonoBehaviour, IInventoryUI
             }
         }
     }
-    public short GetSlotForItem(ItemScrObj item)
+    public short GetIndexSlot(ItemScrObj item)
     {   
         for(short  i = 0; i < equipmentSlots.Count; i++)
         {

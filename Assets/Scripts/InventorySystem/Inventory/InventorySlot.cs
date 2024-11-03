@@ -57,14 +57,14 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         if(dropSlot.gameObject.tag == "EquipSlot" && pickItem.dataItem != null) return false; 
         if(dropSlot.gameObject.tag == "EquipSlot" && pickItem.dataItem == null)
         {
-            UseItem(dropItem);
+            UnEquip(dropItem);
             return false;
         }
         else  return true; 
     }
-    private void UseItem(ItemInSlot dropItem)
+    private void UnEquip(ItemInSlot dropItem)
     {
-        inventoryController.EquipingItem(dropItem.dataItem, out ItemScrObj oldItem);
+        inventoryController.UpdateEquip(dropItem.dataItem, out ItemScrObj oldItem);
         equipmentController.RemoveItemFromInventory(dropItem.dataItem);
         if (oldItem != null) Debug.Log("Bug drop Equip!!!-------------------------------------------------------");
     }

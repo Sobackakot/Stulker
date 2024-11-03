@@ -44,14 +44,14 @@ public class EquipmentSlot : InventorySlot
         InventorySlot dropSlot = dropItem.originalSlot;
         if (dropSlot.gameObject.tag == "Slot" && equipmentSlot.gameObject.tag == "EquipSlot")
         {
-            UseItem(dropItem);
+            Equipping(dropItem);
             return false;
         }
         else return true;
     }
-    private void UseItem(ItemInSlot dropItem)
+    private void Equipping(ItemInSlot dropItem)
     {
-        equipmentController.EquipingItem(dropItem.dataItem, out ItemScrObj oldItem);
+        equipmentController.UpdateEquip(dropItem.dataItem, out ItemScrObj oldItem);
         inventoryController.RemoveItemFromInventory(dropItem.dataItem);
         if (oldItem != null) inventoryController.AddItemToInventory(oldItem);
     }
