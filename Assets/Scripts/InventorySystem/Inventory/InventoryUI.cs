@@ -30,7 +30,7 @@ public class InventoryUI: MonoBehaviour, IInventoryUI
     }
     private void Start()
     {
-        for(int i  =0; i < inventorySlots.Count; i++)
+        for(short i  =0; i < inventorySlots.Count; i++)
         {
             itemsInSlots[i].slotIndex = i;
         }  
@@ -71,6 +71,13 @@ public class InventoryUI: MonoBehaviour, IInventoryUI
 
     public short GetSlotForItem(ItemScrObj item)
     {
-        throw new NotImplementedException();
+        for (short i = 0; i < inventorySlots.Count; i++)
+        {
+            if (item.itemType != EquipItems.Ñonsumables && itemsInSlots[i].dataItem == null)
+            {
+                return i;
+            }
+        }
+        return -1;
     }
 }

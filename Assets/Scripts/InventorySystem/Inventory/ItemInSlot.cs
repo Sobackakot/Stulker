@@ -1,6 +1,5 @@
 
-using TMPro;
-using UnityEditorInternal.Profiling.Memory.Experimental;
+using TMPro; 
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -8,7 +7,7 @@ using Zenject;
 
 public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerClickHandler
 {
-    public int slotIndex {  get; set; }
+    public short slotIndex {  get; set; }
     public ItemScrObj dataItem { get; private set;}
      
     private RectTransform pickItemTransform;
@@ -34,7 +33,7 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         originalParent = GetComponent<Transform>();  //transform parent object
         pickItemTransform = GetComponent<RectTransform>();//current position of the item
         canvasGroup = GetComponent<CanvasGroup>();
-        canvas = pickItemTransform.GetComponentInParent<Canvas>(); //UI canvas with inventoryController
+        canvas = pickItemTransform.GetComponentInParent<Canvas>(); //UI canvasEq with inventoryController
 
         itemIcon = GetComponent<Image>(); //image of the current item 
         itemAmount = pickItemTransform.GetChild(0).GetComponent<TextMeshProUGUI>(); //amount of current item
@@ -98,7 +97,7 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
             }
             else
             {
-                inventoryController.RemoveItemFromInventory(dataItem); 
+                inventoryController.RemoveItemFromInventory(dataItem);
             }
         }
     }

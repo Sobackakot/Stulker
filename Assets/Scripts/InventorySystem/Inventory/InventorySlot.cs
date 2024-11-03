@@ -5,15 +5,15 @@ using Zenject;
 
 public class InventorySlot : MonoBehaviour, IDropHandler   
 {   
-    private InventoryController inventoryController; 
-    private RectTransform transformSlot;
-    private IInventoryUI inventoryUI;
+    private InventoryController inventoryController;
+    private EquipmentController equipmentController;
+    private RectTransform transformSlot; 
 
     [Inject]
-    private void Container(InventoryController inventory, [Inject(Id = "inventoryUI")] IInventoryUI inventoryUI)
+    private void Container(InventoryController inventory, EquipmentController equipmentController)
     {
-        this.inventoryController = inventory;  
-        this.inventoryUI = inventoryUI;
+        this.inventoryController = inventory;   
+        this.equipmentController = equipmentController;
     }
     private void Awake()
     {   
@@ -30,40 +30,31 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     }
     public virtual void OnDrop(PointerEventData eventData)
     {
-        ItemInSlot dropedItem = eventData.pointerDrag.GetComponent<ItemInSlot>(); 
-        ItemScrObj originItemData = dropedItem.dataItem; //cell with an item into which you want to drop the current item
+        ItemInSlot dropItem = eventData.pointerDrag.GetComponent<ItemInSlot>(); 
+        ItemScrObj itemData = dropItem.dataItem; 
         
-        if (transformSlot.childCount > 0 && originItemData != null)
+        if (transformSlot.childCount > 0 && itemData != null)
         {
-            if (!CheckDropItemType(dropedItem)) return; // check if drop item from equip slot on the inventory slot
-            DropItemInSlot(originItemData, dropedItem); 
+            if (!CheckDropItemType(dropItem)) return;
+            DropItemInventory(itemData, dropItem); 
         }
     }
-    private void DropItemInSlot(ItemScrObj originItemData, ItemInSlot dropedItemInSlot)
+    private void DropItemInventory(ItemScrObj itemData, ItemInSlot dropItem)
     {    
-        ItemInSlot pickItemInSlot = transformSlot.GetChild(0).GetComponent<ItemInSlot>();
-        ItemScrObj currentItemData = pickItemInSlot.dataItem; //item that needs to be dropped from the current slot
-        inventoryController.SwapItemInSlot(pickItemInSlot.slotIndex, originItemData);//update the item index in the character's inventoryController list
-        pickItemInSlot.SetItem(originItemData); //set the current item's data to a new slot
+        ItemInSlot pickItem = transformSlot.GetChild(0).GetComponent<ItemInSlot>(); 
+        ItemScrObj oldItemData = inventoryController.SwapItemFromInventory(itemData, pickItem.slotIndex); 
 
-        if (currentItemData != null)
+        if (oldItemData != null)
         {
-            inventoryController.SwapItemInSlot(dropedItemInSlot.slotIndex, currentItemData);//update the item index in the character's inventoryController list
-            dropedItemInSlot.SetItem(currentItemData);//set the current item's data to a new slot
+            inventoryController.SwapItemFromInventory(oldItemData, dropItem.slotIndex); 
         }
-        else
-        { 
-            dropedItemInSlot.CleareItem();//clear the slot from the data of the previous item
-        } 
-    }
-    private bool CheckDropItemType(ItemInSlot dropedItem)
+    } 
+    private bool CheckDropItemType(ItemInSlot dropItem)
     {   
-        InventorySlot slot = dropedItem.originalSlot;
-        ItemInSlot pickItemInSlot = transformSlot.GetChild(0).GetComponent<ItemInSlot>();
-        if(slot.gameObject.tag == "FastSlot") return false;
-        if (slot.gameObject.tag == "EquipSlot" && pickItemInSlot.dataItem != null)
-            return false;
-        else return true;
-    }
-
+        InventorySlot dropSlot = dropItem.originalSlot;
+        ItemInSlot pickItem = transformSlot.GetChild(0).GetComponent<ItemInSlot>();
+        if(dropSlot.gameObject.tag == "FastSlot") return false;
+        if(dropSlot.gameObject.tag == "EquipSlot" && pickItem.dataItem != null) return false; 
+        else  return true; 
+    } 
 }
