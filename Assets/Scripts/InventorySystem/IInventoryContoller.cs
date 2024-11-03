@@ -7,6 +7,6 @@ public interface IInventoryContoller
 {
     bool AddItemToInventory(ItemScrObj newItem);
     void RemoveItemFromInventory(ItemScrObj item); 
-    short EquipingItem(ItemScrObj item, out ItemScrObj oldItem);
+    void EquipingItem(ItemScrObj item, out ItemScrObj oldItem);
     List<ItemScrObj> GetCurrentItems();
 }

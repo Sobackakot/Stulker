@@ -84,10 +84,14 @@ public class EquipmentController : IInventoryContoller, IInitializable, IDisposa
     {
         return equipmentItems;
     }
-    public short EquipingItem(ItemScrObj item, out ItemScrObj oldItem)
+    public void EquipingItem(ItemScrObj item, out ItemScrObj oldItem)
     {
-        short index = equipmentUI.GetSlotForItem(item);
-        oldItem = SwapItemFromInventory(item, index);
-        return index;
+        if (item != null && item.itemType != EquipItems.None)
+        {
+            short index = equipmentUI.GetSlotForItem(item);
+            oldItem = SwapItemFromInventory(item, index); 
+        }
+        else oldItem = null;
     }
+
 }

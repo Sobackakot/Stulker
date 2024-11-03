@@ -55,6 +55,17 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         ItemInSlot pickItem = transformSlot.GetChild(0).GetComponent<ItemInSlot>();
         if(dropSlot.gameObject.tag == "FastSlot") return false;
         if(dropSlot.gameObject.tag == "EquipSlot" && pickItem.dataItem != null) return false; 
+        if(dropSlot.gameObject.tag == "EquipSlot" && pickItem.dataItem == null)
+        {
+            UseItem(dropItem);
+            return false;
+        }
         else  return true; 
-    } 
+    }
+    private void UseItem(ItemInSlot dropItem)
+    {
+        inventoryController.EquipingItem(dropItem.dataItem, out ItemScrObj oldItem);
+        equipmentController.RemoveItemFromInventory(dropItem.dataItem);
+        if (oldItem != null) Debug.Log("Bug drop Equip!!!-------------------------------------------------------");
+    }
 }

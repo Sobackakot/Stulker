@@ -86,19 +86,8 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     } 
     private void UseItem()
     {
-        if (dataItem != null && dataItem.itemType != EquipItems.None)
-        {
-            ItemScrObj oldItem = null;
-            short index = equipmentController.EquipingItem(dataItem,out oldItem);
-            if (oldItem != null)
-            {
-                inventoryController.RemoveItemFromInventory(dataItem);
-                inventoryController.AddItemToInventory(oldItem);
-            }
-            else
-            {
-                inventoryController.RemoveItemFromInventory(dataItem);
-            }
-        }
+        equipmentController.EquipingItem(dataItem, out ItemScrObj oldItem);
+        inventoryController.RemoveItemFromInventory(dataItem);
+        if (oldItem != null) inventoryController.AddItemToInventory(oldItem);
     }
 }

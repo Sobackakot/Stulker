@@ -49,12 +49,8 @@ public class EquipmentItemInSlot : ItemInSlot
     }
     private void UseItem()
     {
-        if (dataItem != null && dataItem.itemType != EquipItems.None)
-        {
-            ItemScrObj oldItem = null;
-            short index = inventoryController.EquipingItem(dataItem, out oldItem); 
-            equipmentController.RemoveItemFromInventory(dataItem);
-            if(oldItem != null) Debug.Log("Bug drop Equip!!!"); 
-        }
+        inventoryController.EquipingItem(dataItem, out ItemScrObj oldItem);
+        equipmentController.RemoveItemFromInventory(dataItem);
+        if (oldItem != null) Debug.Log("Bug drop Equip!!!-----------------");
     }
 }
