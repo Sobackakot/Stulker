@@ -32,7 +32,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     {
         ItemInSlot dropItem = eventData.pointerDrag.GetComponent<ItemInSlot>(); 
         ItemScrObj itemData = dropItem.dataItem; 
-        if (transformSlot.childCount > 0 && itemData != null) DropItemInventory(itemData, dropItem);
+        if (transformSlot?.childCount > 0 && itemData != null) DropItemInventory(itemData, dropItem);
     }
     private void DropItemInventory(ItemScrObj itemData, ItemInSlot dropItem)
     {
