@@ -470,6 +470,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476a585063654074cabe857c0f958229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventoryBoxScrObj: {fileID: 11400000, guid: 16d45480d304aa746a896f4c51f69810, type: 2}
 --- !u!1001 &235065255
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1792,6 +1793,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 476a585063654074cabe857c0f958229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventoryBoxScrObj: {fileID: 11400000, guid: 053548a879061f34696ec5baf9b2c1df, type: 2}
 --- !u!1001 &1376566710
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 
+using UnityEngine;
 using UnityEngine.EventSystems;
 using Zenject;
 
@@ -10,7 +11,7 @@ public class ItemInSlotBox : ItemInSlot
     private InventoryController inventoryController;
     private InventoryBoxController inventoryBoxController;
 
-    private InventorySlotBox originSlotBox;
+    private Transform originSlotBox;
 
     [Inject]
     private void Container(EquipmentController equipmenrt, InventoryController inventoryController, InventoryBoxController inventoryBoxController)
@@ -22,7 +23,7 @@ public class ItemInSlotBox : ItemInSlot
      
     public override void OnBeginDrag(PointerEventData eventData)
     {
-        originSlotBox = transform.GetComponentInParent<InventorySlotBox>();
+        originSlotBox = transform.parent;
         base.OnBeginDrag(eventData);
     }
     public override void OnDrag(PointerEventData eventData) //moves an item to the mouse cursor position
@@ -32,10 +33,11 @@ public class ItemInSlotBox : ItemInSlot
     public override void OnEndDrag(PointerEventData eventData)
     {
         base.OnEndDrag(eventData);
-        originSlotBox = transform.GetComponentInParent<InventorySlotBox>();
+        originSlotBox = transform.parent;
     }
     public override void OnPointerClick(PointerEventData eventData)
     {
+        originSlotBox = transform.parent;
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             Equipping(originSlotBox.gameObject.tag);

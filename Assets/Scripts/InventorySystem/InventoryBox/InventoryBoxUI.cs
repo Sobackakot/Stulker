@@ -37,7 +37,7 @@ public class InventoryBoxUI : MonoBehaviour, IInventoryUI
         List<ItemScrObj> items = onSetNewItem?.Invoke();
         if (slot < items.Count) //updates the inventoryController user interface, those equipmentSlots that have been changed
         {
-            Debug.Log("inventUiBox Reset - slot " + slot + " = " + itemsInSlotsBox[slot].dataItem.NameItem);
+            Debug.Log("inventUiBox Reset - slot " + slot + " = " + itemsInSlotsBox[slot].dataItem.NameItem); //bag
             inventorySlotsBox[slot].RemoveItemInSlot(itemsInSlotsBox[slot]);
         }
     }

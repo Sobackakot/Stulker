@@ -42,6 +42,7 @@ public class EquipmentItemInSlot : ItemInSlot
     }
     public override void OnPointerClick(PointerEventData eventData)
     {
+        originEquipSlot = transform.parent;
         if (eventData.button == PointerEventData.InputButton.Left && dataItem != null)
         {
             UnEquip(originEquipSlot.gameObject.tag);

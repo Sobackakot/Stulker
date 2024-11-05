@@ -81,6 +81,7 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     }
     public virtual void OnPointerClick(PointerEventData eventData)
     {
+        originalSlot = transform.parent;
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             Equipping(originalSlot.gameObject.tag);
