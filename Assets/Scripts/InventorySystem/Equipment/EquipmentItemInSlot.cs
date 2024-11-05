@@ -1,4 +1,4 @@
- 
+
 using UnityEngine;
 using UnityEngine.EventSystems; 
 using Zenject;
@@ -9,6 +9,8 @@ public class EquipmentItemInSlot : ItemInSlot
     public int equipSlotIndex { get; set; }
     private  EquipmentController equipmentController;
     private InventoryController inventoryController;
+
+    private Transform originEquipSlot;
      
     [Inject]
     private void Container(EquipmentController equipmentController, InventoryController inventoryController)
@@ -25,7 +27,8 @@ public class EquipmentItemInSlot : ItemInSlot
         base.CleareItem();
     }
     public override void OnBeginDrag(PointerEventData eventData)
-    { 
+    {
+        originEquipSlot = transform.parent;
         base.OnBeginDrag(eventData); 
     }
     public override void OnDrag(PointerEventData eventData)
@@ -34,19 +37,19 @@ public class EquipmentItemInSlot : ItemInSlot
     }
     public override void OnEndDrag(PointerEventData eventData)
     {
-        base.OnEndDrag(eventData);   
+        base.OnEndDrag(eventData);
+        originEquipSlot = transform.parent;
     }
     public override void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left && dataItem != null)
         {
-            UnEquip();
+            UnEquip(originEquipSlot.gameObject.tag);
         }
     }
-    private void UnEquip()
+    private void UnEquip(string slotType)
     {
-        inventoryController.UpdateEquip(dataItem, out ItemScrObj oldItem);
+        inventoryController.UpdatePickItem(dataItem, out ItemScrObj oldItem, slotType);
         equipmentController.RemoveItemFromInventory(dataItem);
-        if (oldItem != null) Debug.Log("Bug drop Equip!!!-------------------------------------------------------");
     }
 }

@@ -1,0 +1,92 @@
+using System;
+using System.Collections.Generic;
+using Zenject;
+
+public class InventoryBoxController : IInventoryContoller, IInitializable, IDisposable
+{
+    public InventoryBoxController([Inject(Id = "inventoryBoxUI")] IInventoryUI inventoryBoxUI)
+    {
+        this.inventoryBoxUI = inventoryBoxUI;
+    }
+    private IInventoryUI inventoryBoxUI;
+    public InventoryBox inventoryBox;
+
+    public void Initialize()
+    {
+        inventoryBoxUI.onSetNewItem += GetCurrentItems;
+    }
+    public void Dispose()
+    {
+        inventoryBoxUI.onSetNewItem -= GetCurrentItems;
+    }
+    public void GetBoxByInventory(InventoryBoxScrObj box) // coll from class CharacterSwitchSystem
+    {
+        inventoryBox = box.inventoryBox; // get pick Box for inventory
+    }
+    public bool AddItemToInventory(ItemScrObj newItem) //coll from EquipmentController,PickUpItems
+    {
+        bool isHas = inventoryBox.AddItemToInventory(newItem, out short index);
+        inventoryBoxUI.SetNewItemByInventoryCell(newItem, index);
+        return isHas;
+    }
+    public void RemoveItemFromInventory(ItemScrObj item) // coll from ItemInSlot
+    {
+        inventoryBox.RemoveItemFromInventory(item,out short index);
+        inventoryBoxUI.ResetItemByInventoryCell(index);// update inventoryController equipmentSlots 
+    }
+    public ItemScrObj SwapItemFromInventory(ItemScrObj item, short index)
+    {
+        List<ItemScrObj> items = GetCurrentItems();
+        if (index >= 0 && index < items.Count)
+        { 
+            FreeUpOldSlot(item);
+            ItemScrObj oldItem = null;
+            if (items[index] != null)
+            {
+                oldItem = items[index];
+            }
+            items[index] = item;
+            inventoryBoxUI.SetNewItemByInventoryCell(item, index);
+            return oldItem;
+        }
+        else return null;
+    }
+
+    private void FreeUpOldSlot(ItemScrObj item)
+    {
+        List<ItemScrObj> items = GetCurrentItems();
+        for (short i = 0; i < items.Count; i++)
+        {
+            if (items[i] == item)
+            {
+                inventoryBoxUI.ResetItemByInventoryCell(i);
+                items[i] = null;
+            }
+        }
+    }
+    public List<ItemScrObj> GetCurrentItems() //get a list of items from a character's inventoryController
+    {
+        return inventoryBox.GetCurrentItems();
+    }
+
+    public bool UpdatePickItem(ItemScrObj pickItem, out ItemScrObj oldItem, string slotType)
+    {
+        if (slotType == "EquipSlot" && pickItem != null && pickItem.itemType != EquipItems.None)
+        {
+            short index = inventoryBoxUI.GetIndexSlot(pickItem, slotType);
+            oldItem = SwapItemFromInventory(pickItem, index);
+            return true;
+        }
+        else if (slotType == "Slot" && pickItem != null)
+        {
+            short index = inventoryBoxUI.GetIndexSlot(pickItem, slotType);
+            oldItem = SwapItemFromInventory(pickItem, index);
+            return true;
+        }
+        else
+        {
+            oldItem = null;
+            return false;
+        }
+    }
+}

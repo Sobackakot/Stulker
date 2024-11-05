@@ -1,12 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+ 
+using System.Collections.Generic; 
 
 public interface IInventoryContoller
 {
     bool AddItemToInventory(ItemScrObj newItem);
     void RemoveItemFromInventory(ItemScrObj item); 
-    void UpdateEquip(ItemScrObj item, out ItemScrObj oldItem);
+    bool UpdatePickItem(ItemScrObj pickItem, out ItemScrObj oldItem, string slotType);
     List<ItemScrObj> GetCurrentItems();
 }

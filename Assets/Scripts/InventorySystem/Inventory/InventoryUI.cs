@@ -69,11 +69,15 @@ public class InventoryUI: MonoBehaviour, IInventoryUI
         }
     }
 
-    public short GetIndexSlot(ItemScrObj item)
+    public short GetIndexSlot(ItemScrObj item, string slotType)
     {
         for (short i = 0; i < inventorySlots.Count; i++)
-        {
-            if (item.itemType != EquipItems.Ñonsumables && itemsInSlots[i].dataItem == null)
+        {    
+            if (slotType == "EquipSlot" && item.itemType != EquipItems.Ñonsumables && itemsInSlots[i].dataItem == null)
+            {
+                return i;
+            }
+            else if(slotType == "SlotBox" && itemsInSlots[i].dataItem == null)
             {
                 return i;
             }

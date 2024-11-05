@@ -5,7 +5,7 @@ using Zenject;
 public class MoveController : IInitializable, IDisposable, ITickable, IFixedTickable, ILateTickable
 {
     public MoveController(InputCharacter inputCharacter, CharacterMove character, 
-        CharacterAnimator characterAnimator, CharacterParkour characterParkour, CharacterComponent components, ActiveInventory inventory)
+        CharacterAnimator characterAnimator, CharacterParkour characterParkour, CharacterComponent components, InventoryPersonGameObject inventory)
     {
         this.inputCharacter = inputCharacter;
         this.character = character;
@@ -20,7 +20,7 @@ public class MoveController : IInitializable, IDisposable, ITickable, IFixedTick
     private CharacterAnimator characterAnimator;
     private CharacterParkour characterParkour;
     private CharacterComponent components;
-    private ActiveInventory inventory;
+    private InventoryPersonGameObject inventory;
 
     private bool isMoving;
     private bool isStateParcure;

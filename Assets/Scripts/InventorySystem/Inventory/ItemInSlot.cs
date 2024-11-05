@@ -14,18 +14,20 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     private Transform originalParent;
     private CanvasGroup canvasGroup;
     private Canvas canvas;
-    public InventorySlot originalSlot {  get; private set; }
+    public Transform originalSlot {  get; private set; }
 
     private Image itemIcon;
     private TextMeshProUGUI itemAmount;
     private EquipmentController equipmentController;
     private InventoryController inventoryController; 
+    private InventoryBoxController inventoryBoxController; 
 
     [Inject]
-    private void Container(EquipmentController equipmenrt, InventoryController inventoryController)
+    private void Container(EquipmentController equipmenrt, InventoryController inventoryController, InventoryBoxController inventoryBoxController)
     {
         equipmentController = equipmenrt; 
         this.inventoryController = inventoryController;
+        this.inventoryBoxController = inventoryBoxController;
     }
 
     private void Awake()
@@ -61,7 +63,7 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         canvasGroup.blocksRaycasts = false;
         canvasGroup.alpha = 0.6f;
         originalParent = transform.parent; //save the parent object of the item 
-        originalSlot = transform.GetComponentInParent<InventorySlot>();
+        originalSlot = transform.parent;
 
         pickItemTransform.SetParent(canvas.transform); //changing the parent object of an item
         pickItemTransform.SetAsLastSibling(); //sets item display priority  
@@ -75,19 +77,32 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         canvasGroup.blocksRaycasts = true;
         canvasGroup.alpha = 1f; 
         pickItemTransform.SetParent(originalParent); //returns the item to the original position of the parent object   
-        originalSlot = transform.GetComponentInParent<InventorySlot>();
+        originalSlot = transform.parent;
     }
     public virtual void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            Equipping();
+            Equipping(originalSlot.gameObject.tag);
         }
     } 
-    private void Equipping()
+    private void Equipping(string slotType)
     {
-        equipmentController.UpdateEquip(dataItem, out ItemScrObj oldItem);
-        inventoryController.RemoveItemFromInventory(dataItem);
-        if (oldItem != null) inventoryController.AddItemToInventory(oldItem);
+        ItemScrObj oldItem = null;
+        bool successfully = true;
+
+        if(!equipmentController.equipmentItems.Contains(dataItem))
+        {
+            successfully = equipmentController.UpdatePickItem(dataItem, out oldItem, slotType);
+        }
+        else 
+        {
+            successfully = inventoryBoxController.UpdatePickItem(dataItem, out oldItem, slotType);
+        }
+        if (successfully)
+        {
+            inventoryController.RemoveItemFromInventory(dataItem);
+            if (oldItem != null) inventoryController.AddItemToInventory(oldItem);
+        } 
     }
 }

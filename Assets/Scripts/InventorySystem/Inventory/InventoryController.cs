@@ -2,8 +2,7 @@
 using System;
 using System.Collections.Generic; 
 using UnityEngine;
-using Zenject;
-using static UnityEditor.Progress;
+using Zenject; 
 
 public class InventoryController: IInventoryContoller, IInitializable, IDisposable
 {
@@ -60,16 +59,20 @@ public class InventoryController: IInventoryContoller, IInitializable, IDisposab
         }
     } 
     public ItemScrObj SwapItemFromInventory(ItemScrObj item, short index)
-    {
-        FreeUpOldSlot(item);
-        ItemScrObj oldItem = null;
-        if (itemsInventory[index] != null)
+    { 
+        if (index >= 0 && index < itemsInventory.Count)
         {
-            oldItem = itemsInventory[index];
-        }  
-        itemsInventory[index] = item;
-        inventoryUI.SetNewItemByInventoryCell(item, index);
-        return oldItem;
+            FreeUpOldSlot(item);
+            ItemScrObj oldItem = null;
+            if (itemsInventory[index] != null)
+            {
+                oldItem = itemsInventory[index];
+            }
+            itemsInventory[index] = item;
+            inventoryUI.SetNewItemByInventoryCell(item, index);
+            return oldItem;
+        }
+        else return null;
     } 
 
     private void FreeUpOldSlot(ItemScrObj item) 
@@ -87,15 +90,25 @@ public class InventoryController: IInventoryContoller, IInitializable, IDisposab
     {
         return  itemsInventory;
     }
-
-    public void UpdateEquip(ItemScrObj item, out ItemScrObj oldItem)
+     
+    public bool UpdatePickItem(ItemScrObj pickItem, out ItemScrObj oldItem, string slotType)
     {
-        if (item != null && item.itemType != EquipItems.None)
+        if(slotType == "EquipSlot" && pickItem != null && pickItem.itemType != EquipItems.None)
         {
-            short index = inventoryUI.GetIndexSlot(item);
-            oldItem = SwapItemFromInventory(item, index); 
+            short index = inventoryUI.GetIndexSlot(pickItem, slotType);
+            oldItem = SwapItemFromInventory(pickItem, index);
+            return true;
+        } 
+        else if(slotType == "SlotBox" && pickItem != null)
+        {
+            short index = inventoryUI.GetIndexSlot(pickItem, slotType);
+            oldItem = SwapItemFromInventory(pickItem, index);
+            return true;
         }
-        else oldItem = null;
-
+        else
+        {
+            oldItem = null;
+            return false;
+        }
     }
 }

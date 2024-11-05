@@ -57,16 +57,19 @@ public class EquipmentController : IInventoryContoller, IInitializable, IDisposa
         }
     } 
     public ItemScrObj SwapItemFromInventory(ItemScrObj item, short index)
-    {
-        FreeUpOldSlot(item);
-        ItemScrObj oldItem = null;
-        if (equipmentItems[index] != null)
+    { 
+        if(index >=0 && index < equipmentItems.Count)
         {
-            oldItem = equipmentItems[index];
-        }
-        equipmentItems[index] = item;
-        equipmentUI.SetNewItemByInventoryCell(item, index);
-        return oldItem;
+            FreeUpOldSlot(item);
+            ItemScrObj oldItem = null;
+            if (equipmentItems[index] != null)
+            {
+                oldItem = equipmentItems[index];
+            }
+            equipmentItems[index] = item;
+            equipmentUI.SetNewItemByInventoryCell(item, index);
+            return oldItem;
+        } else return null; 
     }
 
     private void FreeUpOldSlot(ItemScrObj item)
@@ -84,14 +87,25 @@ public class EquipmentController : IInventoryContoller, IInitializable, IDisposa
     {
         return equipmentItems;
     }
-    public void UpdateEquip(ItemScrObj item, out ItemScrObj oldItem)
+    public bool UpdatePickItem(ItemScrObj item, out ItemScrObj oldItem, string slotType)
     {
-        if (item != null && item.itemType != EquipItems.None)
+        if (slotType == "Slot" && item != null && item.itemType != EquipItems.None)
         {
-            short index = equipmentUI.GetIndexSlot(item);
-            oldItem = SwapItemFromInventory(item, index); 
+            short index = equipmentUI.GetIndexSlot(item, slotType);
+            oldItem = SwapItemFromInventory(item, index);
+            return true;
         }
-        else oldItem = null;
+        else if(slotType == "SlotBox" && item != null && item.itemType != EquipItems.None)
+        {
+            short index = equipmentUI.GetIndexSlot(item, slotType);
+            oldItem = SwapItemFromInventory(item, index);
+            return true;
+        }
+        else
+        {
+            oldItem = null;
+            return false;
+        }
     }
 
 }

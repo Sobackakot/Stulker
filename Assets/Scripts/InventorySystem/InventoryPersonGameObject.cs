@@ -1,10 +1,10 @@
 using UnityEngine;
 using Zenject;
 
-public class ActiveInventory : MonoBehaviour
+public class InventoryPersonGameObject : MonoBehaviour
 { 
     private InputCharacter input;
-    public bool isActivate {  get; private set; }
+    public bool isActivateInventoryPerson {  get; private set; } 
 
     [Inject]
     private void Container(InputCharacter input)
@@ -18,17 +18,23 @@ public class ActiveInventory : MonoBehaviour
     private void OnEnable()
     {
         input.onActiveInventory += OnActivate;
+        isActivateInventoryPerson = true;   
+    }
+    private void OnDisable()
+    {
+        isActivateInventoryPerson = false;
     }
     private void OnDestroy()
     {
         input.onActiveInventory -= OnActivate;
+        isActivateInventoryPerson = false;
     }
     private void OnActivate(bool isActive)
     {
-        isActivate = isActive; 
+        isActivateInventoryPerson = isActive; 
     }
     public void Activate()
-    {
-        gameObject.SetActive(isActivate); 
+    { 
+        gameObject.SetActive(isActivateInventoryPerson); 
     }
 }

@@ -1,7 +1,6 @@
 
 using System;
-using System.Collections.Generic;
-using UnityEditorInternal.Profiling.Memory.Experimental;
+using System.Collections.Generic; 
 using UnityEngine; 
 
 public class EquipmentUI : MonoBehaviour, IInventoryUI
@@ -57,14 +56,18 @@ public class EquipmentUI : MonoBehaviour, IInventoryUI
             }
         }
     }
-    public short GetIndexSlot(ItemScrObj item)
+    public short GetIndexSlot(ItemScrObj item, string slotType)
     {   
         for(short  i = 0; i < equipmentSlots.Count; i++)
         {
-            if((short)item.itemType == (short)equipmentSlots[i].equipFieldData.fieldType)
+            if(slotType == "Slot" && (short)item.itemType == (short)equipmentSlots[i].equipFieldData.fieldType)
             { 
                 return i;
-            } 
+            }
+            else if (slotType == "SlotBox" && (short)item.itemType == (short)equipmentSlots[i].equipFieldData.fieldType)
+            {
+                return i;
+            }
         }   
         return -1;
     }

@@ -1,5 +1,4 @@
 
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -8,6 +7,7 @@ using Zenject;
 public class CharacterInstaller : ScriptableObjectInstaller
 {   
     private const string InventoryUI_ID = "inventoryUI";
+    private const string InventoryBoxUI_ID = "inventoryBoxUI";
     private const string EquipmentUI_ID = "equipmentUI";
 
     public override void InstallBindings()
@@ -35,17 +35,21 @@ public class CharacterInstaller : ScriptableObjectInstaller
         Container.Bind<CharacterAnimator>().FromComponentInHierarchy(this).AsSingle();
         Container.Bind<CharacterParkour>().FromComponentInHierarchy(this).AsSingle();   
         Container.Bind<CharacterComponent>().FromComponentInHierarchy(this).AsSingle();   
+           
     }
     private void BindInventory()
     {
         // Bind InventoryUI with an identifier
         Container.Bind<IInventoryUI>().WithId(InventoryUI_ID).To<InventoryUI>().FromComponentInHierarchy(this).AsSingle();
 
+        Container.Bind<IInventoryUI>().WithId(InventoryBoxUI_ID).To<InventoryBoxUI>().FromComponentInHierarchy(this).AsSingle();
+
         Container.Bind<IInventoryUI>().WithId(EquipmentUI_ID).To<EquipmentUI>().FromComponentInHierarchy(this).AsSingle();
 
-        Container.Bind<ActiveInventory>().FromComponentInHierarchy(this).AsSingle(); 
+        Container.Bind<InventoryPersonGameObject>().FromComponentInHierarchy(this).AsSingle(); 
 
         Container.BindInterfacesAndSelfTo<InventoryController>().FromNew().AsSingle().NonLazy();
-        Container.BindInterfacesAndSelfTo<EquipmentController>().FromNew().AsSingle().NonLazy(); 
+        Container.BindInterfacesAndSelfTo<InventoryBoxController>().FromNew().AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<EquipmentController>().FromNew().AsSingle().NonLazy();
     }
 }

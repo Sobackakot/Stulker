@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Equip
+  - EquipSlot
+  - Slot
+  - FastSlot
+  - SlotBox
+  - BoxInventory
   layers:
   - Default
   - TransparentFX

@@ -37,17 +37,17 @@ public class EquipmentSlot : InventorySlot
     }
     private bool CheckDropItemType(ItemInSlot dropItem)
     {
-        InventorySlot dropSlot = dropItem.originalSlot;
+        Transform dropSlot = dropItem.originalSlot;
         if (dropSlot.gameObject.tag == "Slot" && equipmentSlot.gameObject.tag == "EquipSlot")
         {
-            Equipping(dropItem);
+            Equipping(dropItem, dropSlot.gameObject.tag);
             return false;
         }
         else return true;
     }
-    private void Equipping(ItemInSlot dropItem)
+    private void Equipping(ItemInSlot dropItem, string slotType)
     {
-        equipmentController.UpdateEquip(dropItem.dataItem, out ItemScrObj oldItem);
+        equipmentController.UpdatePickItem(dropItem.dataItem, out ItemScrObj oldItem, slotType);
         inventoryController.RemoveItemFromInventory(dropItem.dataItem);
         if (oldItem != null) inventoryController.AddItemToInventory(oldItem);
     }
