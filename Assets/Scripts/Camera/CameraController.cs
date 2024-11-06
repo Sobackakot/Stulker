@@ -30,11 +30,10 @@ public class CameraController: ILateTickable, IInitializable, IDisposable
 
     public void LateTick()
     {
-        if (inventoryUI.isCameraActive)
-        {
-            camera.RotateCamera();
-            camera.ZoomCamera();
-        } 
+        camera.RotateCamera();
+        camera.ZoomCamera();
+        bool isActive = inventoryUI.isActiveInventory;
+        camera.StoppingRotateCameta(isActive); 
     }
    
 

@@ -8,7 +8,7 @@ public class EquipmentUI : MonoBehaviour, IInventoryUI
     private List<EquipmentSlot> equipmentSlots = new List<EquipmentSlot>();
     private List<EquipmentItemInSlot> equipItemInSlots = new List<EquipmentItemInSlot>();
 
-    public bool isCameraActive { get ; set; }
+    public bool isActiveInventory { get ; set; }
 
     public event Func<List<ItemScrObj>> onSetNewItem;
     private void Awake()

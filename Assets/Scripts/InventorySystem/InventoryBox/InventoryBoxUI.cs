@@ -9,7 +9,7 @@ public class InventoryBoxUI : MonoBehaviour, IInventoryUI
 
     public event Func<List<ItemScrObj>> onSetNewItem;
 
-    public bool isCameraActive { get; set; }
+    public bool isActiveInventory { get; set; }
 
     private void Awake()
     {

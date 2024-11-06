@@ -19,8 +19,9 @@ public class CameraCharacter : MonoBehaviour
     private float maxAngle = 65f;
     private float minZoom = 2f;
     private float maxZoom = 15f;
-      
 
+    public bool isRotateCamera {  get; private set; }
+       
     private void Awake()
     {
         transformCamera = GetComponent<Transform>();
@@ -30,25 +31,35 @@ public class CameraCharacter : MonoBehaviour
         offset = transformCamera.position - transformCharacter.position;
     }
     public void RotateCamera()
-    {
+    { 
         mouseAxisY = Mathf.Clamp(mouseAxisY, minAngle, maxAngle);
         transformCamera.localEulerAngles = new Vector3(mouseAxisY, mouseAxisX, 0);
-        transformCamera.position = transformCamera.localRotation * offset + transformCharacter.position; 
+        transformCamera.position = transformCamera.localRotation * offset + transformCharacter.position;
     }
     public void ZoomCamera()
     {
         mouseZoom = Mathf.Clamp(mouseZoom, Mathf.Abs(minZoom), Mathf.Abs(maxZoom));
-        transformCamera.position = transformCharacter.position - transformCamera.forward * mouseZoom; 
+        transformCamera.position = transformCharacter.position - transformCamera.forward * mouseZoom;
     }
 
     public void GetInputAxisMouse(Vector2 inputAxis)
     {
-        mouseAxisX += inputAxis.x * sensitivityMouse * Time.deltaTime;
-        mouseAxisY -= inputAxis.y * sensitivityMouse * Time.deltaTime;
+        if (isRotateCamera)
+        {
+            mouseAxisX += inputAxis.x * sensitivityMouse * Time.deltaTime;
+            mouseAxisY -= inputAxis.y * sensitivityMouse * Time.deltaTime;
+        }   
     }
     public void GetInputScrollMouse(Vector2 scrollMouse)
     {
-        mouseZoom -= scrollMouse.y * scrollSpeed * Time.deltaTime;
+        if (isRotateCamera)
+        {
+            mouseZoom -= scrollMouse.y * scrollSpeed * Time.deltaTime;
+        }    
     }
     
+    public void StoppingRotateCameta(bool isRotate)
+    {
+        isRotateCamera = isRotate;
+    }
 }

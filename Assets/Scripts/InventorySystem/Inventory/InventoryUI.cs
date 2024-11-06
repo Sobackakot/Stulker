@@ -11,7 +11,7 @@ public class InventoryUI: MonoBehaviour, IInventoryUI
 
     public event Func<List<ItemScrObj>> onSetNewItem;
 
-    public bool isCameraActive { get; set; }
+    public bool isActiveInventory { get; set; }
 
     private void Awake()
     {
@@ -21,12 +21,12 @@ public class InventoryUI: MonoBehaviour, IInventoryUI
     private void OnEnable()
     {
         Cursor.lockState = CursorLockMode.None;
-        isCameraActive = false;
+        isActiveInventory = false;
     }
     private void OnDisable()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        isCameraActive = true;
+        isActiveInventory = true;
     }
     private void Start()
     {
