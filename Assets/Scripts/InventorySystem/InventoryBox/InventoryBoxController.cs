@@ -1,6 +1,7 @@
 using System;
-using System.Collections.Generic;
+using System.Collections.Generic; 
 using Zenject;
+using UnityEngine;
 
 public class InventoryBoxController : IInventoryContoller, IInitializable, IDisposable
 {
@@ -22,6 +23,7 @@ public class InventoryBoxController : IInventoryContoller, IInitializable, IDisp
     public void GetBoxByInventory(InventoryBoxScrObj box) // coll from class CharacterSwitchSystem
     {
         inventoryBox = box.inventoryBox; // get pick Box for inventory
+        inventoryBoxUI.UpdateInventorySlots();
     }
     public bool AddItemToInventory(ItemScrObj newItem) //coll from EquipmentController,PickUpItems
     {
@@ -44,9 +46,10 @@ public class InventoryBoxController : IInventoryContoller, IInitializable, IDisp
             if (items[index] != null)
             {
                 oldItem = items[index];
-            }
-            items[index] = item;
+            } 
+            inventoryBox.SwapItemFromInventory(item, index);
             inventoryBoxUI.SetNewItemByInventoryCell(item, index);
+            Debug.Log("Spawpping " + index + " = " + item.NameItem);
             return oldItem;
         }
         else return null;
@@ -60,7 +63,7 @@ public class InventoryBoxController : IInventoryContoller, IInitializable, IDisp
             if (items[i] == item)
             {
                 inventoryBoxUI.ResetItemByInventoryCell(i);
-                items[i] = null;
+                inventoryBox.FreeUpOldSlot(i);
             }
         }
     }

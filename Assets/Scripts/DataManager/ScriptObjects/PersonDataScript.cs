@@ -1,7 +1,7 @@
 
 using UnityEngine; 
 
-[CreateAssetMenu(fileName = "New Entity", menuName = "ScriptableObject/Person")]
+[CreateAssetMenu(fileName = "New Entity", menuName = "Character/Person")]
 public class PersonDataScript : ScriptableObject
 {
     public string namePerson; 

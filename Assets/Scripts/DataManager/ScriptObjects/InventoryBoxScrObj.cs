@@ -1,7 +1,7 @@
  
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "InventoryBox" , menuName = "ScriptableObject/inventoryBox")]
+[CreateAssetMenu(fileName = "InventoryBox" , menuName = "Inventory/inventoryBox")]
 public class InventoryBoxScrObj : ScriptableObject
 {
     public InventoryBoxData inventoryBoxData;

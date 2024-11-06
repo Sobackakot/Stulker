@@ -45,6 +45,14 @@ public class InventoryBox
         }
         slotIndex = -1;
     }  
+    public void SwapItemFromInventory(ItemScrObj item, short index)
+    {
+        itemsInventoryBox[index] = item;
+    }
+    public void FreeUpOldSlot(short index)
+    {
+        itemsInventoryBox[index] = null;
+    }
     public List<ItemScrObj> GetCurrentItems() //get a list of items from a character's inventoryController
     {
         return itemsInventoryBox;

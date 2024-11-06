@@ -35,20 +35,24 @@ public class InventorySlotBox : InventorySlot
     {
         ItemInSlot dropItem = eventData.pointerDrag.GetComponent<ItemInSlot>();
         ItemScrObj itemData = dropItem.dataItem;
-        if (transformBoxSlot?.childCount > 0 && itemData != null) DropItemInventory(itemData, dropItem);
-        base.OnDrop(eventData); 
+        if (transformBoxSlot?.childCount > 0 && itemData != null)
+        {
+            ItemInSlot pickItem = transformBoxSlot.GetChild(0).GetComponent<ItemInSlot>();
+            if (!CheckDropItemType(dropItem, pickItem)) return;
+        }
+        base.OnDrop(eventData);
     }
+
     public override void DropItemInventory(ItemScrObj itemData, ItemInSlot dropItem)
     {
-        ItemInSlot pickItem = transformBoxSlot.GetChild(0).GetComponent<ItemInSlot>();
-        if (!CheckDropItemType(dropItem, pickItem)) return;
-        ItemScrObj oldItemData = inventoryBoxController.SwapItemFromInventory(itemData, pickItem.slotIndex);
-        if (oldItemData != null) inventoryBoxController.SwapItemFromInventory(oldItemData, dropItem.slotIndex);
+        base.DropItemInventory(itemData, dropItem);
     }
     public override bool CheckDropItemType(ItemInSlot dropItem, ItemInSlot pickItem)
     {
         Transform dropSlot = dropItem.originalSlot;
-        if (dropSlot.gameObject.tag == "FastSlot" && pickItem.dataItem != null) return false;
+        if (dropSlot.gameObject.tag == "FastSlot") return false;
+        if (dropSlot.gameObject.tag == "Slot" && pickItem.dataItem != null) return false;
+        if(dropSlot.gameObject.tag == "EquipSlot" && pickItem.dataItem != null) return false;
         if (UnEquip(dropItem, pickItem, dropSlot.gameObject.tag)) return false;
         else return true;
     }

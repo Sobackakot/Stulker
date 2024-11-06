@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Item", menuName = "ScriptableObject/Equip Item")]
+[CreateAssetMenu(fileName = "New Item", menuName = "InventoryItems/EquipItem")]
 public class EquipmentScrObj : ItemScrObj
 {
      

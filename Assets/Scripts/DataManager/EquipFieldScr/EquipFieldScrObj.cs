@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "EquipFieldScrObj", menuName = "Scriptable Objects/EquipFieldScrObj")]
+[CreateAssetMenu(fileName = "EquipFieldScrObj", menuName = "InventoryFields/EquipFieldScrObj")]
 public class EquipFieldScrObj : ScriptableObject
 {
     public EquipField equipField;

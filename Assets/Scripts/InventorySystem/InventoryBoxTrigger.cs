@@ -15,7 +15,7 @@ public class InventoryBoxTrigger : MonoBehaviour
         this.inventoryBoxController = inventoryBoxController;
     }
 
-    private void Start()
+    private void Awake()
     {
         boxInventoryPanel = FindAnyObjectByType<InventoryBoxGameObject>();
         playerInventoryPanel = FindAnyObjectByType<InventoryPersonGameObject>();

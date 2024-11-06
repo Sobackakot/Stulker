@@ -20,7 +20,7 @@ public class InventoryBoxUI : MonoBehaviour, IInventoryUI
     {
         for (short i = 0; i < inventorySlotsBox.Count; i++)
         {
-            itemsInSlotsBox[i].slotIndex = i;
+            itemsInSlotsBox[i].slotIndexBox = i;
         }
     }
     public void SetNewItemByInventoryCell(ItemScrObj newItem, short slotIndex) //coll from InventoryController

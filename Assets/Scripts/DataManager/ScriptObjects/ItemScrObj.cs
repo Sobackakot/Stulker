@@ -2,7 +2,7 @@
 using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Item", menuName = "ScriptableObject/Item")]
+[CreateAssetMenu(fileName = "New Item", menuName = "InventoryItems/Item")]
 public class ItemScrObj : ScriptableObject
 {
     public Item item;
