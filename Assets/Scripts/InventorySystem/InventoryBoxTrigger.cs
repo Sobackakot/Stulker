@@ -9,6 +9,8 @@ public class InventoryBoxTrigger : MonoBehaviour
 
     public InventoryBoxScrObj inventoryBoxScrObj;
     private InventoryBoxController inventoryBoxController;
+
+    [SerializeField] private Material materialBox;
     [Inject]
     private void Container(InventoryBoxController inventoryBoxController)
     {
@@ -21,6 +23,10 @@ public class InventoryBoxTrigger : MonoBehaviour
         playerInventoryPanel = FindAnyObjectByType<InventoryPersonGameObject>();
         inventoryBoxScrObj.inventoryBoxData.SetNewInventoryBoxId();
     }
+    private void Start()
+    {
+        materialBox.color = Color.red;
+    }
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Player")
@@ -28,6 +34,7 @@ public class InventoryBoxTrigger : MonoBehaviour
             boxInventoryPanel.gameObject.SetActive(true);
             playerInventoryPanel.gameObject.SetActive(true);
             inventoryBoxController.GetBoxByInventory(inventoryBoxScrObj);
+            materialBox.color = Color.green;
         }
     }
     private void OnTriggerExit(Collider other)
@@ -36,6 +43,7 @@ public class InventoryBoxTrigger : MonoBehaviour
         {
             boxInventoryPanel.gameObject.SetActive(false);
             playerInventoryPanel.gameObject.SetActive(false);
+            materialBox.color = Color.red;
         }
     }
 }
