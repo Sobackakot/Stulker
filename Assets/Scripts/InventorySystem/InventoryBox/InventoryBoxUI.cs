@@ -63,13 +63,16 @@ public class InventoryBoxUI : MonoBehaviour, IInventoryUI
         {
             if (slotType == "EquipSlot" && item.itemType != EquipItems.Ñonsumables && itemsInSlotsBox[i].dataItem == null) 
             {
+                Debug.Log("GetIndexSlotBox from EquipSlot = " + i);
                 return i;
             }
             else if (slotType == "Slot" && item != null && itemsInSlotsBox[i].dataItem == null)
             {
-                return i;
+                Debug.Log("GetIndexSlotBox from Slot = " + i);
+                return i; 
             }
         }
+        Debug.Log("Not Slot !!!!!!!!!!");
         return -1;
     }
 }

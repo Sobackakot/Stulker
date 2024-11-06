@@ -61,14 +61,17 @@ public class EquipmentUI : MonoBehaviour, IInventoryUI
         for(short  i = 0; i < equipmentSlots.Count; i++)
         {
             if(slotType == "Slot" && (short)item.itemType == (short)equipmentSlots[i].equipFieldData.fieldType)
-            { 
+            {
+                Debug.Log("GetIndexSlotEqui from Slot = " + i);
                 return i;
             }
             else if (slotType == "SlotBox" && (short)item.itemType == (short)equipmentSlots[i].equipFieldData.fieldType)
             {
+                Debug.Log("GetIndexSlotEqui from SlotBox = " + i);
                 return i;
             }
-        }   
+        }
+        Debug.Log("Not Slot !!!!!!!!!!");
         return -1;
     }
 }

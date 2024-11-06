@@ -97,12 +97,14 @@ public class InventoryController: IInventoryContoller, IInitializable, IDisposab
         {
             short index = inventoryUI.GetIndexSlot(pickItem, slotType);
             oldItem = SwapItemFromInventory(pickItem, index);
+            Debug.Log("drop from EquipSlot " + pickItem + " i- " + index);
             return true;
         } 
         else if(slotType == "SlotBox" && pickItem != null)
         {
             short index = inventoryUI.GetIndexSlot(pickItem, slotType);
             oldItem = SwapItemFromInventory(pickItem, index);
+            Debug.Log("drop from SlotBox " + pickItem.NameItem + " i = " + index);
             return true;
         }
         else

@@ -61,12 +61,14 @@ public class InventorySlotBox : InventorySlot
         if (slotType == "EquipSlot" && pickItem.dataItem == null)
         {
             inventoryBoxController.UpdatePickItem(dropItem.dataItem, out ItemScrObj oldItem, slotType);
+            Debug.Log("Drop end EquipSlot" + dropItem.dataItem.name);
             equipmentController.RemoveItemFromInventory(dropItem.dataItem);
             return true;
         }
         else if (slotType == "Slot" && pickItem.dataItem == null)
         {
             inventoryBoxController.UpdatePickItem(dropItem.dataItem, out ItemScrObj oldItem, slotType);
+            Debug.Log("Drop end Slot" + dropItem.dataItem.name);
             inventoryController.RemoveItemFromInventory(dropItem.dataItem);
             return true;
         }

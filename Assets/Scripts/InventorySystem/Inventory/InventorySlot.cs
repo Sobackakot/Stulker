@@ -6,12 +6,12 @@ using Zenject;
 public class InventorySlot : MonoBehaviour, IDropHandler   
 {   
     private InventoryController inventoryController;
-    private InventoryController inventoryBoxController;
+    private InventoryBoxController inventoryBoxController;
     private EquipmentController equipmentController;
     private RectTransform transformSlot; 
 
     [Inject]
-    private void Container(InventoryController inventory, EquipmentController equipmentController, InventoryController inventoryBoxController)
+    private void Container(InventoryController inventory, EquipmentController equipmentController, InventoryBoxController inventoryBoxController)
     {
         this.inventoryController = inventory;   
         this.equipmentController = equipmentController;
@@ -42,6 +42,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         if (!CheckDropItemType(dropItem, pickItem)) return;
         ItemScrObj oldItemData = inventoryController.SwapItemFromInventory(itemData, pickItem.slotIndex); 
         if (oldItemData != null) inventoryController.SwapItemFromInventory(oldItemData, dropItem.slotIndex);
+        Debug.Log("Swapping dropped Items" + itemData.name);
     } 
     public virtual bool CheckDropItemType(ItemInSlot dropItem, ItemInSlot pickItem)
     {   
@@ -55,13 +56,15 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         if(slotType == "EquipSlot" && pickItem.dataItem == null)
         {
             inventoryController.UpdatePickItem(dropItem.dataItem, out ItemScrObj oldItem, slotType);
-            equipmentController.RemoveItemFromInventory(dropItem.dataItem);
+            Debug.Log("Drop end EquipSlot " + dropItem.dataItem.name);
+            equipmentController.RemoveItemFromInventory(dropItem.dataItem); 
             return true;
         }
         else if(slotType == "SlotBox" && pickItem.dataItem == null)
         {
             inventoryController.UpdatePickItem(dropItem.dataItem, out ItemScrObj oldItem, slotType);
-            inventoryBoxController.RemoveItemFromInventory(dropItem.dataItem);
+            Debug.Log("Drop end SlotBox " + dropItem.dataItem.name);
+            inventoryBoxController.RemoveItemFromInventory(dropItem.dataItem); 
             return true;
         } 
         else return false;

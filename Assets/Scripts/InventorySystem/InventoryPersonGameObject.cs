@@ -18,16 +18,10 @@ public class InventoryPersonGameObject : MonoBehaviour
     private void OnEnable()
     {
         input.onActiveInventory += OnActivate;
-        isActivateInventoryPerson = true;   
-    }
-    private void OnDisable()
-    {
-        isActivateInventoryPerson = false;
     }
     private void OnDestroy()
     {
         input.onActiveInventory -= OnActivate;
-        isActivateInventoryPerson = false;
     }
     private void OnActivate(bool isActive)
     {
