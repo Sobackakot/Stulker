@@ -81,16 +81,17 @@ public class EquipmentController : IInventoryContoller, IInitializable, IDisposa
             }
         }
     }
-    public void UpdatePickItem(ItemScrObj item, short index, string slotType)
+    public ItemScrObj UpdatePickItem(ItemScrObj item, short index, string slotType)
     {
         if (slotType == "Slot" && item != null && item.itemType != EquipItems.None)
         {
-            SwapItemFromInventory(item, index);
+            return SwapItemFromInventory(item, index);
         }
         else if (slotType == "SlotBox" && item != null && item.itemType != EquipItems.None)
         {
-            SwapItemFromInventory(item, index);
+            return SwapItemFromInventory(item, index);
         }
+        return null;
     }
     public List<ItemScrObj> GetCurrentItems()
     {
@@ -99,6 +100,6 @@ public class EquipmentController : IInventoryContoller, IInitializable, IDisposa
      
     public short GetIndexFreeSlot(ItemScrObj item, string slotType)
     {
-        return equipmentUI.GetIndexFreeSlot(item, slotType); ;
+        return equipmentUI.GetIndexFreeSlot(item, slotType); 
     }
 }

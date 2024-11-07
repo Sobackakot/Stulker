@@ -55,8 +55,9 @@ public class ItemInSlotBox : ItemInSlot
         }
         else if (index2 != -1)
         { 
-            equipmentController.UpdatePickItem(dataItem, index, slotType);
+            ItemScrObj oldItem = equipmentController.UpdatePickItem(dataItem, index, slotType);
             inventoryBoxController.RemoveItemFromInventory(dataItem);
+            if(oldItem != null) inventoryBoxController.AddItemToInventory(oldItem);
         }
     }
 }

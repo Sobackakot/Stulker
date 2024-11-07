@@ -85,18 +85,19 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         }
     } 
     private void Equipping(string slotType)
-    { 
-        short index = equipmentController.GetIndexFreeSlot(dataItem, slotType); 
-        short index2= inventoryBoxController.GetIndexFreeSlot(dataItem,slotType);
+    {
+        short index = inventoryBoxController.GetIndexFreeSlot(dataItem, slotType);
+        short index2 = equipmentController.GetIndexFreeSlot(dataItem, slotType);  
         if (index != -1)
         {
-            equipmentController.UpdatePickItem(dataItem, index, slotType);
+            inventoryBoxController.UpdatePickItem(dataItem, index, slotType);
             inventoryController.RemoveItemFromInventory(dataItem);
         }
         else if(index2 != -1)
-        {
-            inventoryBoxController.UpdatePickItem(dataItem, index2, slotType);
+        { 
+            ItemScrObj oldItem = equipmentController.UpdatePickItem(dataItem, index2, slotType);
             inventoryController.RemoveItemFromInventory(dataItem);
+            if (oldItem != null) inventoryController.AddItemToInventory(oldItem);
         } 
     }
 }

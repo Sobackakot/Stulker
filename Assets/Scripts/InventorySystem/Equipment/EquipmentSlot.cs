@@ -33,17 +33,17 @@ public class EquipmentSlot : InventorySlot
     public override void OnDrop(PointerEventData eventData)
     {
         ItemInSlot droppedItem = eventData.pointerDrag.GetComponent<ItemInSlot>();
-        if (droppedItem == null && (short)equipFieldData?.fieldType != (short)droppedItem.dataItem?.itemType) return; 
+        if ((short)equipFieldData?.fieldType != (short)droppedItem.dataItem?.itemType) return; 
         if (!CheckDropItemType(droppedItem)) return;
         base.OnDrop(eventData);
     }
     private bool CheckDropItemType(ItemInSlot dropItem)
     {
         Transform dropSlot = dropItem.originalSlot;
-        if (dropSlot.gameObject.tag == "Slot" && equipmentSlot.gameObject.tag == "EquipSlot")
-        {
-            Equipping(dropItem, dropSlot.gameObject.tag);
-            return false;
+        if (dropSlot.gameObject.tag == "Slot" || dropSlot.gameObject.tag == "SlotBox" && equipmentSlot.gameObject.tag == "EquipSlot")
+        { 
+            if (Equipping(dropItem, dropSlot.gameObject.tag)) return false;
+            else return true; 
         }
         else return true;
     } 
@@ -53,16 +53,16 @@ public class EquipmentSlot : InventorySlot
 
         if (slotType == "Slot" && index != -1)
         {
-            equipmentController.UpdatePickItem(dropItem.dataItem, index, slotType);
+            ItemScrObj oldItem = equipmentController.UpdatePickItem(dropItem.dataItem, index, slotType);
             inventoryController.RemoveItemFromInventory(dropItem.dataItem);
-            //if (oldItem != null) inventoryController.AddItemToInventory(oldItem);
+            if (oldItem != null) inventoryController.AddItemToInventory(oldItem);
             return true;
         }
         else if (slotType == "SlotBox" && index != -1)
         {
-            equipmentController.UpdatePickItem(dropItem.dataItem, index, slotType);
+            ItemScrObj oldItem = equipmentController.UpdatePickItem(dropItem.dataItem, index, slotType);
             inventoryBoxController.RemoveItemFromInventory(dropItem.dataItem);
-            //if (oldItem != null) inventoryBoxController.AddItemToInventory(oldItem);
+            if (oldItem != null) inventoryBoxController.AddItemToInventory(oldItem);
             return true;
         }
         else return false;

@@ -71,7 +71,7 @@ public class EquipmentUI : MonoBehaviour, IInventoryUI
     {
         for (short i = 0; i < equipmentSlots.Count; i++)
         {
-            if (item != null && (short)item.itemType == (short)equipmentSlots[i].equipFieldData.fieldType && equipItemInSlots[i].dataItem == null)
+            if (item != null && (short)item.itemType == (short)equipmentSlots[i].equipFieldData.fieldType)
             {
                 index = i;
                 return true;

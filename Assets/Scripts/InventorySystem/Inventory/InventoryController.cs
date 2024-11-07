@@ -84,16 +84,17 @@ public class InventoryController: IInventoryContoller, IInitializable, IDisposab
             }     
         }
     }
-    public void UpdatePickItem(ItemScrObj pickItem, short index, string slotType)
+    public ItemScrObj UpdatePickItem(ItemScrObj pickItem, short index, string slotType)
     {
         if (slotType == "EquipSlot" && pickItem != null && pickItem.itemType != EquipItems.None)
         {
-            SwapItemFromInventory(pickItem, index);
+            return SwapItemFromInventory(pickItem, index);
         }
         else if (slotType == "SlotBox" && pickItem != null)
         {
-            SwapItemFromInventory(pickItem, index);
+            return SwapItemFromInventory(pickItem, index);
         }
+        return null;    
     }
     public List<ItemScrObj> GetCurrentItems() //get a list of items from a character's inventoryController
     {
