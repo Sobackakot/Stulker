@@ -1,14 +1,14 @@
 
 using System;
-using System.Collections.Generic; 
-using UnityEngine;
+using System.Collections.Generic;  
 using Zenject; 
 
 public class InventoryController: IInventoryContoller, IInitializable, IDisposable
 {
-    public InventoryController([Inject(Id = "inventoryUI")]IInventoryUI inventoryUI)
+    public InventoryController([Inject(Id = "inventoryUI")]IInventoryUI inventoryUI, InventoryBoxGameObject inventoryBox)
     {
         this.inventoryUI = inventoryUI; 
+        this.inventoryBox = inventoryBox;
 
         itemsInventory = new List<ItemScrObj>(space);
         for (int i = 0; i < space; i++)
@@ -17,7 +17,8 @@ public class InventoryController: IInventoryContoller, IInitializable, IDisposab
         }
     }
     private IInventoryUI inventoryUI;
-     
+    private InventoryBoxGameObject inventoryBox;
+
     public readonly List<ItemScrObj> itemsInventory;
     private int space = 48; 
 
@@ -95,6 +96,11 @@ public class InventoryController: IInventoryContoller, IInitializable, IDisposab
             return SwapItemFromInventory(pickItem, index);
         }
         return null;    
+    }
+
+    public bool CheckIsActiveInventoryBox()
+    {
+        return inventoryBox.isActiveInventoryBox;
     }
     public List<ItemScrObj> GetCurrentItems() //get a list of items from a character's inventoryController
     {

@@ -1,14 +1,15 @@
 
 using System;
 using System.Collections.Generic;
-using Zenject;
-using UnityEngine; 
+using Zenject; 
 
 public class EquipmentController : IInventoryContoller, IInitializable, IDisposable
 {
-    public EquipmentController([Inject(Id = "equipmentUI")] IInventoryUI equipmentUI) 
+    public EquipmentController([Inject(Id = "equipmentUI")] IInventoryUI equipmentUI, InventoryBoxGameObject inventoryBox) 
     {
         this.equipmentUI = equipmentUI;
+        this.inventoryBox = inventoryBox;
+
         int countSlotsItem = System.Enum.GetNames(typeof(EquipItems)).Length; //get the number of equipmentSlots for equipmentUI items
         equipmentItems = new List<ItemScrObj>(countSlotsItem);
         for (int i = 0; i < countSlotsItem; i++)
@@ -17,6 +18,8 @@ public class EquipmentController : IInventoryContoller, IInitializable, IDisposa
         }
     }
     private IInventoryUI equipmentUI;
+    private InventoryBoxGameObject inventoryBox;
+
     public readonly List<ItemScrObj> equipmentItems;
 
     public void Initialize()
@@ -101,5 +104,9 @@ public class EquipmentController : IInventoryContoller, IInitializable, IDisposa
     public short GetIndexFreeSlot(ItemScrObj item, string slotType)
     {
         return equipmentUI.GetIndexFreeSlot(item, slotType); 
+    }
+    public bool CheckIsActiveInventoryBox()
+    {
+        return inventoryBox.isActiveInventoryBox;
     }
 }

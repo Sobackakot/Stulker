@@ -88,7 +88,7 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     {
         short index = inventoryBoxController.GetIndexFreeSlot(dataItem, slotType);
         short index2 = equipmentController.GetIndexFreeSlot(dataItem, slotType);  
-        if (index != -1)
+        if (index != -1 && inventoryController.CheckIsActiveInventoryBox())
         {
             inventoryBoxController.UpdatePickItem(dataItem, index, slotType);
             inventoryController.RemoveItemFromInventory(dataItem);

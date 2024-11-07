@@ -59,7 +59,7 @@ public class EquipmentItemInSlot : ItemInSlot
             inventoryController.UpdatePickItem(dataItem, index, slotType);
             equipmentController.RemoveItemFromInventory(dataItem); 
         }
-        else if (index1 != -1)
+        else if (index1 != -1 && equipmentController.CheckIsActiveInventoryBox())
         {
             inventoryBoxController.UpdatePickItem(dataItem, index, slotType);
             equipmentController.RemoveItemFromInventory(dataItem);

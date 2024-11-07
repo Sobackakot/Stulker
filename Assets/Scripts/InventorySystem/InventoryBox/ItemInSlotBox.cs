@@ -9,7 +9,7 @@ public class ItemInSlotBox : ItemInSlot
       
     private EquipmentController equipmentController;
     private InventoryController inventoryController;
-    private InventoryBoxController inventoryBoxController;
+    private InventoryBoxController inventoryBoxController; 
 
     private Transform originSlotBox;
 
@@ -48,12 +48,12 @@ public class ItemInSlotBox : ItemInSlot
         short index = inventoryController.GetIndexFreeSlot(dataItem, slotType);
         short index2 = equipmentController.GetIndexFreeSlot(dataItem, slotType);
         
-        if (index != -1)
+        if (index != -1 )
         {
             inventoryController.UpdatePickItem(dataItem, index, slotType);
             inventoryBoxController.RemoveItemFromInventory(dataItem); 
         }
-        else if (index2 != -1)
+        else if (index2 != -1 )
         { 
             ItemScrObj oldItem = equipmentController.UpdatePickItem(dataItem, index, slotType);
             inventoryBoxController.RemoveItemFromInventory(dataItem);
