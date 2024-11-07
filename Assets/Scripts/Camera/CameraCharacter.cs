@@ -54,7 +54,7 @@ public class CameraCharacter : MonoBehaviour
     {
         if (isRotateCamera)
         {
-            mouseZoom -= scrollMouse.y * scrollSpeed * Time.deltaTime;
+            //mouseZoom -= scrollMouse.y * scrollSpeed * Time.deltaTime;
         }    
     }
     
