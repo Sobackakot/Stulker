@@ -45,21 +45,18 @@ public class ItemInSlotBox : ItemInSlot
     }
     private void Equipping(string slotType)
     {
-        ItemScrObj oldItem = null;
-        bool successfully = true;
-
-        if (!equipmentController.equipmentItems.Contains(dataItem))
+        short index = inventoryController.GetIndexFreeSlot(dataItem, slotType);
+        short index2 = equipmentController.GetIndexFreeSlot(dataItem, slotType);
+        
+        if (index != -1)
         {
-            successfully = equipmentController.UpdatePickItem(dataItem, out oldItem, slotType);
+            inventoryController.UpdatePickItem(dataItem, index, slotType);
+            inventoryBoxController.RemoveItemFromInventory(dataItem); 
         }
-        else
-        {
-            successfully = inventoryController.UpdatePickItem(dataItem, out oldItem, slotType);
-        }
-        if (successfully)
-        {
+        else if (index2 != -1)
+        { 
+            equipmentController.UpdatePickItem(dataItem, index, slotType);
             inventoryBoxController.RemoveItemFromInventory(dataItem);
-            if (oldItem != null) inventoryBoxController.AddItemToInventory(oldItem);
         }
     }
 }

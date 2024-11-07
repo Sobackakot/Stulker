@@ -42,28 +42,27 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         if (!CheckDropItemType(dropItem, pickItem)) return;
         ItemScrObj oldItemData = inventoryController.SwapItemFromInventory(itemData, pickItem.slotIndex); 
         if (oldItemData != null) inventoryController.SwapItemFromInventory(oldItemData, dropItem.slotIndex);
-        Debug.Log("Swapping dropped Items" + itemData.name);
     } 
     public virtual bool CheckDropItemType(ItemInSlot dropItem, ItemInSlot pickItem)
     {   
         Transform dropSlot = dropItem.originalSlot; 
         if(dropSlot.gameObject.tag == "FastSlot" && pickItem.dataItem != null) return false; 
-        if(UnEquip(dropItem, pickItem,dropSlot.gameObject.tag)) return false; 
+        if(UnEquip(dropItem,dropSlot.gameObject.tag)) return false; 
         else  return true; 
     }
-    private bool UnEquip(ItemInSlot dropItem, ItemInSlot pickItem,string slotType)
-    {   
-        if(slotType == "EquipSlot" && pickItem.dataItem == null)
+    private bool UnEquip(ItemInSlot dropItem,string slotType)
+    {
+        short index = inventoryController.GetIndexFreeSlot(dropItem.dataItem, slotType);
+
+        if(slotType == "EquipSlot" && index != -1)
         {
-            inventoryController.UpdatePickItem(dropItem.dataItem, out ItemScrObj oldItem, slotType);
-            Debug.Log("Drop end EquipSlot " + dropItem.dataItem.name);
+            inventoryController.UpdatePickItem(dropItem.dataItem, index, slotType);
             equipmentController.RemoveItemFromInventory(dropItem.dataItem); 
             return true;
         }
-        else if(slotType == "SlotBox" && pickItem.dataItem == null)
+        else if(slotType == "SlotBox" && index != -1)
         {
-            inventoryController.UpdatePickItem(dropItem.dataItem, out ItemScrObj oldItem, slotType);
-            Debug.Log("Drop end SlotBox " + dropItem.dataItem.name);
+            inventoryController.UpdatePickItem(dropItem.dataItem, index, slotType);
             inventoryBoxController.RemoveItemFromInventory(dropItem.dataItem); 
             return true;
         } 

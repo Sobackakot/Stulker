@@ -9,14 +9,16 @@ public class EquipmentItemInSlot : ItemInSlot
     public int equipSlotIndex { get; set; }
     private  EquipmentController equipmentController;
     private InventoryController inventoryController;
+    private InventoryBoxController inventoryBoxController;
 
     private Transform originEquipSlot;
      
     [Inject]
-    private void Container(EquipmentController equipmentController, InventoryController inventoryController)
+    private void Container(EquipmentController equipmentController, InventoryController inventoryController, InventoryBoxController inventoryBoxController)
     {   
         this.equipmentController = equipmentController;
         this.inventoryController = inventoryController;
+        this.inventoryBoxController = inventoryBoxController;
     }
     public override void SetItem(ItemScrObj newItem)
     { 
@@ -45,12 +47,22 @@ public class EquipmentItemInSlot : ItemInSlot
         originEquipSlot = transform.parent;
         if (eventData.button == PointerEventData.InputButton.Left && dataItem != null)
         {
-            UnEquip(originEquipSlot.gameObject.tag);
+            Equipping(originEquipSlot.gameObject.tag);
         }
-    }
-    private void UnEquip(string slotType)
+    } 
+    private void Equipping(string slotType)
     {
-        inventoryController.UpdatePickItem(dataItem, out ItemScrObj oldItem, slotType);
-        equipmentController.RemoveItemFromInventory(dataItem);
+        short index = inventoryController.GetIndexFreeSlot(dataItem, slotType);
+        short index1 = inventoryBoxController.GetIndexFreeSlot(dataItem, slotType); 
+        if (index != -1)
+        {
+            inventoryController.UpdatePickItem(dataItem, index, slotType);
+            equipmentController.RemoveItemFromInventory(dataItem);
+        }
+        else if (index1 != -1)
+        { 
+            inventoryBoxController.UpdatePickItem(dataItem, index, slotType);
+            equipmentController.RemoveItemFromInventory(dataItem);
+        }
     }
 }

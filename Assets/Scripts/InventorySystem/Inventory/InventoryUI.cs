@@ -40,16 +40,14 @@ public class InventoryUI: MonoBehaviour, IInventoryUI
         List<ItemScrObj> items = onSetNewItem?.Invoke();
         if (slotIndex < items.Count && items[slotIndex] != null) //updates the inventoryController user interface, those equipmentSlots that have been changed
         {
-            inventorySlots[slotIndex].AddItemInSlot(itemsInSlots[slotIndex], newItem);
-            Debug.Log("inventUi Set  - slot " + slotIndex + " = " + newItem.NameItem);
+            inventorySlots[slotIndex].AddItemInSlot(itemsInSlots[slotIndex], newItem); 
         } 
     }
     public void ResetItemByInventoryCell(short slot) //coll from InventoryController
     {
         List<ItemScrObj> items = onSetNewItem?.Invoke();
         if (slot < items.Count) //updates the inventoryController user interface, those equipmentSlots that have been changed
-        {
-            Debug.Log("inventUi Reset - slot " + slot + " = " + itemsInSlots[slot].dataItem.NameItem);
+        { 
             inventorySlots[slot].RemoveItemInSlot(itemsInSlots[slot]); 
         }
     }
@@ -69,22 +67,29 @@ public class InventoryUI: MonoBehaviour, IInventoryUI
         }
     }
 
-    public short GetIndexSlot(ItemScrObj item, string slotType)
+    public short GetIndexFreeSlot(ItemScrObj item, string slotType)
+    {
+        if (slotType == "EquipSlot" && item.itemType != EquipItems.Ñonsumables && CheckFreeSlot(item, out short index))
+        { 
+            return index;
+        }
+        else if (slotType == "SlotBox" && CheckFreeSlot(item, out short index2))
+        { 
+            return index2;
+        }
+        return -1;
+    }
+    private bool CheckFreeSlot(ItemScrObj item, out short index)
     {
         for (short i = 0; i < inventorySlots.Count; i++)
-        {    
-            if (slotType == "EquipSlot" && item.itemType != EquipItems.Ñonsumables && itemsInSlots[i].dataItem == null)
+        {
+            if (itemsInSlots[i].dataItem == null && item != null)
             {
-                Debug.Log("GetIndexSlotUI from EquipSlot = " + i);
-                return i;
-            }
-            else if(slotType == "SlotBox" && item!=null && itemsInSlots[i].dataItem == null)
-            {
-                Debug.Log("GetIndexSlotUI from SlotBox = " + i);
-                return i;
+                index = i;
+                return true;
             }
         }
-        Debug.Log("Not Slot !!!!!!!!!!");
-        return -1;
+        index = -1;
+        return false;
     }
 }

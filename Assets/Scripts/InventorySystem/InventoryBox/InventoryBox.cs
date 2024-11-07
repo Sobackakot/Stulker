@@ -21,8 +21,7 @@ public class InventoryBox
         {
             if (itemsInventoryBox[i] == null)
             {
-                itemsInventoryBox[i] = newItem;
-                Debug.Log("inventControlleBox Addto itemsList - " + i + " = " + newItem);
+                itemsInventoryBox[i] = newItem; 
                 indexSlot = i;
                 return true;
             }
@@ -37,8 +36,7 @@ public class InventoryBox
         {
             if (itemsInventoryBox[i] == newItem)
             {
-                itemsInventoryBox[i] = null;
-                Debug.Log("inventControlleBox Remove itemsList - " + i);
+                itemsInventoryBox[i] = null; 
                 slotIndex = i;
                 return;
             }

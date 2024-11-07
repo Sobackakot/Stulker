@@ -48,8 +48,7 @@ public class InventoryBoxController : IInventoryContoller, IInitializable, IDisp
                 oldItem = items[index];
             } 
             inventoryBox.SwapItemFromInventory(item, index);
-            inventoryBoxUI.SetNewItemByInventoryCell(item, index);
-            Debug.Log("Spawpping " + index + " = " + item.NameItem);
+            inventoryBoxUI.SetNewItemByInventoryCell(item, index); 
             return oldItem;
         }
         else return null;
@@ -67,29 +66,23 @@ public class InventoryBoxController : IInventoryContoller, IInitializable, IDisp
             }
         }
     }
+    public void UpdatePickItem(ItemScrObj pickItem, short index, string slotType)
+    {
+        if (slotType == "EquipSlot" && pickItem != null && pickItem.itemType != EquipItems.None)
+        {
+            SwapItemFromInventory(pickItem, index);
+        }
+        else if (slotType == "Slot" && pickItem != null)
+        { 
+            SwapItemFromInventory(pickItem, index);
+        }
+    }
     public List<ItemScrObj> GetCurrentItems() //get a list of items from a character's inventoryController
     {
         return inventoryBox.GetCurrentItems();
     }
-
-    public bool UpdatePickItem(ItemScrObj pickItem, out ItemScrObj oldItem, string slotType)
+    public short GetIndexFreeSlot(ItemScrObj item, string slotType)
     {
-        if (slotType == "EquipSlot" && pickItem != null && pickItem.itemType != EquipItems.None)
-        {
-            short index = inventoryBoxUI.GetIndexSlot(pickItem, slotType);
-            oldItem = SwapItemFromInventory(pickItem, index);
-            return true;
-        }
-        else if (slotType == "Slot" && pickItem != null)
-        {
-            short index = inventoryBoxUI.GetIndexSlot(pickItem, slotType);
-            oldItem = SwapItemFromInventory(pickItem, index);
-            return true;
-        }
-        else
-        {
-            oldItem = null;
-            return false;
-        }
-    }
+        return inventoryBoxUI.GetIndexFreeSlot(item, slotType); 
+    } 
 }

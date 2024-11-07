@@ -46,17 +46,14 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         dataItem = newItem;
         itemAmount.text = dataItem.item.itemAmount.ToString();
         itemIcon.sprite = dataItem.IconItem;
-        itemIcon.enabled = true;
-        Debug.Log("SetItem -" + newItem.NameItem);
+        itemIcon.enabled = true; 
     }
     public virtual void CleareItem() // coll from InventorySlot
-    {
-        Debug.Log("CleareItem - " + dataItem.NameItem);
+    { 
         dataItem = null;
         itemIcon.sprite = null;
         itemIcon.enabled = false;
-        itemAmount.text = " ";
-        
+        itemAmount.text = " "; 
     }
     public virtual void OnBeginDrag(PointerEventData eventData)
     {   
@@ -88,22 +85,18 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         }
     } 
     private void Equipping(string slotType)
-    {
-        ItemScrObj oldItem = null;
-        bool successfully = true;
-
-        if(!equipmentController.equipmentItems.Contains(dataItem))
+    { 
+        short index = equipmentController.GetIndexFreeSlot(dataItem, slotType); 
+        short index2= inventoryBoxController.GetIndexFreeSlot(dataItem,slotType);
+        if (index != -1)
         {
-            successfully = equipmentController.UpdatePickItem(dataItem, out oldItem, slotType);
-        }
-        else 
-        {
-            successfully = inventoryBoxController.UpdatePickItem(dataItem, out oldItem, slotType);
-        }
-        if (successfully)
-        {
+            equipmentController.UpdatePickItem(dataItem, index, slotType);
             inventoryController.RemoveItemFromInventory(dataItem);
-            if (oldItem != null) inventoryController.AddItemToInventory(oldItem);
+        }
+        else if(index2 != -1)
+        {
+            inventoryBoxController.UpdatePickItem(dataItem, index2, slotType);
+            inventoryController.RemoveItemFromInventory(dataItem);
         } 
     }
 }

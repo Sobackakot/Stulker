@@ -10,5 +10,5 @@ public interface IInventoryUI
     void SetNewItemByInventoryCell(ItemScrObj item,short slot);
     void ResetItemByInventoryCell(short slot);
     void UpdateInventorySlots();
-    short GetIndexSlot(ItemScrObj item, string slotType);
+    short GetIndexFreeSlot(ItemScrObj item, string slotType);
 }

@@ -36,8 +36,7 @@ public class EquipmentController : IInventoryContoller, IInitializable, IDisposa
             { 
                 // update inventoryController equipmentSlots
                 equipmentItems[i] = newItem;
-                equipmentUI.SetNewItemByInventoryCell(newItem, i);
-                Debug.Log("equipControlle Add to itemsList - " + i + " = "+ newItem);
+                equipmentUI.SetNewItemByInventoryCell(newItem, i); 
                 return true;
             }
         }
@@ -50,8 +49,7 @@ public class EquipmentController : IInventoryContoller, IInitializable, IDisposa
             if (equipmentItems[i] == item)
             {
                 equipmentItems[i] = null;
-                equipmentUI.ResetItemByInventoryCell(i);// update inventoryController equipmentSlots
-                Debug.Log("equipControlle Remove from itemsList - " + i);
+                equipmentUI.ResetItemByInventoryCell(i);// update inventoryController equipmentSlots 
                 return;
             }
         }
@@ -83,29 +81,24 @@ public class EquipmentController : IInventoryContoller, IInitializable, IDisposa
             }
         }
     }
+    public void UpdatePickItem(ItemScrObj item, short index, string slotType)
+    {
+        if (slotType == "Slot" && item != null && item.itemType != EquipItems.None)
+        {
+            SwapItemFromInventory(item, index);
+        }
+        else if (slotType == "SlotBox" && item != null && item.itemType != EquipItems.None)
+        {
+            SwapItemFromInventory(item, index);
+        }
+    }
     public List<ItemScrObj> GetCurrentItems()
     {
         return equipmentItems;
     }
-    public bool UpdatePickItem(ItemScrObj item, out ItemScrObj oldItem, string slotType)
+     
+    public short GetIndexFreeSlot(ItemScrObj item, string slotType)
     {
-        if (slotType == "Slot" && item != null && item.itemType != EquipItems.None)
-        {
-            short index = equipmentUI.GetIndexSlot(item, slotType);
-            oldItem = SwapItemFromInventory(item, index);
-            return true;
-        }
-        else if(slotType == "SlotBox" && item != null && item.itemType != EquipItems.None)
-        {
-            short index = equipmentUI.GetIndexSlot(item, slotType);
-            oldItem = SwapItemFromInventory(item, index);
-            return true;
-        }
-        else
-        {
-            oldItem = null;
-            return false;
-        }
+        return equipmentUI.GetIndexFreeSlot(item, slotType); ;
     }
-
 }

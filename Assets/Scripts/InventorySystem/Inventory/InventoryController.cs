@@ -38,8 +38,7 @@ public class InventoryController: IInventoryContoller, IInitializable, IDisposab
             {
                 // update inventoryController equipmentSlots
                 itemsInventory[i] = newItem;
-                inventoryUI.SetNewItemByInventoryCell(newItem, i); 
-                Debug.Log("inventControlle Addto itemsList - " + i + " = " + newItem);
+                inventoryUI.SetNewItemByInventoryCell(newItem, i);  
                 return true;
             }
         } 
@@ -52,8 +51,7 @@ public class InventoryController: IInventoryContoller, IInitializable, IDisposab
             if (itemsInventory[i] == item)
             {
                 itemsInventory[i] = null;
-                inventoryUI.ResetItemByInventoryCell(i);// update inventoryController equipmentSlots 
-                Debug.Log("inventControlle Remove itemsList - " + i);
+                inventoryUI.ResetItemByInventoryCell(i);// update inventoryController equipmentSlots  
                 return;
             }
         }
@@ -86,31 +84,23 @@ public class InventoryController: IInventoryContoller, IInitializable, IDisposab
             }     
         }
     }
+    public void UpdatePickItem(ItemScrObj pickItem, short index, string slotType)
+    {
+        if (slotType == "EquipSlot" && pickItem != null && pickItem.itemType != EquipItems.None)
+        {
+            SwapItemFromInventory(pickItem, index);
+        }
+        else if (slotType == "SlotBox" && pickItem != null)
+        {
+            SwapItemFromInventory(pickItem, index);
+        }
+    }
     public List<ItemScrObj> GetCurrentItems() //get a list of items from a character's inventoryController
     {
         return  itemsInventory;
     }
-     
-    public bool UpdatePickItem(ItemScrObj pickItem, out ItemScrObj oldItem, string slotType)
+    public short GetIndexFreeSlot(ItemScrObj item, string slotType)
     {
-        if(slotType == "EquipSlot" && pickItem != null && pickItem.itemType != EquipItems.None)
-        {
-            short index = inventoryUI.GetIndexSlot(pickItem, slotType);
-            oldItem = SwapItemFromInventory(pickItem, index);
-            Debug.Log("drop from EquipSlot " + pickItem + " i- " + index);
-            return true;
-        } 
-        else if(slotType == "SlotBox" && pickItem != null)
-        {
-            short index = inventoryUI.GetIndexSlot(pickItem, slotType);
-            oldItem = SwapItemFromInventory(pickItem, index);
-            Debug.Log("drop from SlotBox " + pickItem.NameItem + " i = " + index);
-            return true;
-        }
-        else
-        {
-            oldItem = null;
-            return false;
-        }
-    }
+        return inventoryUI.GetIndexFreeSlot(item, slotType);
+    } 
 }

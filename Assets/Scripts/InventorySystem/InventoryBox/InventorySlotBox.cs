@@ -53,22 +53,22 @@ public class InventorySlotBox : InventorySlot
         if (dropSlot.gameObject.tag == "FastSlot") return false;
         if (dropSlot.gameObject.tag == "Slot" && pickItem.dataItem != null) return false;
         if(dropSlot.gameObject.tag == "EquipSlot" && pickItem.dataItem != null) return false;
-        if (UnEquip(dropItem, pickItem, dropSlot.gameObject.tag)) return false;
+        if (UnEquip(dropItem,dropSlot.gameObject.tag)) return false;
         else return true;
-    }
-    private bool UnEquip(ItemInSlot dropItem, ItemInSlot pickItem, string slotType)
+    } 
+    private bool UnEquip(ItemInSlot dropItem, string slotType)
     {
-        if (slotType == "EquipSlot" && pickItem.dataItem == null)
+        short index = inventoryBoxController.GetIndexFreeSlot(dropItem.dataItem, slotType);
+
+        if (slotType == "EquipSlot" && index != -1)
         {
-            inventoryBoxController.UpdatePickItem(dropItem.dataItem, out ItemScrObj oldItem, slotType);
-            Debug.Log("Drop end EquipSlot" + dropItem.dataItem.name);
+            inventoryBoxController.UpdatePickItem(dropItem.dataItem, index, slotType);
             equipmentController.RemoveItemFromInventory(dropItem.dataItem);
             return true;
         }
-        else if (slotType == "Slot" && pickItem.dataItem == null)
+        else if (slotType == "Slot" && index != -1)
         {
-            inventoryBoxController.UpdatePickItem(dropItem.dataItem, out ItemScrObj oldItem, slotType);
-            Debug.Log("Drop end Slot" + dropItem.dataItem.name);
+            inventoryBoxController.UpdatePickItem(dropItem.dataItem, index, slotType);
             inventoryController.RemoveItemFromInventory(dropItem.dataItem);
             return true;
         }
