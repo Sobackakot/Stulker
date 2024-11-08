@@ -33,7 +33,7 @@ public class EquipmentSlot : InventorySlot
     public override void OnDrop(PointerEventData eventData)
     {
         ItemInSlot droppedItem = eventData.pointerDrag.GetComponent<ItemInSlot>();
-        if ((short)equipFieldData?.fieldType != (short)droppedItem.dataItem?.itemType || droppedItem ==null) return; 
+        if (droppedItem.dataItem ==null || (short)equipFieldData?.fieldType != (short)droppedItem.dataItem?.itemType || droppedItem ==null) return; 
         if (!CheckDropItemType(droppedItem)) return;
         base.OnDrop(eventData);
     }

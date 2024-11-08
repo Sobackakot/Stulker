@@ -6,8 +6,7 @@ public class Interactable : MonoBehaviour
 {
     public readonly float radius = 3f; // Interaction radius.
     [SerializeField]private Transform player; // Reference to the player.
-    private Transform interact; // Reference to the interactable object's transform. 
-
+    private Transform interact; // Reference to the interactable object's transform.  
     private void Awake()
     {
         interact = GetComponent<Transform>(); 
