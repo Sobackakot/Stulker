@@ -1,11 +1,16 @@
- 
+
+using System;
 using UnityEngine;
 
 public class RaycastCamera : MonoBehaviour
 {
     private Transform point;
-    private float maxRayDistance = 6f;
+    private float maxRayDistance = 3f;
     public LayerMask layerMask;
+
+    public event Action<string> onShowNameItem;
+    public event Action onPickUpItem; 
+
     private void Awake()
     {
         point = GetComponent<Transform>();
@@ -19,10 +24,13 @@ public class RaycastCamera : MonoBehaviour
         Ray ray = new Ray(point.position, point.forward);
         RaycastHit hit;
         if(Physics.Raycast(ray, out hit, maxRayDistance, layerMask))
-        {    
+        {     
             Debug.Log(hit.collider.gameObject.name);
-            float distance = Vector3.Distance(point.position, hit.point);
-            Debug.DrawRay(point.position, point.forward * distance, Color.red, 3);
+            //onShowNameItem?.Invoke(hit.collider.gameObject.name);
+            //if(Input.GetMouseButtonDown(0))
+            //{
+            //    onPickUpItem?.Invoke();
+            //} 
         } 
     } 
 }

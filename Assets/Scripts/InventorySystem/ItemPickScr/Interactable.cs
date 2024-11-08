@@ -8,15 +8,6 @@ public class Interactable : MonoBehaviour
     [SerializeField]private Transform player; // Reference to the player.
     private Transform interact; // Reference to the interactable object's transform. 
 
-    // Draw the interaction radius in the editor.
-    private void OnDrawGizmosSelected()
-    {
-        if (interact == null)
-            interact = transform;
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, radius); 
-    }
-     
     private void Awake()
     {
         interact = GetComponent<Transform>(); 
