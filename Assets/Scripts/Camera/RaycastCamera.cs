@@ -1,6 +1,6 @@
-
-using System;
+ 
 using UnityEngine;
+using Zenject;
 
 public class RaycastCamera : MonoBehaviour
 {
@@ -8,29 +8,32 @@ public class RaycastCamera : MonoBehaviour
     private float maxRayDistance = 3f;
     public LayerMask layerMask;
 
-    public event Action<string> onShowNameItem;
-    public event Action onPickUpItem; 
-
+    private InputCamera input;
+    [Inject]
+    private void Container(InputCamera input)
+    {
+        this.input = input;
+    }
     private void Awake()
     {
         point = GetComponent<Transform>();
     }
-    private void Update()
+    private void OnEnable()
     {
-        UpdateRaycast();
+        input.onLeftMouseButton += OnLeftMouseButton;
     }
-    public void UpdateRaycast()
+    private void OnDisable()
+    {
+        input.onLeftMouseButton -= OnLeftMouseButton;
+    }
+    private void OnLeftMouseButton()
     {
         Ray ray = new Ray(point.position, point.forward);
         RaycastHit hit;
-        if(Physics.Raycast(ray, out hit, maxRayDistance, layerMask))
-        {     
-            Debug.Log(hit.collider.gameObject.name);
-            //onShowNameItem?.Invoke(hit.collider.gameObject.name);
-            //if(Input.GetMouseButtonDown(0))
-            //{
-            //    onPickUpItem?.Invoke();
-            //} 
-        } 
-    } 
+        if (Physics.Raycast(ray, out hit, maxRayDistance, layerMask))
+        {
+            Debug.Log(hit.collider.gameObject.name); 
+            hit.collider.transform.GetComponent<Interactable>().OnMouseDownCastom();
+        }
+    }
 }

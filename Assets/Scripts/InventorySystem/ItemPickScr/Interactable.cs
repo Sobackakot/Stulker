@@ -1,30 +1,18 @@
  
-using UnityEngine;
+using UnityEngine; 
 
 // Class representing an interactable object. 
-public class Interactable : MonoBehaviour
-{
-    public readonly float radius = 3f; // Interaction radius.
-    [SerializeField]private Transform player; // Reference to the player.
-    private Transform interact; // Reference to the interactable object's transform.  
-    private void Awake()
+public class Interactable : MonoBehaviour 
+{  
+    public void OnMouseDownCastom()
     {
-        interact = GetComponent<Transform>(); 
-    }
-     
-    private void OnMouseDown()
-    {
-        float distance = Vector3.Distance(player.position, interact.position); // Calculate the distance to the player.
-        if (distance < radius)
-        {
-            Interaction(); // Perform the interaction.
-        }
+        Interaction(); // Perform the interaction.
     }
 
     // Method to perform the interaction.
     public virtual void Interaction()
     {
         Debug.Log("Interactable");
-    }
+    } 
      
 }

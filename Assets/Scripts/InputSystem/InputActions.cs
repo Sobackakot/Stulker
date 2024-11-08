@@ -89,6 +89,24 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LeftMouseButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""8e57a7ed-f1eb-4a65-84f3-9803bffad5c1"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RightMouseButton"",
+                    ""type"": ""Button"",
+                    ""id"": ""5df17428-0295-4bcb-8c45-fe155a1afdfb"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -212,6 +230,28 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""InventoryKey"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""61e4eb51-3815-44e2-964b-5ec8eb76e5cf"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeftMouseButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0cad69f9-93e8-49ee-ac71-60021edf60fe"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightMouseButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -227,6 +267,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_ActionMaps_MouseScroll = m_ActionMaps.FindAction("MouseScroll", throwIfNotFound: true);
         m_ActionMaps_MouseMidle = m_ActionMaps.FindAction("MouseMidle", throwIfNotFound: true);
         m_ActionMaps_InventoryKey = m_ActionMaps.FindAction("InventoryKey", throwIfNotFound: true);
+        m_ActionMaps_LeftMouseButton = m_ActionMaps.FindAction("LeftMouseButton", throwIfNotFound: true);
+        m_ActionMaps_RightMouseButton = m_ActionMaps.FindAction("RightMouseButton", throwIfNotFound: true);
     }
 
     ~@InputActions()
@@ -300,6 +342,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_ActionMaps_MouseScroll;
     private readonly InputAction m_ActionMaps_MouseMidle;
     private readonly InputAction m_ActionMaps_InventoryKey;
+    private readonly InputAction m_ActionMaps_LeftMouseButton;
+    private readonly InputAction m_ActionMaps_RightMouseButton;
     public struct ActionMapsActions
     {
         private @InputActions m_Wrapper;
@@ -311,6 +355,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @MouseScroll => m_Wrapper.m_ActionMaps_MouseScroll;
         public InputAction @MouseMidle => m_Wrapper.m_ActionMaps_MouseMidle;
         public InputAction @InventoryKey => m_Wrapper.m_ActionMaps_InventoryKey;
+        public InputAction @LeftMouseButton => m_Wrapper.m_ActionMaps_LeftMouseButton;
+        public InputAction @RightMouseButton => m_Wrapper.m_ActionMaps_RightMouseButton;
         public InputActionMap Get() { return m_Wrapper.m_ActionMaps; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -341,6 +387,12 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @InventoryKey.started += instance.OnInventoryKey;
             @InventoryKey.performed += instance.OnInventoryKey;
             @InventoryKey.canceled += instance.OnInventoryKey;
+            @LeftMouseButton.started += instance.OnLeftMouseButton;
+            @LeftMouseButton.performed += instance.OnLeftMouseButton;
+            @LeftMouseButton.canceled += instance.OnLeftMouseButton;
+            @RightMouseButton.started += instance.OnRightMouseButton;
+            @RightMouseButton.performed += instance.OnRightMouseButton;
+            @RightMouseButton.canceled += instance.OnRightMouseButton;
         }
 
         private void UnregisterCallbacks(IActionMapsActions instance)
@@ -366,6 +418,12 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @InventoryKey.started -= instance.OnInventoryKey;
             @InventoryKey.performed -= instance.OnInventoryKey;
             @InventoryKey.canceled -= instance.OnInventoryKey;
+            @LeftMouseButton.started -= instance.OnLeftMouseButton;
+            @LeftMouseButton.performed -= instance.OnLeftMouseButton;
+            @LeftMouseButton.canceled -= instance.OnLeftMouseButton;
+            @RightMouseButton.started -= instance.OnRightMouseButton;
+            @RightMouseButton.performed -= instance.OnRightMouseButton;
+            @RightMouseButton.canceled -= instance.OnRightMouseButton;
         }
 
         public void RemoveCallbacks(IActionMapsActions instance)
@@ -392,5 +450,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnMouseScroll(InputAction.CallbackContext context);
         void OnMouseMidle(InputAction.CallbackContext context);
         void OnInventoryKey(InputAction.CallbackContext context);
+        void OnLeftMouseButton(InputAction.CallbackContext context);
+        void OnRightMouseButton(InputAction.CallbackContext context);
     }
 }

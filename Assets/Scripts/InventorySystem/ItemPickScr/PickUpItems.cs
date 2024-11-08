@@ -1,11 +1,11 @@
 
 using System;
-using UnityEngine;
+using UnityEngine; 
 using Zenject;
 
-public class PickUpItems : Interactable
+public class PickUpItems : Interactable 
 {   
-    [SerializeField] private ItemScrObj item;
+    [field : SerializeField] public ItemScrObj item {  get; private set; }
     private InventoryController inventory;
 
     [Inject]
@@ -28,6 +28,6 @@ public class PickUpItems : Interactable
                 Destroy(gameObject);
             }
         } 
-    }
+    } 
 }
       

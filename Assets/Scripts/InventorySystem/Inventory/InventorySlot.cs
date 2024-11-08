@@ -46,7 +46,8 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     public virtual bool CheckDropItemType(ItemInSlot dropItem, ItemInSlot pickItem)
     {   
         Transform dropSlot = dropItem.originalSlot; 
-        if(pickItem.dataItem != null || dropSlot.gameObject.tag == "FastSlot") return false;  
+        if(dropSlot.gameObject.tag == "FastSlot") return false;
+        if (dropSlot.gameObject.tag == "SlotBox" | dropSlot.gameObject.tag == "EquipSlot" && pickItem.dataItem != null) return false;
         if(UnEquip(dropItem,dropSlot.gameObject.tag)) return false; 
         else  return true; 
     }
