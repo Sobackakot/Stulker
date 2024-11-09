@@ -20,7 +20,7 @@ public class InventoryBoxController : IInventoryContoller, IInitializable, IDisp
     {
         inventoryBoxUI.onSetNewItem -= GetCurrentItems;
     }
-    public void GetBoxByInventory(InventoryBoxScrObj box) // coll from class CharacterSwitchSystem
+    public void SetBoxByInventory(InventoryBoxScrObj box) // coll from class CharacterSwitchSystem
     {
         inventoryBox = box.inventoryBox; // get pick Box for inventory
         inventoryBoxUI.UpdateInventorySlots();

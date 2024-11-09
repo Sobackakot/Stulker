@@ -10,6 +10,8 @@ public class InputCharacter : IInitializable, IDisposable
     public event Action<bool> onGetKeyDownJump;
     public event Action<bool> onGetKeyRun;
     public event Action<bool> onActiveInventory;
+    public event Action<bool> onActiveInventoryBox;
+    public event Action<bool> onExitInventory;
 
     private InputActions inputActions;
 
@@ -31,6 +33,8 @@ public class InputCharacter : IInitializable, IDisposable
         inputActions.ActionMaps.GetKeyRun.canceled += ctx => OnGetKeyRun(ctx);
 
         inputActions.ActionMaps.InventoryKey.performed += ctx => InventoryKey_performed(ctx);
+        inputActions.ActionMaps.InventoryBoxKey.performed += ctx => InventoryBoxKey_performed(ctx);
+        inputActions.ActionMaps.ExitInventoryKey.performed += ctx => ExitInventoryKey_performed(ctx);
 
     }
 
@@ -44,6 +48,22 @@ public class InputCharacter : IInitializable, IDisposable
         {
             isActiveInventory = !isActiveInventory;
             onActiveInventory?.Invoke(isActiveInventory); //Switcher  activate  inventoryController person
+        }
+    }
+    private void InventoryBoxKey_performed(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            isActiveInventory = !isActiveInventory;
+            onActiveInventoryBox?.Invoke(isActiveInventory);
+        }  
+    }
+    private void ExitInventoryKey_performed(InputAction.CallbackContext context)
+    {
+        if (context.performed && isActiveInventory)
+        {
+            isActiveInventory = false;
+            onExitInventory?.Invoke(isActiveInventory); 
         }
     }
     private void OnInputGetAxisMove(InputAction.CallbackContext context)

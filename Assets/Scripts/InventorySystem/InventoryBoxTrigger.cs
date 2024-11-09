@@ -27,23 +27,11 @@ public class InventoryBoxTrigger : MonoBehaviour
     {
         materialBox.color = Color.red;
     }
-    private void OnTriggerEnter(Collider other)
+    public void OnActiveInventoryBox(bool isActive)
     {
-        if(other.gameObject.tag == "Player")
-        {   
-            boxInventoryPanel.gameObject.SetActive(true);
-            playerInventoryPanel.gameObject.SetActive(true);
-            inventoryBoxController.GetBoxByInventory(inventoryBoxScrObj);
-            materialBox.color = Color.green;
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            boxInventoryPanel.gameObject.SetActive(false);
-            playerInventoryPanel.gameObject.SetActive(false);
-            materialBox.color = Color.red;
-        }
-    }
+        boxInventoryPanel.gameObject.SetActive(isActive);
+        playerInventoryPanel.gameObject.SetActive(isActive);
+        inventoryBoxController.SetBoxByInventory(inventoryBoxScrObj);
+        materialBox.color = Color.green;
+    } 
 }

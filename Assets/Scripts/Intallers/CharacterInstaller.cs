@@ -15,14 +15,15 @@ public class CharacterInstaller : ScriptableObjectInstaller
         BindCharacter();
         BindCamera();
         BindInventory();
+        Container.Bind<WindowUI>().FromComponentInHierarchy(this).AsSingle();
     }
 
     private void BindCamera()
     {
         Container.BindInterfacesAndSelfTo<CameraController>().AsSingle().NonLazy();
-        Container.BindInterfacesAndSelfTo<InputCamera>().AsSingle().NonLazy();
-         
+        Container.BindInterfacesAndSelfTo<InputCamera>().AsSingle().NonLazy(); 
         Container.Bind<CameraCharacter>().FromComponentInHierarchy(this).AsSingle();
+        Container.Bind<RaycastCamera>().FromComponentInHierarchy(this).AsSingle();
     }
 
     private void BindCharacter()

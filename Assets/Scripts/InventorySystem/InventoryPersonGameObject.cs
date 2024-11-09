@@ -1,10 +1,11 @@
+using System;
 using UnityEngine;
 using Zenject;
 
 public class InventoryPersonGameObject : MonoBehaviour
 { 
-    private InputCharacter input;
-    public bool isActivateInventoryPerson {  get; private set; } 
+    private InputCharacter input;  
+    public event Action<bool> onExitInventoryBox;
 
     [Inject]
     private void Container(InputCharacter input)
@@ -17,18 +18,27 @@ public class InventoryPersonGameObject : MonoBehaviour
     }
     private void OnEnable()
     {
-        input.onActiveInventory += OnActivate;
-    }
+        input.onActiveInventory += Input_OnActivateInventory;
+        input.onExitInventory += Input_OnExitInventory; 
+    } 
     private void OnDestroy()
     {
-        input.onActiveInventory -= OnActivate;
+        input.onActiveInventory -= Input_OnActivateInventory;
+        input.onExitInventory -= Input_OnExitInventory; 
     }
-    private void OnActivate(bool isActive)
+    private void Input_OnActivateInventory(bool isActive)
     {
-        isActivateInventoryPerson = isActive; 
+        gameObject.SetActive(isActive);
+        onExitInventoryBox?.Invoke(false);
     }
-    public void Activate()
-    { 
-        gameObject.SetActive(isActivateInventoryPerson); 
+    private void Input_OnExitInventory(bool isExit)
+    {
+        Debug.Log("ExitButton");
+        gameObject.SetActive(isExit);
+        onExitInventoryBox?.Invoke(isExit);
+    } 
+    public void SetActiveInventory(bool isActive)
+    {
+        gameObject.SetActive(isActive);
     }
 }

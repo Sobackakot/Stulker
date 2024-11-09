@@ -82,15 +82,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""InventoryKey"",
-                    ""type"": ""Button"",
-                    ""id"": ""51dbd497-9881-4753-904b-fc38e521c3a6"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""LeftMouseButton"",
                     ""type"": ""Button"",
                     ""id"": ""8e57a7ed-f1eb-4a65-84f3-9803bffad5c1"",
@@ -103,6 +94,33 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""name"": ""RightMouseButton"",
                     ""type"": ""Button"",
                     ""id"": ""5df17428-0295-4bcb-8c45-fe155a1afdfb"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""InventoryKey"",
+                    ""type"": ""Button"",
+                    ""id"": ""51dbd497-9881-4753-904b-fc38e521c3a6"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""InventoryBoxKey"",
+                    ""type"": ""Button"",
+                    ""id"": ""7f02134f-14c6-4ce5-86c0-d0f596ecef0e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ExitInventoryKey"",
+                    ""type"": ""Button"",
+                    ""id"": ""b54b886c-4dbe-4fe7-9297-9a0181ba723d"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -252,6 +270,28 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""RightMouseButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a3ae3ea1-ccd9-4f52-850c-4c4de7c1552f"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""InventoryBoxKey"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8a0c7b6c-aee8-40fc-bb03-48cbfe5aaa49"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ExitInventoryKey"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -266,9 +306,11 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_ActionMaps_MouseDelta = m_ActionMaps.FindAction("MouseDelta", throwIfNotFound: true);
         m_ActionMaps_MouseScroll = m_ActionMaps.FindAction("MouseScroll", throwIfNotFound: true);
         m_ActionMaps_MouseMidle = m_ActionMaps.FindAction("MouseMidle", throwIfNotFound: true);
-        m_ActionMaps_InventoryKey = m_ActionMaps.FindAction("InventoryKey", throwIfNotFound: true);
         m_ActionMaps_LeftMouseButton = m_ActionMaps.FindAction("LeftMouseButton", throwIfNotFound: true);
         m_ActionMaps_RightMouseButton = m_ActionMaps.FindAction("RightMouseButton", throwIfNotFound: true);
+        m_ActionMaps_InventoryKey = m_ActionMaps.FindAction("InventoryKey", throwIfNotFound: true);
+        m_ActionMaps_InventoryBoxKey = m_ActionMaps.FindAction("InventoryBoxKey", throwIfNotFound: true);
+        m_ActionMaps_ExitInventoryKey = m_ActionMaps.FindAction("ExitInventoryKey", throwIfNotFound: true);
     }
 
     ~@InputActions()
@@ -341,9 +383,11 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_ActionMaps_MouseDelta;
     private readonly InputAction m_ActionMaps_MouseScroll;
     private readonly InputAction m_ActionMaps_MouseMidle;
-    private readonly InputAction m_ActionMaps_InventoryKey;
     private readonly InputAction m_ActionMaps_LeftMouseButton;
     private readonly InputAction m_ActionMaps_RightMouseButton;
+    private readonly InputAction m_ActionMaps_InventoryKey;
+    private readonly InputAction m_ActionMaps_InventoryBoxKey;
+    private readonly InputAction m_ActionMaps_ExitInventoryKey;
     public struct ActionMapsActions
     {
         private @InputActions m_Wrapper;
@@ -354,9 +398,11 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @MouseDelta => m_Wrapper.m_ActionMaps_MouseDelta;
         public InputAction @MouseScroll => m_Wrapper.m_ActionMaps_MouseScroll;
         public InputAction @MouseMidle => m_Wrapper.m_ActionMaps_MouseMidle;
-        public InputAction @InventoryKey => m_Wrapper.m_ActionMaps_InventoryKey;
         public InputAction @LeftMouseButton => m_Wrapper.m_ActionMaps_LeftMouseButton;
         public InputAction @RightMouseButton => m_Wrapper.m_ActionMaps_RightMouseButton;
+        public InputAction @InventoryKey => m_Wrapper.m_ActionMaps_InventoryKey;
+        public InputAction @InventoryBoxKey => m_Wrapper.m_ActionMaps_InventoryBoxKey;
+        public InputAction @ExitInventoryKey => m_Wrapper.m_ActionMaps_ExitInventoryKey;
         public InputActionMap Get() { return m_Wrapper.m_ActionMaps; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -384,15 +430,21 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @MouseMidle.started += instance.OnMouseMidle;
             @MouseMidle.performed += instance.OnMouseMidle;
             @MouseMidle.canceled += instance.OnMouseMidle;
-            @InventoryKey.started += instance.OnInventoryKey;
-            @InventoryKey.performed += instance.OnInventoryKey;
-            @InventoryKey.canceled += instance.OnInventoryKey;
             @LeftMouseButton.started += instance.OnLeftMouseButton;
             @LeftMouseButton.performed += instance.OnLeftMouseButton;
             @LeftMouseButton.canceled += instance.OnLeftMouseButton;
             @RightMouseButton.started += instance.OnRightMouseButton;
             @RightMouseButton.performed += instance.OnRightMouseButton;
             @RightMouseButton.canceled += instance.OnRightMouseButton;
+            @InventoryKey.started += instance.OnInventoryKey;
+            @InventoryKey.performed += instance.OnInventoryKey;
+            @InventoryKey.canceled += instance.OnInventoryKey;
+            @InventoryBoxKey.started += instance.OnInventoryBoxKey;
+            @InventoryBoxKey.performed += instance.OnInventoryBoxKey;
+            @InventoryBoxKey.canceled += instance.OnInventoryBoxKey;
+            @ExitInventoryKey.started += instance.OnExitInventoryKey;
+            @ExitInventoryKey.performed += instance.OnExitInventoryKey;
+            @ExitInventoryKey.canceled += instance.OnExitInventoryKey;
         }
 
         private void UnregisterCallbacks(IActionMapsActions instance)
@@ -415,15 +467,21 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @MouseMidle.started -= instance.OnMouseMidle;
             @MouseMidle.performed -= instance.OnMouseMidle;
             @MouseMidle.canceled -= instance.OnMouseMidle;
-            @InventoryKey.started -= instance.OnInventoryKey;
-            @InventoryKey.performed -= instance.OnInventoryKey;
-            @InventoryKey.canceled -= instance.OnInventoryKey;
             @LeftMouseButton.started -= instance.OnLeftMouseButton;
             @LeftMouseButton.performed -= instance.OnLeftMouseButton;
             @LeftMouseButton.canceled -= instance.OnLeftMouseButton;
             @RightMouseButton.started -= instance.OnRightMouseButton;
             @RightMouseButton.performed -= instance.OnRightMouseButton;
             @RightMouseButton.canceled -= instance.OnRightMouseButton;
+            @InventoryKey.started -= instance.OnInventoryKey;
+            @InventoryKey.performed -= instance.OnInventoryKey;
+            @InventoryKey.canceled -= instance.OnInventoryKey;
+            @InventoryBoxKey.started -= instance.OnInventoryBoxKey;
+            @InventoryBoxKey.performed -= instance.OnInventoryBoxKey;
+            @InventoryBoxKey.canceled -= instance.OnInventoryBoxKey;
+            @ExitInventoryKey.started -= instance.OnExitInventoryKey;
+            @ExitInventoryKey.performed -= instance.OnExitInventoryKey;
+            @ExitInventoryKey.canceled -= instance.OnExitInventoryKey;
         }
 
         public void RemoveCallbacks(IActionMapsActions instance)
@@ -449,8 +507,10 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnMouseDelta(InputAction.CallbackContext context);
         void OnMouseScroll(InputAction.CallbackContext context);
         void OnMouseMidle(InputAction.CallbackContext context);
-        void OnInventoryKey(InputAction.CallbackContext context);
         void OnLeftMouseButton(InputAction.CallbackContext context);
         void OnRightMouseButton(InputAction.CallbackContext context);
+        void OnInventoryKey(InputAction.CallbackContext context);
+        void OnInventoryBoxKey(InputAction.CallbackContext context);
+        void OnExitInventoryKey(InputAction.CallbackContext context);
     }
 }
