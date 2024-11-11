@@ -3,8 +3,10 @@ using UnityEngine;
 
 public class CharacterMove : MonoBehaviour
 {
-    [SerializeField] private float speedRun = 6f;
-    [SerializeField] private float speedWalk = 2.5f;
+    [SerializeField] private float speedRunForward = 6f;
+    [SerializeField] private float speedRunBack = 4.2f;
+    [SerializeField] private float speedWalkForward = 2.5f;
+    [SerializeField] private float speedWalkBack = 1.8f;
 
     [SerializeField] private float jumpForce = 3f;
     [SerializeField] private string OnCollisionTag ="Parkour";
@@ -28,19 +30,28 @@ public class CharacterMove : MonoBehaviour
     } 
     public void UpdateDirectionMove()
     {
-        Vector3 cameraZ = Vector3.ProjectOnPlane(cameraCharacter.transform.forward, Vector3.up);
-        Vector3 cameraX = Vector3.ProjectOnPlane(cameraCharacter.transform.right, Vector3.up);  
-        newDirection = (inputAxis.z * cameraZ) + (inputAxis.x * cameraX);
+        
     }
     public void Moving()
     {
-        if (newDirection.sqrMagnitude > 0.2f && inputAxis.z > 0)
-        {
-            Quaternion direction = Quaternion.LookRotation(newDirection, Vector3.up);
-            transformCharacter.rotation = Quaternion.Lerp(transformCharacter.rotation, direction, speedMove * Time.deltaTime);
-        }
-        rbCharacter.MovePosition(rbCharacter.position + newDirection * speedMove * Time.deltaTime);
-
+        Vector3 cameraZ = Vector3.ProjectOnPlane(cameraCharacter.transform.forward, Vector3.up);
+        Vector3 cameraX = Vector3.ProjectOnPlane(cameraCharacter.transform.right, Vector3.up);
+        newDirection = (inputAxis.z * cameraZ) + (inputAxis.x * cameraX);
+        if (newDirection.sqrMagnitude > 0.2f)
+        { 
+            if(inputAxis.z <0)
+            { 
+                Quaternion direction = Quaternion.LookRotation(cameraZ, Vector3.up);
+                transformCharacter.rotation = Quaternion.Lerp(transformCharacter.rotation, direction, speedMove * Time.deltaTime);
+                rbCharacter.MovePosition(rbCharacter.position - cameraZ * speedMove * Time.deltaTime);
+            }
+            else
+            {
+                Quaternion direction = Quaternion.LookRotation(newDirection, Vector3.up);
+                transformCharacter.rotation = Quaternion.Lerp(transformCharacter.rotation, direction, speedMove * Time.deltaTime);
+                rbCharacter.MovePosition(rbCharacter.position + newDirection * speedMove * Time.deltaTime);
+            }
+        } 
     }
      
     public void Jumping()
@@ -51,8 +62,15 @@ public class CharacterMove : MonoBehaviour
         }
     } 
     public void SwitchMove()
-    {
-         speedMove = isRunning ? speedRun : speedWalk;
+    {   
+        if(inputAxis.z < 0)
+        {
+            speedMove = isRunning ? speedRunBack : speedWalkBack;
+        }
+        else
+        {
+            speedMove = isRunning ? speedRunForward : speedWalkForward; 
+        } 
     }
 
     public void GetAxisMove(Vector2 axis)
