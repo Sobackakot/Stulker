@@ -32,8 +32,7 @@ public class InventoryPersonGameObject : MonoBehaviour
         onExitInventoryBox?.Invoke(false);
     }
     private void Input_OnExitInventory(bool isExit)
-    {
-        Debug.Log("ExitButton");
+    { 
         gameObject.SetActive(isExit);
         onExitInventoryBox?.Invoke(isExit);
     } 

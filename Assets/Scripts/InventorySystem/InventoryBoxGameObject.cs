@@ -29,7 +29,6 @@ public class InventoryBoxGameObject : MonoBehaviour
     }
     private void InventoryPerson_OnExitInventoryBox(bool isExit)
     {
-        gameObject.SetActive(isExit);
-        Debug.Log("ExitBox");
+        gameObject.SetActive(isExit); 
     }
 }

@@ -33,13 +33,14 @@ public class CharacterMove : MonoBehaviour
         newDirection = (inputAxis.z * cameraZ) + (inputAxis.x * cameraX);
     }
     public void Moving()
-    {   
-        if(newDirection.sqrMagnitude > 0.2f)
+    {
+        if (newDirection.sqrMagnitude > 0.2f && inputAxis.z > 0)
         {
             Quaternion direction = Quaternion.LookRotation(newDirection, Vector3.up);
             transformCharacter.rotation = Quaternion.Lerp(transformCharacter.rotation, direction, speedMove * Time.deltaTime);
-        } 
-        rbCharacter.MovePosition(rbCharacter.position + newDirection * speedMove * Time.deltaTime); 
+        }
+        rbCharacter.MovePosition(rbCharacter.position + newDirection * speedMove * Time.deltaTime);
+
     }
      
     public void Jumping()

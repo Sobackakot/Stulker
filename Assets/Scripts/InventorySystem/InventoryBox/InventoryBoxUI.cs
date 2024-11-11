@@ -16,6 +16,14 @@ public class InventoryBoxUI : MonoBehaviour, IInventoryUI
         itemsInSlotsBox.AddRange(GetComponentsInChildren<ItemInSlotBox>(false));
         inventorySlotsBox.AddRange(GetComponentsInChildren<InventorySlotBox>(false));
     }
+    private void OnEnable()
+    {
+        Cursor.lockState = CursorLockMode.None;
+    }
+    private void OnDisable()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
     private void Start()
     {
         for (short i = 0; i < inventorySlotsBox.Count; i++)

@@ -12,7 +12,7 @@ public class InputCamera : IInitializable, IDisposable
     public event Action onLeftMouseButton;
      
     private InputActions inputActions;
-
+    private bool isPressed;
     public void Initialize()
     {
         inputActions = new InputActions();
@@ -20,10 +20,10 @@ public class InputCamera : IInitializable, IDisposable
         inputActions.ActionMaps.MouseDelta.performed += ctx => MouseInputAxis(ctx);
 
         inputActions.ActionMaps.LeftMouseButton.performed += ctx => LeftMouseButton_performed(ctx);
-        inputActions.ActionMaps.RightMouseButton.performed += ctx => RightMouseButton_performed(ctx); 
-        //inputActions.ActionMaps.MouseScroll.performed += ctx => MouseScrollZoom(ctx);
-        //inputActions.ActionMaps.MouseMidle.performed += ctx => isPressed = true;
-        //inputActions.ActionMaps.MouseMidle.canceled += ctx => isPressed = false;
+        inputActions.ActionMaps.RightMouseButton.performed += ctx => RightMouseButton_performed(ctx);
+        inputActions.ActionMaps.MouseScroll.performed += ctx => MouseScrollZoom(ctx);
+        inputActions.ActionMaps.MouseMidle.performed += ctx => isPressed = true;
+        inputActions.ActionMaps.MouseMidle.canceled += ctx => isPressed = false;
         Cursor.lockState = CursorLockMode.Locked;
     } 
     public void Dispose()

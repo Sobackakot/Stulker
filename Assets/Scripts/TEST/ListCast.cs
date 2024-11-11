@@ -17,10 +17,6 @@ public class ListCast : MonoBehaviour
         }
         
     }
-    private void Update()
-    {
-        ShowCells();
-    }
     private void ShowCells()
     {
         for(short i =0; i< cells.Count; i++)
@@ -37,10 +33,12 @@ public class ListCast : MonoBehaviour
     }
     public void AddItem(ItemDataCast item, short index)
     {
-        itemData[index] = item; 
+        itemData[index] = item;
+        ShowCells();
     }
     public void RemoveItem(short index)
     {
         itemData[index] = null;
+        ShowCells();
     }  
 }

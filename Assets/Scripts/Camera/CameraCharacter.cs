@@ -17,7 +17,7 @@ public class CameraCharacter : MonoBehaviour
 
     private float minAngle = -65f;
     private float maxAngle = 65f;
-    private float minZoom = 2f;
+    private float minZoom = 1.5f;
     private float maxZoom = 15f;
 
     public bool isRotateCamera {  get; private set; }
