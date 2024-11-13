@@ -20,8 +20,9 @@ public class CharacterMove : MonoBehaviour
     private Vector3 newDirection;
     public float speedMove { get; private set; }
     public bool isJumping { get; private set; }
-    public bool isRunning { get; private set; }
+    public bool isRunningSprint { get; private set; }
     public bool isWalking { get; private set; }
+    public bool isDiagonal {  get; private set; }
     public bool isCollision { get; private set; }
 
     private void Awake()
@@ -64,31 +65,35 @@ public class CharacterMove : MonoBehaviour
         }
         else if (inputAxis.z > 0) 
         {   
-            speedMove = isWalking ? speedWalkForward : (isRunning ? speedSprint : speedRunForward); 
+            speedMove = isWalking ? speedWalkForward : (isRunningSprint ? speedSprint : speedRunForward); 
         }
         else
         {
             speedMove = isWalking ? speedWalkForward : speedRunForward;
         }
     }
-
-    public void GetAxisMove(Vector2 axis)
+    public void CheckDiagonalMovement()
     {
-        inputAxis = new Vector3(axis.x, 0, axis.y);
+        isDiagonal = Mathf.Abs(inputAxis.x) > 0.1f && Mathf.Abs(inputAxis.z) > 0.1f;
     }
-    public void GetKeyDownJump(bool isKeyDown)
+    public void InputCharacter_OnAxisMove(Vector2 axis)
+    {
+        inputAxis = new Vector3(axis.x, 0, axis.y); 
+    }
+    public void InputCharacter_OnKeyDownJump(bool isKeyDown)
     {
         isJumping = isKeyDown;
     }
-    public void GetKeyRun(bool isKeyRun)
+    public void InputCharacter_OnKeyRun(bool isKeyRun)
     {
-        isRunning = isKeyRun;
+        isRunningSprint = isKeyRun;
     }
      
-    public void GetKeyWalk(bool isKeyWalk)
+    public void InputCharacter_OnKeyWalk(bool isKeyWalk)
     {
         isWalking = isKeyWalk;  
-    }
+    } 
+    
     private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.tag == OnCollisionTag)

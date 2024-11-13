@@ -37,7 +37,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""GetKeyDownJump"",
+                    ""name"": ""InputCharacter_OnKeyDownJump"",
                     ""type"": ""Button"",
                     ""id"": ""a848dc71-4e52-4ae5-99f7-1e626a17f6d8"",
                     ""expectedControlType"": ""Button"",
@@ -46,7 +46,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""GetKeyRun"",
+                    ""name"": ""InputCharacter_OnKeyRun"",
                     ""type"": ""Button"",
                     ""id"": ""dcefffe8-6633-42cb-8cce-49982b8d5bc2"",
                     ""expectedControlType"": """",
@@ -55,7 +55,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""GetKeyWalk"",
+                    ""name"": ""InputCharacter_OnKeyWalk"",
                     ""type"": ""Button"",
                     ""id"": ""db6f0ca7-2958-48cc-bcc0-a8067037ae14"",
                     ""expectedControlType"": """",
@@ -199,7 +199,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""GetKeyDownJump"",
+                    ""action"": ""InputCharacter_OnKeyDownJump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -210,7 +210,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""GetKeyRun"",
+                    ""action"": ""InputCharacter_OnKeyRun"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -221,7 +221,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""GetKeyWalk"",
+                    ""action"": ""InputCharacter_OnKeyWalk"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -321,9 +321,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         // ActionMaps
         m_ActionMaps = asset.FindActionMap("ActionMaps", throwIfNotFound: true);
         m_ActionMaps_GetAxisDirectionMove = m_ActionMaps.FindAction("GetAxisDirectionMove", throwIfNotFound: true);
-        m_ActionMaps_GetKeyDownJump = m_ActionMaps.FindAction("GetKeyDownJump", throwIfNotFound: true);
-        m_ActionMaps_GetKeyRun = m_ActionMaps.FindAction("GetKeyRun", throwIfNotFound: true);
-        m_ActionMaps_GetKeyWalk = m_ActionMaps.FindAction("GetKeyWalk", throwIfNotFound: true);
+        m_ActionMaps_GetKeyDownJump = m_ActionMaps.FindAction("InputCharacter_OnKeyDownJump", throwIfNotFound: true);
+        m_ActionMaps_GetKeyRun = m_ActionMaps.FindAction("InputCharacter_OnKeyRun", throwIfNotFound: true);
+        m_ActionMaps_GetKeyWalk = m_ActionMaps.FindAction("InputCharacter_OnKeyWalk", throwIfNotFound: true);
         m_ActionMaps_MouseDelta = m_ActionMaps.FindAction("MouseDelta", throwIfNotFound: true);
         m_ActionMaps_MouseScroll = m_ActionMaps.FindAction("MouseScroll", throwIfNotFound: true);
         m_ActionMaps_MouseMidle = m_ActionMaps.FindAction("MouseMidle", throwIfNotFound: true);

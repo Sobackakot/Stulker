@@ -24,18 +24,18 @@ public class MoveController : IInitializable, IDisposable, ITickable, IFixedTick
     private bool isStateParcure;
     public void Initialize()
     { 
-        inputCharacter.onInputGetAxis += character.GetAxisMove;
-        inputCharacter.onGetKeyDownJump += character.GetKeyDownJump;
-        inputCharacter.onGetKeyRun += character.GetKeyRun;
-        inputCharacter.onGetKeyWalk += character.GetKeyWalk;
+        inputCharacter.onInputGetAxis += character.InputCharacter_OnAxisMove;
+        inputCharacter.onGetKeyDownJump += character.InputCharacter_OnKeyDownJump;
+        inputCharacter.onGetKeyRun += character.InputCharacter_OnKeyRun;
+        inputCharacter.onGetKeyWalk += character.InputCharacter_OnKeyWalk;
     }
 
     public void Dispose()
     { 
-        inputCharacter.onInputGetAxis -= character.GetAxisMove;
-        inputCharacter.onGetKeyDownJump -= character.GetKeyDownJump;
-        inputCharacter.onGetKeyRun -= character.GetKeyRun;
-        inputCharacter.onGetKeyWalk -= character.GetKeyWalk;
+        inputCharacter.onInputGetAxis -= character.InputCharacter_OnAxisMove;
+        inputCharacter.onGetKeyDownJump -= character.InputCharacter_OnKeyDownJump;
+        inputCharacter.onGetKeyRun -= character.InputCharacter_OnKeyRun;
+        inputCharacter.onGetKeyWalk -= character.InputCharacter_OnKeyWalk;
     }
 
     public void Tick()
@@ -43,11 +43,13 @@ public class MoveController : IInitializable, IDisposable, ITickable, IFixedTick
         components.SetAnimatorMatchTarget();
         isMoving = components.UpdateStateComponetn();
         isStateParcure = characterParkour.isParcourUp;
+        character.CheckDiagonalMovement();
 
         if (character.isCollision && !isStateParcure)
             characterAnimator.JumpAnimation(character.isJumping);
         characterAnimator.MovAnimation(character.inputAxis);
-        characterAnimator.SwithAnimation(character.isRunning, character.isWalking, character.inputAxis);
+        characterAnimator.DiagonalMoveAnimation(character.isDiagonal,character.isRunningSprint);
+        characterAnimator.SwithAnimation(character.isRunningSprint, character.isWalking, character.inputAxis);
         if (character.isJumping)
         { 
             characterAnimator.ParkourUp(isStateParcure);
