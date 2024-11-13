@@ -49,7 +49,16 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""name"": ""GetKeyRun"",
                     ""type"": ""Button"",
                     ""id"": ""dcefffe8-6633-42cb-8cce-49982b8d5bc2"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""GetKeyWalk"",
+                    ""type"": ""Button"",
+                    ""id"": ""db6f0ca7-2958-48cc-bcc0-a8067037ae14"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -207,6 +216,17 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""d4f9ffff-3f60-4a1d-bb68-99b047b290f8"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GetKeyWalk"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""904195e2-837f-4f12-a921-868fff9ea711"",
                     ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
@@ -303,6 +323,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_ActionMaps_GetAxisDirectionMove = m_ActionMaps.FindAction("GetAxisDirectionMove", throwIfNotFound: true);
         m_ActionMaps_GetKeyDownJump = m_ActionMaps.FindAction("GetKeyDownJump", throwIfNotFound: true);
         m_ActionMaps_GetKeyRun = m_ActionMaps.FindAction("GetKeyRun", throwIfNotFound: true);
+        m_ActionMaps_GetKeyWalk = m_ActionMaps.FindAction("GetKeyWalk", throwIfNotFound: true);
         m_ActionMaps_MouseDelta = m_ActionMaps.FindAction("MouseDelta", throwIfNotFound: true);
         m_ActionMaps_MouseScroll = m_ActionMaps.FindAction("MouseScroll", throwIfNotFound: true);
         m_ActionMaps_MouseMidle = m_ActionMaps.FindAction("MouseMidle", throwIfNotFound: true);
@@ -380,6 +401,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_ActionMaps_GetAxisDirectionMove;
     private readonly InputAction m_ActionMaps_GetKeyDownJump;
     private readonly InputAction m_ActionMaps_GetKeyRun;
+    private readonly InputAction m_ActionMaps_GetKeyWalk;
     private readonly InputAction m_ActionMaps_MouseDelta;
     private readonly InputAction m_ActionMaps_MouseScroll;
     private readonly InputAction m_ActionMaps_MouseMidle;
@@ -395,6 +417,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @GetAxisDirectionMove => m_Wrapper.m_ActionMaps_GetAxisDirectionMove;
         public InputAction @GetKeyDownJump => m_Wrapper.m_ActionMaps_GetKeyDownJump;
         public InputAction @GetKeyRun => m_Wrapper.m_ActionMaps_GetKeyRun;
+        public InputAction @GetKeyWalk => m_Wrapper.m_ActionMaps_GetKeyWalk;
         public InputAction @MouseDelta => m_Wrapper.m_ActionMaps_MouseDelta;
         public InputAction @MouseScroll => m_Wrapper.m_ActionMaps_MouseScroll;
         public InputAction @MouseMidle => m_Wrapper.m_ActionMaps_MouseMidle;
@@ -421,6 +444,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @GetKeyRun.started += instance.OnGetKeyRun;
             @GetKeyRun.performed += instance.OnGetKeyRun;
             @GetKeyRun.canceled += instance.OnGetKeyRun;
+            @GetKeyWalk.started += instance.OnGetKeyWalk;
+            @GetKeyWalk.performed += instance.OnGetKeyWalk;
+            @GetKeyWalk.canceled += instance.OnGetKeyWalk;
             @MouseDelta.started += instance.OnMouseDelta;
             @MouseDelta.performed += instance.OnMouseDelta;
             @MouseDelta.canceled += instance.OnMouseDelta;
@@ -458,6 +484,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @GetKeyRun.started -= instance.OnGetKeyRun;
             @GetKeyRun.performed -= instance.OnGetKeyRun;
             @GetKeyRun.canceled -= instance.OnGetKeyRun;
+            @GetKeyWalk.started -= instance.OnGetKeyWalk;
+            @GetKeyWalk.performed -= instance.OnGetKeyWalk;
+            @GetKeyWalk.canceled -= instance.OnGetKeyWalk;
             @MouseDelta.started -= instance.OnMouseDelta;
             @MouseDelta.performed -= instance.OnMouseDelta;
             @MouseDelta.canceled -= instance.OnMouseDelta;
@@ -504,6 +533,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnGetAxisDirectionMove(InputAction.CallbackContext context);
         void OnGetKeyDownJump(InputAction.CallbackContext context);
         void OnGetKeyRun(InputAction.CallbackContext context);
+        void OnGetKeyWalk(InputAction.CallbackContext context);
         void OnMouseDelta(InputAction.CallbackContext context);
         void OnMouseScroll(InputAction.CallbackContext context);
         void OnMouseMidle(InputAction.CallbackContext context);

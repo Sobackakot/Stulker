@@ -36,7 +36,7 @@ public class InputCamera : IInitializable, IDisposable
         if (context.performed)
             onInputAxis?.Invoke(context.ReadValue<Vector2>());
         else
-            onInputAxis?.Invoke(Vector2.zero);
+            onInputAxis?.Invoke(Vector2.zero); 
     }
     
     private void LeftMouseButton_performed(InputAction.CallbackContext context)
@@ -55,6 +55,6 @@ public class InputCamera : IInitializable, IDisposable
         if (context.performed)
             onScrollZoom?.Invoke(context.ReadValue<Vector2>());
         else
-            onScrollZoom?.Invoke(Vector2.zero);
+            onScrollZoom?.Invoke(Vector2.zero); 
     }
 }

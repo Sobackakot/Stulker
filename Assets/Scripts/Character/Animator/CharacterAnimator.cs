@@ -7,7 +7,8 @@ public class CharacterAnimator : MonoBehaviour
     private Animator animatorCharacter;  
 
     [SerializeField] private float speedWalkAnimation = 0.5f;
-    [SerializeField] private float speedRunAnimation = 1f;
+    [SerializeField] private float speedRunAnimation = 0.8f;
+    [SerializeField] private float speedSprint = 1f;
     private float speedAnimation;
      
     private void Awake()
@@ -28,9 +29,16 @@ public class CharacterAnimator : MonoBehaviour
         } 
     }
  
-    public void SwithAnimation(bool isRanning)
-    {
-        speedAnimation = isRanning ? speedRunAnimation: speedWalkAnimation;
+    public void SwithAnimation(bool isRanning, bool isWalking, Vector3 inputAxis)
+    {  
+        if (inputAxis.z > 0)
+        {
+            speedAnimation = isWalking ? speedWalkAnimation : (isRanning ? speedSprint : speedRunAnimation);
+        }
+        else
+        {
+            speedAnimation = isWalking ? speedWalkAnimation :  speedRunAnimation;
+        }  
     }
     public void JumpAnimation(bool isJumping)
     {

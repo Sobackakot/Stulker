@@ -1152,14 +1152,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.972549}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.68235296}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4f321911c88484d4db91c75f4b0c6cb8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7346e3ddf93c5b94ca551ee66900f46a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1976,12 +1976,12 @@ PrefabInstance:
     - target: {fileID: 807297069598727646, guid: 8b76a29402ae8b64fb01b52dd633429a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 70.8
+      value: 69.67
       objectReference: {fileID: 0}
     - target: {fileID: 807297069598727646, guid: 8b76a29402ae8b64fb01b52dd633429a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.338
+      value: 9.08
       objectReference: {fileID: 0}
     - target: {fileID: 807297069598727646, guid: 8b76a29402ae8b64fb01b52dd633429a,
         type: 3}
@@ -2023,10 +2023,40 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3404920656544900090, guid: 8b76a29402ae8b64fb01b52dd633429a,
+        type: 3}
+      propertyPath: speedRunBack
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3404920656544900090, guid: 8b76a29402ae8b64fb01b52dd633429a,
+        type: 3}
+      propertyPath: speedWalkBack
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3404920656544900090, guid: 8b76a29402ae8b64fb01b52dd633429a,
+        type: 3}
+      propertyPath: speedRunForward
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3404920656544900090, guid: 8b76a29402ae8b64fb01b52dd633429a,
+        type: 3}
+      propertyPath: speedWalkForward
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3916529714040345858, guid: 8b76a29402ae8b64fb01b52dd633429a,
         type: 3}
       propertyPath: m_Name
       value: Person_#
+      objectReference: {fileID: 0}
+    - target: {fileID: 6333863309812297751, guid: 8b76a29402ae8b64fb01b52dd633429a,
+        type: 3}
+      propertyPath: speedRunAnimation
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7005180534826986712, guid: 8b76a29402ae8b64fb01b52dd633429a,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 112
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2265,7 +2295,6 @@ GameObject:
   - component: {fileID: 1823688465}
   - component: {fileID: 1823688468}
   - component: {fileID: 1823688469}
-  - component: {fileID: 1823688470}
   m_Layer: 0
   m_Name: CameraPerson
   m_TagString: MainCamera
@@ -2312,11 +2341,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
+  near clip plane: 0.1
+  far clip plane: 5000
+  field of view: 60.000004
   orthographic: 0
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2340,8 +2369,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1823688464}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.13903834, y: 0.012176303, z: -0.0017101081, w: -0.9902107}
-  m_LocalPosition: {x: 71.44318, y: 10.477534, z: 71.72868}
+  m_LocalRotation: {x: 0.22975297, y: 1.80463e-40, z: -4.2602e-41, w: 0.973249}
+  m_LocalPosition: {x: 70.271, y: 10.707, z: 71.837}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2491,24 +2520,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transformCharacter: {fileID: 1678273401}
   transformCamera: {fileID: 0}
-  sensitivityMouse: 6
+  sensitivityMouse: 9
   scrollSpeed: 3
---- !u!114 &1823688470
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1823688464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c49b4cc203aa6414fae5c798d1d0e7d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EventMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_MaxRayIntersections: 0
 --- !u!1001 &1895455266
 PrefabInstance:
   m_ObjectHideFlags: 0

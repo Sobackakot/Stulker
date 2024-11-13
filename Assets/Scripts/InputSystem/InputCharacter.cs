@@ -9,6 +9,7 @@ public class InputCharacter : IInitializable, IDisposable
     public event Action<Vector2> onInputGetAxis;//This Event for  calss RaycastPointFollow  
     public event Action<bool> onGetKeyDownJump;
     public event Action<bool> onGetKeyRun;
+    public event Action<bool> onGetKeyWalk;
     public event Action<bool> onActiveInventory;
     public event Action<bool> onActiveInventoryBox;
     public event Action<bool> onExitInventory;
@@ -17,6 +18,7 @@ public class InputCharacter : IInitializable, IDisposable
 
     private bool isPressedKeyJump;
     private bool isPressedKeyRun;
+    private bool isPressedKeyWalk;
     private bool isActiveInventory;
     public void Initialize()
     { 
@@ -31,6 +33,9 @@ public class InputCharacter : IInitializable, IDisposable
 
         inputActions.ActionMaps.GetKeyRun.performed += ctx => OnGetKeyRun(ctx); 
         inputActions.ActionMaps.GetKeyRun.canceled += ctx => OnGetKeyRun(ctx);
+
+        inputActions.ActionMaps.GetKeyWalk.performed += ctx => OnGetKeyWalk(ctx);
+        inputActions.ActionMaps.GetKeyWalk.canceled += ctx => OnGetKeyWalk(ctx);
 
         inputActions.ActionMaps.InventoryKey.performed += ctx => InventoryKey_performed(ctx);
         inputActions.ActionMaps.InventoryBoxKey.performed += ctx => InventoryBoxKey_performed(ctx);
@@ -84,6 +89,11 @@ public class InputCharacter : IInitializable, IDisposable
     {   
         isPressedKeyRun = context.performed;
         onGetKeyRun?.Invoke(isPressedKeyRun);
+    }
+    private void OnGetKeyWalk(InputAction.CallbackContext context)
+    {
+        isPressedKeyWalk = context.performed;
+        onGetKeyWalk?.Invoke(isPressedKeyWalk);
     }
 
 }
