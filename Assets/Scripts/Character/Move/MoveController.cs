@@ -43,12 +43,10 @@ public class MoveController : IInitializable, IDisposable, ITickable, IFixedTick
         components.SetAnimatorMatchTarget();
         isMoving = components.UpdateStateComponetn();
         isStateParcure = characterParkour.isParcourUp;
-        character.CheckDiagonalMovement();
 
         if (character.isCollision && !isStateParcure)
             characterAnimator.JumpAnimation(character.isJumping);
         characterAnimator.MovAnimation(character.inputAxis);
-        characterAnimator.DiagonalMoveAnimation(character.isDiagonal,character.isRunningSprint);
         characterAnimator.SwithAnimation(character.isRunningSprint, character.isWalking, character.inputAxis);
         if (character.isJumping)
         { 
@@ -62,8 +60,7 @@ public class MoveController : IInitializable, IDisposable, ITickable, IFixedTick
         {
             character.Jumping();
             character.Moving();
-        }
-            
+        }  
     }
 
     public void LateTick()

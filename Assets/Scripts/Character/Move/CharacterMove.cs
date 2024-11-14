@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class CharacterMove : MonoBehaviour
 {
-    [SerializeField] private float speedSprint = 6.5f;
-    [SerializeField] private float speedRunForward = 4f;
-    [SerializeField] private float speedRunBack = 3f;
-    [SerializeField] private float speedWalkForward = 2f;
-    [SerializeField] private float speedWalkBack = 1.5f;
+    [SerializeField] private float speedSprint = 5f;
+    [SerializeField] private float speedRunForward = 3f;
+    [SerializeField] private float speedRunBack = 2f;
+    [SerializeField] private float speedWalkForward = 1.5f;
+    [SerializeField] private float speedWalkBack = 1f;
 
     [SerializeField] private float jumpForce = 3f;
     [SerializeField] private string OnCollisionTag ="Parkour";
@@ -71,10 +71,6 @@ public class CharacterMove : MonoBehaviour
         {
             speedMove = isWalking ? speedWalkForward : speedRunForward;
         }
-    }
-    public void CheckDiagonalMovement()
-    {
-        isDiagonal = Mathf.Abs(inputAxis.x) > 0.1f && Mathf.Abs(inputAxis.z) > 0.1f;
     }
     public void InputCharacter_OnAxisMove(Vector2 axis)
     {

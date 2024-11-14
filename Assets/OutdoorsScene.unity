@@ -2025,28 +2025,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3404920656544900090, guid: 8b76a29402ae8b64fb01b52dd633429a,
         type: 3}
+      propertyPath: speedSprint
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3404920656544900090, guid: 8b76a29402ae8b64fb01b52dd633429a,
+        type: 3}
       propertyPath: speedRunBack
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3404920656544900090, guid: 8b76a29402ae8b64fb01b52dd633429a,
         type: 3}
       propertyPath: speedWalkBack
-      value: 1.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3404920656544900090, guid: 8b76a29402ae8b64fb01b52dd633429a,
         type: 3}
       propertyPath: speedRunForward
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3404920656544900090, guid: 8b76a29402ae8b64fb01b52dd633429a,
         type: 3}
       propertyPath: speedWalkForward
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 3916529714040345858, guid: 8b76a29402ae8b64fb01b52dd633429a,
         type: 3}
       propertyPath: m_Name
       value: Person_#
+      objectReference: {fileID: 0}
+    - target: {fileID: 6333863309812297751, guid: 8b76a29402ae8b64fb01b52dd633429a,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6333863309812297751, guid: 8b76a29402ae8b64fb01b52dd633429a,
         type: 3}
@@ -2520,7 +2530,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transformCharacter: {fileID: 1678273401}
   transformCamera: {fileID: 0}
-  sensitivityMouse: 9
+  sensitivityMouse: 6
   scrollSpeed: 3
 --- !u!1001 &1895455266
 PrefabInstance:
