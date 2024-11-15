@@ -13,13 +13,16 @@ public class InputCharacter : IInitializable, IDisposable
     public event Action<bool> onActiveInventory;
     public event Action<bool> onActiveInventoryBox;
     public event Action<bool> onExitInventory;
+    public event Action<bool> onKeyShooting;
 
     private InputActions inputActions;
 
-    private bool isPressedKeyJump;
+    private bool isKeyDownJump;
     private bool isPressedKeyRun;
     private bool isPressedKeyWalk;
     private bool isActiveInventory;
+    private bool isActiveShooting;
+
     public void Initialize()
     { 
         inputActions = new InputActions();
@@ -40,12 +43,21 @@ public class InputCharacter : IInitializable, IDisposable
         inputActions.ActionMaps.InventoryKey.performed += ctx => InventoryKey_performed(ctx);
         inputActions.ActionMaps.InventoryBoxKey.performed += ctx => InventoryBoxKey_performed(ctx);
         inputActions.ActionMaps.ExitInventoryKey.performed += ctx => ExitInventoryKey_performed(ctx);
+        inputActions.ActionMaps.ShootingKey.performed += ctx => ShootingKey_performed(ctx);
 
     }
 
     public void Dispose()
     {
         inputActions.Dispose(); 
+    }
+    private void ShootingKey_performed(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            isActiveShooting = !isActiveShooting;
+            onKeyShooting?.Invoke(isActiveShooting);
+        }
     }
     private void InventoryKey_performed(InputAction.CallbackContext context)
     {
@@ -81,8 +93,8 @@ public class InputCharacter : IInitializable, IDisposable
     }
     private void OnGetKeyDownJump(InputAction.CallbackContext context)
     {   
-        isPressedKeyJump = context.performed;
-        onGetKeyDownJump?.Invoke(isPressedKeyJump);
+        isKeyDownJump = context.performed;
+        onGetKeyDownJump?.Invoke(isKeyDownJump);
     }
 
     private void OnGetKeyRun(InputAction.CallbackContext context)

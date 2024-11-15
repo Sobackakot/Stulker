@@ -37,7 +37,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""InputCharacter_OnKeyDownJump"",
+                    ""name"": ""GetKeyDownJump"",
                     ""type"": ""Button"",
                     ""id"": ""a848dc71-4e52-4ae5-99f7-1e626a17f6d8"",
                     ""expectedControlType"": ""Button"",
@@ -46,7 +46,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""InputCharacter_OnKeyRun"",
+                    ""name"": ""GetKeyRun"",
                     ""type"": ""Button"",
                     ""id"": ""dcefffe8-6633-42cb-8cce-49982b8d5bc2"",
                     ""expectedControlType"": """",
@@ -55,9 +55,18 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""InputCharacter_OnKeyWalk"",
+                    ""name"": ""GetKeyWalk"",
                     ""type"": ""Button"",
                     ""id"": ""db6f0ca7-2958-48cc-bcc0-a8067037ae14"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ShootingKey"",
+                    ""type"": ""Button"",
+                    ""id"": ""a74f3ca1-c195-48e1-becd-d345e0b4a382"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -199,7 +208,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""InputCharacter_OnKeyDownJump"",
+                    ""action"": ""GetKeyDownJump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -210,7 +219,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""InputCharacter_OnKeyRun"",
+                    ""action"": ""GetKeyRun"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -221,7 +230,18 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""InputCharacter_OnKeyWalk"",
+                    ""action"": ""GetKeyWalk"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""294a99f5-e77d-4716-9817-137933dc6067"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShootingKey"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -321,9 +341,10 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         // ActionMaps
         m_ActionMaps = asset.FindActionMap("ActionMaps", throwIfNotFound: true);
         m_ActionMaps_GetAxisDirectionMove = m_ActionMaps.FindAction("GetAxisDirectionMove", throwIfNotFound: true);
-        m_ActionMaps_GetKeyDownJump = m_ActionMaps.FindAction("InputCharacter_OnKeyDownJump", throwIfNotFound: true);
-        m_ActionMaps_GetKeyRun = m_ActionMaps.FindAction("InputCharacter_OnKeyRun", throwIfNotFound: true);
-        m_ActionMaps_GetKeyWalk = m_ActionMaps.FindAction("InputCharacter_OnKeyWalk", throwIfNotFound: true);
+        m_ActionMaps_GetKeyDownJump = m_ActionMaps.FindAction("GetKeyDownJump", throwIfNotFound: true);
+        m_ActionMaps_GetKeyRun = m_ActionMaps.FindAction("GetKeyRun", throwIfNotFound: true);
+        m_ActionMaps_GetKeyWalk = m_ActionMaps.FindAction("GetKeyWalk", throwIfNotFound: true);
+        m_ActionMaps_ShootingKey = m_ActionMaps.FindAction("ShootingKey", throwIfNotFound: true);
         m_ActionMaps_MouseDelta = m_ActionMaps.FindAction("MouseDelta", throwIfNotFound: true);
         m_ActionMaps_MouseScroll = m_ActionMaps.FindAction("MouseScroll", throwIfNotFound: true);
         m_ActionMaps_MouseMidle = m_ActionMaps.FindAction("MouseMidle", throwIfNotFound: true);
@@ -402,6 +423,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_ActionMaps_GetKeyDownJump;
     private readonly InputAction m_ActionMaps_GetKeyRun;
     private readonly InputAction m_ActionMaps_GetKeyWalk;
+    private readonly InputAction m_ActionMaps_ShootingKey;
     private readonly InputAction m_ActionMaps_MouseDelta;
     private readonly InputAction m_ActionMaps_MouseScroll;
     private readonly InputAction m_ActionMaps_MouseMidle;
@@ -418,6 +440,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @GetKeyDownJump => m_Wrapper.m_ActionMaps_GetKeyDownJump;
         public InputAction @GetKeyRun => m_Wrapper.m_ActionMaps_GetKeyRun;
         public InputAction @GetKeyWalk => m_Wrapper.m_ActionMaps_GetKeyWalk;
+        public InputAction @ShootingKey => m_Wrapper.m_ActionMaps_ShootingKey;
         public InputAction @MouseDelta => m_Wrapper.m_ActionMaps_MouseDelta;
         public InputAction @MouseScroll => m_Wrapper.m_ActionMaps_MouseScroll;
         public InputAction @MouseMidle => m_Wrapper.m_ActionMaps_MouseMidle;
@@ -447,6 +470,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @GetKeyWalk.started += instance.OnGetKeyWalk;
             @GetKeyWalk.performed += instance.OnGetKeyWalk;
             @GetKeyWalk.canceled += instance.OnGetKeyWalk;
+            @ShootingKey.started += instance.OnShootingKey;
+            @ShootingKey.performed += instance.OnShootingKey;
+            @ShootingKey.canceled += instance.OnShootingKey;
             @MouseDelta.started += instance.OnMouseDelta;
             @MouseDelta.performed += instance.OnMouseDelta;
             @MouseDelta.canceled += instance.OnMouseDelta;
@@ -487,6 +513,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @GetKeyWalk.started -= instance.OnGetKeyWalk;
             @GetKeyWalk.performed -= instance.OnGetKeyWalk;
             @GetKeyWalk.canceled -= instance.OnGetKeyWalk;
+            @ShootingKey.started -= instance.OnShootingKey;
+            @ShootingKey.performed -= instance.OnShootingKey;
+            @ShootingKey.canceled -= instance.OnShootingKey;
             @MouseDelta.started -= instance.OnMouseDelta;
             @MouseDelta.performed -= instance.OnMouseDelta;
             @MouseDelta.canceled -= instance.OnMouseDelta;
@@ -534,6 +563,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnGetKeyDownJump(InputAction.CallbackContext context);
         void OnGetKeyRun(InputAction.CallbackContext context);
         void OnGetKeyWalk(InputAction.CallbackContext context);
+        void OnShootingKey(InputAction.CallbackContext context);
         void OnMouseDelta(InputAction.CallbackContext context);
         void OnMouseScroll(InputAction.CallbackContext context);
         void OnMouseMidle(InputAction.CallbackContext context);

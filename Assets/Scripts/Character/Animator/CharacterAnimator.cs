@@ -10,15 +10,19 @@ public class CharacterAnimator : MonoBehaviour
     [SerializeField] private float speedRunAnimation = 0.8f;
     [SerializeField] private float speedSprint = 1f;
     private float speedAnimation;
+    private bool isShooting;
+    private int layerShooting;
      
     private void Awake()
     {     
-        animatorCharacter = GetComponent<Animator>();  
+        animatorCharacter = GetComponent<Animator>();
+        layerShooting = animatorCharacter.GetLayerIndex("Shooting");
     }
     public void MovAnimation(Vector3 inputAxis)
     {
         if (inputAxis.sqrMagnitude > 0.2f)
         {
+            animatorCharacter.SetLayerWeight(layerShooting, isShooting ? 1 : 0);
             animatorCharacter.SetFloat("X", inputAxis.x * speedAnimation, 0.2f, Time.deltaTime);
             animatorCharacter.SetFloat("Y", inputAxis.z * speedAnimation, 0.2f, Time.deltaTime);  
         }
@@ -51,5 +55,9 @@ public class CharacterAnimator : MonoBehaviour
     {
         if (isParkour)
             animatorCharacter.SetBool("isParkourUp", true); 
-    }   
+    }    
+    public void InputCharacter_OnActiveShooting(bool isShooting)
+    {
+        this.isShooting = isShooting;
+    }
 }

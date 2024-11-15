@@ -28,14 +28,15 @@ public class MoveController : IInitializable, IDisposable, ITickable, IFixedTick
         inputCharacter.onGetKeyDownJump += character.InputCharacter_OnKeyDownJump;
         inputCharacter.onGetKeyRun += character.InputCharacter_OnKeyRun;
         inputCharacter.onGetKeyWalk += character.InputCharacter_OnKeyWalk;
-    }
-
+        inputCharacter.onKeyShooting += characterAnimator.InputCharacter_OnActiveShooting;
+    } 
     public void Dispose()
     { 
         inputCharacter.onInputGetAxis -= character.InputCharacter_OnAxisMove;
         inputCharacter.onGetKeyDownJump -= character.InputCharacter_OnKeyDownJump;
         inputCharacter.onGetKeyRun -= character.InputCharacter_OnKeyRun;
         inputCharacter.onGetKeyWalk -= character.InputCharacter_OnKeyWalk;
+        inputCharacter.onKeyShooting -= characterAnimator.InputCharacter_OnActiveShooting;
     }
 
     public void Tick()

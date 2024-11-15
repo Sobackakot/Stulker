@@ -42,6 +42,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "ShootingKey",
+                    "type": "Button",
+                    "id": "a74f3ca1-c195-48e1-becd-d345e0b4a382",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "MouseDelta",
                     "type": "Value",
                     "id": "6c984cd9-66be-40ce-a1e6-60e8be762111",
@@ -200,6 +209,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "GetKeyWalk",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "294a99f5-e77d-4716-9817-137933dc6067",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ShootingKey",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

@@ -90,7 +90,7 @@ public class CharacterMove : MonoBehaviour
         isWalking = isKeyWalk;  
     } 
     
-    private void OnCollisionStay(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == OnCollisionTag)
         {
