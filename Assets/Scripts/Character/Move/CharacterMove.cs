@@ -23,7 +23,9 @@ public class CharacterMove : MonoBehaviour
     public bool isRunningSprint { get; private set; }
     public bool isWalking { get; private set; }
     public bool isDiagonal {  get; private set; }
-    public bool isCollision { get; private set; } 
+    public bool isCollision { get; private set; }
+
+    private bool isMoving = true;
 
     private void Awake()
     {
@@ -68,9 +70,20 @@ public class CharacterMove : MonoBehaviour
             speedMove = isWalking ? speedWalkForward : speedRunForward;
         }
     }
+    public void StopingMoveCharacter(bool isActiveInventoryBox)
+    {
+        if (isActiveInventoryBox)
+        {
+            isMoving = false;
+            inputAxis = Vector3.zero;
+            newDirection = Vector3.zero;
+        } 
+        else isMoving = true;
+    }
     public void InputCharacter_OnAxisMove(Vector2 axis)
     {
-        inputAxis = new Vector3(axis.x, 0, axis.y); 
+        if (isMoving)
+            inputAxis = new Vector3(axis.x, 0, axis.y); 
     }
     public void InputCharacter_OnKeyDownJump(bool isKeyDown)
     {

@@ -19,10 +19,12 @@ public class InventoryBoxUI : MonoBehaviour, IInventoryUI
     private void OnEnable()
     {
         Cursor.lockState = CursorLockMode.None;
+        isActiveInventory = true;
     }
     private void OnDisable()
-    {
+    {   
         Cursor.lockState = CursorLockMode.Locked;
+        isActiveInventory = false;
     }
     private void Start()
     {

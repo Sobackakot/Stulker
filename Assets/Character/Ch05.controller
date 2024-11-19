@@ -571,9 +571,18 @@ BlendTree:
   m_Name: Idle
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: -203655887218126122, guid: d4a01a2860b5f444aa53cb5f449593d5,
+    m_Motion: {fileID: -203655887218126122, guid: f7e0ddda249bdfa4180fe61a1a96919e,
       type: 3}
     m_Threshold: -1
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: X
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -203655887218126122, guid: d4a01a2860b5f444aa53cb5f449593d5,
+      type: 3}
+    m_Threshold: -0.5
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -590,6 +599,15 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: -203655887218126122, guid: 74e212b55fccb244baaef03ac5e289f0,
+      type: 3}
+    m_Threshold: 0.5
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: X
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: -203655887218126122, guid: 68536cb2d1ce2b644bed9202a9ef4988,
       type: 3}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}

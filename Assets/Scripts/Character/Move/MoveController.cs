@@ -1,24 +1,28 @@
 
-using System; 
+using System;
+using UnityEngine;
 using Zenject;
 
 public class MoveController : IInitializable, IDisposable, ITickable, IFixedTickable, ILateTickable
 {
     public MoveController(InputCharacter inputCharacter, CharacterMove character, 
-        CharacterAnimator characterAnimator, CharacterParkour characterParkour, CharacterComponent components)
+        CharacterAnimator characterAnimator, CharacterParkour characterParkour, CharacterComponent components, 
+        [Inject(Id = "inventoryBoxUI")]IInventoryUI inventoryUI)
     {
         this.inputCharacter = inputCharacter;
         this.character = character;
         this.characterAnimator = characterAnimator;
         this.characterParkour = characterParkour;
-        this.components = components; 
+        this.components = components;
+        this.inventoryUI = inventoryUI;
     }
 
     private InputCharacter inputCharacter;
     private CharacterMove character;
     private CharacterAnimator characterAnimator;
     private CharacterParkour characterParkour;
-    private CharacterComponent components; 
+    private CharacterComponent components;
+    private IInventoryUI inventoryUI;
 
     private bool isMoving;
     private bool isStateParcure;
@@ -61,6 +65,8 @@ public class MoveController : IInitializable, IDisposable, ITickable, IFixedTick
         {
             character.Jumping();
             character.Moving();
+            bool isActiveInventoryBox = inventoryUI.isActiveInventory;
+            character.StopingMoveCharacter(isActiveInventoryBox);
         }  
     }
 
