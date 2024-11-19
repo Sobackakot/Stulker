@@ -37,8 +37,8 @@ public class CharacterMove : MonoBehaviour
     }
     public void Moving()
     {
-        Vector3 cameraZ = Vector3.ProjectOnPlane(cameraCharacter.transform.forward, Vector3.up);
-        Vector3 cameraX = Vector3.ProjectOnPlane(cameraCharacter.transform.right, Vector3.up);
+        Vector3 cameraZ = Vector3.ProjectOnPlane(cameraCharacter.transform.forward, Vector3.up).normalized;
+        Vector3 cameraX = Vector3.ProjectOnPlane(cameraCharacter.transform.right, Vector3.up).normalized;
         
         newDirection = (inputAxis.z * cameraZ) + (inputAxis.x * cameraX);
         if (newDirection.sqrMagnitude > 0.2f)
