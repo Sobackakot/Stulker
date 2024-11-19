@@ -16,12 +16,13 @@ public class CameraCharacter : MonoBehaviour
     private float mouseAxisY;
     private float mouseZoom;
 
-    private float minAngle = -65f;
-    private float maxAngle = 65f;
+    private float minAngle = -90f;
+    private float maxAngle = 90f;
     private float minZoom = 2f;
     private float maxZoom = 15f;
 
-    private float limitAngle = 35f;
+    private float limitAngle = 45f;
+    public float currentAngle {  get; private set; }
 
     public bool isRotateCamera {  get; private set; }
        
@@ -61,8 +62,8 @@ public class CameraCharacter : MonoBehaviour
     {   
         Vector3 cameraZ = Vector3.ProjectOnPlane(transformCamera.forward, Vector3.up).normalized;
         Vector3 characterZ = Vector3.ProjectOnPlane(transformCharacter.forward, Vector3.up).normalized;
-        float angle = Vector3.SignedAngle(cameraZ, characterZ, Vector3.up);
-        if (Mathf.Abs(angle) > maxAngle)
+        currentAngle = Vector3.SignedAngle(cameraZ, characterZ, Vector3.up);
+        if (Mathf.Abs(currentAngle) > limitAngle)
         {
             return true;
         }

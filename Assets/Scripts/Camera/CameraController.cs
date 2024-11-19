@@ -38,10 +38,14 @@ public class CameraController: ILateTickable, IInitializable, IDisposable
     {
         camera.RotateCamera();
         camera.ZoomCamera();
+
         bool isActive = inventoryUI.isActiveInventory;
         camera.StoppingRotateCameta(isActive);
+         
         bool isLimitAngle = camera.CheckCameraRotateAngle();
-        characterAnimator.TurnAnimation(camera.inputAxisMouse,camera.isRotateCamera, isLimitAngle);
+        characterAnimator.SwitchAnimationTurn(camera.currentAngle, camera.isRotateCamera);
+        characterAnimator.TurnAnimation(camera.inputAxisMouse,camera.isRotateCamera, isLimitAngle); 
+
         ray.RayHitTakeInteract();
         windowUI.ShowInteractText();
     }

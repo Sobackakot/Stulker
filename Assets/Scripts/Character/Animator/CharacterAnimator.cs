@@ -1,5 +1,6 @@
 
-using System; 
+using System;
+using UnityEditor.AddressableAssets.Build.DataBuilders;
 using UnityEngine;
 
 public class CharacterAnimator : MonoBehaviour
@@ -9,7 +10,9 @@ public class CharacterAnimator : MonoBehaviour
     [SerializeField] private float speedWalkAnimation = 0.5f;
     [SerializeField] private float speedRunAnimation = 0.8f;
     [SerializeField] private float speedSprint = 1f;
-    private float speetTurn = 15f;
+    private float angleTurn = 0.5f;
+    private float angleMaxTurn = 1;
+    private float switchAngleTurn;
     private float speedAnimation;
     private bool isShooting;
     private int layerShooting; 
@@ -36,7 +39,7 @@ public class CharacterAnimator : MonoBehaviour
     {
         if (isRotate && isLimitAngle && Mathf.Abs(input.x) > 0.2f)
         { 
-            animatorCharacter.SetFloat("DeltaMouse", input.x * speetTurn, 0.2f, Time.deltaTime);
+            animatorCharacter.SetFloat("DeltaMouse", input.x * switchAngleTurn, 0.2f, Time.deltaTime);
             Debug.Log("turn play");
         }
         else 
@@ -46,7 +49,15 @@ public class CharacterAnimator : MonoBehaviour
         }
     }
  
-    public void SwithAnimation(bool isRanning, bool isWalking, Vector3 inputAxis)
+    public void SwitchAnimationTurn(float angle,bool isRotate)
+    {
+        if (isRotate)
+        {
+            switchAngleTurn = angle <= 115 ? angleTurn : angleMaxTurn;
+            Debug.Log(switchAngleTurn);
+        } 
+    }
+    public void SwithAnimationMove(bool isRanning, bool isWalking, Vector3 inputAxis)
     {  
         if (inputAxis.z > 0)
         {

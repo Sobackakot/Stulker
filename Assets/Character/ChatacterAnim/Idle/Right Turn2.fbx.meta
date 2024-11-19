@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f08ba802d58d84c468d87767bf43c2a7
+guid: 68536cb2d1ce2b644bed9202a9ef4988
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Rifle Turn right
+      name: Right Turn2
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 51
+      lastFrame: 49
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
