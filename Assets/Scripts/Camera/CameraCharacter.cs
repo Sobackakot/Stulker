@@ -58,8 +58,10 @@ public class CameraCharacter : MonoBehaviour
         }   
     }
     public bool CheckCameraRotateAngle()
-    {
-        float angle = Vector3.SignedAngle(transformCamera.forward, transformCharacter.forward, Vector3.up);
+    {   
+        Vector3 cameraZ = Vector3.ProjectOnPlane(transformCamera.forward, Vector3.up).normalized;
+        Vector3 characterZ = Vector3.ProjectOnPlane(transformCharacter.forward, Vector3.up).normalized;
+        float angle = Vector3.SignedAngle(cameraZ, characterZ, Vector3.up);
         if (Mathf.Abs(angle) > maxAngle)
         {
             return true;

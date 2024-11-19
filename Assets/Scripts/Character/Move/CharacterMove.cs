@@ -31,10 +31,6 @@ public class CharacterMove : MonoBehaviour
         rbCharacter = GetComponent<Rigidbody>();
         cameraCharacter = FindFirstObjectByType<CameraCharacter>();
     } 
-    public void UpdateDirectionMove()
-    {
-        
-    }
     public void Moving()
     {
         Vector3 cameraZ = Vector3.ProjectOnPlane(cameraCharacter.transform.forward, Vector3.up).normalized;
