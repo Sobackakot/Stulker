@@ -68,7 +68,7 @@ public class MoveController : IInitializable, IDisposable, ITickable, IFixedTick
     {
         if (isMoving)
         { 
-            character.SwitchVelocityMove();
+            character.SwitchVelocityMove(); 
         } 
     }
 }

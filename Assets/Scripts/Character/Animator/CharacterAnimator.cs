@@ -9,10 +9,10 @@ public class CharacterAnimator : MonoBehaviour
     [SerializeField] private float speedWalkAnimation = 0.5f;
     [SerializeField] private float speedRunAnimation = 0.8f;
     [SerializeField] private float speedSprint = 1f;
+    private float speetTurn = 15f;
     private float speedAnimation;
     private bool isShooting;
-    private int layerShooting;
-     
+    private int layerShooting; 
     private void Awake()
     {     
         animatorCharacter = GetComponent<Animator>();
@@ -28,9 +28,22 @@ public class CharacterAnimator : MonoBehaviour
         }
         else
         {   
-            animatorCharacter.SetFloat("Y", 0, 0.1f, Time.deltaTime);
-            animatorCharacter.SetFloat("X", 0, 0.1f, Time.deltaTime);  
+            animatorCharacter.SetFloat("Y", 0, 0.2f, Time.deltaTime);
+            animatorCharacter.SetFloat("X", 0, 0.2f, Time.deltaTime);  
         } 
+    }
+    public void TurnAnimation(Vector3 input, bool isRotate, bool isLimitAngle)
+    {
+        if (isRotate && isLimitAngle && Mathf.Abs(input.x) > 0.2f)
+        { 
+            animatorCharacter.SetFloat("DeltaMouse", input.x * speetTurn, 0.2f, Time.deltaTime);
+            Debug.Log("turn play");
+        }
+        else 
+        { 
+            animatorCharacter.SetFloat("DeltaMouse", 0, 0.1f, Time.deltaTime);
+            Debug.Log("turn stop");
+        }
     }
  
     public void SwithAnimation(bool isRanning, bool isWalking, Vector3 inputAxis)

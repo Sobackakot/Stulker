@@ -23,7 +23,7 @@ public class CharacterMove : MonoBehaviour
     public bool isRunningSprint { get; private set; }
     public bool isWalking { get; private set; }
     public bool isDiagonal {  get; private set; }
-    public bool isCollision { get; private set; }
+    public bool isCollision { get; private set; } 
 
     private void Awake()
     {
@@ -37,8 +37,8 @@ public class CharacterMove : MonoBehaviour
     }
     public void Moving()
     {
-        Vector3 cameraZ = Vector3.ProjectOnPlane(cameraCharacter.transform.forward, Vector3.up).normalized;
-        Vector3 cameraX = Vector3.ProjectOnPlane(cameraCharacter.transform.right, Vector3.up).normalized;
+        Vector3 cameraZ = Vector3.ProjectOnPlane(cameraCharacter.transform.forward, Vector3.up);
+        Vector3 cameraX = Vector3.ProjectOnPlane(cameraCharacter.transform.right, Vector3.up);
         
         newDirection = (inputAxis.z * cameraZ) + (inputAxis.x * cameraX);
         if (newDirection.sqrMagnitude > 0.2f)
@@ -55,7 +55,7 @@ public class CharacterMove : MonoBehaviour
         { 
             rbCharacter.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);  
         }
-    } 
+    }  
     public void SwitchVelocityMove()
     {   
         if(inputAxis.z < 0)

@@ -11,7 +11,8 @@ public class CameraCharacter : MonoBehaviour
     [SerializeField] private float scrollSpeed = 3f;
 
     private Vector3 offset;
-    private float mouseAxisX;
+    public Vector3 inputAxisMouse {  get; private set; }
+    public float mouseAxisX {  get; private set; }
     private float mouseAxisY;
     private float mouseZoom;
 
@@ -19,6 +20,8 @@ public class CameraCharacter : MonoBehaviour
     private float maxAngle = 65f;
     private float minZoom = 2f;
     private float maxZoom = 15f;
+
+    private float limitAngle = 35f;
 
     public bool isRotateCamera {  get; private set; }
        
@@ -30,27 +33,40 @@ public class CameraCharacter : MonoBehaviour
     {
         offset = transformCamera.position - transformCharacter.position;
     }
-    public void RotateCamera()
+    public virtual void RotateCamera()
     { 
         mouseAxisY = Mathf.Clamp(mouseAxisY, minAngle, maxAngle);
         transformCamera.localEulerAngles = new Vector3(mouseAxisY, mouseAxisX, 0);
         transformCamera.position = transformCamera.localRotation * offset + transformCharacter.position;
     }
-    public void ZoomCamera()
+    public virtual void ZoomCamera()
     {
         mouseZoom = Mathf.Clamp(mouseZoom, Mathf.Abs(minZoom), Mathf.Abs(maxZoom));
         transformCamera.position = transformCharacter.position - transformCamera.forward * mouseZoom;
     }
 
-    public void GetInputAxisMouse(Vector2 inputAxis)
+    public virtual void GetInputAxisMouse(Vector2 inputAxis)
     {
         if (isRotateCamera)
         {
             mouseAxisX += inputAxis.x * sensitivityMouse * Time.deltaTime;
             mouseAxisY -= inputAxis.y * sensitivityMouse * Time.deltaTime;
+            if (inputAxis.sqrMagnitude > 0.2f)
+                inputAxisMouse = new Vector3(inputAxis.x, 0, inputAxis.y);
+            else
+                inputAxisMouse = Vector3.zero; 
         }   
     }
-    public void GetInputScrollMouse(Vector2 scrollMouse)
+    public bool CheckCameraRotateAngle()
+    {
+        float angle = Vector3.SignedAngle(transformCamera.forward, transformCharacter.forward, Vector3.up);
+        if (Mathf.Abs(angle) > maxAngle)
+        {
+            return true;
+        }
+        else return false;
+    }
+    public virtual void GetInputScrollMouse(Vector2 scrollMouse)
     {
         if (isRotateCamera)
         {
@@ -58,7 +74,7 @@ public class CameraCharacter : MonoBehaviour
         }    
     }
     
-    public void StoppingRotateCameta(bool isRotate)
+    public virtual void StoppingRotateCameta(bool isRotate)
     {
         isRotateCamera = isRotate;
     }
