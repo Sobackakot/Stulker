@@ -13,6 +13,7 @@ public class CharacterAnimator : MonoBehaviour
     private float switchAngleTurn;
     private float speedAnimation;
     private bool isShooting;
+    public bool isAiming { get; private set; }
     private void Awake()
     {     
         animatorCharacter = GetComponent<Animator>();
@@ -45,10 +46,23 @@ public class CharacterAnimator : MonoBehaviour
             switchAngleTurn = angle >= 125 ? angleMaxTurn : angleTurn;
     }
     public void SwithAnimationMove(bool isRanning, bool isWalking, Vector3 inputAxis)
-    {  
-        if (inputAxis.z > 0)
+    {
+        if (inputAxis.z > 0 && !isAiming)
+        {
             speedAnimation = isWalking ? speedWalkAnimation : (isRanning ? speedSprint : speedRunAnimation);
-        else speedAnimation = isWalking ? speedWalkAnimation : speedRunAnimation;
+            Debug.Log("Moving");
+        } 
+        else if (isAiming)
+        {
+            speedAnimation = speedWalkAnimation;
+            Debug.Log("aimMove " + speedAnimation);
+        }
+        else
+        {
+            speedAnimation = isWalking ? speedWalkAnimation : speedRunAnimation;
+            Debug.Log("walking");
+        }
+
     }
     public void JumpAnimation(bool isJumping)
     {
@@ -57,6 +71,10 @@ public class CharacterAnimator : MonoBehaviour
         else
             animatorCharacter.SetBool("isJumping", false);
     } 
+    public void AimingMove()
+    {
+        animatorCharacter.SetBool("isAimForButtle", isAiming);
+    }
     public void ParkourUp(bool isParkour)
     {
         if (isParkour)
@@ -66,5 +84,9 @@ public class CharacterAnimator : MonoBehaviour
     {
         this.isShooting = isShooting;
         animatorCharacter.SetBool("isReadyForButtle", isShooting);
+    }
+    public void InputCamera_OnRightMouseButton(bool isPressed)
+    {
+        isAiming = isPressed; 
     }
 }

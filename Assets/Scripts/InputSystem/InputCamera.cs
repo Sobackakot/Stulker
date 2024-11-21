@@ -8,7 +8,7 @@ public class InputCamera : IInitializable, IDisposable
 {
     public event Action<Vector2> onInputAxis;
     public event Action<Vector2> onScrollZoom;
-    public event Action onRightMouseButton; 
+    public event Action<bool> onRightMouseButton; 
     public event Action onLeftMouseButton;
      
     private InputActions inputActions;
@@ -20,7 +20,10 @@ public class InputCamera : IInitializable, IDisposable
         inputActions.ActionMaps.MouseDelta.performed += ctx => MouseInputAxis(ctx);
 
         inputActions.ActionMaps.LeftMouseButton.performed += ctx => LeftMouseButton_performed(ctx);
-        inputActions.ActionMaps.RightMouseButton.performed += ctx => RightMouseButton_performed(ctx);
+
+        inputActions.ActionMaps.RightMouseButton.started += ctx => RightMouseButton_performed(ctx);
+        inputActions.ActionMaps.RightMouseButton.canceled += ctx => RightMouseButton_performed(ctx);
+
         inputActions.ActionMaps.MouseScroll.performed += ctx => MouseScrollZoom(ctx);
         inputActions.ActionMaps.MouseMidle.performed += ctx => isPressed = true;
         inputActions.ActionMaps.MouseMidle.canceled += ctx => isPressed = false;
@@ -46,8 +49,9 @@ public class InputCamera : IInitializable, IDisposable
     }
     private void RightMouseButton_performed(InputAction.CallbackContext context)
     {
-        if (context.performed)
-            onRightMouseButton?.Invoke(); 
+        if (context.started)
+            onRightMouseButton?.Invoke(true); 
+        else if (context.canceled) onRightMouseButton?.Invoke(false);
     }
     
     private void MouseScrollZoom(InputAction.CallbackContext context)

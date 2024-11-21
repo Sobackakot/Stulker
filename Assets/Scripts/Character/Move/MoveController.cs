@@ -32,7 +32,7 @@ public class MoveController : IInitializable, IDisposable, ITickable, IFixedTick
         inputCharacter.onGetKeyDownJump += character.InputCharacter_OnKeyDownJump;
         inputCharacter.onGetKeyRun += character.InputCharacter_OnKeyRun;
         inputCharacter.onGetKeyWalk += character.InputCharacter_OnKeyWalk;
-        inputCharacter.onKeyShooting += characterAnimator.InputCharacter_OnActiveShooting;
+        inputCharacter.onKeyShooting += characterAnimator.InputCharacter_OnActiveShooting; 
     } 
     public void Dispose()
     { 
@@ -52,7 +52,7 @@ public class MoveController : IInitializable, IDisposable, ITickable, IFixedTick
         if (character.isCollision && !isStateParcure)
             characterAnimator.JumpAnimation(character.isJumping);
         characterAnimator.MovAnimation(character.inputAxis);
-        characterAnimator.SwithAnimationMove(character.isRunningSprint, character.isWalking, character.inputAxis);
+        characterAnimator.SwithAnimationMove(character.isRunningSprint, character.isWalking, character.inputAxis); 
         if (character.isJumping)
         { 
             characterAnimator.ParkourUp(isStateParcure);
