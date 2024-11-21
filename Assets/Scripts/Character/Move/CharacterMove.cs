@@ -24,6 +24,7 @@ public class CharacterMove : MonoBehaviour
     public bool isWalking { get; private set; }
     public bool isDiagonal {  get; private set; }
     public bool isCollision { get; private set; }
+    public bool isAiming {  get; private set; }
 
     private bool isMoving = true;
 
@@ -55,8 +56,12 @@ public class CharacterMove : MonoBehaviour
         }
     }  
     public void SwitchVelocityMove()
-    {   
-        if(inputAxis.z < 0)
+    {
+        if (isAiming)
+        {
+            speedMove = inputAxis.z < 0 ? speedWalkBack : speedWalkForward;
+        }
+        else  if (inputAxis.z < 0)
         {
            
             speedMove = isWalking ? speedWalkBack : speedRunBack;
@@ -65,7 +70,7 @@ public class CharacterMove : MonoBehaviour
         {   
             speedMove = isWalking ? speedWalkForward : (isRunningSprint ? speedSprint : speedRunForward); 
         }
-        else
+        else 
         {
             speedMove = isWalking ? speedWalkForward : speedRunForward;
         }
@@ -97,8 +102,11 @@ public class CharacterMove : MonoBehaviour
     public void InputCharacter_OnKeyWalk(bool isKeyWalk)
     {
         isWalking = isKeyWalk;  
-    } 
-    
+    }
+    public void InputCamera_OnRightMouseButton(bool isPressed)
+    {
+        isAiming = isPressed;
+    }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == OnCollisionTag)

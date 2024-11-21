@@ -14,6 +14,7 @@ public class InputCharacter : IInitializable, IDisposable
     public event Action<bool> onActiveInventoryBox;
     public event Action<bool> onExitInventory;
     public event Action<bool> onKeyShooting;
+    public event Action<bool> onRightMouseButton;
 
     private InputActions inputActions;
 
@@ -45,11 +46,20 @@ public class InputCharacter : IInitializable, IDisposable
         inputActions.ActionMaps.ExitInventoryKey.performed += ctx => ExitInventoryKey_performed(ctx);
         inputActions.ActionMaps.ShootingKey.performed += ctx => ShootingKey_performed(ctx);
 
+        inputActions.ActionMaps.RightMouseButton.started += ctx => RightMouseButton_performed(ctx);
+        inputActions.ActionMaps.RightMouseButton.canceled += ctx => RightMouseButton_performed(ctx);
+
     }
 
     public void Dispose()
     {
         inputActions.Dispose(); 
+    }
+    private void RightMouseButton_performed(InputAction.CallbackContext context)
+    {
+        if (context.started)
+            onRightMouseButton?.Invoke(true);
+        else if (context.canceled) onRightMouseButton?.Invoke(false);
     }
     private void ShootingKey_performed(InputAction.CallbackContext context)
     {

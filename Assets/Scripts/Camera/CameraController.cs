@@ -26,14 +26,12 @@ public class CameraController: ILateTickable, IInitializable, IDisposable
     public void Initialize()
     {
         input.onInputAxis += camera.GetInputAxisMouse;
-        input.onScrollZoom += camera.GetInputScrollMouse;
-        input.onRightMouseButton += characterAnimator.InputCamera_OnRightMouseButton;
+        input.onScrollZoom += camera.GetInputScrollMouse; 
     }
     public void Dispose()
     {
         input.onInputAxis -= camera.GetInputAxisMouse;
-        input.onScrollZoom -= camera.GetInputScrollMouse;
-        input.onRightMouseButton -= characterAnimator.InputCamera_OnRightMouseButton;
+        input.onScrollZoom -= camera.GetInputScrollMouse; 
     }
 
     public void LateTick()
@@ -46,8 +44,7 @@ public class CameraController: ILateTickable, IInitializable, IDisposable
          
         bool isLimitAngle = camera.CheckCameraRotateAngle();
         characterAnimator.SwitchAnimationTurn(camera.currentAngle, camera.isRotateCamera);
-        characterAnimator.TurnAnimation(camera.inputAxisMouse,camera.isRotateCamera, isLimitAngle);
-        characterAnimator.AimingMove();
+        characterAnimator.TurnAnimation(camera.inputAxisMouse,camera.isRotateCamera, isLimitAngle); 
 
         ray.RayHitTakeInteract();
         windowUI.ShowInteractText();
