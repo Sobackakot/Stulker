@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 096c75aa962e54a4086d5b37e63c13d9
+guid: e96e3f7d8cd14af4c8d91fecdc08e88c
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -37,11 +37,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Run Forward Left
+      name: Strafe Right
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 15
+      lastFrame: 43
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

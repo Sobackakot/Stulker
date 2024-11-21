@@ -13,17 +13,16 @@ public class CharacterAnimator : MonoBehaviour
     private float switchAngleTurn;
     private float speedAnimation;
     private bool isShooting;
-    private int layerShooting; 
     private void Awake()
     {     
         animatorCharacter = GetComponent<Animator>();
-        layerShooting = animatorCharacter.GetLayerIndex("Shooting");
+        //layerShooting = animatorCharacter.GetLayerIndex("Shooting");
     }
     public void MovAnimation(Vector3 inputAxis)
     {
         if (inputAxis.sqrMagnitude > 0.2f)
         {
-            animatorCharacter.SetLayerWeight(layerShooting, isShooting ? 1 : 0);
+            //animatorCharacter.SetLayerWeight(layerShooting, isShooting ? 1 : 0);
             animatorCharacter.SetFloat("X", inputAxis.x * speedAnimation, 0.2f, Time.deltaTime);
             animatorCharacter.SetFloat("Y", inputAxis.z * speedAnimation, 0.2f, Time.deltaTime);  
         }
@@ -43,7 +42,7 @@ public class CharacterAnimator : MonoBehaviour
     public void SwitchAnimationTurn(float angle,bool isRotate)
     {
         if (isRotate)
-            switchAngleTurn = angle <= 115 ? angleTurn : angleMaxTurn;
+            switchAngleTurn = angle >= 125 ? angleMaxTurn : angleTurn;
     }
     public void SwithAnimationMove(bool isRanning, bool isWalking, Vector3 inputAxis)
     {  
@@ -66,5 +65,6 @@ public class CharacterAnimator : MonoBehaviour
     public void InputCharacter_OnActiveShooting(bool isShooting)
     {
         this.isShooting = isShooting;
+        animatorCharacter.SetBool("isReadyForButtle", isShooting);
     }
 }
