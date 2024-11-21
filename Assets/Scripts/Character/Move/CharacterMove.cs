@@ -57,23 +57,8 @@ public class CharacterMove : MonoBehaviour
     }  
     public void SwitchVelocityMove()
     {
-        if (isAiming)
-        {
-            speedMove = inputAxis.z < 0 ? speedWalkBack : speedWalkForward;
-        }
-        else  if (inputAxis.z < 0)
-        {
-           
-            speedMove = isWalking ? speedWalkBack : speedRunBack;
-        }
-        else if (inputAxis.z > 0) 
-        {   
-            speedMove = isWalking ? speedWalkForward : (isRunningSprint ? speedSprint : speedRunForward); 
-        }
-        else 
-        {
-            speedMove = isWalking ? speedWalkForward : speedRunForward;
-        }
+        if (isWalking | isAiming) speedMove = inputAxis.z < 0 ? speedWalkBack : speedWalkForward;
+        else speedMove = inputAxis.z < 0 ? speedRunBack : (isRunningSprint ? (inputAxis.z > 0 ? speedSprint : speedRunForward) : speedRunForward);
     }
     public void StopingMoveCharacter(bool isActiveInventoryBox)
     {

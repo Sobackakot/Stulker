@@ -48,22 +48,8 @@ public class CharacterAnimator : MonoBehaviour
     }
     public void SwithAnimationMove(bool isRanning, bool isWalking, Vector3 inputAxis)
     {
-        if (isAiming) 
-        {
-            speedAnimation = speedWalkAnimation; 
-            Debug.Log("speed Aim walking " + speedAnimation);
-        } 
-        else if (inputAxis.z > 0)
-        {
-            speedAnimation = isWalking ? speedWalkAnimation : (isRanning ? speedSprint : speedRunAnimation);
-            Debug.Log("speed 1walking " + speedAnimation);
-        }
-        else
-        {
-            speedAnimation = isWalking ? speedWalkAnimation : speedRunAnimation;
-            Debug.Log("speed 2walking " + speedAnimation);
-        }
-
+        if (isWalking | isAiming) speedAnimation = speedWalkAnimation;
+        else speedAnimation = isRanning ? (inputAxis.z > 0 ? speedSprint : speedRunAnimation) : speedRunAnimation;
     }
     public void JumpAnimation(bool isJumping)
     {
