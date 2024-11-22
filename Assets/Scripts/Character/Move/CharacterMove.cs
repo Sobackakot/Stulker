@@ -19,6 +19,7 @@ public class CharacterMove : MonoBehaviour
     public Vector3 inputAxis{get; private set;}
     private Vector3 newDirection;
     public float speedMove { get; private set; }
+    public float speedRotate { get; private set; }
     public bool isJumping { get; private set; }
     public bool isRunningSprint { get; private set; }
     public bool isWalking { get; private set; }
@@ -40,10 +41,11 @@ public class CharacterMove : MonoBehaviour
         Vector3 cameraX = Vector3.ProjectOnPlane(cameraCharacter.transform.right, Vector3.up).normalized;
         
         newDirection = (inputAxis.z * cameraZ) + (inputAxis.x * cameraX);
-        if (newDirection.sqrMagnitude > 0.2f)
+        if (newDirection.sqrMagnitude > 0.2f | isAiming)
         {
+            speedRotate = isAiming ? 8f : 3f;
             Quaternion direction = Quaternion.LookRotation(cameraZ, Vector3.up);
-            transformCharacter.rotation = Quaternion.Lerp(transformCharacter.rotation, direction, speedMove * Time.deltaTime);
+            transformCharacter.rotation = Quaternion.Lerp(transformCharacter.rotation, direction, speedRotate * Time.deltaTime);
             rbCharacter.MovePosition(rbCharacter.position + newDirection * speedMove * Time.deltaTime);
         } 
     }

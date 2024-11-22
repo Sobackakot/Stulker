@@ -42,7 +42,7 @@ public class CameraController: ILateTickable, IInitializable, IDisposable
         bool isActive = inventoryUI.isActiveInventory;
         camera.StoppingRotateCameta(isActive);
          
-        bool isLimitAngle = camera.CheckCameraRotateAngle();
+        bool isLimitAngle = camera.CheckCameraRotateAngle(characterAnimator.isAiming);
         characterAnimator.SwitchAnimationTurn(camera.currentAngle, camera.isRotateCamera);
         characterAnimator.TurnAnimation(camera.inputAxisMouse,camera.isRotateCamera, isLimitAngle); 
 

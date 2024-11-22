@@ -21,7 +21,8 @@ public class CameraCharacter : MonoBehaviour
     private float minZoom = 2f;
     private float maxZoom = 15f;
 
-    private float limitAngle = 45f;
+    private float limitAngle = 40f;
+    private float limitAngleAim = 5f;
     public float currentAngle {  get; private set; }
 
     public bool isRotateCamera {  get; private set; }
@@ -58,12 +59,16 @@ public class CameraCharacter : MonoBehaviour
                 inputAxisMouse = Vector3.zero; 
         }   
     }
-    public bool CheckCameraRotateAngle()
+    public bool CheckCameraRotateAngle(bool isAiming)
     {   
         Vector3 cameraZ = Vector3.ProjectOnPlane(transformCamera.forward, Vector3.up).normalized;
         Vector3 characterZ = Vector3.ProjectOnPlane(transformCharacter.forward, Vector3.up).normalized;
         currentAngle = Vector3.SignedAngle(cameraZ, characterZ, Vector3.up);
-        if (Mathf.Abs(currentAngle) > limitAngle)
+        if(isAiming && Mathf.Abs(currentAngle) > limitAngleAim)
+        {
+            return true;
+        }
+        else if (Mathf.Abs(currentAngle) > limitAngle)
         {
             return true;
         }

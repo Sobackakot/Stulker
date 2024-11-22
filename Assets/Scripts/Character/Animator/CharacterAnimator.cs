@@ -44,7 +44,7 @@ public class CharacterAnimator : MonoBehaviour
     public void SwitchAnimationTurn(float angle,bool isRotate)
     {
         if (isRotate)
-            switchAngleTurn = angle >= 125 ? angleMaxTurn : angleTurn;
+            switchAngleTurn = angle >= 125 ? angleMaxTurn : angleTurn; 
     }
     public void SwithAnimationMove(bool isRanning, bool isWalking, Vector3 inputAxis)
     {
