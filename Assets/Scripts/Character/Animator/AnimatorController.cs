@@ -4,16 +4,18 @@ using Zenject;
 
 public class AnimatorController :IFixedTickable
 {
-    public AnimatorController(CharacterAnimator characterAnimator, CameraCharacter camera, CharacterState state)
+    public AnimatorController(CharacterAnimator characterAnimator, CameraCharacter camera, CharacterState state, CharacterIK characterIK)
     {
         this.characterAnimator = characterAnimator;
         this.camera = camera;
         this.state = state;
+        this.characterIK = characterIK;
     }
     private CharacterState state;
     private CharacterAnimator characterAnimator;
     private CameraCharacter camera;
-     
+    private CharacterIK characterIK;
+
     public void FixedTick()
     {
         bool isLimitAngle = camera.CheckCameraRotateAngle(state.isAiming);
@@ -25,5 +27,6 @@ public class AnimatorController :IFixedTickable
         characterAnimator.SwithAnimationMove(state.isRunningSprint, state.isWalking, state.isAiming, state.inputAxis);
         characterAnimator.AimingMove(state.isAiming);
         characterAnimator.ActiveShooting(state.isShooting);
+        characterIK.SetWeightIK(state.isAiming);
     }
 }
