@@ -1,5 +1,6 @@
  
 using UnityEngine;
+using Zenject;
 
 public class CharacterMove : MonoBehaviour
 {
@@ -16,19 +17,19 @@ public class CharacterMove : MonoBehaviour
     private CameraCharacter cameraCharacter;
     private Rigidbody rbCharacter;
     private Transform transformCharacter;
-    public Vector3 inputAxis{get; private set;}
-    private Vector3 newDirection;
+
+    public Vector3 inputAxis { get; private set; }
+    public Vector3 newDirection { get; private set; }
     public float speedMove { get; private set; }
     public float speedRotate { get; private set; }
-    public bool isJumping { get; private set; }
-    public bool isRunningSprint { get; private set; }
-    public bool isWalking { get; private set; }
-    public bool isDiagonal {  get; private set; }
-    public bool isCollision { get; private set; }
-    public bool isAiming {  get; private set; }
 
-    private bool isMoving = true;
+    private CharacterState state;
 
+    [Inject]
+    private void Container(CharacterState state)
+    {
+        this.state = state;
+    }
     private void Awake()
     {
         transformCharacter = GetComponent<Transform>();
@@ -41,71 +42,57 @@ public class CharacterMove : MonoBehaviour
         Vector3 cameraX = Vector3.ProjectOnPlane(cameraCharacter.transform.right, Vector3.up).normalized;
         
         newDirection = (inputAxis.z * cameraZ) + (inputAxis.x * cameraX);
-        if (newDirection.sqrMagnitude > 0.2f | isAiming)
+        if (newDirection.sqrMagnitude > 0.2f | state.isAiming)
         {
-            speedRotate = isAiming ? 8f : 3f;
+            speedRotate = state.isAiming ? 8f : 3f;
             Quaternion direction = Quaternion.LookRotation(cameraZ, Vector3.up);
             transformCharacter.rotation = Quaternion.Lerp(transformCharacter.rotation, direction, speedRotate * Time.deltaTime);
             rbCharacter.MovePosition(rbCharacter.position + newDirection * speedMove * Time.deltaTime);
         } 
     }
-     
+    public void InputCharacter_OnAxisMove(Vector2 axis)
+    {
+        if (state.isMoving)
+        {
+            inputAxis = new Vector3(axis.x, 0, axis.y);
+            state.SetInputAxisMove(inputAxis);
+        }    
+    }
     public void Jumping()
     {
-        if (isJumping && isCollision)
+        if (state.isJumping && state.isCollision)
         { 
             rbCharacter.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);  
         }
     }  
     public void SwitchVelocityMove()
     {
-        if (isWalking | isAiming) speedMove = inputAxis.z < 0 ? speedWalkBack : speedWalkForward;
-        else speedMove = inputAxis.z < 0 ? speedRunBack : (isRunningSprint ? (inputAxis.z > 0 ? speedSprint : speedRunForward) : speedRunForward); 
+        if (state.isWalking | state.isAiming) speedMove = inputAxis.z < 0 ? speedWalkBack : speedWalkForward;
+        else speedMove = inputAxis.z < 0 ? speedRunBack : (state.isRunningSprint ? (inputAxis.z > 0 ? speedSprint : speedRunForward) : speedRunForward); 
     }
     public void StopingMoveCharacter(bool isActiveInventoryBox)
     {
         if (isActiveInventoryBox)
         {
-            isMoving = false;
+            state.UpdateStateMove(false);
             inputAxis = Vector3.zero;
             newDirection = Vector3.zero;
         } 
-        else isMoving = true;
+        else state.UpdateStateMove(true);
     }
-    public void InputCharacter_OnAxisMove(Vector2 axis)
-    {
-        if (isMoving)
-            inputAxis = new Vector3(axis.x, 0, axis.y); 
-    }
-    public void InputCharacter_OnKeyDownJump(bool isKeyDown)
-    {
-        isJumping = isKeyDown;
-    }
-    public void InputCharacter_OnKeyRun(bool isKeyRun)
-    {
-        isRunningSprint = isKeyRun;
-    }
-     
-    public void InputCharacter_OnKeyWalk(bool isKeyWalk)
-    {
-        isWalking = isKeyWalk;  
-    }
-    public void InputCamera_OnRightMouseButton(bool isPressed)
-    {
-        isAiming = isPressed;
-    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == OnCollisionTag)
         {
-            isCollision = true; 
+            state.SetCollision(false); 
         }
     }
     private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.tag == OnCollisionTag)
         {
-            isCollision = false; 
+            state.SetCollision(false); 
         }
     }
 }

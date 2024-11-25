@@ -13,7 +13,6 @@ public class CharacterComponent : MonoBehaviour
 
     private StateAnimatorCharacter stateMachine;
     private CharacterParkour parkour;
-    private CharacterMove move;
 
     public Vector3 offset;
      
@@ -23,7 +22,6 @@ public class CharacterComponent : MonoBehaviour
         rigidbodyCharacter = GetComponent<Rigidbody>();
         colliderCharacter = GetComponent<Collider>();
         animatorCharacter = GetComponent<Animator>();
-        move = GetComponent<CharacterMove>();
         parkour = transformCharacter.GetComponentInChildren<CharacterParkour>();
        stateMachine = animatorCharacter.GetBehaviour<StateAnimatorCharacter>();
          

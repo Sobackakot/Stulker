@@ -23,5 +23,6 @@ public class SimpleList : MonoBehaviour
     public void RemoveItem(short index)
     {
         cells[index].image.color = Color.white;
+        
     }
 }

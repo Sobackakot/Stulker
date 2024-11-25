@@ -6,15 +6,17 @@ using Zenject;
 
 public class InputCharacter : IInitializable, IDisposable
 {
-    public event Action<Vector2> onInputGetAxis;//This Event for  calss RaycastPointFollow  
+    public event Action<Vector2> onInputGetAxis;  
+
     public event Action<bool> onGetKeyDownJump;
     public event Action<bool> onGetKeyRun;
-    public event Action<bool> onGetKeyWalk;
+    public event Action<bool> onGetKeyWalk; 
+    public event Action<bool> onKeyShooting;
+    public event Action<bool> onRightMouseButton;
+
     public event Action<bool> onActiveInventory;
     public event Action<bool> onActiveInventoryBox;
     public event Action<bool> onExitInventory;
-    public event Action<bool> onKeyShooting;
-    public event Action<bool> onRightMouseButton;
 
     private InputActions inputActions;
 
@@ -74,7 +76,7 @@ public class InputCharacter : IInitializable, IDisposable
         if (context.performed)
         {
             isActiveInventory = !isActiveInventory;
-            onActiveInventory?.Invoke(isActiveInventory); //Switcher  activate  inventoryController person
+            onActiveInventory?.Invoke(isActiveInventory); 
         }
     }
     private void InventoryBoxKey_performed(InputAction.CallbackContext context)
