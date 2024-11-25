@@ -2290,6 +2290,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3404920656544900090, guid: 8b76a29402ae8b64fb01b52dd633429a,
         type: 3}
+      propertyPath: OnCollisionTag
+      value: Terrain
+      objectReference: {fileID: 0}
+    - target: {fileID: 3404920656544900090, guid: 8b76a29402ae8b64fb01b52dd633429a,
+        type: 3}
       propertyPath: speedRunForward
       value: 3
       objectReference: {fileID: 0}

@@ -55,14 +55,14 @@ public class CharacterMove : MonoBehaviour
         if (state.isMoving)
         {
             inputAxis = new Vector3(axis.x, 0, axis.y);
-            state.SetInputAxisMove(inputAxis);
+            state.SetInputAxisMove(axis);
         }    
     }
     public void Jumping()
     {
         if (state.isJumping && state.isCollision)
         { 
-            rbCharacter.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);  
+            rbCharacter.AddForce(Vector3.up * jumpForce, ForceMode.Impulse); 
         }
     }  
     public void SwitchVelocityMove()
@@ -85,7 +85,7 @@ public class CharacterMove : MonoBehaviour
     {
         if (collision.gameObject.tag == OnCollisionTag)
         {
-            state.SetCollision(false); 
+            state.SetCollision(true); 
         }
     }
     private void OnCollisionExit(Collision collision)

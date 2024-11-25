@@ -18,9 +18,9 @@ public class CharacterAnimator : MonoBehaviour
         animatorCharacter = GetComponent<Animator>();
         //layerShooting = animatorCharacter.GetLayerIndex("Shooting");
     }
-    public void MovAnimation(Vector3 inputAxis)
+    public void MovAnimation(Vector3 inputAxis,bool isMoving)
     {
-        if (inputAxis.sqrMagnitude > 0.2f)
+        if (inputAxis.sqrMagnitude > 0.2f && isMoving)
         {
             //animatorCharacter.SetLayerWeight(layerShooting, isShooting ? 1 : 0);
             animatorCharacter.SetFloat("X", inputAxis.x * speedAnimation, 0.2f, Time.deltaTime);

@@ -21,7 +21,7 @@ public class CharacterState
     }
     public void InputCharacter_OnKeyDownJump(bool isKeyDown)
     {
-        isJumping = isKeyDown;
+        isJumping = isKeyDown; 
     }
     public void InputCharacter_OnKeyRun(bool isKeyRun)
     {
@@ -41,12 +41,12 @@ public class CharacterState
         this.isShooting = isShooting;
     }
 
-    public void SetInputAxisMove(Vector3 input)
+    public void SetInputAxisMove(Vector2 axis)
     {
-        inputAxis = input;
+        inputAxis = new Vector3(axis.x, 0, axis.y);
     }
     public void SetCollision(bool isCollision)
     {
-        this.isCollision = isCollision;
+        this.isCollision = isCollision; 
     } 
 }
