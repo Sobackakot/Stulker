@@ -1,15 +1,19 @@
- 
+
 using UnityEngine;
 using Zenject;
 
 public class RaycastCamera : MonoBehaviour
 {  
     private Transform point;
-    private float maxRayDistance = 3f;
+    private float maxRayInteract = 3f;
+    private float maxRayAiming = 1000f;
      
     public LayerMask layerMaskBox;
     public LayerMask layerMaskTake;
-     
+
+    private Ray ray;
+    private RaycastHit hit;
+
     private InputCharacter input;
     private InventoryPersonGameObject inventoryGameObject;
     private WindowUI windowUI;
@@ -24,8 +28,8 @@ public class RaycastCamera : MonoBehaviour
     {
         point = GetComponent<Transform>();
         inventoryGameObject = FindObjectOfType<InventoryPersonGameObject>();
-        windowUI = FindObjectOfType<WindowUI>();
-    }
+        windowUI = FindObjectOfType<WindowUI>(); 
+    } 
     private void OnEnable()
     {
         input.onActiveInventoryBox += OnInteractButton; 
@@ -34,18 +38,46 @@ public class RaycastCamera : MonoBehaviour
     {
         input.onActiveInventoryBox -= OnInteractButton; 
     } 
+   
+    public Vector3 GetPointRayAim()
+    { 
+        ray = GetUpdateRay();
+        if (Physics.Raycast(ray, out hit, maxRayAiming))
+            return hit.point;
+        else return ray.GetPoint(1000);
+    }
+    public void RayHitTakeItemInteract()
+    {
+        ray = GetUpdateRay();
+        if (Physics.Raycast(ray, out hit, maxRayInteract, layerMaskTake.value))
+        {
+            windowUI.SetInteractText("Take (F)");
+        }
+        else RayHitInventoryBoxInteract();
+    }
+    private void RayHitInventoryBoxInteract()
+    {
+        ray = GetUpdateRay();
+        if (Physics.Raycast(ray, out hit, maxRayInteract, layerMaskBox.value))
+        {
+            windowUI.SetInteractText("Search (F)");
+        }
+        else
+        {
+            windowUI.SetInteractText(" ");
+        }
+    }
     private void OnInteractButton(bool isActive)
     {
-        isActiveInventoryBox = isActive;    
-        Ray ray = new Ray(point.position, point.forward);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, maxRayDistance))
+        ray = GetUpdateRay();
+        isActiveInventoryBox = isActive;     
+        if (Physics.Raycast(ray, out hit, maxRayInteract))
         {
-            SearcheBox(hit);
-            TakeItem(hit); 
+            SearcheInventoryBox(hit);
+            PickUpItem(hit); 
         }
     } 
-    private void SearcheBox(RaycastHit hit)
+    private void SearcheInventoryBox(RaycastHit hit)
     {   
         if((layerMaskBox.value & (1 << hit.collider.gameObject.layer)) != 0)
         { 
@@ -57,7 +89,7 @@ public class RaycastCamera : MonoBehaviour
             } 
         } 
     }
-    private void TakeItem(RaycastHit hit)
+    private void PickUpItem(RaycastHit hit)
     {
         if ((layerMaskTake.value & (1 << hit.collider.gameObject.layer)) != 0)
         {
@@ -68,27 +100,9 @@ public class RaycastCamera : MonoBehaviour
             } 
         }      
     }
-    public void RayHitTakeInteract()
+    
+    private Ray GetUpdateRay()
     {
-        Ray ray = new Ray(point.position, point.forward);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, maxRayDistance, layerMaskTake.value))
-        {
-            windowUI.SetInteractText("Take (F)"); 
-        }
-        else RayHitBoxInteract();
-    }
-    private void RayHitBoxInteract()
-    {
-        Ray ray = new Ray(point.position, point.forward);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, maxRayDistance, layerMaskBox.value))
-        {
-            windowUI.SetInteractText("Search (F)");
-        }
-        else
-        { 
-            windowUI.SetInteractText(" "); 
-        }
+        return new Ray(point.position, point.forward);
     }
 }
