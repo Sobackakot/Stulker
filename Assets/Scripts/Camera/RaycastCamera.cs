@@ -48,7 +48,7 @@ public class RaycastCamera : MonoBehaviour
     }
     public void RayHitTakeItemInteract()
     {
-        ray = GetUpdateRay();
+        ray = GetUpdateRay(); 
         if (Physics.Raycast(ray, out hit, maxRayInteract, layerMaskTake.value))
         {
             windowUI.SetInteractText("Take (F)");

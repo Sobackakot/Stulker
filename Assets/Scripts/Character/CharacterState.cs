@@ -35,7 +35,6 @@ public class CharacterState
     public void InputCharacter_OnRightMouseButton(bool isPressed)
     {
         isAiming = isPressed;
-        isAiming = true;
     }
     public void InputCharacter_OnActiveShooting(bool isShooting)
     {

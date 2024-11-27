@@ -10,7 +10,7 @@ public class EquipmentController : IInventoryContoller, IInitializable, IDisposa
         this.equipmentUI = equipmentUI;
         this.inventoryBox = inventoryBox;
 
-        int countSlotsItem = System.Enum.GetNames(typeof(EquipItems)).Length; //get the number of equipmentSlots for equipmentUI items
+        int countSlotsItem = System.Enum.GetNames(typeof(EquipItems)).Length; //get the number1 of equipmentSlots for equipmentUI items
         equipmentItems = new List<ItemScrObj>(countSlotsItem);
         for (int i = 0; i < countSlotsItem; i++)
         {
