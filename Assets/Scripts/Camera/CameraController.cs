@@ -45,7 +45,8 @@ public class CameraController: ILateTickable, IInitializable, IDisposable, IFixe
         camera.StoppingRotateCameta(isActive);
            
         
-        windowUI.ShowInteractText(); 
+        windowUI.ShowInteractText();
+       
     }
 
     public void FixedTick()
@@ -53,8 +54,8 @@ public class CameraController: ILateTickable, IInitializable, IDisposable, IFixe
         ray.RayHitTakeItemInteract();
         if (state.isAiming)
         {
-            //UnityEngine.Vector3 hitPoint = ray.GetPointRayAim();
-            //weaponAim.SetWeaponAim(hitPoint);
-        } 
+            UnityEngine.Vector3 hitPoint = ray.GetPointRayAim();
+            weaponAim.SetWeaponAim(hitPoint);
+        }
     }
 }

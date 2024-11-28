@@ -1,15 +1,18 @@
 
+using System;
 using UnityEngine;
 using Zenject;
 
 public class RaycastCamera : MonoBehaviour
-{  
+{
+    [SerializeField] private Transform targetAiming;
     private Transform point;
     private float maxRayInteract = 3f;
     private float maxRayAiming = 1000f;
      
     public LayerMask layerMaskBox;
     public LayerMask layerMaskTake;
+    public LayerMask ignorMaskPerson;
 
     private Ray ray;
     private RaycastHit hit;
@@ -42,9 +45,16 @@ public class RaycastCamera : MonoBehaviour
     public Vector3 GetPointRayAim()
     { 
         ray = GetUpdateRay();
-        if (Physics.Raycast(ray, out hit, maxRayAiming))
-            return hit.point;
-        else return ray.GetPoint(1000);
+        if (Physics.Raycast(ray, out hit, maxRayAiming, ~ignorMaskPerson))
+        {
+            targetAiming.position = hit.point;
+            return targetAiming.position;
+        } 
+        else
+        {
+            targetAiming.position = ray.GetPoint(1000);
+            return targetAiming.position;
+        }
     }
     public void RayHitTakeItemInteract()
     {

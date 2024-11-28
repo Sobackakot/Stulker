@@ -5,8 +5,7 @@ using Zenject;
 public class CameraCharacter : MonoBehaviour
 {
     [SerializeField] private Transform transformCharacter;
-    [HideInInspector]public Transform transformCamera;
-
+    [HideInInspector]public Transform transformCamera; 
     [SerializeField] private float sensitivityMouse = 45f;
     [SerializeField] private float scrollSpeed = 3f;
 
