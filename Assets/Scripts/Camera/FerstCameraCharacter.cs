@@ -32,13 +32,13 @@ public class FerstCameraCharacter : MonoBehaviour
         GetInputAxisMouse();
         RotateCamera();
     }
-    public virtual void RotateCamera()
+    public void RotateCamera()
     { 
         mouseAxisY = Mathf.Clamp(mouseAxisY, minAngle, maxAngle);
         transformCamera.localEulerAngles = new Vector3(mouseAxisY, mouseAxisX, 0);
         transformCamera.position = transformCamera.localRotation * offset + transformCharacter.position;
     }
-    public virtual void GetInputAxisMouse()
+    public void GetInputAxisMouse()
     {
         mouseAxisX += Input.GetAxis("Mouse X") * sensitivityMouse * Time.deltaTime;
         mouseAxisY -= Input.GetAxis("Mouse Y") * sensitivityMouse * Time.deltaTime;

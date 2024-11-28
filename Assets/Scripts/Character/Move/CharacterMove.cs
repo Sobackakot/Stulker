@@ -36,6 +36,7 @@ public class CharacterMove : MonoBehaviour
         rbCharacter = GetComponent<Rigidbody>();
         cameraCharacter = FindFirstObjectByType<CameraCharacter>();
     } 
+    
     public void Moving()
     {
         Vector3 cameraZ = Vector3.ProjectOnPlane(cameraCharacter.transform.forward, Vector3.up).normalized;
@@ -44,9 +45,7 @@ public class CharacterMove : MonoBehaviour
         newDirection = (inputAxis.z * cameraZ) + (inputAxis.x * cameraX);
         if (newDirection.sqrMagnitude > 0.2f | state.isAiming)
         {
-            speedRotate = state.isAiming ? 8f : 3f;
-            Quaternion direction = Quaternion.LookRotation(cameraZ, Vector3.up);
-            transformCharacter.rotation = Quaternion.Lerp(transformCharacter.rotation, direction, speedRotate * Time.deltaTime);
+            Rotating(cameraZ);
             rbCharacter.MovePosition(rbCharacter.position + newDirection * speedMove * Time.deltaTime);
         } 
     }
@@ -80,7 +79,12 @@ public class CharacterMove : MonoBehaviour
         } 
         else state.UpdateStateMove(true);
     }
-
+    private void Rotating(Vector3 cameraZ)
+    {
+        speedRotate = state.isAiming ? 8f : 3f;
+        Quaternion direction = Quaternion.LookRotation(cameraZ, Vector3.up);
+        transformCharacter.rotation = Quaternion.Lerp(transformCharacter.rotation, direction, speedRotate * Time.deltaTime); 
+    }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == OnCollisionTag)

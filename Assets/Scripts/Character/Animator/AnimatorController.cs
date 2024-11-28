@@ -2,7 +2,7 @@
 using System;
 using Zenject;
 
-public class AnimatorController :IFixedTickable
+public class AnimatorController :IFixedTickable, ILateTickable
 {
     public AnimatorController(CharacterAnimator characterAnimator, CameraCharacter camera, CharacterState state, CharacterIK characterIK)
     {
@@ -17,6 +17,11 @@ public class AnimatorController :IFixedTickable
     private CharacterIK characterIK;
 
     public void FixedTick()
+    {
+       
+    }
+
+    public void LateTick()
     {
         bool isLimitAngle = camera.CheckCameraRotateAngle(state.isAiming);
         characterAnimator.SwitchAnimationTurn(camera.currentAngle, camera.isRotateCamera);

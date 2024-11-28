@@ -24,6 +24,7 @@ public class CameraController: ILateTickable, IInitializable, IDisposable, IFixe
     private WeaponAim weaponAim;
     private IInventoryUI inventoryUI;
 
+    private UnityEngine.Vector3 hitPoint;
 
     public void Initialize()
     {
@@ -42,11 +43,13 @@ public class CameraController: ILateTickable, IInitializable, IDisposable, IFixe
         camera.ZoomCamera();
 
         bool isActive = inventoryUI.isActiveInventory;
-        camera.StoppingRotateCameta(isActive);
-           
-        
+        camera.StoppingRotateCameta(isActive); 
         windowUI.ShowInteractText();
-       
+        if (state.isAiming)
+        { 
+            weaponAim.SetWeaponAim(hitPoint, state.isRotate);
+        }
+
     }
 
     public void FixedTick()
@@ -54,8 +57,7 @@ public class CameraController: ILateTickable, IInitializable, IDisposable, IFixe
         ray.RayHitTakeItemInteract();
         if (state.isAiming)
         {
-            UnityEngine.Vector3 hitPoint = ray.GetPointRayAim();
-            weaponAim.SetWeaponAim(hitPoint);
+            hitPoint = ray.GetPointRayAim(); 
         }
     }
 }

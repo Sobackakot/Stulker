@@ -10,16 +10,19 @@ public class WeaponAim : MonoBehaviour
     {
         trWeapon = transform.GetComponent<Transform>(); 
     }
-    public void SetWeaponAim(Vector3 hitPoint)
+    public void SetWeaponAim(Vector3 hitPoint, bool isRotate)
     {   
-        Vector3 direction = (hitPoint - trWeapon.position).normalized;
-        trWeapon.forward = Vector3.Lerp(trWeapon.forward, direction, Time.deltaTime *angle);
-        ClampWeaponRotation();
+        if (!isRotate)
+        {
+            Vector3 direction = (hitPoint - trWeapon.position).normalized;
+            trWeapon.forward = Vector3.Lerp(trWeapon.forward, direction, Time.deltaTime * angle); 
+            ClampWeaponRotation();
+        } 
     }
     private void ClampWeaponRotation() 
     {
         localEuler = trWeapon.localEulerAngles;
-        localEuler.y = Mathf.Clamp(localEuler.y, localEuler.y - angle, localEuler.y + angle);  
-        trWeapon.localEulerAngles =new Vector3(localEuler.x, localEuler.y, localEuler.z);
+        localEuler.y = Mathf.Clamp(localEuler.y, 75, 105);  
+        trWeapon.localEulerAngles =new Vector3(0, localEuler.y, 90);
     }
 }

@@ -34,19 +34,19 @@ public class CameraCharacter : MonoBehaviour
     {
         offset = transformCamera.position - transformCharacter.position;
     }
-    public virtual void RotateCamera()
+    public void RotateCamera()
     { 
         mouseAxisY = Mathf.Clamp(mouseAxisY, minAngle, maxAngle);
         transformCamera.localEulerAngles = new Vector3(mouseAxisY, mouseAxisX, 0);
         transformCamera.position = transformCamera.localRotation * offset + transformCharacter.position;
     }
-    public virtual void ZoomCamera()
+    public void ZoomCamera()
     {
         mouseZoom = Mathf.Clamp(mouseZoom, Mathf.Abs(minZoom), Mathf.Abs(maxZoom));
         transformCamera.position = transformCharacter.position - transformCamera.forward * mouseZoom;
     }
 
-    public virtual void GetInputAxisMouse(Vector2 inputAxis)
+    public void GetInputAxisMouse(Vector2 inputAxis)
     {
         if (isRotateCamera)
         {
@@ -73,7 +73,7 @@ public class CameraCharacter : MonoBehaviour
         }
         else return false;
     }
-    public virtual void GetInputScrollMouse(Vector2 scrollMouse)
+    public void GetInputScrollMouse(Vector2 scrollMouse)
     {
         if (isRotateCamera)
         {
@@ -81,7 +81,7 @@ public class CameraCharacter : MonoBehaviour
         }    
     }
     
-    public virtual void StoppingRotateCameta(bool isRotate)
+    public void StoppingRotateCameta(bool isRotate)
     {
         isRotateCamera = isRotate;
     }
