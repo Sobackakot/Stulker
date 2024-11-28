@@ -7,12 +7,12 @@ public class RaycastCamera : MonoBehaviour
 {
     [SerializeField] private Transform targetAiming;
     private Transform point;
-    private float maxRayInteract = 3f;
+    private float maxRayInteract = 4f;
     private float maxRayAiming = 1000f;
      
     public LayerMask layerMaskBox;
     public LayerMask layerMaskTake;
-    public LayerMask ignorMaskPerson;
+    public LayerMask ignorLayerMask;
 
     private Ray ray;
     private RaycastHit hit;
@@ -45,7 +45,7 @@ public class RaycastCamera : MonoBehaviour
     public Vector3 GetPointRayAim()
     { 
         ray = GetUpdateRay();
-        if (Physics.Raycast(ray, out hit, maxRayAiming, ~ignorMaskPerson))
+        if (Physics.Raycast(ray, out hit, maxRayAiming, ~ignorLayerMask))
         {
             targetAiming.position = hit.point;
             return targetAiming.position;

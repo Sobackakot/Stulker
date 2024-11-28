@@ -10,8 +10,7 @@ public class CharacterState
     public bool isWalking { get; private set; }
     public bool isCollision { get; private set; }
     public bool isAiming { get; private set; } 
-    public bool isMoving { get; private set; } 
-    public bool isRotate { get; private set; }
+    public bool isMoving { get; private set; }  
     public bool isShooting { get; private set; }
     public Vector3 inputAxis { get; private set; }
       
@@ -49,9 +48,5 @@ public class CharacterState
     public void SetCollision(bool isCollision)
     {
         this.isCollision = isCollision; 
-    } 
-    public void SetRotateState(bool isRotate)
-    {
-        this.isRotate = isRotate;
-    }
+    }  
 }

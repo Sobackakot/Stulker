@@ -47,7 +47,7 @@ public class CameraController: ILateTickable, IInitializable, IDisposable, IFixe
         windowUI.ShowInteractText();
         if (state.isAiming)
         { 
-            weaponAim.SetWeaponAim(hitPoint, state.isRotate);
+            weaponAim.SetWeaponAim(hitPoint);
         }
 
     }

@@ -32,6 +32,8 @@ public class AnimatorController :IFixedTickable, ILateTickable
         characterAnimator.SwithAnimationMove(state.isRunningSprint, state.isWalking, state.isAiming, state.inputAxis);
         characterAnimator.AimingMove(state.isAiming);
         characterAnimator.ActiveShooting(state.isShooting);
-        characterIK.SetWeightIK(state.isAiming);
+        
+        characterIK.SetWeightIKShooter(state.isShooting);
+        characterIK.SetWeightIKAiming(state.isAiming);
     }
 }

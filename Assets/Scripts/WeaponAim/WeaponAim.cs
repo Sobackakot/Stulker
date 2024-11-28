@@ -10,14 +10,11 @@ public class WeaponAim : MonoBehaviour
     {
         trWeapon = transform.GetComponent<Transform>(); 
     }
-    public void SetWeaponAim(Vector3 hitPoint, bool isRotate)
-    {   
-        if (!isRotate)
-        {
-            Vector3 direction = (hitPoint - trWeapon.position).normalized;
-            trWeapon.forward = Vector3.Lerp(trWeapon.forward, direction, Time.deltaTime * angle); 
-            ClampWeaponRotation();
-        } 
+    public void SetWeaponAim(Vector3 hitPoint)
+    {
+        Vector3 direction = (hitPoint - trWeapon.position).normalized;
+        trWeapon.forward = Vector3.Lerp(trWeapon.forward, direction, Time.deltaTime * angle);
+        ClampWeaponRotation();
     }
     private void ClampWeaponRotation() 
     {
