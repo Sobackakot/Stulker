@@ -7,7 +7,7 @@ public class RaycastCamera : MonoBehaviour
 {
     [SerializeField] private Transform targetAiming;
     private Transform point;
-    private float maxRayInteract = 4f;
+    private float maxRayInteract = 5f;
     private float maxRayAiming = 1000f;
      
     public LayerMask layerMaskBox;

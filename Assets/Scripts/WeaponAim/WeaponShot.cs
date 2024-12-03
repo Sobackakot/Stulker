@@ -41,7 +41,7 @@ public class WeaponShot : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Bullet newBullet = poolSystem.ActiveObject(spawnPoint.position, spawnPoint.rotation);
-            newBullet.InitializeBullet(speedMove, distanceMove);
+            newBullet.InitializeBullet(spawnPoint.position,speedMove, distanceMove);
             activeBullets.Add(newBullet); 
         }
     }

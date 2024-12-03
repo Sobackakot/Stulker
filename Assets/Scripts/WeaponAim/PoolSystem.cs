@@ -6,12 +6,13 @@ public class PoolSystem : MonoBehaviour
 {
     private Queue<Bullet> poolBullets = new Queue<Bullet>();
     [SerializeField] private GameObject bulletPrefub;
-    [SerializeField] private Transform startPoint;
+    private Transform poolTrans;
     private int poolCount = 100;
 
     private void Awake()
     {
-        InitializePool();
+        poolTrans = GetComponent<Transform>();
+        InitializePool(); 
     }
 
     public Bullet ActiveObject(Vector3 position, Quaternion rotation)
@@ -29,8 +30,9 @@ public class PoolSystem : MonoBehaviour
     }
     public void ReturnToPool(Bullet bullet)
     {
-        bullet.gameObject.SetActive(false);
-        bullet.transform.position = new Vector3(0,0,0);
+        bullet.gameObject.SetActive(false); 
+        bullet.transform.position = Vector3.zero;
+        bullet.transform.rotation = Quaternion.identity;    
         poolBullets.Enqueue(bullet); 
     }
     private void InitializePool()
@@ -45,8 +47,7 @@ public class PoolSystem : MonoBehaviour
     private Bullet CreateNewObject()
     {
         GameObject newObject = Instantiate(bulletPrefub);
-        newObject.transform.SetParent(startPoint);
-        newObject.transform.position = new Vector3(0, 0, 0);
+        newObject.transform.SetParent(poolTrans); 
         return newObject.GetComponent<Bullet>();
     }
 }
