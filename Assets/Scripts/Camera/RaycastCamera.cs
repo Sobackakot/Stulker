@@ -8,7 +8,8 @@ public class RaycastCamera : MonoBehaviour
     [SerializeField] private Transform targetAiming;
     [SerializeField] private AudioClip clip;
     [SerializeField] private AudioSource sorce;
-    [SerializeField] private ParticleSystem fire;
+    [SerializeField] private ParticleSystem fireEffect;
+    [SerializeField] private ParticleSystem bulletEffect;
     private Transform point;
     private float maxRayInteract = 5f;
     private float maxRayAiming = 1000f;
@@ -54,7 +55,8 @@ public class RaycastCamera : MonoBehaviour
         {
             nexTime = Time.time + intervalTime / divideTime;
             sorce.PlayOneShot(clip);
-            fire.Play();
+            fireEffect.Play();
+            bulletEffect.Play();
             ray = GetUpdateRay();
             if (Physics.Raycast(ray, out hit, maxRayAiming))
             {
