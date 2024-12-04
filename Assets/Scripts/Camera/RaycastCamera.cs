@@ -6,9 +6,15 @@ using Zenject;
 public class RaycastCamera : MonoBehaviour
 {
     [SerializeField] private Transform targetAiming;
+    [SerializeField] private AudioClip clip;
+    [SerializeField] private AudioSource sorce;
+    [SerializeField] private ParticleSystem fire;
     private Transform point;
     private float maxRayInteract = 5f;
     private float maxRayAiming = 1000f;
+    private float nexTime;
+    private float intervalTime = 1;
+    [SerializeField] private float divideTime;
      
     public LayerMask layerMaskBox;
     public LayerMask layerMaskTake;
@@ -42,10 +48,13 @@ public class RaycastCamera : MonoBehaviour
         input.onActiveInventoryBox -= OnInteractButton; 
     } 
    
-    public void Shooting(bool isKeyDown)
+    public void Shooting(bool isKeyPressDown)
     {
-        if (isKeyDown)
+        if (isKeyPressDown && Time.time > nexTime)
         {
+            nexTime = Time.time + intervalTime / divideTime;
+            sorce.PlayOneShot(clip);
+            fire.Play();
             ray = GetUpdateRay();
             if (Physics.Raycast(ray, out hit, maxRayAiming))
             {
