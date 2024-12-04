@@ -9,7 +9,8 @@ public class CharacterState
     public bool isRunningSprint { get; private set; }
     public bool isWalking { get; private set; }
     public bool isCollision { get; private set; }
-    public bool isAiming { get; private set; } 
+    public bool isKeyDownMouseRight { get; private set; } 
+    public bool isKeyDownMousLeft { get; private set; } 
     public bool isMoving { get; private set; }  
     public bool isShooting { get; private set; }
     public Vector3 inputAxis { get; private set; }
@@ -34,7 +35,12 @@ public class CharacterState
     public void InputCharacter_OnRightMouseButton(bool isPressed)
     {
         if(isShooting) 
-            isAiming = isPressed;
+            isKeyDownMouseRight = isPressed;
+    }
+    public void InputCharacter_OnLeftMouseButton(bool isPressed)
+    {
+        if (isShooting)
+            isKeyDownMousLeft = isPressed;
     }
     public void InputCharacter_OnActiveShooting(bool isShooting)
     {

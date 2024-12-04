@@ -24,7 +24,6 @@ public class CharacterInstaller : ScriptableObjectInstaller
         Container.BindInterfacesAndSelfTo<InputCamera>().AsSingle().NonLazy(); 
         Container.Bind<CameraCharacter>().FromComponentInHierarchy(this).AsSingle();
         Container.Bind<RaycastCamera>().FromComponentInHierarchy(this).AsSingle();
-        Container.Bind<WeaponAim>().FromComponentInHierarchy(this).AsSingle();
     }
 
     private void BindCharacter()

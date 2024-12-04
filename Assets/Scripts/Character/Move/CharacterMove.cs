@@ -43,7 +43,7 @@ public class CharacterMove : MonoBehaviour
         Vector3 cameraX = Vector3.ProjectOnPlane(cameraCharacter.transform.right, Vector3.up).normalized;
         
         newDirection = (inputAxis.z * cameraZ) + (inputAxis.x * cameraX);
-        if (newDirection.sqrMagnitude > 0.2f | state.isAiming)
+        if (newDirection.sqrMagnitude > 0.2f | state.isKeyDownMouseRight)
         {
             Rotating(cameraZ);
             rbCharacter.MovePosition(rbCharacter.position + newDirection * speedMove * Time.deltaTime);
@@ -66,7 +66,7 @@ public class CharacterMove : MonoBehaviour
     }  
     public void SwitchVelocityMove()
     {
-        if (state.isWalking | state.isAiming) speedMove = inputAxis.z < 0 ? speedWalkBack : speedWalkForward;
+        if (state.isWalking | state.isKeyDownMouseRight) speedMove = inputAxis.z < 0 ? speedWalkBack : speedWalkForward;
         else speedMove = inputAxis.z < 0 ? speedRunBack : (state.isRunningSprint ? (inputAxis.z > 0 ? speedSprint : speedRunForward) : speedRunForward); 
     }
     public void StopingMoveCharacter(bool isActiveInventoryBox)
@@ -81,7 +81,7 @@ public class CharacterMove : MonoBehaviour
     }
     private void Rotating(Vector3 cameraZ)
     {
-        speedRotate = state.isAiming ? 8f : 3f;
+        speedRotate = state.isKeyDownMouseRight ? 8f : 3f;
         Quaternion direction = Quaternion.LookRotation(cameraZ, Vector3.up);
         transformCharacter.rotation = Quaternion.Lerp(transformCharacter.rotation, direction, speedRotate * Time.deltaTime); 
     }

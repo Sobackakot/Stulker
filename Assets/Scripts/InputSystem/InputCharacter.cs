@@ -13,6 +13,7 @@ public class InputCharacter : IInitializable, IDisposable
     public event Action<bool> onGetKeyWalk; 
     public event Action<bool> onKeyShooting;
     public event Action<bool> onRightMouseButton;
+    public event Action<bool> onLeftMouseButton;
 
     public event Action<bool> onActiveInventory;
     public event Action<bool> onActiveInventoryBox;
@@ -51,6 +52,9 @@ public class InputCharacter : IInitializable, IDisposable
         inputActions.ActionMaps.RightMouseButton.started += ctx => RightMouseButton_performed(ctx);
         inputActions.ActionMaps.RightMouseButton.canceled += ctx => RightMouseButton_performed(ctx);
 
+        inputActions.ActionMaps.LeftMouseButton.started += ctx => LeftMouseButton_performed(ctx);
+        inputActions.ActionMaps.LeftMouseButton.canceled += ctx => LeftMouseButton_performed(ctx);
+
     }
 
     public void Dispose()
@@ -62,6 +66,12 @@ public class InputCharacter : IInitializable, IDisposable
         if (context.started)
             onRightMouseButton?.Invoke(true);
         else if (context.canceled) onRightMouseButton?.Invoke(false);
+    }
+    private void LeftMouseButton_performed(InputAction.CallbackContext context)
+    {
+        if (context.started)
+            onLeftMouseButton?.Invoke(true);
+        else if (context.canceled) onLeftMouseButton?.Invoke(false);
     }
     private void ShootingKey_performed(InputAction.CallbackContext context)
     {

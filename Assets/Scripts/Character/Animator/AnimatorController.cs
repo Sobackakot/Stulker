@@ -23,17 +23,17 @@ public class AnimatorController :IFixedTickable, ILateTickable
 
     public void LateTick()
     {
-        bool isLimitAngle = camera.CheckCameraRotateAngle(state.isAiming);
+        bool isLimitAngle = camera.CheckCameraRotateAngle(state.isKeyDownMouseRight);
         characterAnimator.SwitchAnimationTurn(camera.currentAngle, camera.isRotateCamera);
         characterAnimator.TurnAnimation(camera.inputAxisMouse, camera.isRotateCamera, isLimitAngle);
         if (state.isCollision)
             characterAnimator.JumpAnimation(state.isJumping);
         characterAnimator.MovAnimation(state.inputAxis, state.isMoving);
-        characterAnimator.SwithAnimationMove(state.isRunningSprint, state.isWalking, state.isAiming, state.inputAxis);
-        characterAnimator.AimingMove(state.isAiming);
+        characterAnimator.SwithAnimationMove(state.isRunningSprint, state.isWalking, state.isKeyDownMouseRight, state.inputAxis);
+        characterAnimator.AimingMove(state.isKeyDownMouseRight);
         characterAnimator.ActiveShooting(state.isShooting);
         
         characterIK.SetWeightIKShooter(state.isShooting);
-        characterIK.SetWeightIKAiming(state.isAiming);
+        characterIK.SetWeightIKAiming(state.isKeyDownMouseRight);
     }
 }

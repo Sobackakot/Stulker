@@ -17,6 +17,7 @@ public class StateCharacterController : IInitializable, IDisposable
         input.onGetKeyRun += state.InputCharacter_OnKeyRun;
         input.onGetKeyWalk += state.InputCharacter_OnKeyWalk;
         input.onRightMouseButton += state.InputCharacter_OnRightMouseButton;
+        input.onLeftMouseButton += state.InputCharacter_OnLeftMouseButton;
         input.onKeyShooting += state.InputCharacter_OnActiveShooting;
     }
 
@@ -26,6 +27,7 @@ public class StateCharacterController : IInitializable, IDisposable
         input.onGetKeyRun -= state.InputCharacter_OnKeyRun;
         input.onGetKeyWalk -= state.InputCharacter_OnKeyWalk;
         input.onRightMouseButton -= state.InputCharacter_OnRightMouseButton;
+        input.onLeftMouseButton -= state.InputCharacter_OnLeftMouseButton;
         input.onKeyShooting -= state.InputCharacter_OnActiveShooting;
     } 
 }

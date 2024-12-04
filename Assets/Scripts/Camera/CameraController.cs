@@ -5,23 +5,21 @@ using System;
 public class CameraController: ILateTickable, IInitializable, IDisposable, IFixedTickable
 {   
     public CameraController(InputCamera input, CameraCharacter camera, CharacterState state,
-        WindowUI windowUI, RaycastCamera ray, WeaponAim weaponAim,
+        WindowUI windowUI, RaycastCamera ray,
     [Inject(Id = "inventoryUI")]IInventoryUI inventoryUI)
     {
-        this.input = input;
+        this.input = input; 
         this.camera = camera;   
         this.state = state;
         this.inventoryUI = inventoryUI;
         this.windowUI = windowUI;
         this.ray = ray;
-        this.weaponAim = weaponAim; 
     }
-    private InputCamera input;
+    private InputCamera input; 
     private CameraCharacter camera;
     private CharacterState state;
     private WindowUI windowUI;
     private RaycastCamera ray;
-    private WeaponAim weaponAim;
     private IInventoryUI inventoryUI;
 
     private UnityEngine.Vector3 hitPoint;
@@ -45,19 +43,15 @@ public class CameraController: ILateTickable, IInitializable, IDisposable, IFixe
         bool isActive = inventoryUI.isActiveInventory;
         camera.StoppingRotateCameta(isActive); 
         windowUI.ShowInteractText();
-        if (state.isAiming)
-        { 
-            weaponAim.SetWeaponAim(hitPoint);
-        }
-
     }
 
     public void FixedTick()
     {
         ray.RayHitTakeItemInteract();
-        if (state.isAiming)
+        if (state.isKeyDownMouseRight)
         {
-            hitPoint = ray.GetPointRayAim(); 
+            hitPoint = ray.GetPointRayAim();
+            ray.Shooting(state.isKeyDownMousLeft);
         }
     }
 }

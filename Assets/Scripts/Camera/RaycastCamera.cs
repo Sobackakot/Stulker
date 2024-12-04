@@ -42,6 +42,17 @@ public class RaycastCamera : MonoBehaviour
         input.onActiveInventoryBox -= OnInteractButton; 
     } 
    
+    public void Shooting(bool isKeyDown)
+    {
+        if (isKeyDown)
+        {
+            ray = GetUpdateRay();
+            if (Physics.Raycast(ray, out hit, maxRayAiming))
+            {
+                hit.rigidbody?.AddForce(-hit.normal * 1f, ForceMode.Impulse);
+            }
+        }  
+    }
     public Vector3 GetPointRayAim()
     { 
         ray = GetUpdateRay();

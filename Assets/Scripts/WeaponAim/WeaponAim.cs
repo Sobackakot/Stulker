@@ -4,7 +4,6 @@ using UnityEngine;
 public class WeaponAim : MonoBehaviour
 {
     private Transform trWeapon;
-    private Vector3 localEuler;
     private float angle = 25f;
     private void Awake()
     {
