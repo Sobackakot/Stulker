@@ -8,6 +8,7 @@ public class RaycastCamera : MonoBehaviour
     [SerializeField] private Transform targetAiming;
     [SerializeField] private AudioClip clip;
     [SerializeField] private AudioSource sorce;
+    [SerializeField] private Light lightFier;
     [SerializeField] private ParticleSystem fireEffect;
     [SerializeField] private ParticleSystem bulletEffect;
     private Transform point;
@@ -51,12 +52,16 @@ public class RaycastCamera : MonoBehaviour
    
     public void Shooting(bool isKeyPressDown)
     {
+        lightFier.enabled = false;
+
         if (isKeyPressDown && Time.time > nexTime)
         {
             nexTime = Time.time + intervalTime / divideTime;
             sorce.PlayOneShot(clip);
             fireEffect.Play();
             bulletEffect.Play();
+            
+            lightFier.enabled = true;
             ray = GetUpdateRay();
             if (Physics.Raycast(ray, out hit, maxRayAiming))
             {

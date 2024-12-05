@@ -158,7 +158,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 130000
+  m_Intensity: 416.6425
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -201,7 +201,7 @@ Light:
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 0.5, y: 0.5}
   m_BounceIntensity: 1
-  m_ColorTemperature: 6500
+  m_ColorTemperature: 5075
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
@@ -216,13 +216,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 157207112}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.3420201, y: 0, z: 0, w: 0.9396927}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 40, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &157207115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,7 +235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Intensity: 130000
+  m_Intensity: 416.6425
   m_EnableSpotReflector: 0
   m_LuxAtDistance: 1
   m_InnerSpotPercent: 0
@@ -479,7 +479,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 37367b29f7902f54c80152fcec69c42e, type: 2}
+  - {fileID: 2100000, guid: c73cb525c4065e94b83b6dcd712610c0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -537,7 +537,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryBoxScrObj: {fileID: 11400000, guid: 16d45480d304aa746a896f4c51f69810, type: 2}
-  materialBox: {fileID: 2100000, guid: 37367b29f7902f54c80152fcec69c42e, type: 2}
+  materialBox: {fileID: 2100000, guid: c73cb525c4065e94b83b6dcd712610c0, type: 2}
 --- !u!1 &274664049
 GameObject:
   m_ObjectHideFlags: 0
@@ -827,7 +827,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a2004d58c8264df4692b3109e602356c, type: 2}
+  - {fileID: 2100000, guid: 779f9f19cb439834282af94e18846451, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -885,7 +885,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryBoxScrObj: {fileID: 11400000, guid: 053548a879061f34696ec5baf9b2c1df, type: 2}
-  materialBox: {fileID: 2100000, guid: a2004d58c8264df4692b3109e602356c, type: 2}
+  materialBox: {fileID: 2100000, guid: 779f9f19cb439834282af94e18846451, type: 2}
 --- !u!1 &452513928
 GameObject:
   m_ObjectHideFlags: 0
@@ -2245,6 +2245,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!108 &1285666449 stripped
+Light:
+  m_CorrespondingSourceObject: {fileID: 7732189481660187303, guid: 8b76a29402ae8b64fb01b52dd633429a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1536750698}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1376566710
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2442,6 +2448,7 @@ MonoBehaviour:
   targetAiming: {fileID: 322543997}
   clip: {fileID: 8300000, guid: d1c2dedd49e62304db227ad2e5d4404e, type: 3}
   sorce: {fileID: 1823688470}
+  lightFier: {fileID: 1285666449}
   fireEffect: {fileID: 18824773}
   bulletEffect: {fileID: 1601860711}
   divideTime: 10
@@ -2597,6 +2604,11 @@ PrefabInstance:
       propertyPath: pointFromCamera
       value: 
       objectReference: {fileID: 322543997}
+    - target: {fileID: 6392121291459013087, guid: 8b76a29402ae8b64fb01b52dd633429a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
