@@ -9,7 +9,7 @@ public class CharacterState
     public bool isWalking { get; private set; }
     public bool isCollision { get; private set; }
     public bool isKeyDownMouseRight { get; private set; } 
-    public bool isKeyDownMousLeft { get; private set; } 
+    public bool isKeyDownMouseLeft { get; private set; } 
     public bool isMoving { get; private set; }  
     public bool isShooting { get; private set; }
     public bool isTiltRight { get; private set; }
@@ -36,12 +36,10 @@ public class CharacterState
     public void InputCharacter_OnTiltRightButton(bool isTiltRight)
     {
         this.isTiltRight = isTiltRight; 
-        Debug.Log("right = " + this.isTiltRight);
     }
     public void InputCharacter_OnTiltLeftButton(bool isTiltLeft)
     {
         this.isTiltLeft = isTiltLeft;
-        Debug.Log("left = " + this.isTiltLeft);
     }
     public void InputCharacter_OnRightMouseButton(bool isPressed)
     {
@@ -51,7 +49,7 @@ public class CharacterState
     public void InputCharacter_OnLeftMouseButton(bool isPressed)
     {
         if (isShooting)
-            isKeyDownMousLeft = isPressed;
+            isKeyDownMouseLeft = isPressed;
     }
     public void InputCharacter_OnActiveShooting(bool isShooting)
     {

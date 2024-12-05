@@ -6,17 +6,10 @@ using Zenject;
 public class RaycastCamera : MonoBehaviour
 {
     [SerializeField] private Transform targetAiming;
-    [SerializeField] private AudioClip clip;
-    [SerializeField] private AudioSource sorce;
-    [SerializeField] private Light lightFier;
-    [SerializeField] private ParticleSystem fireEffect;
-    [SerializeField] private ParticleSystem bulletEffect;
+
     private Transform point;
     private float maxRayInteract = 5f;
     private float maxRayAiming = 1000f;
-    private float nexTime;
-    private float intervalTime = 1;
-    [SerializeField] private float divideTime;
      
     public LayerMask layerMaskBox;
     public LayerMask layerMaskTake;
@@ -43,7 +36,7 @@ public class RaycastCamera : MonoBehaviour
     } 
     private void OnEnable()
     {
-        input.onActiveInventoryBox += OnInteractButton; 
+        input.onActiveInventoryBox += OnInteractButton;
     }
     private void OnDisable()
     {
@@ -52,16 +45,9 @@ public class RaycastCamera : MonoBehaviour
    
     public void Shooting(bool isKeyPressDown)
     {
-        lightFier.enabled = false;
-
-        if (isKeyPressDown && Time.time > nexTime)
+        if (isKeyPressDown )
         {
-            nexTime = Time.time + intervalTime / divideTime;
-            sorce.PlayOneShot(clip);
-            fireEffect.Play();
-            bulletEffect.Play();
-            
-            lightFier.enabled = true;
+           
             ray = GetUpdateRay();
             if (Physics.Raycast(ray, out hit, maxRayAiming))
             {

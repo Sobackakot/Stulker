@@ -51,7 +51,7 @@ public class CameraController: ILateTickable, IInitializable, IDisposable, IFixe
         if (state.isKeyDownMouseRight)
         {
             hitPoint = ray.GetPointRayAim();
-            ray.Shooting(state.isKeyDownMousLeft);
+            ray.Shooting(state.isKeyDownMouseLeft);
         }
     }
 }
