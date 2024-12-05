@@ -14,6 +14,8 @@ public class InputCharacter : IInitializable, IDisposable
     public event Action<bool> onKeyShooting;
     public event Action<bool> onRightMouseButton;
     public event Action<bool> onLeftMouseButton;
+    public event Action<bool> onTiltRightButton;
+    public event Action<bool> onTiltLeftButton;
 
     public event Action<bool> onActiveInventory;
     public event Action<bool> onActiveInventoryBox;
@@ -55,11 +57,29 @@ public class InputCharacter : IInitializable, IDisposable
         inputActions.ActionMaps.LeftMouseButton.started += ctx => LeftMouseButton_performed(ctx);
         inputActions.ActionMaps.LeftMouseButton.canceled += ctx => LeftMouseButton_performed(ctx);
 
+        inputActions.ActionMaps.TiltRightKey.started += ctx => TiltRightButton_performed(ctx);
+        inputActions.ActionMaps.TiltRightKey.canceled += ctx => TiltRightButton_performed(ctx);
+
+        inputActions.ActionMaps.TiltLeftKey.started += ctx => TiltLeftButton_performed(ctx);
+        inputActions.ActionMaps.TiltLeftKey.canceled += ctx => TiltLeftButton_performed(ctx);
+
     }
 
     public void Dispose()
     {
         inputActions.Dispose(); 
+    }
+    private void TiltRightButton_performed(InputAction.CallbackContext context)
+    {
+        if (context.started)
+            onTiltRightButton?.Invoke(true);
+        else if (context.canceled) onTiltRightButton?.Invoke(false);
+    }
+    private void TiltLeftButton_performed(InputAction.CallbackContext context)
+    {
+        if (context.started)
+            onTiltLeftButton?.Invoke(true);
+        else if (context.canceled) onTiltLeftButton?.Invoke(false);
     }
     private void RightMouseButton_performed(InputAction.CallbackContext context)
     {

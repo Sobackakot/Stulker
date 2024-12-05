@@ -538,6 +538,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryBoxScrObj: {fileID: 11400000, guid: 16d45480d304aa746a896f4c51f69810, type: 2}
   materialBox: {fileID: 2100000, guid: c73cb525c4065e94b83b6dcd712610c0, type: 2}
+--- !u!114 &259415331 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3265003467701053028, guid: 8b76a29402ae8b64fb01b52dd633429a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1536750698}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3c430f382484144e925c097c2d33cfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &274664049
 GameObject:
   m_ObjectHideFlags: 0
@@ -2599,21 +2611,63 @@ PrefabInstance:
       propertyPath: m_Name
       value: Person_#
       objectReference: {fileID: 0}
+    - target: {fileID: 4026211226706932714, guid: 8b76a29402ae8b64fb01b52dd633429a,
+        type: 3}
+      propertyPath: m_Data.m_MaxLimit
+      value: -30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5913321236687377987, guid: 8b76a29402ae8b64fb01b52dd633429a,
+        type: 3}
+      propertyPath: pointLeftTilt
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5913321236687377987, guid: 8b76a29402ae8b64fb01b52dd633429a,
+        type: 3}
+      propertyPath: pointRightTilt
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5913321236687377987, guid: 8b76a29402ae8b64fb01b52dd633429a,
         type: 3}
       propertyPath: pointFromCamera
       value: 
       objectReference: {fileID: 322543997}
-    - target: {fileID: 6392121291459013087, guid: 8b76a29402ae8b64fb01b52dd633429a,
+    - target: {fileID: 5913321236687377987, guid: 8b76a29402ae8b64fb01b52dd633429a,
         type: 3}
-      propertyPath: m_IsActive
-      value: 1
+      propertyPath: twoBoneIKTiltLeftBody
+      value: 
+      objectReference: {fileID: 1536750699}
+    - target: {fileID: 5913321236687377987, guid: 8b76a29402ae8b64fb01b52dd633429a,
+        type: 3}
+      propertyPath: twoBoneIKTiltRightBody
+      value: 
+      objectReference: {fileID: 259415331}
+    - target: {fileID: 7413804266505554743, guid: 8b76a29402ae8b64fb01b52dd633429a,
+        type: 3}
+      propertyPath: m_Name
+      value: targetTilteLeft
+      objectReference: {fileID: 0}
+    - target: {fileID: 8108462968500792229, guid: 8b76a29402ae8b64fb01b52dd633429a,
+        type: 3}
+      propertyPath: m_Name
+      value: targetTilteRight
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b76a29402ae8b64fb01b52dd633429a, type: 3}
+--- !u!114 &1536750699 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4026211226706932714, guid: 8b76a29402ae8b64fb01b52dd633429a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1536750698}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3c430f382484144e925c097c2d33cfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1596662665
 PrefabInstance:
   m_ObjectHideFlags: 0

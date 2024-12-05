@@ -35,5 +35,7 @@ public class AnimatorController :IFixedTickable, ILateTickable
         
         characterIK.SetWeightIKShooter(state.isShooting);
         characterIK.SetWeightIKAiming(state.isKeyDownMouseRight);
+        characterIK.SetWeightIKTiltRight(state.isTiltRight); 
+        characterIK.SetWeightIKTiltLeft(state.isTiltLeft); 
     }
 }

@@ -143,6 +143,24 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TiltRightKey"",
+                    ""type"": ""Button"",
+                    ""id"": ""a978815b-296d-455c-9708-24cc6982c80d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TiltLeftKey"",
+                    ""type"": ""Button"",
+                    ""id"": ""73c76415-1165-4e3e-aa95-cd6048342978"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -332,6 +350,28 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""ExitInventoryKey"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2d18221c-98f3-4850-b7e2-0a180367674b"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TiltRightKey"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a1b248b0-9ebc-4e7d-a46a-77590eaae0be"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TiltLeftKey"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -353,6 +393,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_ActionMaps_InventoryKey = m_ActionMaps.FindAction("InventoryKey", throwIfNotFound: true);
         m_ActionMaps_InventoryBoxKey = m_ActionMaps.FindAction("InventoryBoxKey", throwIfNotFound: true);
         m_ActionMaps_ExitInventoryKey = m_ActionMaps.FindAction("ExitInventoryKey", throwIfNotFound: true);
+        m_ActionMaps_TiltRightKey = m_ActionMaps.FindAction("TiltRightKey", throwIfNotFound: true);
+        m_ActionMaps_TiltLeftKey = m_ActionMaps.FindAction("TiltLeftKey", throwIfNotFound: true);
     }
 
     ~@InputActions()
@@ -432,6 +474,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_ActionMaps_InventoryKey;
     private readonly InputAction m_ActionMaps_InventoryBoxKey;
     private readonly InputAction m_ActionMaps_ExitInventoryKey;
+    private readonly InputAction m_ActionMaps_TiltRightKey;
+    private readonly InputAction m_ActionMaps_TiltLeftKey;
     public struct ActionMapsActions
     {
         private @InputActions m_Wrapper;
@@ -449,6 +493,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @InventoryKey => m_Wrapper.m_ActionMaps_InventoryKey;
         public InputAction @InventoryBoxKey => m_Wrapper.m_ActionMaps_InventoryBoxKey;
         public InputAction @ExitInventoryKey => m_Wrapper.m_ActionMaps_ExitInventoryKey;
+        public InputAction @TiltRightKey => m_Wrapper.m_ActionMaps_TiltRightKey;
+        public InputAction @TiltLeftKey => m_Wrapper.m_ActionMaps_TiltLeftKey;
         public InputActionMap Get() { return m_Wrapper.m_ActionMaps; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -497,6 +543,12 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @ExitInventoryKey.started += instance.OnExitInventoryKey;
             @ExitInventoryKey.performed += instance.OnExitInventoryKey;
             @ExitInventoryKey.canceled += instance.OnExitInventoryKey;
+            @TiltRightKey.started += instance.OnTiltRightKey;
+            @TiltRightKey.performed += instance.OnTiltRightKey;
+            @TiltRightKey.canceled += instance.OnTiltRightKey;
+            @TiltLeftKey.started += instance.OnTiltLeftKey;
+            @TiltLeftKey.performed += instance.OnTiltLeftKey;
+            @TiltLeftKey.canceled += instance.OnTiltLeftKey;
         }
 
         private void UnregisterCallbacks(IActionMapsActions instance)
@@ -540,6 +592,12 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @ExitInventoryKey.started -= instance.OnExitInventoryKey;
             @ExitInventoryKey.performed -= instance.OnExitInventoryKey;
             @ExitInventoryKey.canceled -= instance.OnExitInventoryKey;
+            @TiltRightKey.started -= instance.OnTiltRightKey;
+            @TiltRightKey.performed -= instance.OnTiltRightKey;
+            @TiltRightKey.canceled -= instance.OnTiltRightKey;
+            @TiltLeftKey.started -= instance.OnTiltLeftKey;
+            @TiltLeftKey.performed -= instance.OnTiltLeftKey;
+            @TiltLeftKey.canceled -= instance.OnTiltLeftKey;
         }
 
         public void RemoveCallbacks(IActionMapsActions instance)
@@ -572,5 +630,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnInventoryKey(InputAction.CallbackContext context);
         void OnInventoryBoxKey(InputAction.CallbackContext context);
         void OnExitInventoryKey(InputAction.CallbackContext context);
+        void OnTiltRightKey(InputAction.CallbackContext context);
+        void OnTiltLeftKey(InputAction.CallbackContext context);
     }
 }

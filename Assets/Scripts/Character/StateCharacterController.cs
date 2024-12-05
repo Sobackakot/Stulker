@@ -19,6 +19,9 @@ public class StateCharacterController : IInitializable, IDisposable
         input.onRightMouseButton += state.InputCharacter_OnRightMouseButton;
         input.onLeftMouseButton += state.InputCharacter_OnLeftMouseButton;
         input.onKeyShooting += state.InputCharacter_OnActiveShooting;
+        
+        input.onTiltRightButton += state.InputCharacter_OnTiltRightButton;
+        input.onTiltLeftButton += state.InputCharacter_OnTiltLeftButton;
     }
 
     public void Dispose()
@@ -29,5 +32,9 @@ public class StateCharacterController : IInitializable, IDisposable
         input.onRightMouseButton -= state.InputCharacter_OnRightMouseButton;
         input.onLeftMouseButton -= state.InputCharacter_OnLeftMouseButton;
         input.onKeyShooting -= state.InputCharacter_OnActiveShooting;
-    } 
-}
+
+        input.onTiltRightButton -= state.InputCharacter_OnTiltRightButton;
+        input.onTiltLeftButton -= state.InputCharacter_OnTiltLeftButton;
+    }
+} 
+
