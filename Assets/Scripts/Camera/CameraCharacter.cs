@@ -4,7 +4,9 @@ using Zenject;
 
 public class CameraCharacter : MonoBehaviour
 {
-    [SerializeField] private Transform transformCharacter;
+    [SerializeField] private Transform pointRightLook;
+    [SerializeField] private Transform pointLeftLook;
+    private Transform currentLookPoint;
     [HideInInspector]public Transform transformCamera; 
     [SerializeField] private float sensitivityMouse = 45f;
     [SerializeField] private float scrollSpeed = 3f;
@@ -32,18 +34,24 @@ public class CameraCharacter : MonoBehaviour
     }
     private void Start()
     {
-        offset = transformCamera.position - transformCharacter.position;
+        currentLookPoint = pointRightLook;
+        offset = transformCamera.position - currentLookPoint.position;
+    }
+    public void SwitchLookPointCamera(bool isLeftPointLook)
+    {
+         currentLookPoint = isLeftPointLook  ? pointLeftLook : pointRightLook;
     }
     public void RotateCamera()
     { 
         mouseAxisY = Mathf.Clamp(mouseAxisY, minAngle, maxAngle);
         transformCamera.localEulerAngles = new Vector3(mouseAxisY, mouseAxisX, 0);
-        transformCamera.position = transformCamera.localRotation * offset + transformCharacter.position;
+        Vector3 newPosition = transformCamera.localRotation * offset + currentLookPoint.position;
+        transformCamera.position = Vector3.Lerp(transformCamera.position, newPosition, Time.deltaTime);
     }
     public void ZoomCamera()
     {
         mouseZoom = Mathf.Clamp(mouseZoom, Mathf.Abs(minZoom), Mathf.Abs(maxZoom));
-        transformCamera.position = transformCharacter.position - transformCamera.forward * mouseZoom;
+        transformCamera.position = currentLookPoint.position - transformCamera.forward * mouseZoom;
     }
 
     public void GetInputAxisMouse(Vector2 inputAxis)
@@ -61,7 +69,7 @@ public class CameraCharacter : MonoBehaviour
     public bool CheckCameraRotateAngle(bool isAiming)
     {   
         Vector3 cameraZ = Vector3.ProjectOnPlane(transformCamera.forward, Vector3.up).normalized;
-        Vector3 characterZ = Vector3.ProjectOnPlane(transformCharacter.forward, Vector3.up).normalized;
+        Vector3 characterZ = Vector3.ProjectOnPlane(currentLookPoint.forward, Vector3.up).normalized;
         currentAngle = Vector3.SignedAngle(cameraZ, characterZ, Vector3.up);
         if(isAiming && Mathf.Abs(currentAngle) > limitAngleAim)
         {

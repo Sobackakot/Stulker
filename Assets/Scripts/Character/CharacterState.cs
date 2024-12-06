@@ -14,6 +14,8 @@ public class CharacterState
     public bool isShooting { get; private set; }
     public bool isTiltRight { get; private set; }
     public bool isTiltLeft { get; private set; }
+
+    public bool isLeftPointLook {  get; private set; }  
     public Vector3 inputAxis { get; private set; }
       
     public void UpdateStateMove(bool isMoving)
@@ -35,11 +37,13 @@ public class CharacterState
     }
     public void InputCharacter_OnTiltRightButton(bool isTiltRight)
     {
-        this.isTiltRight = isTiltRight; 
+        this.isTiltRight = isTiltRight;
+        isLeftPointLook = false; 
     }
     public void InputCharacter_OnTiltLeftButton(bool isTiltLeft)
     {
-        this.isTiltLeft = isTiltLeft;
+        this.isTiltLeft = isTiltLeft; 
+        isLeftPointLook = true; 
     }
     public void InputCharacter_OnRightMouseButton(bool isPressed)
     {

@@ -538,18 +538,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryBoxScrObj: {fileID: 11400000, guid: 16d45480d304aa746a896f4c51f69810, type: 2}
   materialBox: {fileID: 2100000, guid: c73cb525c4065e94b83b6dcd712610c0, type: 2}
---- !u!114 &259415331 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3265003467701053028, guid: 8b76a29402ae8b64fb01b52dd633429a,
-    type: 3}
-  m_PrefabInstance: {fileID: 1536750698}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3c430f382484144e925c097c2d33cfe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &274664049
 GameObject:
   m_ObjectHideFlags: 0
@@ -2777,93 +2765,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Person_#
       objectReference: {fileID: 0}
-    - target: {fileID: 4026211226706932714, guid: 8b76a29402ae8b64fb01b52dd633429a,
-        type: 3}
-      propertyPath: m_Data.m_MaxLimit
-      value: -30
-      objectReference: {fileID: 0}
-    - target: {fileID: 5913321236687377987, guid: 8b76a29402ae8b64fb01b52dd633429a,
-        type: 3}
-      propertyPath: pointLeftTilt
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5913321236687377987, guid: 8b76a29402ae8b64fb01b52dd633429a,
-        type: 3}
-      propertyPath: pointRightTilt
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 5913321236687377987, guid: 8b76a29402ae8b64fb01b52dd633429a,
         type: 3}
       propertyPath: pointFromCamera
       value: 
       objectReference: {fileID: 322543997}
-    - target: {fileID: 5913321236687377987, guid: 8b76a29402ae8b64fb01b52dd633429a,
-        type: 3}
-      propertyPath: twoBoneIKTiltLeftBody
-      value: 
-      objectReference: {fileID: 1536750699}
-    - target: {fileID: 5913321236687377987, guid: 8b76a29402ae8b64fb01b52dd633429a,
-        type: 3}
-      propertyPath: twoBoneIKTiltRightBody
-      value: 
-      objectReference: {fileID: 259415331}
-    - target: {fileID: 7413804266505554743, guid: 8b76a29402ae8b64fb01b52dd633429a,
-        type: 3}
-      propertyPath: m_Name
-      value: targetTilteLeft
-      objectReference: {fileID: 0}
-    - target: {fileID: 7732189481660187303, guid: 8b76a29402ae8b64fb01b52dd633429a,
-        type: 3}
-      propertyPath: m_Intensity
-      value: 3183.0989
-      objectReference: {fileID: 0}
-    - target: {fileID: 7732189481660187303, guid: 8b76a29402ae8b64fb01b52dd633429a,
-        type: 3}
-      propertyPath: m_ShadowRadius
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7732189481660187303, guid: 8b76a29402ae8b64fb01b52dd633429a,
-        type: 3}
-      propertyPath: m_ColorTemperature
-      value: 2922
-      objectReference: {fileID: 0}
-    - target: {fileID: 7878909682649053324, guid: 8b76a29402ae8b64fb01b52dd633429a,
-        type: 3}
-      propertyPath: m_Intensity
-      value: 40000
-      objectReference: {fileID: 0}
-    - target: {fileID: 7878909682649053324, guid: 8b76a29402ae8b64fb01b52dd633429a,
-        type: 3}
-      propertyPath: m_ShapeRadius
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7878909682649053324, guid: 8b76a29402ae8b64fb01b52dd633429a,
-        type: 3}
-      propertyPath: m_VolumetricDimmer
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8108462968500792229, guid: 8b76a29402ae8b64fb01b52dd633429a,
-        type: 3}
-      propertyPath: m_Name
-      value: targetTilteRight
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b76a29402ae8b64fb01b52dd633429a, type: 3}
---- !u!114 &1536750699 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4026211226706932714, guid: 8b76a29402ae8b64fb01b52dd633429a,
-    type: 3}
-  m_PrefabInstance: {fileID: 1536750698}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3c430f382484144e925c097c2d33cfe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1596662665
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3051,6 +2962,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4835899192707740, guid: 167ccd36f78cceb46a4d150b76b96fab,
     type: 3}
   m_PrefabInstance: {fileID: 1638396289}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1639629383 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1998635588282073564, guid: 8b76a29402ae8b64fb01b52dd633429a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1536750698}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1665321730
 PrefabInstance:
@@ -3388,7 +3305,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 971213605e577e14f86491b4e956dff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transformCharacter: {fileID: 1678273401}
+  pointRightLook: {fileID: 1678273401}
+  pointLeftLook: {fileID: 1639629383}
   transformCamera: {fileID: 0}
   sensitivityMouse: 6
   scrollSpeed: 3
