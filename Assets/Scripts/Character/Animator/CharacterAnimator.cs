@@ -44,9 +44,9 @@ public class CharacterAnimator : MonoBehaviour
         if (isRotate)
             switchAngleTurn = angle >= 125 ? angleMaxTurn : angleTurn; 
     }
-    public void SwithAnimationMove(bool isRanning, bool isWalking,bool isAiming, Vector3 inputAxis)
+    public void SwithAnimationMove(bool isRanning, bool isWalking,bool isAiming, bool isCrouching, Vector3 inputAxis)
     {
-        if (isWalking | isAiming) speedAnimation = speedWalkAnimation;
+        if (isWalking | isAiming | isCrouching) speedAnimation = speedWalkAnimation;
         else speedAnimation = isRanning ? (inputAxis.z > 0 ? speedSprint : speedRunAnimation) : speedRunAnimation;
     }
     public void JumpAnimation(bool isJumping)
@@ -59,6 +59,14 @@ public class CharacterAnimator : MonoBehaviour
     public void AimingMove(bool isAiming)
     {   
         animatorCharacter.SetBool("isAimForButtle", isAiming);
+    }
+    public void CrouchingMove(bool isCroushing)
+    {
+        animatorCharacter.SetBool("isCrouching", isCroushing);
+    }
+    public void CrouchingMoveReady(bool isCrouchingReady)
+    {
+        animatorCharacter.SetBool("isCrouchingReady", isCrouchingReady);
     }
     public void ParkourUp(bool isParkour)
     {

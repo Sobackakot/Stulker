@@ -42,6 +42,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "CrouchingKey",
+                    "type": "Button",
+                    "id": "e8096e00-d067-4e22-8566-f41f846656e9",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "ShootingKey",
                     "type": "Button",
                     "id": "a74f3ca1-c195-48e1-becd-d345e0b4a382",
@@ -227,6 +236,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "GetKeyWalk",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d72379ee-3995-493f-b87d-4b3ee725531c",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CrouchingKey",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

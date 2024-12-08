@@ -8,7 +8,7 @@ public class CharacterMove : MonoBehaviour
     [SerializeField] private float speedRunForward = 3f;
     [SerializeField] private float speedRunBack = 2f;
     [SerializeField] private float speedWalkForward = 1.5f;
-    [SerializeField] private float speedWalkBack = 1f;
+    [SerializeField] private float speedWalkBack = 0.5f;
 
     [SerializeField] private float jumpForce = 3f;
     [SerializeField] private string OnCollisionTag ="Parkour";
@@ -66,12 +66,12 @@ public class CharacterMove : MonoBehaviour
     }  
     public void SwitchVelocityMove()
     {
-        if (state.isWalking | state.isKeyDownMouseRight) speedMove = inputAxis.z < 0 ? speedWalkBack : speedWalkForward;
+        if (state.isWalking | state.isKeyDownMouseRight | state.isCrouching) speedMove = inputAxis.z < 0 ? speedWalkBack : speedWalkForward;
         else speedMove = inputAxis.z < 0 ? speedRunBack : (state.isRunningSprint ? (inputAxis.z > 0 ? speedSprint : speedRunForward) : speedRunForward); 
     }
     public void StopingMoveCharacter(bool isActiveInventoryBox)
     {
-        if (isActiveInventoryBox)
+        if (isActiveInventoryBox)   
         {
             state.UpdateStateMove(false);
             inputAxis = Vector3.zero;

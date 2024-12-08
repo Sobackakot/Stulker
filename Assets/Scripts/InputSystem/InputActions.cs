@@ -64,6 +64,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""CrouchingKey"",
+                    ""type"": ""Button"",
+                    ""id"": ""e8096e00-d067-4e22-8566-f41f846656e9"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""ShootingKey"",
                     ""type"": ""Button"",
                     ""id"": ""a74f3ca1-c195-48e1-becd-d345e0b4a382"",
@@ -254,6 +263,17 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""d72379ee-3995-493f-b87d-4b3ee725531c"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CrouchingKey"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""294a99f5-e77d-4716-9817-137933dc6067"",
                     ""path"": ""<Keyboard>/r"",
                     ""interactions"": """",
@@ -384,6 +404,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_ActionMaps_GetKeyDownJump = m_ActionMaps.FindAction("GetKeyDownJump", throwIfNotFound: true);
         m_ActionMaps_GetKeyRun = m_ActionMaps.FindAction("GetKeyRun", throwIfNotFound: true);
         m_ActionMaps_GetKeyWalk = m_ActionMaps.FindAction("GetKeyWalk", throwIfNotFound: true);
+        m_ActionMaps_CrouchingKey = m_ActionMaps.FindAction("CrouchingKey", throwIfNotFound: true);
         m_ActionMaps_ShootingKey = m_ActionMaps.FindAction("ShootingKey", throwIfNotFound: true);
         m_ActionMaps_MouseDelta = m_ActionMaps.FindAction("MouseDelta", throwIfNotFound: true);
         m_ActionMaps_MouseScroll = m_ActionMaps.FindAction("MouseScroll", throwIfNotFound: true);
@@ -465,6 +486,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_ActionMaps_GetKeyDownJump;
     private readonly InputAction m_ActionMaps_GetKeyRun;
     private readonly InputAction m_ActionMaps_GetKeyWalk;
+    private readonly InputAction m_ActionMaps_CrouchingKey;
     private readonly InputAction m_ActionMaps_ShootingKey;
     private readonly InputAction m_ActionMaps_MouseDelta;
     private readonly InputAction m_ActionMaps_MouseScroll;
@@ -484,6 +506,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @GetKeyDownJump => m_Wrapper.m_ActionMaps_GetKeyDownJump;
         public InputAction @GetKeyRun => m_Wrapper.m_ActionMaps_GetKeyRun;
         public InputAction @GetKeyWalk => m_Wrapper.m_ActionMaps_GetKeyWalk;
+        public InputAction @CrouchingKey => m_Wrapper.m_ActionMaps_CrouchingKey;
         public InputAction @ShootingKey => m_Wrapper.m_ActionMaps_ShootingKey;
         public InputAction @MouseDelta => m_Wrapper.m_ActionMaps_MouseDelta;
         public InputAction @MouseScroll => m_Wrapper.m_ActionMaps_MouseScroll;
@@ -516,6 +539,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @GetKeyWalk.started += instance.OnGetKeyWalk;
             @GetKeyWalk.performed += instance.OnGetKeyWalk;
             @GetKeyWalk.canceled += instance.OnGetKeyWalk;
+            @CrouchingKey.started += instance.OnCrouchingKey;
+            @CrouchingKey.performed += instance.OnCrouchingKey;
+            @CrouchingKey.canceled += instance.OnCrouchingKey;
             @ShootingKey.started += instance.OnShootingKey;
             @ShootingKey.performed += instance.OnShootingKey;
             @ShootingKey.canceled += instance.OnShootingKey;
@@ -565,6 +591,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @GetKeyWalk.started -= instance.OnGetKeyWalk;
             @GetKeyWalk.performed -= instance.OnGetKeyWalk;
             @GetKeyWalk.canceled -= instance.OnGetKeyWalk;
+            @CrouchingKey.started -= instance.OnCrouchingKey;
+            @CrouchingKey.performed -= instance.OnCrouchingKey;
+            @CrouchingKey.canceled -= instance.OnCrouchingKey;
             @ShootingKey.started -= instance.OnShootingKey;
             @ShootingKey.performed -= instance.OnShootingKey;
             @ShootingKey.canceled -= instance.OnShootingKey;
@@ -621,6 +650,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnGetKeyDownJump(InputAction.CallbackContext context);
         void OnGetKeyRun(InputAction.CallbackContext context);
         void OnGetKeyWalk(InputAction.CallbackContext context);
+        void OnCrouchingKey(InputAction.CallbackContext context);
         void OnShootingKey(InputAction.CallbackContext context);
         void OnMouseDelta(InputAction.CallbackContext context);
         void OnMouseScroll(InputAction.CallbackContext context);

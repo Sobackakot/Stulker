@@ -8,7 +8,7 @@ public class StateAnimatorCharacter : StateMachineBehaviour
     public bool isClimbing { get; private set; }
     public bool isClimbUp {  get; private set; }
     public bool isParkour { get; private set; }
-    public bool isJump {  get; private set; }
+    public bool isJump {  get; private set; } 
     private void OnEnable()
     {
         isMoving = true;
@@ -17,16 +17,15 @@ public class StateAnimatorCharacter : StateMachineBehaviour
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     { 
         ParkourStateEnter(stateInfo);
-        JumpStateEnter(stateInfo);
+        JumpStateEnter(stateInfo); 
     }
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {   
         animator.SetBool("isParkourUp", false); 
         animator.SetBool("isJumping", false); 
         ParkourStateExit(stateInfo);
-        JumpStateEnter(stateInfo);
-    }
-      
+        JumpStateEnter(stateInfo); 
+    } 
     private void ParkourStateEnter(AnimatorStateInfo stateInfo)
     {
         if (stateInfo.IsName("Parkour_Up"))

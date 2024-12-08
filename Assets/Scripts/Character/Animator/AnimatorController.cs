@@ -4,17 +4,18 @@ using Zenject;
 
 public class AnimatorController :IFixedTickable, ILateTickable
 {
-    public AnimatorController(CharacterAnimator characterAnimator, CameraCharacter camera, CharacterState state, CharacterIK characterIK)
+    public AnimatorController(CharacterAnimator characterAnimator, CameraCharacter camera, 
+        CharacterState state, CharacterIK characterIK)
     {
         this.characterAnimator = characterAnimator;
         this.camera = camera;
         this.state = state;
-        this.characterIK = characterIK;
+        this.characterIK = characterIK; 
     }
     private CharacterState state;
     private CharacterAnimator characterAnimator;
     private CameraCharacter camera;
-    private CharacterIK characterIK;
+    private CharacterIK characterIK; 
 
     public void FixedTick()
     {
@@ -29,9 +30,11 @@ public class AnimatorController :IFixedTickable, ILateTickable
         if (state.isCollision)
             characterAnimator.JumpAnimation(state.isJumping);
         characterAnimator.MovAnimation(state.inputAxis, state.isMoving);
-        characterAnimator.SwithAnimationMove(state.isRunningSprint, state.isWalking, state.isKeyDownMouseRight, state.inputAxis);
+        characterAnimator.SwithAnimationMove(state.isRunningSprint, state.isWalking, state.isKeyDownMouseRight,state.isCrouching ,state.inputAxis);
         characterAnimator.AimingMove(state.isKeyDownMouseRight);
         characterAnimator.ActiveShooting(state.isShooting);
+        characterAnimator.CrouchingMove(state.isCrouching);
+        characterAnimator.CrouchingMoveReady(state.isCrouchingReady);
         
         characterIK.SetWeightIKShooter(state.isShooting);
         characterIK.SetWeightIKAiming(state.isKeyDownMouseRight);

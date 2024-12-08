@@ -11,7 +11,11 @@ public class InputCharacter : IInitializable, IDisposable
     public event Action<bool> onGetKeyDownJump;
     public event Action<bool> onGetKeyRun;
     public event Action<bool> onGetKeyWalk; 
+    public event Action<bool> onGetKeyCrouch; 
+
     public event Action<bool> onKeyShooting;
+    public event Action<bool> onKeyCrouching;
+
     public event Action<bool> onRightMouseButton;
     public event Action<bool> onLeftMouseButton;
     public event Action<bool> onTiltRightButton;
@@ -28,6 +32,7 @@ public class InputCharacter : IInitializable, IDisposable
     private bool isPressedKeyWalk;
     private bool isActiveInventory;
     private bool isActiveShooting;
+    private bool isActiveCrouching;
 
     public void Initialize()
     { 
@@ -49,7 +54,9 @@ public class InputCharacter : IInitializable, IDisposable
         inputActions.ActionMaps.InventoryKey.performed += ctx => InventoryKey_performed(ctx);
         inputActions.ActionMaps.InventoryBoxKey.performed += ctx => InventoryBoxKey_performed(ctx);
         inputActions.ActionMaps.ExitInventoryKey.performed += ctx => ExitInventoryKey_performed(ctx);
+
         inputActions.ActionMaps.ShootingKey.performed += ctx => ShootingKey_performed(ctx);
+        inputActions.ActionMaps.CrouchingKey.performed += ctx => CrouchingKey_performed(ctx);
 
         inputActions.ActionMaps.RightMouseButton.started += ctx => RightMouseButton_performed(ctx);
         inputActions.ActionMaps.RightMouseButton.canceled += ctx => RightMouseButton_performed(ctx);
@@ -99,6 +106,14 @@ public class InputCharacter : IInitializable, IDisposable
         {
             isActiveShooting = !isActiveShooting;
             onKeyShooting?.Invoke(isActiveShooting);
+        }
+    }
+    private void CrouchingKey_performed(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            isActiveCrouching = !isActiveCrouching;
+            onKeyCrouching?.Invoke(isActiveCrouching);
         }
     }
     private void InventoryKey_performed(InputAction.CallbackContext context)

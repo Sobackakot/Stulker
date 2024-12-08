@@ -14,7 +14,8 @@ public class CharacterState
     public bool isShooting { get; private set; }
     public bool isTiltRight { get; private set; }
     public bool isTiltLeft { get; private set; }
-
+    public bool isCrouching { get; private set; }
+    public bool isCrouchingReady { get; private set; }
     public bool isLeftPointLook {  get; private set; }  
     public Vector3 inputAxis { get; private set; }
       
@@ -58,6 +59,15 @@ public class CharacterState
     public void InputCharacter_OnActiveShooting(bool isShooting)
     {
         this.isShooting = isShooting;
+        if(isCrouching)
+            isCrouchingReady = isShooting;
+    }
+
+    public void InputCharacter_OnActiveCrouching(bool isCrouching)
+    {
+        this.isCrouching = isCrouching;
+        if (isShooting)
+            isCrouchingReady = isCrouching;
     }
 
     public void SetInputAxisMove(Vector2 axis)
