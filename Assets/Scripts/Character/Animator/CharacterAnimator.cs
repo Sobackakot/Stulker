@@ -46,7 +46,7 @@ public class CharacterAnimator : MonoBehaviour
     }
     public void SwithAnimationMove(bool isRanning, bool isWalking,bool isAiming, bool isCrouching, Vector3 inputAxis)
     {
-        if (isWalking | isAiming | isCrouching) speedAnimation = speedWalkAnimation;
+        if (isWalking | isAiming) speedAnimation = speedWalkAnimation;
         else speedAnimation = isRanning ? (inputAxis.z > 0 ? speedSprint : speedRunAnimation) : speedRunAnimation;
     }
     public void JumpAnimation(bool isJumping)

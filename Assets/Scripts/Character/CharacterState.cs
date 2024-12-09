@@ -58,16 +58,16 @@ public class CharacterState
     }
     public void InputCharacter_OnActiveShooting(bool isShooting)
     {
-        this.isShooting = isShooting;
-        if(isCrouching)
+        if (isCrouching)
             isCrouchingReady = isShooting;
+        this.isShooting = isShooting; 
     }
 
     public void InputCharacter_OnActiveCrouching(bool isCrouching)
     {
-        this.isCrouching = isCrouching;
         if (isShooting)
             isCrouchingReady = isCrouching;
+        this.isCrouching = isCrouching; 
     }
 
     public void SetInputAxisMove(Vector2 axis)

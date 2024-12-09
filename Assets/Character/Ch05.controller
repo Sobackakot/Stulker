@@ -2164,7 +2164,7 @@ BlendTree:
     m_Motion: {fileID: -203655887218126122, guid: cf6afb7490fb45a40abcae55341920d3,
       type: 3}
     m_Threshold: 0.052631587
-    m_Position: {x: 0.5, y: 0}
+    m_Position: {x: 1, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: X
@@ -2173,7 +2173,7 @@ BlendTree:
     m_Motion: {fileID: -203655887218126122, guid: 0cdee24ffd755bd4ca031aef20342d5a,
       type: 3}
     m_Threshold: 0.10526317
-    m_Position: {x: -0.5, y: 0}
+    m_Position: {x: -1, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: X
@@ -2182,7 +2182,7 @@ BlendTree:
     m_Motion: {fileID: -203655887218126122, guid: 2cafe6d5dcfbcc447aa8a4638da8a729,
       type: 3}
     m_Threshold: 0.15789476
-    m_Position: {x: 0.335, y: 0.335}
+    m_Position: {x: 0.67, y: 0.67}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: X
@@ -2191,7 +2191,7 @@ BlendTree:
     m_Motion: {fileID: -203655887218126122, guid: 51383fdb8732366438cd987db976f0be,
       type: 3}
     m_Threshold: 0.21052635
-    m_Position: {x: -0.335, y: 0.335}
+    m_Position: {x: -0.67, y: 0.67}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: X
@@ -2200,7 +2200,7 @@ BlendTree:
     m_Motion: {fileID: -203655887218126122, guid: 068d3585b117baa479ead4902e1092f9,
       type: 3}
     m_Threshold: 0.26315793
-    m_Position: {x: 0, y: 0.5}
+    m_Position: {x: 0, y: 1}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: X
@@ -2209,7 +2209,7 @@ BlendTree:
     m_Motion: {fileID: -203655887218126122, guid: dd4fb4c3ee04f0b4fb09dc17933da728,
       type: 3}
     m_Threshold: 0.31578952
-    m_Position: {x: 0.335, y: -0.335}
+    m_Position: {x: 0.67, y: -0.67}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: X
@@ -2218,7 +2218,7 @@ BlendTree:
     m_Motion: {fileID: -203655887218126122, guid: 7f3f8caf24e6acb428905eb5ae2643bf,
       type: 3}
     m_Threshold: 0.3684211
-    m_Position: {x: -0.335, y: -0.335}
+    m_Position: {x: -0.67, y: -0.67}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: X
@@ -2227,7 +2227,7 @@ BlendTree:
     m_Motion: {fileID: -203655887218126122, guid: c0de3aa9fed5a3f498c114e4007427d2,
       type: 3}
     m_Threshold: 0.4210527
-    m_Position: {x: 0, y: -0.5}
+    m_Position: {x: 0, y: -1}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: X
