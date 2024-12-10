@@ -17,8 +17,8 @@ public class CameraCharacter : MonoBehaviour
     private float mouseAxisY;
     private float mouseZoom;
 
-    private float minAngle = -90f;
-    private float maxAngle = 90f;
+    private float minAngle = -60f;
+    private float maxAngle = 60f;
     private float minZoom = 2f;
     private float maxZoom = 15f;
 

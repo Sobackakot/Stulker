@@ -11,17 +11,23 @@ public class CharacterState
     public bool isKeyDownMouseRight { get; private set; } 
     public bool isKeyDownMouseLeft { get; private set; } 
     public bool isMoving { get; private set; }  
-    public bool isShooting { get; private set; }
+    public bool isActiveShooting { get; private set; }
     public bool isTiltRight { get; private set; }
     public bool isTiltLeft { get; private set; }
     public bool isCrouching { get; private set; }
     public bool isCrouchingReady { get; private set; }
     public bool isLeftPointLook {  get; private set; }  
+    public bool isEquipGun { get; private set; }
     public Vector3 inputAxis { get; private set; }
       
     public void UpdateStateMove(bool isMoving)
     {
         this.isMoving = isMoving;
+    }
+    public void InputCharacter_OnKeyDownEquipGun(bool isKeyDownEquip)
+    {
+        if(!isKeyDownMouseRight)
+            isEquipGun = isKeyDownEquip;
     }
     public void InputCharacter_OnKeyDownJump(bool isKeyDown)
     {
@@ -48,26 +54,27 @@ public class CharacterState
     }
     public void InputCharacter_OnRightMouseButton(bool isPressed)
     {
-        if(isShooting) 
+        if(isActiveShooting) 
             isKeyDownMouseRight = isPressed;
     }
     public void InputCharacter_OnLeftMouseButton(bool isPressed)
     {
-        if (isShooting)
+        if (isActiveShooting)
             isKeyDownMouseLeft = isPressed;
     }
-    public void InputCharacter_OnActiveShooting(bool isShooting)
+    public void InputCharacter_OnActiveShooting()
     {
         if (isCrouching)
-            isCrouchingReady = isShooting;
-        this.isShooting = isShooting; 
+            isCrouchingReady = isActiveShooting;
+        if(!isKeyDownMouseRight)
+            isActiveShooting = !isActiveShooting; 
     }
 
-    public void InputCharacter_OnActiveCrouching(bool isCrouching)
+    public void InputCharacter_OnActiveCrouching()
     {
-        if (isShooting)
-            isCrouchingReady = isCrouching;
-        this.isCrouching = isCrouching; 
+        isCrouching = !isCrouching;
+        if (isActiveShooting)
+            isCrouchingReady = isCrouching; 
     }
 
     public void SetInputAxisMove(Vector2 axis)

@@ -82,6 +82,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""ReloadingGunKey"",
+                    ""type"": ""Button"",
+                    ""id"": ""b7990bcc-3880-4f66-9d75-01aeb15adaed"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""MouseDelta"",
                     ""type"": ""Value"",
                     ""id"": ""6c984cd9-66be-40ce-a1e6-60e8be762111"",
@@ -103,7 +112,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""name"": ""MouseMidle"",
                     ""type"": ""Button"",
                     ""id"": ""ed724957-cc64-4f42-9674-b7001646bf5d"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -275,11 +284,22 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""294a99f5-e77d-4716-9817-137933dc6067"",
-                    ""path"": ""<Keyboard>/r"",
+                    ""path"": ""<Keyboard>/t"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""ShootingKey"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8d50af5d-abdf-48fd-b887-4cabb707618d"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ReloadingGunKey"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -406,6 +426,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_ActionMaps_GetKeyWalk = m_ActionMaps.FindAction("GetKeyWalk", throwIfNotFound: true);
         m_ActionMaps_CrouchingKey = m_ActionMaps.FindAction("CrouchingKey", throwIfNotFound: true);
         m_ActionMaps_ShootingKey = m_ActionMaps.FindAction("ShootingKey", throwIfNotFound: true);
+        m_ActionMaps_ReloadingGunKey = m_ActionMaps.FindAction("ReloadingGunKey", throwIfNotFound: true);
         m_ActionMaps_MouseDelta = m_ActionMaps.FindAction("MouseDelta", throwIfNotFound: true);
         m_ActionMaps_MouseScroll = m_ActionMaps.FindAction("MouseScroll", throwIfNotFound: true);
         m_ActionMaps_MouseMidle = m_ActionMaps.FindAction("MouseMidle", throwIfNotFound: true);
@@ -488,6 +509,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_ActionMaps_GetKeyWalk;
     private readonly InputAction m_ActionMaps_CrouchingKey;
     private readonly InputAction m_ActionMaps_ShootingKey;
+    private readonly InputAction m_ActionMaps_ReloadingGunKey;
     private readonly InputAction m_ActionMaps_MouseDelta;
     private readonly InputAction m_ActionMaps_MouseScroll;
     private readonly InputAction m_ActionMaps_MouseMidle;
@@ -508,6 +530,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @GetKeyWalk => m_Wrapper.m_ActionMaps_GetKeyWalk;
         public InputAction @CrouchingKey => m_Wrapper.m_ActionMaps_CrouchingKey;
         public InputAction @ShootingKey => m_Wrapper.m_ActionMaps_ShootingKey;
+        public InputAction @ReloadingGunKey => m_Wrapper.m_ActionMaps_ReloadingGunKey;
         public InputAction @MouseDelta => m_Wrapper.m_ActionMaps_MouseDelta;
         public InputAction @MouseScroll => m_Wrapper.m_ActionMaps_MouseScroll;
         public InputAction @MouseMidle => m_Wrapper.m_ActionMaps_MouseMidle;
@@ -545,6 +568,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @ShootingKey.started += instance.OnShootingKey;
             @ShootingKey.performed += instance.OnShootingKey;
             @ShootingKey.canceled += instance.OnShootingKey;
+            @ReloadingGunKey.started += instance.OnReloadingGunKey;
+            @ReloadingGunKey.performed += instance.OnReloadingGunKey;
+            @ReloadingGunKey.canceled += instance.OnReloadingGunKey;
             @MouseDelta.started += instance.OnMouseDelta;
             @MouseDelta.performed += instance.OnMouseDelta;
             @MouseDelta.canceled += instance.OnMouseDelta;
@@ -597,6 +623,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @ShootingKey.started -= instance.OnShootingKey;
             @ShootingKey.performed -= instance.OnShootingKey;
             @ShootingKey.canceled -= instance.OnShootingKey;
+            @ReloadingGunKey.started -= instance.OnReloadingGunKey;
+            @ReloadingGunKey.performed -= instance.OnReloadingGunKey;
+            @ReloadingGunKey.canceled -= instance.OnReloadingGunKey;
             @MouseDelta.started -= instance.OnMouseDelta;
             @MouseDelta.performed -= instance.OnMouseDelta;
             @MouseDelta.canceled -= instance.OnMouseDelta;
@@ -652,6 +681,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnGetKeyWalk(InputAction.CallbackContext context);
         void OnCrouchingKey(InputAction.CallbackContext context);
         void OnShootingKey(InputAction.CallbackContext context);
+        void OnReloadingGunKey(InputAction.CallbackContext context);
         void OnMouseDelta(InputAction.CallbackContext context);
         void OnMouseScroll(InputAction.CallbackContext context);
         void OnMouseMidle(InputAction.CallbackContext context);

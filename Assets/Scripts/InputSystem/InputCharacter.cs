@@ -5,16 +5,18 @@ using UnityEngine.InputSystem;
 using Zenject;
 
 public class InputCharacter : IInitializable, IDisposable
-{
-    public event Action<Vector2> onInputGetAxis;  
+{   
+    public event Action<Vector2> onInputGetAxis;
 
+    public event Action<bool> onGetKeyDownEquipGun;
     public event Action<bool> onGetKeyDownJump;
     public event Action<bool> onGetKeyRun;
     public event Action<bool> onGetKeyWalk; 
-    public event Action<bool> onGetKeyCrouch; 
+    public event Action<bool> onGetKeyCrouch;
 
-    public event Action<bool> onKeyShooting;
-    public event Action<bool> onKeyCrouching;
+    
+    public event Action onKeyShootingState; 
+    public event Action onKeyCrouching;
 
     public event Action<bool> onRightMouseButton;
     public event Action<bool> onLeftMouseButton;
@@ -27,13 +29,8 @@ public class InputCharacter : IInitializable, IDisposable
 
     private InputActions inputActions;
 
-    private bool isKeyDownJump;
-    private bool isPressedKeyRun;
-    private bool isPressedKeyWalk;
-    private bool isActiveInventory;
-    private bool isActiveShooting;
-    private bool isActiveCrouching;
-
+    private bool isActiveInventory; 
+    
     public void Initialize()
     { 
         inputActions = new InputActions();
@@ -41,7 +38,7 @@ public class InputCharacter : IInitializable, IDisposable
         inputActions.ActionMaps.GetAxisDirectionMove.performed += ctx => OnInputGetAxisMove(ctx);
         inputActions.ActionMaps.GetAxisDirectionMove.canceled += ctx => OnInputGetAxisMove(ctx);
 
-        inputActions.ActionMaps.GetKeyDownJump.performed += ctx => OnGetKeyDownJump(ctx);    
+        inputActions.ActionMaps.GetKeyDownJump.performed += ctx => OnGetKeyDownJump(ctx);     
         inputActions.ActionMaps.GetKeyDownJump.canceled += ctx => OnGetKeyDownJump(ctx);    
 
 
@@ -54,6 +51,9 @@ public class InputCharacter : IInitializable, IDisposable
         inputActions.ActionMaps.InventoryKey.performed += ctx => InventoryKey_performed(ctx);
         inputActions.ActionMaps.InventoryBoxKey.performed += ctx => InventoryBoxKey_performed(ctx);
         inputActions.ActionMaps.ExitInventoryKey.performed += ctx => ExitInventoryKey_performed(ctx);
+
+        inputActions.ActionMaps.ShootingKey.performed += ctx => OnGetKeyDownEquipGun(ctx);
+        inputActions.ActionMaps.ShootingKey.canceled += ctx => OnGetKeyDownEquipGun(ctx);
 
         inputActions.ActionMaps.ShootingKey.performed += ctx => ShootingKey_performed(ctx);
         inputActions.ActionMaps.CrouchingKey.performed += ctx => CrouchingKey_performed(ctx);
@@ -100,20 +100,25 @@ public class InputCharacter : IInitializable, IDisposable
             onLeftMouseButton?.Invoke(true);
         else if (context.canceled) onLeftMouseButton?.Invoke(false);
     }
+    private void OnGetKeyDownEquipGun(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            onGetKeyDownEquipGun?.Invoke(true);
+        else if (context.canceled)
+            onGetKeyDownEquipGun?.Invoke(false);
+    }
     private void ShootingKey_performed(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            isActiveShooting = !isActiveShooting;
-            onKeyShooting?.Invoke(isActiveShooting);
+            onKeyShootingState?.Invoke();
         }
     }
     private void CrouchingKey_performed(InputAction.CallbackContext context)
     {
         if (context.performed)
-        {
-            isActiveCrouching = !isActiveCrouching;
-            onKeyCrouching?.Invoke(isActiveCrouching);
+        { 
+            onKeyCrouching?.Invoke();
         }
     }
     private void InventoryKey_performed(InputAction.CallbackContext context)
@@ -150,19 +155,19 @@ public class InputCharacter : IInitializable, IDisposable
     }
     private void OnGetKeyDownJump(InputAction.CallbackContext context)
     {   
-        isKeyDownJump = context.performed;
-        onGetKeyDownJump?.Invoke(isKeyDownJump);
+        if(context.performed)
+            onGetKeyDownJump?.Invoke(true);
+        else if (context.canceled)
+            onGetKeyDownJump?.Invoke(false);
     }
-
+     
     private void OnGetKeyRun(InputAction.CallbackContext context)
-    {   
-        isPressedKeyRun = context.performed;
-        onGetKeyRun?.Invoke(isPressedKeyRun);
+    {    
+        onGetKeyRun?.Invoke(context.performed);
     }
     private void OnGetKeyWalk(InputAction.CallbackContext context)
-    {
-        isPressedKeyWalk = context.performed;
-        onGetKeyWalk?.Invoke(isPressedKeyWalk);
+    { 
+        onGetKeyWalk?.Invoke(context.performed);
     }
 
 }

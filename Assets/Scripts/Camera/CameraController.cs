@@ -13,13 +13,13 @@ public class CameraController: ILateTickable, IInitializable, IDisposable, IFixe
         this.state = state;
         this.inventoryUI = inventoryUI;
         this.windowUI = windowUI;
-        this.ray = ray;
+        this.ray = ray; 
     }
     private InputCamera input; 
     private CameraCharacter camera;
     private CharacterState state;
     private WindowUI windowUI;
-    private RaycastCamera ray;
+    private RaycastCamera ray; 
     private IInventoryUI inventoryUI;
 
     private UnityEngine.Vector3 hitPoint;

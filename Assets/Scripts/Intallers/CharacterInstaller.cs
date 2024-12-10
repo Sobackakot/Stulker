@@ -21,7 +21,7 @@ public class CharacterInstaller : ScriptableObjectInstaller
 
         Container.Bind<Audios>().FromComponentInHierarchy(this).AsSingle();
         Container.Bind<Particles>().FromComponentInHierarchy(this).AsSingle();
-        Container.Bind<Lights>().FromComponentInHierarchy(this).AsSingle();
+        Container.Bind<Lights>().FromComponentInHierarchy(this).AsSingle(); 
 
     }
 

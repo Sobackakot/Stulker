@@ -30,13 +30,14 @@ public class AnimatorController :IFixedTickable, ILateTickable
         if (state.isCollision)
             characterAnimator.JumpAnimation(state.isJumping);
         characterAnimator.MovAnimation(state.inputAxis, state.isMoving);
-        characterAnimator.SwithAnimationMove(state.isRunningSprint, state.isWalking, state.isKeyDownMouseRight,state.isCrouching ,state.inputAxis);
+        characterAnimator.SwithAnimationMove(state.isRunningSprint, state.isWalking, state.isKeyDownMouseRight,state.inputAxis);
         characterAnimator.AimingMove(state.isKeyDownMouseRight);
-        characterAnimator.ActiveShooting(state.isShooting);
+        characterAnimator.ActiveShooting(state.isActiveShooting);
         characterAnimator.CrouchingMove(state.isCrouching);
         characterAnimator.CrouchingMoveReady(state.isCrouchingReady);
-        
-        characterIK.SetWeightIKShooter(state.isShooting);
+        characterAnimator.WeaponEquip(state.isActiveShooting, state.isEquipGun);
+
+        characterIK.SetWeightIKShooter(state.isActiveShooting);
         characterIK.SetWeightIKAiming(state.isKeyDownMouseRight);
         characterIK.SetWeightIKTiltRight(state.isTiltRight); 
         characterIK.SetWeightIKTiltLeft(state.isTiltLeft); 
