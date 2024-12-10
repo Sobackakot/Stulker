@@ -18,15 +18,15 @@ public class CharacterAnimator : MonoBehaviour
     {     
         animator = GetComponent<Animator>();
         weaponEquipLayerIndex = animator.GetLayerIndex("WeaponEquip");
-    }
-    public void WeaponEquip(bool isShooting,bool isReloadGun)
+    } 
+    public void WeaponEquip(bool isShooting,bool isEquipGun)
     { 
-        if(isReloadGun)
+        if(isEquipGun)
         {
             animator.SetLayerWeight(weaponEquipLayerIndex, 1);
             if(isShooting)
             {
-                animator.SetTrigger("PullOut");
+                animator.SetTrigger("PullOut"); 
             }
             else
             {
@@ -78,11 +78,7 @@ public class CharacterAnimator : MonoBehaviour
     public void CrouchingMove(bool isCroushing)
     {
         animator.SetBool("isCrouching", isCroushing);
-    }
-    public void CrouchingMoveReady(bool isCrouchingReady)
-    {
-        animator.SetBool("isCrouchingReady", isCrouchingReady);
-    }
+    } 
     public void ParkourUp(bool isParkour)
     {
         if (isParkour)

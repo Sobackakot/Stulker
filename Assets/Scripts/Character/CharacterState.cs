@@ -14,8 +14,7 @@ public class CharacterState
     public bool isActiveShooting { get; private set; }
     public bool isTiltRight { get; private set; }
     public bool isTiltLeft { get; private set; }
-    public bool isCrouching { get; private set; }
-    public bool isCrouchingReady { get; private set; }
+    public bool isCrouching { get; private set; } 
     public bool isLeftPointLook {  get; private set; }  
     public bool isEquipGun { get; private set; }
     public Vector3 inputAxis { get; private set; }
@@ -64,17 +63,13 @@ public class CharacterState
     }
     public void InputCharacter_OnActiveShooting()
     {
-        if (isCrouching)
-            isCrouchingReady = isActiveShooting;
-        if(!isKeyDownMouseRight)
-            isActiveShooting = !isActiveShooting; 
+        if (!isKeyDownMouseRight)
+            isActiveShooting = !isActiveShooting;  
     }
 
     public void InputCharacter_OnActiveCrouching()
     {
-        isCrouching = !isCrouching;
-        if (isActiveShooting)
-            isCrouchingReady = isCrouching; 
+        isCrouching = !isCrouching; 
     }
 
     public void SetInputAxisMove(Vector2 axis)

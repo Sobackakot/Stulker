@@ -33,8 +33,7 @@ public class AnimatorController :IFixedTickable, ILateTickable
         characterAnimator.SwithAnimationMove(state.isRunningSprint, state.isWalking, state.isKeyDownMouseRight,state.inputAxis);
         characterAnimator.AimingMove(state.isKeyDownMouseRight);
         characterAnimator.ActiveShooting(state.isActiveShooting);
-        characterAnimator.CrouchingMove(state.isCrouching);
-        characterAnimator.CrouchingMoveReady(state.isCrouchingReady);
+        characterAnimator.CrouchingMove(state.isCrouching); 
         characterAnimator.WeaponEquip(state.isActiveShooting, state.isEquipGun);
 
         characterIK.SetWeightIKShooter(state.isActiveShooting);
