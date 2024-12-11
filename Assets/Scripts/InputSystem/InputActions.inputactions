@@ -6,7 +6,7 @@
             "id": "a68672b2-b7d2-4e9c-896f-fa23e89e59ef",
             "actions": [
                 {
-                    "name": "GetAxisDirectionMove",
+                    "name": "Move",
                     "type": "Value",
                     "id": "de53db69-ab73-4c75-8af1-5a883aebddd4",
                     "expectedControlType": "Vector2",
@@ -15,16 +15,16 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "GetKeyDownJump",
+                    "name": "Jump",
                     "type": "Button",
                     "id": "a848dc71-4e52-4ae5-99f7-1e626a17f6d8",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "GetKeyRun",
+                    "name": "Run",
                     "type": "Button",
                     "id": "dcefffe8-6633-42cb-8cce-49982b8d5bc2",
                     "expectedControlType": "",
@@ -33,7 +33,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "GetKeyWalk",
+                    "name": "Walk",
                     "type": "Button",
                     "id": "db6f0ca7-2958-48cc-bcc0-a8067037ae14",
                     "expectedControlType": "",
@@ -42,7 +42,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "CrouchingKey",
+                    "name": "Crouch",
                     "type": "Button",
                     "id": "e8096e00-d067-4e22-8566-f41f846656e9",
                     "expectedControlType": "",
@@ -51,7 +51,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ShootingKey",
+                    "name": "ToggleEquipWeapon",
                     "type": "Button",
                     "id": "a74f3ca1-c195-48e1-becd-d345e0b4a382",
                     "expectedControlType": "",
@@ -60,7 +60,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ReloadingGunKey",
+                    "name": "ReloadWeapon",
                     "type": "Button",
                     "id": "b7990bcc-3880-4f66-9d75-01aeb15adaed",
                     "expectedControlType": "",
@@ -96,7 +96,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "LeftMouseButton",
+                    "name": "Aim",
                     "type": "Button",
                     "id": "8e57a7ed-f1eb-4a65-84f3-9803bffad5c1",
                     "expectedControlType": "",
@@ -105,7 +105,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "RightMouseButton",
+                    "name": "Fire",
                     "type": "Button",
                     "id": "5df17428-0295-4bcb-8c45-fe155a1afdfb",
                     "expectedControlType": "",
@@ -114,7 +114,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "InventoryKey",
+                    "name": "ToggleInventory",
                     "type": "Button",
                     "id": "51dbd497-9881-4753-904b-fc38e521c3a6",
                     "expectedControlType": "",
@@ -123,7 +123,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "InventoryBoxKey",
+                    "name": "ToggleInventoryBox",
                     "type": "Button",
                     "id": "7f02134f-14c6-4ce5-86c0-d0f596ecef0e",
                     "expectedControlType": "",
@@ -132,7 +132,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ExitInventoryKey",
+                    "name": "ExitInventory",
                     "type": "Button",
                     "id": "b54b886c-4dbe-4fe7-9297-9a0181ba723d",
                     "expectedControlType": "",
@@ -141,7 +141,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "TiltRightKey",
+                    "name": "LeanRight",
                     "type": "Button",
                     "id": "a978815b-296d-455c-9708-24cc6982c80d",
                     "expectedControlType": "",
@@ -150,7 +150,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "TiltLeftKey",
+                    "name": "LeanLeft",
                     "type": "Button",
                     "id": "73c76415-1165-4e3e-aa95-cd6048342978",
                     "expectedControlType": "",
@@ -167,7 +167,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "GetAxisDirectionMove",
+                    "action": "Move",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -178,7 +178,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "GetAxisDirectionMove",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -189,7 +189,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "GetAxisDirectionMove",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -200,7 +200,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "GetAxisDirectionMove",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -211,7 +211,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "GetAxisDirectionMove",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -222,7 +222,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "GetKeyDownJump",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -233,7 +233,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "GetKeyRun",
+                    "action": "Run",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -244,7 +244,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "GetKeyWalk",
+                    "action": "Walk",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -255,7 +255,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "CrouchingKey",
+                    "action": "Crouch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -266,7 +266,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ShootingKey",
+                    "action": "ToggleEquipWeapon",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -277,7 +277,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ReloadingGunKey",
+                    "action": "ReloadWeapon",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -321,29 +321,29 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "InventoryKey",
+                    "action": "ToggleInventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "61e4eb51-3815-44e2-964b-5ec8eb76e5cf",
-                    "path": "<Mouse>/leftButton",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "LeftMouseButton",
+                    "action": "Aim",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "0cad69f9-93e8-49ee-ac71-60021edf60fe",
-                    "path": "<Mouse>/rightButton",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "RightMouseButton",
+                    "action": "Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -354,7 +354,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "InventoryBoxKey",
+                    "action": "ToggleInventoryBox",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -365,7 +365,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ExitInventoryKey",
+                    "action": "ExitInventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -376,7 +376,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "TiltRightKey",
+                    "action": "LeanRight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -387,7 +387,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "TiltLeftKey",
+                    "action": "LeanLeft",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -18,23 +18,23 @@ public class InventoryPersonGameObject : MonoBehaviour
     }
     private void OnEnable()
     {
-        input.onActiveInventory += Input_OnActivateInventory;
-        input.onExitInventory += Input_OnExitInventory; 
+        input.OnInventoryToggle += Input_OnActivateInventory;
+        input.OnInventoryExitInput += Input_OnExitInventory; 
     } 
     private void OnDestroy()
     {
-        input.onActiveInventory -= Input_OnActivateInventory;
-        input.onExitInventory -= Input_OnExitInventory; 
+        input.OnInventoryToggle -= Input_OnActivateInventory;
+        input.OnInventoryExitInput -= Input_OnExitInventory; 
     }
     private void Input_OnActivateInventory(bool isActive)
     {
         gameObject.SetActive(isActive);
         onExitInventoryBox?.Invoke(false);
     }
-    private void Input_OnExitInventory(bool isExit)
+    private void Input_OnExitInventory()
     { 
-        gameObject.SetActive(isExit);
-        onExitInventoryBox?.Invoke(isExit);
+        gameObject.SetActive(false);
+        onExitInventoryBox?.Invoke(false);
     } 
     public void SetActiveInventory(bool isActive)
     {

@@ -4,67 +4,67 @@ using UnityEngine;
 
 public class CharacterState  
 {
-    public bool isRunningSprint { get; private set; }
-    public bool isWalking { get; private set; }
+    public bool isRun { get; private set; }
+    public bool isWalk { get; private set; }
     public bool isCollision { get; private set; }
-    public bool isKeyDownMouseRight { get; private set; } 
-    public bool isKeyDownMouseLeft { get; private set; } 
-    public bool isMoving { get; private set; }  
-    public bool isActiveShooting { get; private set; }
-    public bool isTiltRight { get; private set; }
-    public bool isTiltLeft { get; private set; }
-    public bool isCrouching { get; private set; } 
-    public bool isLeftPointLook {  get; private set; }  
-    public bool isEquipGun { get; private set; }
+    public bool isAim { get; private set; } 
+    public bool isFire { get; private set; } 
+    public bool isMov { get; private set; }  
+    public bool isReadyForButtle { get; private set; }
+    public bool isLeanRight { get; private set; }
+    public bool isLeanLeft { get; private set; }
+    public bool isCrouch { get; private set; } 
+    public bool isLeftTargerPoint {  get; private set; }  
+    public bool isWeaponEquip { get; private set; }
     public Vector3 inputAxis { get; private set; }
       
     public void UpdateStateMove(bool isMoving)
     {
-        this.isMoving = isMoving;
+        this.isMov = isMoving;
     }
-    public void InputCharacter_OnKeyDownEquipGun(bool isKeyDownEquip)
+    public void InputCharacter_OnEquipWeapon()
     {
-        if(!isKeyDownMouseRight)
-            isEquipGun = isKeyDownEquip;
+        if(!isAim)
+            isWeaponEquip = !isWeaponEquip;
     }
-    public void InputCharacter_OnKeyRun(bool isKeyRun)
+    public void InputCharacter_OnRun(bool isKeyRun)
     {
-        isRunningSprint = isKeyRun;
-    }
-
-    public void InputCharacter_OnKeyWalk(bool isKeyWalk)
-    {
-        isWalking = isKeyWalk;
-    }
-    public void InputCharacter_OnTiltRightButton(bool isTiltRight)
-    {
-        this.isTiltRight = isTiltRight;
-        isLeftPointLook = false; 
-    }
-    public void InputCharacter_OnTiltLeftButton(bool isTiltLeft)
-    {
-        this.isTiltLeft = isTiltLeft; 
-        isLeftPointLook = true; 
-    }
-    public void InputCharacter_OnRightMouseButton(bool isPressed)
-    {
-        if(isActiveShooting) 
-            isKeyDownMouseRight = isPressed;
-    }
-    public void InputCharacter_OnLeftMouseButton(bool isPressed)
-    {
-        if (isActiveShooting)
-            isKeyDownMouseLeft = isPressed;
-    }
-    public void InputCharacter_OnActiveShooting()
-    {
-        if (!isKeyDownMouseRight)
-            isActiveShooting = !isActiveShooting;  
+        isRun = isKeyRun;
     }
 
-    public void InputCharacter_OnActiveCrouching()
+    public void InputCharacter_OnWalk(bool isKeyWalk)
     {
-        isCrouching = !isCrouching; 
+        isWalk = isKeyWalk;
+    }
+    public void InputCharacter_OnLeanRight(bool isTiltRight)
+    {
+        this.isLeanRight = isTiltRight;
+        isLeftTargerPoint = false; 
+    }
+    public void InputCharacter_OnLeanLeft(bool isTiltLeft)
+    {
+        this.isLeanLeft = isTiltLeft; 
+        isLeftTargerPoint = true; 
+    }
+    public void InputCharacter_OnAim(bool isPressed)
+    {
+        if(isReadyForButtle) 
+            isAim = isPressed;
+    }
+    public void InputCharacter_OnFire(bool isPressed)
+    {
+        if (isReadyForButtle)
+            isFire = isPressed;
+    }
+    public void InputCharacter_OnReadyForBattle()
+    {
+        if (!isAim)
+            isReadyForButtle = !isReadyForButtle;  
+    }
+
+    public void InputCharacter_OnCrouch()
+    {
+        isCrouch = !isCrouch; 
     }
 
     public void SetInputAxisMove(Vector2 axis)

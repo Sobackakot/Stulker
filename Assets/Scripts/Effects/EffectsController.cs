@@ -18,20 +18,20 @@ public class EffectsController : ITickable, IFixedTickable
      
     public void Tick()
     {
-        if (state.isKeyDownMouseRight)
+        if (state.isAim)
         {
-            bool isNextTime = particles.PlayParticleShooting(state.isKeyDownMouseLeft);
+            bool isNextTime = particles.PlayParticleShooting(state.isFire);
             if (isNextTime)
             {
-                audios.PlayAudioShooting(state.isKeyDownMouseLeft);
-                lights.TurnOnLightShooting(state.isKeyDownMouseLeft);
+                audios.PlayAudioShooting(state.isFire);
+                lights.TurnOnLightShooting(state.isFire);
             }
         } 
     }
 
     public void FixedTick()
     {
-        if (state.isKeyDownMouseRight)
-            lights.TurnOfLightShooting(state.isKeyDownMouseLeft);
+        if (state.isAim)
+            lights.TurnOfLightShooting(state.isFire);
     }
 }

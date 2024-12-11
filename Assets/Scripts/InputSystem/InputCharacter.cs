@@ -6,71 +6,65 @@ using Zenject;
 
 public class InputCharacter : IInitializable, IDisposable
 {   
-    public event Action<Vector2> onInputGetAxis;
+    public event Action<Vector2> OnMoveInput;
+    public event Action OnJumpInput;
+    public event Action<bool> OnRunInput;
+    public event Action<bool> OnWalkInput;
+    public event Action OnReloadWeaponInput;
+    public event Action<bool> OnAimInput;
+    public event Action<bool> OnFireInput;
+    public event Action<bool> OnLeanRightInput;
+    public event Action<bool> OnLeanLeftInput;
+    public event Action OnInventoryExitInput;
 
-    public event Action<bool> onGetKeyDownEquipGun;
-    public event Action onKeyDownJump;
-    public event Action<bool> onGetKeyRun;
-    public event Action<bool> onGetKeyWalk; 
-    public event Action<bool> onGetKeyCrouch;
-
+    public event Action OnEquipWeaponToggle;
+    public event Action OnCrouchToggle; 
+    public event Action OnReadyForBattleToggle;  
+    public event Action<bool> OnInventoryToggle;
+    public event Action<bool> OnInventoryBoxToggle;
     
-    public event Action onKeyShootingState; 
-    public event Action onKeyCrouching;
-    public event Action onKeyReloadingGun;
-
-    public event Action<bool> onRightMouseButton;
-    public event Action<bool> onLeftMouseButton;
-    public event Action<bool> onTiltRightButton;
-    public event Action<bool> onTiltLeftButton;
-
-    public event Action<bool> onActiveInventory;
-    public event Action<bool> onActiveInventoryBox;
-    public event Action<bool> onExitInventory;
 
     private InputActions inputActions;
 
-    private bool isActiveInventory; 
+    private bool isInventoryActive; 
     
     public void Initialize()
     { 
         inputActions = new InputActions();
         inputActions.Enable();
-        inputActions.ActionMaps.GetAxisDirectionMove.performed += ctx => OnInputGetAxisMove(ctx);
-        inputActions.ActionMaps.GetAxisDirectionMove.canceled += ctx => OnInputGetAxisMove(ctx);
+        inputActions.ActionMaps.Move.performed += ctx => HandleMoveInput(ctx);
+        inputActions.ActionMaps.Move.canceled += ctx => HandleMoveInput(ctx);
 
-        inputActions.ActionMaps.GetKeyDownJump.performed += ctx => OnGetKeyDownJump(ctx);     
-        inputActions.ActionMaps.GetKeyDownJump.canceled += ctx => OnGetKeyDownJump(ctx);
+        inputActions.ActionMaps.Jump.performed += ctx => HandleJumpInput(ctx);      
 
-        inputActions.ActionMaps.ReloadingGunKey.performed += ctx => OnKeyReloadingGun(ctx); 
+        inputActions.ActionMaps.ReloadWeapon.performed += ctx => HandleReloadWeaponInput(ctx); 
 
-        inputActions.ActionMaps.GetKeyRun.performed += ctx => OnGetKeyRun(ctx); 
-        inputActions.ActionMaps.GetKeyRun.canceled += ctx => OnGetKeyRun(ctx);
+        inputActions.ActionMaps.Run.performed += ctx => HandleRunInput(ctx); 
+        inputActions.ActionMaps.Run.canceled += ctx => HandleRunInput(ctx);
 
-        inputActions.ActionMaps.GetKeyWalk.performed += ctx => OnGetKeyWalk(ctx);
-        inputActions.ActionMaps.GetKeyWalk.canceled += ctx => OnGetKeyWalk(ctx);
+        inputActions.ActionMaps.Walk.performed += ctx => HandleWalkInput(ctx);
+        inputActions.ActionMaps.Walk.canceled += ctx => HandleWalkInput(ctx);
 
-        inputActions.ActionMaps.InventoryKey.performed += ctx => InventoryKey_performed(ctx);
-        inputActions.ActionMaps.InventoryBoxKey.performed += ctx => InventoryBoxKey_performed(ctx);
-        inputActions.ActionMaps.ExitInventoryKey.performed += ctx => ExitInventoryKey_performed(ctx);
+        inputActions.ActionMaps.ToggleInventory.performed += ctx => HandleInventoryToggle(ctx);
+        inputActions.ActionMaps.ToggleInventoryBox.performed += ctx => HandleInventoryBoxToggle(ctx);
+        inputActions.ActionMaps.ExitInventory.performed += ctx => HandleInventoryExitInput(ctx);
 
-        inputActions.ActionMaps.ShootingKey.performed += ctx => OnGetKeyDownEquipGun(ctx);
-        inputActions.ActionMaps.ShootingKey.canceled += ctx => OnGetKeyDownEquipGun(ctx);
+        inputActions.ActionMaps.ToggleEquipWeapon.performed += ctx => HandleEquipWeaponToggle(ctx); 
 
-        inputActions.ActionMaps.ShootingKey.performed += ctx => ShootingKey_performed(ctx);
-        inputActions.ActionMaps.CrouchingKey.performed += ctx => CrouchingKey_performed(ctx);
+        inputActions.ActionMaps.ToggleEquipWeapon.performed += ctx => HandleReadyForBattleToggle(ctx);
+        inputActions.ActionMaps.Crouch.performed += ctx => HandleCrouchToggle(ctx);
 
-        inputActions.ActionMaps.RightMouseButton.started += ctx => RightMouseButton_performed(ctx);
-        inputActions.ActionMaps.RightMouseButton.canceled += ctx => RightMouseButton_performed(ctx);
+        inputActions.ActionMaps.Aim.started += ctx => HandleAimInput(ctx);
+        inputActions.ActionMaps.Aim.canceled += ctx => HandleAimInput(ctx);
 
-        inputActions.ActionMaps.LeftMouseButton.started += ctx => LeftMouseButton_performed(ctx);
-        inputActions.ActionMaps.LeftMouseButton.canceled += ctx => LeftMouseButton_performed(ctx);
+        inputActions.ActionMaps.Fire.started += ctx => HandleFireInput(ctx);
+        inputActions.ActionMaps.Fire.canceled += ctx => HandleFireInput(ctx);
 
-        inputActions.ActionMaps.TiltRightKey.started += ctx => TiltRightButton_performed(ctx);
-        inputActions.ActionMaps.TiltRightKey.canceled += ctx => TiltRightButton_performed(ctx);
+        inputActions.ActionMaps.LeanRight.started += ctx => HandleLeanRightInput(ctx);
+        inputActions.ActionMaps.LeanRight.canceled += ctx => HandleLeanRightInput(ctx);
 
-        inputActions.ActionMaps.TiltLeftKey.started += ctx => TiltLeftButton_performed(ctx);
-        inputActions.ActionMaps.TiltLeftKey.canceled += ctx => TiltLeftButton_performed(ctx);
+        inputActions.ActionMaps.LeanLeft.started += ctx => HandleLeanLeftInput(ctx);
+        inputActions.ActionMaps.LeanLeft.canceled += ctx => HandleLeanLeftInput(ctx);
 
     }
 
@@ -78,101 +72,99 @@ public class InputCharacter : IInitializable, IDisposable
     {
         inputActions.Dispose(); 
     }
-    private void TiltRightButton_performed(InputAction.CallbackContext context)
+    private void HandleLeanRightInput(InputAction.CallbackContext context)
     {
         if (context.started)
-            onTiltRightButton?.Invoke(true);
-        else if (context.canceled) onTiltRightButton?.Invoke(false);
+            OnLeanRightInput?.Invoke(true);
+        else if (context.canceled) OnLeanRightInput?.Invoke(false);
     }
-    private void TiltLeftButton_performed(InputAction.CallbackContext context)
+    private void HandleLeanLeftInput(InputAction.CallbackContext context)
     {
         if (context.started)
-            onTiltLeftButton?.Invoke(true);
-        else if (context.canceled) onTiltLeftButton?.Invoke(false);
+            OnLeanLeftInput?.Invoke(true);
+        else if (context.canceled) OnLeanLeftInput?.Invoke(false);
     }
-    private void RightMouseButton_performed(InputAction.CallbackContext context)
+    private void HandleAimInput(InputAction.CallbackContext context)
     {
         if (context.started)
-            onRightMouseButton?.Invoke(true);
-        else if (context.canceled) onRightMouseButton?.Invoke(false);
+            OnAimInput?.Invoke(true);
+        else if (context.canceled) OnAimInput?.Invoke(false);
     }
-    private void LeftMouseButton_performed(InputAction.CallbackContext context)
+    private void HandleFireInput(InputAction.CallbackContext context)
     {
         if (context.started)
-            onLeftMouseButton?.Invoke(true);
-        else if (context.canceled) onLeftMouseButton?.Invoke(false);
+            OnFireInput?.Invoke(true);
+        else if (context.canceled) OnFireInput?.Invoke(false);
     }
-    private void OnGetKeyDownEquipGun(InputAction.CallbackContext context)
+    private void HandleEquipWeaponToggle(InputAction.CallbackContext context)
     {
         if (context.performed)
-            onGetKeyDownEquipGun?.Invoke(true);
-        else if (context.canceled)
-            onGetKeyDownEquipGun?.Invoke(false);
+            OnEquipWeaponToggle?.Invoke();
     }
-    private void OnKeyReloadingGun(InputAction.CallbackContext context)
+    private void HandleReloadWeaponInput(InputAction.CallbackContext context)
     {
         if (context.performed)
-            onKeyReloadingGun?.Invoke(); 
+            OnReloadWeaponInput?.Invoke(); 
     }
-    private void ShootingKey_performed(InputAction.CallbackContext context)
+    private void HandleReadyForBattleToggle(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            onKeyShootingState?.Invoke();
+            OnReadyForBattleToggle?.Invoke();
         }
     }
-    private void CrouchingKey_performed(InputAction.CallbackContext context)
+    private void HandleCrouchToggle(InputAction.CallbackContext context)
     {
         if (context.performed)
         { 
-            onKeyCrouching?.Invoke();
+            OnCrouchToggle?.Invoke();
         }
     }
-    private void InventoryKey_performed(InputAction.CallbackContext context)
+    private void HandleInventoryToggle(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            isActiveInventory = !isActiveInventory;
-            onActiveInventory?.Invoke(isActiveInventory); 
+            isInventoryActive = !isInventoryActive;
+            OnInventoryToggle?.Invoke(isInventoryActive); 
         }
     }
-    private void InventoryBoxKey_performed(InputAction.CallbackContext context)
+    private void HandleInventoryBoxToggle(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            isActiveInventory = !isActiveInventory;
-            onActiveInventoryBox?.Invoke(isActiveInventory);
+            isInventoryActive = !isInventoryActive;
+            OnInventoryBoxToggle?.Invoke(isInventoryActive);
         }  
     }
-    private void ExitInventoryKey_performed(InputAction.CallbackContext context)
+    private void HandleInventoryExitInput(InputAction.CallbackContext context)
     {
-        if (context.performed && isActiveInventory)
+        if (context.performed && isInventoryActive)
         {
-            isActiveInventory = false;
-            onExitInventory?.Invoke(isActiveInventory); 
+            isInventoryActive = false;
+            OnInventoryExitInput?.Invoke(); 
         }
     }
-    private void OnInputGetAxisMove(InputAction.CallbackContext context)
+    private void HandleMoveInput(InputAction.CallbackContext context)
     {
         if (context.performed)
-            onInputGetAxis?.Invoke(context.ReadValue<Vector2>());
+            OnMoveInput?.Invoke(context.ReadValue<Vector2>());
         else
-            onInputGetAxis?.Invoke(Vector2.zero);
+            OnMoveInput?.Invoke(Vector2.zero);
 
     }
-    private void OnGetKeyDownJump(InputAction.CallbackContext context)
+    private void HandleJumpInput(InputAction.CallbackContext context)
     {   
         if(context.performed)
-            onKeyDownJump?.Invoke();
+            OnJumpInput?.Invoke();
     }
      
-    private void OnGetKeyRun(InputAction.CallbackContext context)
+    private void HandleRunInput(InputAction.CallbackContext context)
     {    
-        onGetKeyRun?.Invoke(context.performed);
+        OnRunInput?.Invoke(context.performed);
     }
-    private void OnGetKeyWalk(InputAction.CallbackContext context)
+    private void HandleWalkInput(InputAction.CallbackContext context)
     { 
-        onGetKeyWalk?.Invoke(context.performed);
+        OnWalkInput?.Invoke(context.performed);
     }
 
 }

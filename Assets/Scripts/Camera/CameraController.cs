@@ -39,7 +39,7 @@ public class CameraController: ILateTickable, IInitializable, IDisposable, IFixe
     {
         camera.RotateCamera();
         camera.ZoomCamera();
-        camera.SwitchLookPointCamera(state.isLeftPointLook);
+        camera.SwitchLookPointCamera(state.isLeftTargerPoint);
 
         bool isActive = inventoryUI.isActiveInventory;
         camera.StoppingRotateCameta(isActive); 
@@ -49,10 +49,10 @@ public class CameraController: ILateTickable, IInitializable, IDisposable, IFixe
     public void FixedTick()
     {
         ray.RayHitTakeItemInteract();
-        if (state.isKeyDownMouseRight)
+        if (state.isAim)
         {
             hitPoint = ray.GetPointRayAim();
-            ray.Shooting(state.isKeyDownMouseLeft);
+            ray.Shooting(state.isFire);
         }
     }
 }

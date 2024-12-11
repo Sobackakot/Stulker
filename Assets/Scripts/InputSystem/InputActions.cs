@@ -28,7 +28,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             ""id"": ""a68672b2-b7d2-4e9c-896f-fa23e89e59ef"",
             ""actions"": [
                 {
-                    ""name"": ""GetAxisDirectionMove"",
+                    ""name"": ""Move"",
                     ""type"": ""Value"",
                     ""id"": ""de53db69-ab73-4c75-8af1-5a883aebddd4"",
                     ""expectedControlType"": ""Vector2"",
@@ -37,16 +37,16 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""GetKeyDownJump"",
+                    ""name"": ""Jump"",
                     ""type"": ""Button"",
                     ""id"": ""a848dc71-4e52-4ae5-99f7-1e626a17f6d8"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""GetKeyRun"",
+                    ""name"": ""Run"",
                     ""type"": ""Button"",
                     ""id"": ""dcefffe8-6633-42cb-8cce-49982b8d5bc2"",
                     ""expectedControlType"": """",
@@ -55,7 +55,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""GetKeyWalk"",
+                    ""name"": ""Walk"",
                     ""type"": ""Button"",
                     ""id"": ""db6f0ca7-2958-48cc-bcc0-a8067037ae14"",
                     ""expectedControlType"": """",
@@ -64,7 +64,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""CrouchingKey"",
+                    ""name"": ""Crouch"",
                     ""type"": ""Button"",
                     ""id"": ""e8096e00-d067-4e22-8566-f41f846656e9"",
                     ""expectedControlType"": """",
@@ -73,7 +73,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ShootingKey"",
+                    ""name"": ""ToggleEquipWeapon"",
                     ""type"": ""Button"",
                     ""id"": ""a74f3ca1-c195-48e1-becd-d345e0b4a382"",
                     ""expectedControlType"": """",
@@ -82,7 +82,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ReloadingGunKey"",
+                    ""name"": ""ReloadWeapon"",
                     ""type"": ""Button"",
                     ""id"": ""b7990bcc-3880-4f66-9d75-01aeb15adaed"",
                     ""expectedControlType"": """",
@@ -118,7 +118,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""LeftMouseButton"",
+                    ""name"": ""Aim"",
                     ""type"": ""Button"",
                     ""id"": ""8e57a7ed-f1eb-4a65-84f3-9803bffad5c1"",
                     ""expectedControlType"": """",
@@ -127,7 +127,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""RightMouseButton"",
+                    ""name"": ""Fire"",
                     ""type"": ""Button"",
                     ""id"": ""5df17428-0295-4bcb-8c45-fe155a1afdfb"",
                     ""expectedControlType"": """",
@@ -136,7 +136,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""InventoryKey"",
+                    ""name"": ""ToggleInventory"",
                     ""type"": ""Button"",
                     ""id"": ""51dbd497-9881-4753-904b-fc38e521c3a6"",
                     ""expectedControlType"": """",
@@ -145,7 +145,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""InventoryBoxKey"",
+                    ""name"": ""ToggleInventoryBox"",
                     ""type"": ""Button"",
                     ""id"": ""7f02134f-14c6-4ce5-86c0-d0f596ecef0e"",
                     ""expectedControlType"": """",
@@ -154,7 +154,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ExitInventoryKey"",
+                    ""name"": ""ExitInventory"",
                     ""type"": ""Button"",
                     ""id"": ""b54b886c-4dbe-4fe7-9297-9a0181ba723d"",
                     ""expectedControlType"": """",
@@ -163,7 +163,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""TiltRightKey"",
+                    ""name"": ""LeanRight"",
                     ""type"": ""Button"",
                     ""id"": ""a978815b-296d-455c-9708-24cc6982c80d"",
                     ""expectedControlType"": """",
@@ -172,7 +172,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""TiltLeftKey"",
+                    ""name"": ""LeanLeft"",
                     ""type"": ""Button"",
                     ""id"": ""73c76415-1165-4e3e-aa95-cd6048342978"",
                     ""expectedControlType"": """",
@@ -189,7 +189,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""GetAxisDirectionMove"",
+                    ""action"": ""Move"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -200,7 +200,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""GetAxisDirectionMove"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -211,7 +211,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""GetAxisDirectionMove"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -222,7 +222,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""GetAxisDirectionMove"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -233,7 +233,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""GetAxisDirectionMove"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -244,7 +244,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""GetKeyDownJump"",
+                    ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -255,7 +255,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""GetKeyRun"",
+                    ""action"": ""Run"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -266,7 +266,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""GetKeyWalk"",
+                    ""action"": ""Walk"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -277,7 +277,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""CrouchingKey"",
+                    ""action"": ""Crouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -288,7 +288,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ShootingKey"",
+                    ""action"": ""ToggleEquipWeapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -299,7 +299,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ReloadingGunKey"",
+                    ""action"": ""ReloadWeapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -343,29 +343,29 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""InventoryKey"",
+                    ""action"": ""ToggleInventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
                     ""id"": ""61e4eb51-3815-44e2-964b-5ec8eb76e5cf"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""LeftMouseButton"",
+                    ""action"": ""Aim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
                     ""id"": ""0cad69f9-93e8-49ee-ac71-60021edf60fe"",
-                    ""path"": ""<Mouse>/rightButton"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""RightMouseButton"",
+                    ""action"": ""Fire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -376,7 +376,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""InventoryBoxKey"",
+                    ""action"": ""ToggleInventoryBox"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -387,7 +387,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""ExitInventoryKey"",
+                    ""action"": ""ExitInventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -398,7 +398,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""TiltRightKey"",
+                    ""action"": ""LeanRight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -409,7 +409,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""TiltLeftKey"",
+                    ""action"": ""LeanLeft"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -420,23 +420,23 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
 }");
         // ActionMaps
         m_ActionMaps = asset.FindActionMap("ActionMaps", throwIfNotFound: true);
-        m_ActionMaps_GetAxisDirectionMove = m_ActionMaps.FindAction("GetAxisDirectionMove", throwIfNotFound: true);
-        m_ActionMaps_GetKeyDownJump = m_ActionMaps.FindAction("GetKeyDownJump", throwIfNotFound: true);
-        m_ActionMaps_GetKeyRun = m_ActionMaps.FindAction("GetKeyRun", throwIfNotFound: true);
-        m_ActionMaps_GetKeyWalk = m_ActionMaps.FindAction("GetKeyWalk", throwIfNotFound: true);
-        m_ActionMaps_CrouchingKey = m_ActionMaps.FindAction("CrouchingKey", throwIfNotFound: true);
-        m_ActionMaps_ShootingKey = m_ActionMaps.FindAction("ShootingKey", throwIfNotFound: true);
-        m_ActionMaps_ReloadingGunKey = m_ActionMaps.FindAction("ReloadingGunKey", throwIfNotFound: true);
+        m_ActionMaps_Move = m_ActionMaps.FindAction("Move", throwIfNotFound: true);
+        m_ActionMaps_Jump = m_ActionMaps.FindAction("Jump", throwIfNotFound: true);
+        m_ActionMaps_Run = m_ActionMaps.FindAction("Run", throwIfNotFound: true);
+        m_ActionMaps_Walk = m_ActionMaps.FindAction("Walk", throwIfNotFound: true);
+        m_ActionMaps_Crouch = m_ActionMaps.FindAction("Crouch", throwIfNotFound: true);
+        m_ActionMaps_ToggleEquipWeapon = m_ActionMaps.FindAction("ToggleEquipWeapon", throwIfNotFound: true);
+        m_ActionMaps_ReloadWeapon = m_ActionMaps.FindAction("ReloadWeapon", throwIfNotFound: true);
         m_ActionMaps_MouseDelta = m_ActionMaps.FindAction("MouseDelta", throwIfNotFound: true);
         m_ActionMaps_MouseScroll = m_ActionMaps.FindAction("MouseScroll", throwIfNotFound: true);
         m_ActionMaps_MouseMidle = m_ActionMaps.FindAction("MouseMidle", throwIfNotFound: true);
-        m_ActionMaps_LeftMouseButton = m_ActionMaps.FindAction("LeftMouseButton", throwIfNotFound: true);
-        m_ActionMaps_RightMouseButton = m_ActionMaps.FindAction("RightMouseButton", throwIfNotFound: true);
-        m_ActionMaps_InventoryKey = m_ActionMaps.FindAction("InventoryKey", throwIfNotFound: true);
-        m_ActionMaps_InventoryBoxKey = m_ActionMaps.FindAction("InventoryBoxKey", throwIfNotFound: true);
-        m_ActionMaps_ExitInventoryKey = m_ActionMaps.FindAction("ExitInventoryKey", throwIfNotFound: true);
-        m_ActionMaps_TiltRightKey = m_ActionMaps.FindAction("TiltRightKey", throwIfNotFound: true);
-        m_ActionMaps_TiltLeftKey = m_ActionMaps.FindAction("TiltLeftKey", throwIfNotFound: true);
+        m_ActionMaps_Aim = m_ActionMaps.FindAction("Aim", throwIfNotFound: true);
+        m_ActionMaps_Fire = m_ActionMaps.FindAction("Fire", throwIfNotFound: true);
+        m_ActionMaps_ToggleInventory = m_ActionMaps.FindAction("ToggleInventory", throwIfNotFound: true);
+        m_ActionMaps_ToggleInventoryBox = m_ActionMaps.FindAction("ToggleInventoryBox", throwIfNotFound: true);
+        m_ActionMaps_ExitInventory = m_ActionMaps.FindAction("ExitInventory", throwIfNotFound: true);
+        m_ActionMaps_LeanRight = m_ActionMaps.FindAction("LeanRight", throwIfNotFound: true);
+        m_ActionMaps_LeanLeft = m_ActionMaps.FindAction("LeanLeft", throwIfNotFound: true);
     }
 
     ~@InputActions()
@@ -503,44 +503,44 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     // ActionMaps
     private readonly InputActionMap m_ActionMaps;
     private List<IActionMapsActions> m_ActionMapsActionsCallbackInterfaces = new List<IActionMapsActions>();
-    private readonly InputAction m_ActionMaps_GetAxisDirectionMove;
-    private readonly InputAction m_ActionMaps_GetKeyDownJump;
-    private readonly InputAction m_ActionMaps_GetKeyRun;
-    private readonly InputAction m_ActionMaps_GetKeyWalk;
-    private readonly InputAction m_ActionMaps_CrouchingKey;
-    private readonly InputAction m_ActionMaps_ShootingKey;
-    private readonly InputAction m_ActionMaps_ReloadingGunKey;
+    private readonly InputAction m_ActionMaps_Move;
+    private readonly InputAction m_ActionMaps_Jump;
+    private readonly InputAction m_ActionMaps_Run;
+    private readonly InputAction m_ActionMaps_Walk;
+    private readonly InputAction m_ActionMaps_Crouch;
+    private readonly InputAction m_ActionMaps_ToggleEquipWeapon;
+    private readonly InputAction m_ActionMaps_ReloadWeapon;
     private readonly InputAction m_ActionMaps_MouseDelta;
     private readonly InputAction m_ActionMaps_MouseScroll;
     private readonly InputAction m_ActionMaps_MouseMidle;
-    private readonly InputAction m_ActionMaps_LeftMouseButton;
-    private readonly InputAction m_ActionMaps_RightMouseButton;
-    private readonly InputAction m_ActionMaps_InventoryKey;
-    private readonly InputAction m_ActionMaps_InventoryBoxKey;
-    private readonly InputAction m_ActionMaps_ExitInventoryKey;
-    private readonly InputAction m_ActionMaps_TiltRightKey;
-    private readonly InputAction m_ActionMaps_TiltLeftKey;
+    private readonly InputAction m_ActionMaps_Aim;
+    private readonly InputAction m_ActionMaps_Fire;
+    private readonly InputAction m_ActionMaps_ToggleInventory;
+    private readonly InputAction m_ActionMaps_ToggleInventoryBox;
+    private readonly InputAction m_ActionMaps_ExitInventory;
+    private readonly InputAction m_ActionMaps_LeanRight;
+    private readonly InputAction m_ActionMaps_LeanLeft;
     public struct ActionMapsActions
     {
         private @InputActions m_Wrapper;
         public ActionMapsActions(@InputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @GetAxisDirectionMove => m_Wrapper.m_ActionMaps_GetAxisDirectionMove;
-        public InputAction @GetKeyDownJump => m_Wrapper.m_ActionMaps_GetKeyDownJump;
-        public InputAction @GetKeyRun => m_Wrapper.m_ActionMaps_GetKeyRun;
-        public InputAction @GetKeyWalk => m_Wrapper.m_ActionMaps_GetKeyWalk;
-        public InputAction @CrouchingKey => m_Wrapper.m_ActionMaps_CrouchingKey;
-        public InputAction @ShootingKey => m_Wrapper.m_ActionMaps_ShootingKey;
-        public InputAction @ReloadingGunKey => m_Wrapper.m_ActionMaps_ReloadingGunKey;
+        public InputAction @Move => m_Wrapper.m_ActionMaps_Move;
+        public InputAction @Jump => m_Wrapper.m_ActionMaps_Jump;
+        public InputAction @Run => m_Wrapper.m_ActionMaps_Run;
+        public InputAction @Walk => m_Wrapper.m_ActionMaps_Walk;
+        public InputAction @Crouch => m_Wrapper.m_ActionMaps_Crouch;
+        public InputAction @ToggleEquipWeapon => m_Wrapper.m_ActionMaps_ToggleEquipWeapon;
+        public InputAction @ReloadWeapon => m_Wrapper.m_ActionMaps_ReloadWeapon;
         public InputAction @MouseDelta => m_Wrapper.m_ActionMaps_MouseDelta;
         public InputAction @MouseScroll => m_Wrapper.m_ActionMaps_MouseScroll;
         public InputAction @MouseMidle => m_Wrapper.m_ActionMaps_MouseMidle;
-        public InputAction @LeftMouseButton => m_Wrapper.m_ActionMaps_LeftMouseButton;
-        public InputAction @RightMouseButton => m_Wrapper.m_ActionMaps_RightMouseButton;
-        public InputAction @InventoryKey => m_Wrapper.m_ActionMaps_InventoryKey;
-        public InputAction @InventoryBoxKey => m_Wrapper.m_ActionMaps_InventoryBoxKey;
-        public InputAction @ExitInventoryKey => m_Wrapper.m_ActionMaps_ExitInventoryKey;
-        public InputAction @TiltRightKey => m_Wrapper.m_ActionMaps_TiltRightKey;
-        public InputAction @TiltLeftKey => m_Wrapper.m_ActionMaps_TiltLeftKey;
+        public InputAction @Aim => m_Wrapper.m_ActionMaps_Aim;
+        public InputAction @Fire => m_Wrapper.m_ActionMaps_Fire;
+        public InputAction @ToggleInventory => m_Wrapper.m_ActionMaps_ToggleInventory;
+        public InputAction @ToggleInventoryBox => m_Wrapper.m_ActionMaps_ToggleInventoryBox;
+        public InputAction @ExitInventory => m_Wrapper.m_ActionMaps_ExitInventory;
+        public InputAction @LeanRight => m_Wrapper.m_ActionMaps_LeanRight;
+        public InputAction @LeanLeft => m_Wrapper.m_ActionMaps_LeanLeft;
         public InputActionMap Get() { return m_Wrapper.m_ActionMaps; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -550,27 +550,27 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_ActionMapsActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_ActionMapsActionsCallbackInterfaces.Add(instance);
-            @GetAxisDirectionMove.started += instance.OnGetAxisDirectionMove;
-            @GetAxisDirectionMove.performed += instance.OnGetAxisDirectionMove;
-            @GetAxisDirectionMove.canceled += instance.OnGetAxisDirectionMove;
-            @GetKeyDownJump.started += instance.OnGetKeyDownJump;
-            @GetKeyDownJump.performed += instance.OnGetKeyDownJump;
-            @GetKeyDownJump.canceled += instance.OnGetKeyDownJump;
-            @GetKeyRun.started += instance.OnGetKeyRun;
-            @GetKeyRun.performed += instance.OnGetKeyRun;
-            @GetKeyRun.canceled += instance.OnGetKeyRun;
-            @GetKeyWalk.started += instance.OnGetKeyWalk;
-            @GetKeyWalk.performed += instance.OnGetKeyWalk;
-            @GetKeyWalk.canceled += instance.OnGetKeyWalk;
-            @CrouchingKey.started += instance.OnCrouchingKey;
-            @CrouchingKey.performed += instance.OnCrouchingKey;
-            @CrouchingKey.canceled += instance.OnCrouchingKey;
-            @ShootingKey.started += instance.OnShootingKey;
-            @ShootingKey.performed += instance.OnShootingKey;
-            @ShootingKey.canceled += instance.OnShootingKey;
-            @ReloadingGunKey.started += instance.OnReloadingGunKey;
-            @ReloadingGunKey.performed += instance.OnReloadingGunKey;
-            @ReloadingGunKey.canceled += instance.OnReloadingGunKey;
+            @Move.started += instance.OnMove;
+            @Move.performed += instance.OnMove;
+            @Move.canceled += instance.OnMove;
+            @Jump.started += instance.OnJump;
+            @Jump.performed += instance.OnJump;
+            @Jump.canceled += instance.OnJump;
+            @Run.started += instance.OnRun;
+            @Run.performed += instance.OnRun;
+            @Run.canceled += instance.OnRun;
+            @Walk.started += instance.OnWalk;
+            @Walk.performed += instance.OnWalk;
+            @Walk.canceled += instance.OnWalk;
+            @Crouch.started += instance.OnCrouch;
+            @Crouch.performed += instance.OnCrouch;
+            @Crouch.canceled += instance.OnCrouch;
+            @ToggleEquipWeapon.started += instance.OnToggleEquipWeapon;
+            @ToggleEquipWeapon.performed += instance.OnToggleEquipWeapon;
+            @ToggleEquipWeapon.canceled += instance.OnToggleEquipWeapon;
+            @ReloadWeapon.started += instance.OnReloadWeapon;
+            @ReloadWeapon.performed += instance.OnReloadWeapon;
+            @ReloadWeapon.canceled += instance.OnReloadWeapon;
             @MouseDelta.started += instance.OnMouseDelta;
             @MouseDelta.performed += instance.OnMouseDelta;
             @MouseDelta.canceled += instance.OnMouseDelta;
@@ -580,52 +580,52 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @MouseMidle.started += instance.OnMouseMidle;
             @MouseMidle.performed += instance.OnMouseMidle;
             @MouseMidle.canceled += instance.OnMouseMidle;
-            @LeftMouseButton.started += instance.OnLeftMouseButton;
-            @LeftMouseButton.performed += instance.OnLeftMouseButton;
-            @LeftMouseButton.canceled += instance.OnLeftMouseButton;
-            @RightMouseButton.started += instance.OnRightMouseButton;
-            @RightMouseButton.performed += instance.OnRightMouseButton;
-            @RightMouseButton.canceled += instance.OnRightMouseButton;
-            @InventoryKey.started += instance.OnInventoryKey;
-            @InventoryKey.performed += instance.OnInventoryKey;
-            @InventoryKey.canceled += instance.OnInventoryKey;
-            @InventoryBoxKey.started += instance.OnInventoryBoxKey;
-            @InventoryBoxKey.performed += instance.OnInventoryBoxKey;
-            @InventoryBoxKey.canceled += instance.OnInventoryBoxKey;
-            @ExitInventoryKey.started += instance.OnExitInventoryKey;
-            @ExitInventoryKey.performed += instance.OnExitInventoryKey;
-            @ExitInventoryKey.canceled += instance.OnExitInventoryKey;
-            @TiltRightKey.started += instance.OnTiltRightKey;
-            @TiltRightKey.performed += instance.OnTiltRightKey;
-            @TiltRightKey.canceled += instance.OnTiltRightKey;
-            @TiltLeftKey.started += instance.OnTiltLeftKey;
-            @TiltLeftKey.performed += instance.OnTiltLeftKey;
-            @TiltLeftKey.canceled += instance.OnTiltLeftKey;
+            @Aim.started += instance.OnAim;
+            @Aim.performed += instance.OnAim;
+            @Aim.canceled += instance.OnAim;
+            @Fire.started += instance.OnFire;
+            @Fire.performed += instance.OnFire;
+            @Fire.canceled += instance.OnFire;
+            @ToggleInventory.started += instance.OnToggleInventory;
+            @ToggleInventory.performed += instance.OnToggleInventory;
+            @ToggleInventory.canceled += instance.OnToggleInventory;
+            @ToggleInventoryBox.started += instance.OnToggleInventoryBox;
+            @ToggleInventoryBox.performed += instance.OnToggleInventoryBox;
+            @ToggleInventoryBox.canceled += instance.OnToggleInventoryBox;
+            @ExitInventory.started += instance.OnExitInventory;
+            @ExitInventory.performed += instance.OnExitInventory;
+            @ExitInventory.canceled += instance.OnExitInventory;
+            @LeanRight.started += instance.OnLeanRight;
+            @LeanRight.performed += instance.OnLeanRight;
+            @LeanRight.canceled += instance.OnLeanRight;
+            @LeanLeft.started += instance.OnLeanLeft;
+            @LeanLeft.performed += instance.OnLeanLeft;
+            @LeanLeft.canceled += instance.OnLeanLeft;
         }
 
         private void UnregisterCallbacks(IActionMapsActions instance)
         {
-            @GetAxisDirectionMove.started -= instance.OnGetAxisDirectionMove;
-            @GetAxisDirectionMove.performed -= instance.OnGetAxisDirectionMove;
-            @GetAxisDirectionMove.canceled -= instance.OnGetAxisDirectionMove;
-            @GetKeyDownJump.started -= instance.OnGetKeyDownJump;
-            @GetKeyDownJump.performed -= instance.OnGetKeyDownJump;
-            @GetKeyDownJump.canceled -= instance.OnGetKeyDownJump;
-            @GetKeyRun.started -= instance.OnGetKeyRun;
-            @GetKeyRun.performed -= instance.OnGetKeyRun;
-            @GetKeyRun.canceled -= instance.OnGetKeyRun;
-            @GetKeyWalk.started -= instance.OnGetKeyWalk;
-            @GetKeyWalk.performed -= instance.OnGetKeyWalk;
-            @GetKeyWalk.canceled -= instance.OnGetKeyWalk;
-            @CrouchingKey.started -= instance.OnCrouchingKey;
-            @CrouchingKey.performed -= instance.OnCrouchingKey;
-            @CrouchingKey.canceled -= instance.OnCrouchingKey;
-            @ShootingKey.started -= instance.OnShootingKey;
-            @ShootingKey.performed -= instance.OnShootingKey;
-            @ShootingKey.canceled -= instance.OnShootingKey;
-            @ReloadingGunKey.started -= instance.OnReloadingGunKey;
-            @ReloadingGunKey.performed -= instance.OnReloadingGunKey;
-            @ReloadingGunKey.canceled -= instance.OnReloadingGunKey;
+            @Move.started -= instance.OnMove;
+            @Move.performed -= instance.OnMove;
+            @Move.canceled -= instance.OnMove;
+            @Jump.started -= instance.OnJump;
+            @Jump.performed -= instance.OnJump;
+            @Jump.canceled -= instance.OnJump;
+            @Run.started -= instance.OnRun;
+            @Run.performed -= instance.OnRun;
+            @Run.canceled -= instance.OnRun;
+            @Walk.started -= instance.OnWalk;
+            @Walk.performed -= instance.OnWalk;
+            @Walk.canceled -= instance.OnWalk;
+            @Crouch.started -= instance.OnCrouch;
+            @Crouch.performed -= instance.OnCrouch;
+            @Crouch.canceled -= instance.OnCrouch;
+            @ToggleEquipWeapon.started -= instance.OnToggleEquipWeapon;
+            @ToggleEquipWeapon.performed -= instance.OnToggleEquipWeapon;
+            @ToggleEquipWeapon.canceled -= instance.OnToggleEquipWeapon;
+            @ReloadWeapon.started -= instance.OnReloadWeapon;
+            @ReloadWeapon.performed -= instance.OnReloadWeapon;
+            @ReloadWeapon.canceled -= instance.OnReloadWeapon;
             @MouseDelta.started -= instance.OnMouseDelta;
             @MouseDelta.performed -= instance.OnMouseDelta;
             @MouseDelta.canceled -= instance.OnMouseDelta;
@@ -635,27 +635,27 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @MouseMidle.started -= instance.OnMouseMidle;
             @MouseMidle.performed -= instance.OnMouseMidle;
             @MouseMidle.canceled -= instance.OnMouseMidle;
-            @LeftMouseButton.started -= instance.OnLeftMouseButton;
-            @LeftMouseButton.performed -= instance.OnLeftMouseButton;
-            @LeftMouseButton.canceled -= instance.OnLeftMouseButton;
-            @RightMouseButton.started -= instance.OnRightMouseButton;
-            @RightMouseButton.performed -= instance.OnRightMouseButton;
-            @RightMouseButton.canceled -= instance.OnRightMouseButton;
-            @InventoryKey.started -= instance.OnInventoryKey;
-            @InventoryKey.performed -= instance.OnInventoryKey;
-            @InventoryKey.canceled -= instance.OnInventoryKey;
-            @InventoryBoxKey.started -= instance.OnInventoryBoxKey;
-            @InventoryBoxKey.performed -= instance.OnInventoryBoxKey;
-            @InventoryBoxKey.canceled -= instance.OnInventoryBoxKey;
-            @ExitInventoryKey.started -= instance.OnExitInventoryKey;
-            @ExitInventoryKey.performed -= instance.OnExitInventoryKey;
-            @ExitInventoryKey.canceled -= instance.OnExitInventoryKey;
-            @TiltRightKey.started -= instance.OnTiltRightKey;
-            @TiltRightKey.performed -= instance.OnTiltRightKey;
-            @TiltRightKey.canceled -= instance.OnTiltRightKey;
-            @TiltLeftKey.started -= instance.OnTiltLeftKey;
-            @TiltLeftKey.performed -= instance.OnTiltLeftKey;
-            @TiltLeftKey.canceled -= instance.OnTiltLeftKey;
+            @Aim.started -= instance.OnAim;
+            @Aim.performed -= instance.OnAim;
+            @Aim.canceled -= instance.OnAim;
+            @Fire.started -= instance.OnFire;
+            @Fire.performed -= instance.OnFire;
+            @Fire.canceled -= instance.OnFire;
+            @ToggleInventory.started -= instance.OnToggleInventory;
+            @ToggleInventory.performed -= instance.OnToggleInventory;
+            @ToggleInventory.canceled -= instance.OnToggleInventory;
+            @ToggleInventoryBox.started -= instance.OnToggleInventoryBox;
+            @ToggleInventoryBox.performed -= instance.OnToggleInventoryBox;
+            @ToggleInventoryBox.canceled -= instance.OnToggleInventoryBox;
+            @ExitInventory.started -= instance.OnExitInventory;
+            @ExitInventory.performed -= instance.OnExitInventory;
+            @ExitInventory.canceled -= instance.OnExitInventory;
+            @LeanRight.started -= instance.OnLeanRight;
+            @LeanRight.performed -= instance.OnLeanRight;
+            @LeanRight.canceled -= instance.OnLeanRight;
+            @LeanLeft.started -= instance.OnLeanLeft;
+            @LeanLeft.performed -= instance.OnLeanLeft;
+            @LeanLeft.canceled -= instance.OnLeanLeft;
         }
 
         public void RemoveCallbacks(IActionMapsActions instance)
@@ -675,22 +675,22 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     public ActionMapsActions @ActionMaps => new ActionMapsActions(this);
     public interface IActionMapsActions
     {
-        void OnGetAxisDirectionMove(InputAction.CallbackContext context);
-        void OnGetKeyDownJump(InputAction.CallbackContext context);
-        void OnGetKeyRun(InputAction.CallbackContext context);
-        void OnGetKeyWalk(InputAction.CallbackContext context);
-        void OnCrouchingKey(InputAction.CallbackContext context);
-        void OnShootingKey(InputAction.CallbackContext context);
-        void OnReloadingGunKey(InputAction.CallbackContext context);
+        void OnMove(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
+        void OnRun(InputAction.CallbackContext context);
+        void OnWalk(InputAction.CallbackContext context);
+        void OnCrouch(InputAction.CallbackContext context);
+        void OnToggleEquipWeapon(InputAction.CallbackContext context);
+        void OnReloadWeapon(InputAction.CallbackContext context);
         void OnMouseDelta(InputAction.CallbackContext context);
         void OnMouseScroll(InputAction.CallbackContext context);
         void OnMouseMidle(InputAction.CallbackContext context);
-        void OnLeftMouseButton(InputAction.CallbackContext context);
-        void OnRightMouseButton(InputAction.CallbackContext context);
-        void OnInventoryKey(InputAction.CallbackContext context);
-        void OnInventoryBoxKey(InputAction.CallbackContext context);
-        void OnExitInventoryKey(InputAction.CallbackContext context);
-        void OnTiltRightKey(InputAction.CallbackContext context);
-        void OnTiltLeftKey(InputAction.CallbackContext context);
+        void OnAim(InputAction.CallbackContext context);
+        void OnFire(InputAction.CallbackContext context);
+        void OnToggleInventory(InputAction.CallbackContext context);
+        void OnToggleInventoryBox(InputAction.CallbackContext context);
+        void OnExitInventory(InputAction.CallbackContext context);
+        void OnLeanRight(InputAction.CallbackContext context);
+        void OnLeanLeft(InputAction.CallbackContext context);
     }
 }

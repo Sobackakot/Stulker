@@ -36,11 +36,11 @@ public class RaycastCamera : MonoBehaviour
     } 
     private void OnEnable()
     {
-        input.onActiveInventoryBox += OnInteractButton;
+        input.OnInventoryBoxToggle += OnInteractButton;
     }
     private void OnDisable()
     {
-        input.onActiveInventoryBox -= OnInteractButton; 
+        input.OnInventoryBoxToggle -= OnInteractButton; 
     } 
    
     public void Shooting(bool isKeyPressDown)

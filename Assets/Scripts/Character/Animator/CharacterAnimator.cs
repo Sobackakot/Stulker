@@ -28,21 +28,7 @@ public class CharacterAnimator : MonoBehaviour
         animator = GetComponent<Animator>();
         weaponEquipLayerIndex = animator.GetLayerIndex("WeaponEquip");
     } 
-    public void WeaponEquip(bool isShooting,bool isEquipGun)
-    { 
-        if(isEquipGun)
-        {
-            animator.SetLayerWeight(weaponEquipLayerIndex, 1);
-            if(isShooting)
-            {
-                animator.SetTrigger("PullOut"); 
-            }
-            else
-            {
-                animator.SetTrigger("PutAway");
-            }
-        } 
-    }
+   
     public void MovAnimation(Vector3 inputAxis,bool isMoving)
     {
         if (inputAxis.sqrMagnitude > 0.2f && isMoving)
@@ -73,26 +59,39 @@ public class CharacterAnimator : MonoBehaviour
         if (isWalking | isAiming) speedAnimation = speedWalkAnimation;
         else speedAnimation = isRanning ? (inputAxis.z > 0 ? speedSprint : speedRunAnimation) : speedRunAnimation;
     }
-    public void InputCharacter_OnKeyDownJumpAnim()
+    public void InputCharacter_OnJump()
     { 
         if(state.isCollision) 
             animator.SetTrigger("isJumping"); 
     } 
-    public void AimingMove(bool isAiming)
+    public void InputCharacter_OnAim(bool isAiming)
     {   
         animator.SetBool("isAimForButtle", isAiming);
     }
-    public void CrouchingMove(bool isCroushing)
+    public void InputCharacter_OnCrouch()
     {
-        animator.SetBool("isCrouching", isCroushing);
-    } 
+        animator.SetTrigger("isCrouching");
+    }  
+    public void InputCharacter_OnReadyForButtle()
+    {
+        animator.SetTrigger("isReadyForButtle");
+        WeaponEquip(state.isReadyForButtle, state.isWeaponEquip);
+    }
+    private void WeaponEquip(bool isReadyForButte, bool isEquipGun)
+    {
+        animator.SetLayerWeight(weaponEquipLayerIndex, 1);
+        if (isReadyForButte)
+        {
+            animator.SetTrigger("PullOut");
+        }
+        else
+        {
+            animator.SetTrigger("PutAway");
+        }
+    }
     public void ParkourUp(bool isParkour)
     {
         if (isParkour)
-            animator.SetBool("isParkourUp", true); 
-    }    
-    public void ActiveShooting(bool isShooting)
-    {
-        animator.SetBool("isReadyForButtle", isShooting);
-    } 
+            animator.SetBool("isParkourUp", true);
+    }
 }

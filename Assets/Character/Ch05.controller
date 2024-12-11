@@ -158,7 +158,7 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 2
+  - m_ConditionMode: 1
     m_ConditionEvent: isCrouching
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
@@ -244,9 +244,6 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: PullOut
     m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: isReadyForButtle
-    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -2484167076005584935}
   m_Solo: 0
@@ -271,9 +268,6 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: PutAway
-    m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: isReadyForButtle
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5603676698735978673}
@@ -1118,7 +1112,7 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 2
+  - m_ConditionMode: 1
     m_ConditionEvent: isReadyForButtle
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
@@ -1993,9 +1987,6 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: isCrouching
     m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: isReadyForButtle
-    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -1584392992091078652}
   m_Solo: 0
@@ -2520,19 +2511,7 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: isReadyForButtle
-    m_Type: 4
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
   - m_Name: isAimForButtle
-    m_Type: 4
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: isCrouching
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -2557,6 +2536,18 @@ AnimatorController:
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
   - m_Name: isJumping
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: isReadyForButtle
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
+  - m_Name: isCrouching
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -4530,7 +4521,7 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 2
+  - m_ConditionMode: 1
     m_ConditionEvent: isCrouching
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
@@ -4677,9 +4668,6 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: isCrouching
     m_EventTreshold: 0
-  - m_ConditionMode: 2
-    m_ConditionEvent: isReadyForButtle
-    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -9161245123832866515}
   m_Solo: 0
@@ -4749,7 +4737,7 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 2
+  - m_ConditionMode: 1
     m_ConditionEvent: isReadyForButtle
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
