@@ -12,8 +12,7 @@ public class StateCharacterController : IInitializable, IDisposable
     private InputCharacter input;
 
     public void Initialize()
-    {
-        input.onGetKeyDownJump += state.InputCharacter_OnKeyDownJump;
+    { 
         input.onGetKeyRun += state.InputCharacter_OnKeyRun;
         input.onGetKeyWalk += state.InputCharacter_OnKeyWalk;
         input.onRightMouseButton += state.InputCharacter_OnRightMouseButton;
@@ -27,8 +26,7 @@ public class StateCharacterController : IInitializable, IDisposable
     }
 
     public void Dispose()
-    {
-        input.onGetKeyDownJump -= state.InputCharacter_OnKeyDownJump;
+    { 
         input.onGetKeyRun -= state.InputCharacter_OnKeyRun;
         input.onGetKeyWalk -= state.InputCharacter_OnKeyWalk;
         input.onRightMouseButton -= state.InputCharacter_OnRightMouseButton;

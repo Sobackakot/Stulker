@@ -9,7 +9,7 @@ public class InputCharacter : IInitializable, IDisposable
     public event Action<Vector2> onInputGetAxis;
 
     public event Action<bool> onGetKeyDownEquipGun;
-    public event Action<bool> onGetKeyDownJump;
+    public event Action onKeyDownJump;
     public event Action<bool> onGetKeyRun;
     public event Action<bool> onGetKeyWalk; 
     public event Action<bool> onGetKeyCrouch;
@@ -17,6 +17,7 @@ public class InputCharacter : IInitializable, IDisposable
     
     public event Action onKeyShootingState; 
     public event Action onKeyCrouching;
+    public event Action onKeyReloadingGun;
 
     public event Action<bool> onRightMouseButton;
     public event Action<bool> onLeftMouseButton;
@@ -39,8 +40,9 @@ public class InputCharacter : IInitializable, IDisposable
         inputActions.ActionMaps.GetAxisDirectionMove.canceled += ctx => OnInputGetAxisMove(ctx);
 
         inputActions.ActionMaps.GetKeyDownJump.performed += ctx => OnGetKeyDownJump(ctx);     
-        inputActions.ActionMaps.GetKeyDownJump.canceled += ctx => OnGetKeyDownJump(ctx);    
+        inputActions.ActionMaps.GetKeyDownJump.canceled += ctx => OnGetKeyDownJump(ctx);
 
+        inputActions.ActionMaps.ReloadingGunKey.performed += ctx => OnKeyReloadingGun(ctx); 
 
         inputActions.ActionMaps.GetKeyRun.performed += ctx => OnGetKeyRun(ctx); 
         inputActions.ActionMaps.GetKeyRun.canceled += ctx => OnGetKeyRun(ctx);
@@ -107,6 +109,11 @@ public class InputCharacter : IInitializable, IDisposable
         else if (context.canceled)
             onGetKeyDownEquipGun?.Invoke(false);
     }
+    private void OnKeyReloadingGun(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            onKeyReloadingGun?.Invoke(); 
+    }
     private void ShootingKey_performed(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -156,9 +163,7 @@ public class InputCharacter : IInitializable, IDisposable
     private void OnGetKeyDownJump(InputAction.CallbackContext context)
     {   
         if(context.performed)
-            onGetKeyDownJump?.Invoke(true);
-        else if (context.canceled)
-            onGetKeyDownJump?.Invoke(false);
+            onKeyDownJump?.Invoke();
     }
      
     private void OnGetKeyRun(InputAction.CallbackContext context)

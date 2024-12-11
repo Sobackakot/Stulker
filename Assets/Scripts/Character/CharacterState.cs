@@ -3,8 +3,7 @@ using System;
 using UnityEngine; 
 
 public class CharacterState  
-{ 
-    public bool isJumping { get; private set; }
+{
     public bool isRunningSprint { get; private set; }
     public bool isWalking { get; private set; }
     public bool isCollision { get; private set; }
@@ -27,10 +26,6 @@ public class CharacterState
     {
         if(!isKeyDownMouseRight)
             isEquipGun = isKeyDownEquip;
-    }
-    public void InputCharacter_OnKeyDownJump(bool isKeyDown)
-    {
-        isJumping = isKeyDown; 
     }
     public void InputCharacter_OnKeyRun(bool isKeyRun)
     {

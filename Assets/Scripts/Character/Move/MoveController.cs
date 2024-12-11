@@ -1,6 +1,5 @@
 
 using System;
-using UnityEngine;
 using Zenject;
 
 public class MoveController : IInitializable, IDisposable, IFixedTickable
@@ -20,14 +19,15 @@ public class MoveController : IInitializable, IDisposable, IFixedTickable
     public void Initialize()
     { 
         inputCharacter.onInputGetAxis += character.InputCharacter_OnAxisMove;
+        inputCharacter.onKeyDownJump += character.InputCharacter_OnJumpingKeyDown;
     }
     public void Dispose()
     {
         inputCharacter.onInputGetAxis -= character.InputCharacter_OnAxisMove;
+        inputCharacter.onKeyDownJump -= character.InputCharacter_OnJumpingKeyDown;
     } 
     public void FixedTick()
-    {
-        character.Jumping();
+    { 
         character.Moving();
         bool isActiveInventoryBox = inventoryUI.isActiveInventory;
         character.StopingMoveCharacter(isActiveInventoryBox);

@@ -1,9 +1,11 @@
  
 using UnityEngine;
+using Zenject;
 
 public class CharacterAnimator : MonoBehaviour
 { 
     private Animator animator;  
+    private CharacterState state;
 
     [SerializeField] private float speedWalkAnimation = 0.5f;
     [SerializeField] private float speedRunAnimation = 0.8f;
@@ -13,6 +15,13 @@ public class CharacterAnimator : MonoBehaviour
     private float switchAngleTurn;
     private float speedAnimation;
     private int weaponEquipLayerIndex;
+
+
+    [Inject]
+    private void Construct(CharacterState state)
+    {
+        this.state = state;
+    }
 
     private void Awake()
     {     
@@ -64,12 +73,10 @@ public class CharacterAnimator : MonoBehaviour
         if (isWalking | isAiming) speedAnimation = speedWalkAnimation;
         else speedAnimation = isRanning ? (inputAxis.z > 0 ? speedSprint : speedRunAnimation) : speedRunAnimation;
     }
-    public void JumpAnimation(bool isJumping)
-    {
-        if (isJumping)
-            animator.SetBool("isJumping", true);
-        else
-            animator.SetBool("isJumping", false);
+    public void InputCharacter_OnKeyDownJumpAnim()
+    { 
+        if(state.isCollision) 
+            animator.SetTrigger("isJumping"); 
     } 
     public void AimingMove(bool isAiming)
     {   

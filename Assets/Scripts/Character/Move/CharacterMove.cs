@@ -57,9 +57,9 @@ public class CharacterMove : MonoBehaviour
             state.SetInputAxisMove(axis);
         }    
     }
-    public void Jumping()
+    public void InputCharacter_OnJumpingKeyDown()
     {
-        if (state.isJumping && state.isCollision)
+        if (state.isCollision)
         { 
             rbCharacter.AddForce(Vector3.up * jumpForce, ForceMode.Impulse); 
         }
