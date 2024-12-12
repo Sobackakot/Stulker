@@ -32,27 +32,26 @@ public class InputCharacter : IInitializable, IDisposable
     { 
         inputActions = new InputActions();
         inputActions.Enable();
-        inputActions.ActionMaps.Move.performed += ctx => HandleMoveInput(ctx);
-        inputActions.ActionMaps.Move.canceled += ctx => HandleMoveInput(ctx);
+        
 
         inputActions.ActionMaps.Jump.performed += ctx => HandleJumpInput(ctx);      
+        inputActions.ActionMaps.ReloadWeapon.performed += ctx => HandleReloadWeaponInput(ctx);
+        inputActions.ActionMaps.ToggleEquipWeapon.performed += ctx => HandleEquipWeaponToggle(ctx); 
+        inputActions.ActionMaps.ToggleEquipWeapon.performed += ctx => HandleReadyForBattleToggle(ctx);
+        inputActions.ActionMaps.Crouch.performed += ctx => HandleCrouchToggle(ctx); 
+        inputActions.ActionMaps.ToggleInventory.performed += ctx => HandleInventoryToggle(ctx);
+        inputActions.ActionMaps.ToggleInventoryBox.performed += ctx => HandleInventoryBoxToggle(ctx);
+        inputActions.ActionMaps.ExitInventory.performed += ctx => HandleInventoryExitInput(ctx);
 
-        inputActions.ActionMaps.ReloadWeapon.performed += ctx => HandleReloadWeaponInput(ctx); 
+        inputActions.ActionMaps.Move.performed += ctx => HandleMoveInput(ctx);
+        inputActions.ActionMaps.Move.canceled += ctx => HandleMoveInput(ctx);
 
         inputActions.ActionMaps.Run.performed += ctx => HandleRunInput(ctx); 
         inputActions.ActionMaps.Run.canceled += ctx => HandleRunInput(ctx);
 
         inputActions.ActionMaps.Walk.performed += ctx => HandleWalkInput(ctx);
         inputActions.ActionMaps.Walk.canceled += ctx => HandleWalkInput(ctx);
-
-        inputActions.ActionMaps.ToggleInventory.performed += ctx => HandleInventoryToggle(ctx);
-        inputActions.ActionMaps.ToggleInventoryBox.performed += ctx => HandleInventoryBoxToggle(ctx);
-        inputActions.ActionMaps.ExitInventory.performed += ctx => HandleInventoryExitInput(ctx);
-
-        inputActions.ActionMaps.ToggleEquipWeapon.performed += ctx => HandleEquipWeaponToggle(ctx); 
-
-        inputActions.ActionMaps.ToggleEquipWeapon.performed += ctx => HandleReadyForBattleToggle(ctx);
-        inputActions.ActionMaps.Crouch.performed += ctx => HandleCrouchToggle(ctx);
+         
 
         inputActions.ActionMaps.Aim.started += ctx => HandleAimInput(ctx);
         inputActions.ActionMaps.Aim.canceled += ctx => HandleAimInput(ctx);
