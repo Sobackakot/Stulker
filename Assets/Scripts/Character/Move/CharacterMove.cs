@@ -36,18 +36,17 @@ public class CharacterMove : MonoBehaviour
         rbCharacter = GetComponent<Rigidbody>();
         cameraCharacter = FindFirstObjectByType<CameraCharacter>();
     } 
-    
-    public void Moving()
+    public void RotateWithCamera()
     {
         Vector3 cameraZ = Vector3.ProjectOnPlane(cameraCharacter.transform.forward, Vector3.up).normalized;
         Vector3 cameraX = Vector3.ProjectOnPlane(cameraCharacter.transform.right, Vector3.up).normalized;
-        
+
         newDirection = (inputAxis.z * cameraZ) + (inputAxis.x * cameraX);
-        if (newDirection.sqrMagnitude > 0.2f | state.isAim)
-        {
-            Rotating(cameraZ);
-            rbCharacter.MovePosition(rbCharacter.position + newDirection * speedMove * Time.deltaTime);
-        } 
+        Rotating(cameraZ);
+    }
+    public void Moving()
+    { 
+        rbCharacter.MovePosition(rbCharacter.position + newDirection * speedMove * Time.deltaTime);
     }
     public void InputCharacter_OnAxisMove(Vector2 axis)
     {

@@ -2,7 +2,7 @@
 using System;
 using Zenject;
 
-public class AnimatorController :ILateTickable, IInitializable, IDisposable
+public class AnimatorController :ITickable, IInitializable, IDisposable, ILateTickable
 {
     public AnimatorController(CharacterAnimator characterAnimator, CameraCharacter camera, 
         CharacterState state, CharacterIK characterIK, InputCharacter inputCharacter)
@@ -18,6 +18,8 @@ public class AnimatorController :ILateTickable, IInitializable, IDisposable
     private CharacterAnimator characterAnimator;
     private CameraCharacter camera;
     private CharacterIK characterIK;
+
+    private bool isLimitAngle;
     public void Initialize()
     {
         inputCharacter.OnJumpInput += characterAnimator.InputCharacter_OnJump;
@@ -32,9 +34,8 @@ public class AnimatorController :ILateTickable, IInitializable, IDisposable
         inputCharacter.OnCrouchToggle -= characterAnimator.InputCharacter_OnCrouch;
     } 
 
-    public void LateTick()
-    {
-        bool isLimitAngle = camera.CheckCameraRotateAngle(state.isAim);
+    public void Tick()
+    { 
         characterAnimator.SwitchAnimationTurn(camera.currentAngle, camera.isRotateCamera);
         characterAnimator.TurnAnimation(camera.inputAxisMouse, camera.isRotateCamera, isLimitAngle);
          
@@ -47,5 +48,10 @@ public class AnimatorController :ILateTickable, IInitializable, IDisposable
         characterIK.SetWeightIKAiming(state.isAim);
         characterIK.SetWeightIKTiltRight(state.isLeanRight); 
         characterIK.SetWeightIKTiltLeft(state.isLeanLeft); 
-    } 
+    }
+
+    public void LateTick()
+    {
+        isLimitAngle = camera.CheckCameraRotateAngle(state.isAim);
+    }
 }

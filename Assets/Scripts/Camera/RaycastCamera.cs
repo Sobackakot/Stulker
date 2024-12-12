@@ -55,18 +55,16 @@ public class RaycastCamera : MonoBehaviour
             }
         }  
     }
-    public Vector3 GetPointRayAim()
+    public void GetPointRayAim()
     { 
         ray = GetUpdateRay();
         if (Physics.Raycast(ray, out hit, maxRayAiming, ~ignorLayerMask))
         {
-            targetAiming.position = hit.point;
-            return targetAiming.position;
+            targetAiming.position = hit.point; 
         } 
         else
         {
-            targetAiming.position = ray.GetPoint(1000);
-            return targetAiming.position;
+            targetAiming.position = ray.GetPoint(1000); 
         }
     }
     public void RayHitTakeItemInteract()

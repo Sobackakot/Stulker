@@ -22,23 +22,20 @@ public class CameraController: ILateTickable, IInitializable, IDisposable, IFixe
     private RaycastCamera ray; 
     private IInventoryUI inventoryUI;
 
-    private UnityEngine.Vector3 hitPoint;
 
     public void Initialize()
     {
-        input.onInputAxis += camera.GetInputAxisMouse;
-        input.onScrollZoom += camera.GetInputScrollMouse; 
+        input.onInputAxis += camera.GetInputAxisMouse; 
     }
     public void Dispose()
     {
-        input.onInputAxis -= camera.GetInputAxisMouse;
-        input.onScrollZoom -= camera.GetInputScrollMouse; 
+        input.onInputAxis -= camera.GetInputAxisMouse; 
     }
 
     public void LateTick()
     {
         camera.RotateCamera();
-        camera.ZoomCamera();
+        camera.ZoomCamera(state.isAim);
         camera.SwitchLookPointCamera(state.isLeftTargerPoint);
 
         bool isActive = inventoryUI.isActiveInventory;
@@ -51,7 +48,7 @@ public class CameraController: ILateTickable, IInitializable, IDisposable, IFixe
         ray.RayHitTakeItemInteract();
         if (state.isAim)
         {
-            hitPoint = ray.GetPointRayAim();
+            ray.GetPointRayAim();
             ray.Shooting(state.isFire);
         }
     }

@@ -19,8 +19,8 @@ public class CameraCharacter : MonoBehaviour
 
     private float minAngle = -60f;
     private float maxAngle = 60f;
-    private float minZoom = 2f;
-    private float maxZoom = 15f;
+    private float minZoom = 1f;
+    private float maxZoom = 2f;
 
     private float limitAngle = 40f;
     private float limitAngleAim = 5f;
@@ -48,10 +48,10 @@ public class CameraCharacter : MonoBehaviour
         Vector3 newPosition = transformCamera.localRotation * offset + currentLookPoint.position;
         transformCamera.position = Vector3.Lerp(transformCamera.position, newPosition, Time.deltaTime);
     }
-    public void ZoomCamera()
+    public void ZoomCamera(bool isAiming)
     {
-        mouseZoom = Mathf.Clamp(mouseZoom, Mathf.Abs(minZoom), Mathf.Abs(maxZoom));
-        transformCamera.position = currentLookPoint.position - transformCamera.forward * mouseZoom;
+        mouseZoom = isAiming ? minZoom : maxZoom;
+        transformCamera.position = currentLookPoint.position - transformCamera.forward * mouseZoom; 
     }
 
     public void GetInputAxisMouse(Vector2 inputAxis)
@@ -71,12 +71,12 @@ public class CameraCharacter : MonoBehaviour
         Vector3 cameraZ = Vector3.ProjectOnPlane(transformCamera.forward, Vector3.up).normalized;
         Vector3 characterZ = Vector3.ProjectOnPlane(currentLookPoint.forward, Vector3.up).normalized;
         currentAngle = Vector3.SignedAngle(cameraZ, characterZ, Vector3.up);
-        if(isAiming && Mathf.Abs(currentAngle) > limitAngleAim)
-        {
+        if (isAiming && Mathf.Abs(currentAngle) > limitAngleAim)
+        { 
             return true;
         }
         else if (Mathf.Abs(currentAngle) > limitAngle)
-        {
+        { 
             return true;
         }
         else return false;
@@ -85,7 +85,7 @@ public class CameraCharacter : MonoBehaviour
     {
         if (isRotateCamera)
         {
-            //mouseZoom -= scrollMouse.y * scrollSpeed * Time.deltaTime;
+            mouseZoom -= scrollMouse.y * scrollSpeed * Time.deltaTime;
         }    
     }
     
