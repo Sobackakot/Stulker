@@ -16,6 +16,7 @@ public class CharacterState
     public bool isCrouch { get; private set; } 
     public bool isLeftTargerPoint {  get; private set; }  
     public bool isWeaponEquip { get; private set; }
+    public bool isReloadWeapon { get; private set; }
     public Vector3 inputAxis { get; private set; }
       
     public void UpdateStateMove(bool isMoving)
@@ -65,6 +66,10 @@ public class CharacterState
     public void InputCharacter_OnCrouch()
     {
         isCrouch = !isCrouch; 
+    }
+    public void InputCharacter_OnReloadWeapon()
+    {
+        isReloadWeapon = true;
     }
 
     public void SetInputAxisMove(Vector2 axis)

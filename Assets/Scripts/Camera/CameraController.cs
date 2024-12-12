@@ -36,7 +36,7 @@ public class CameraController: ILateTickable, IInitializable, IDisposable, IFixe
     {
         camera.RotateCamera();
         camera.ZoomCamera(state.isAim);
-        camera.SwitchLookPointCamera(state.isLeftTargerPoint);
+        camera.SwitchLookPointCamera(state.isLeftTargerPoint,state.isCrouch);
 
         bool isActive = inventoryUI.isActiveInventory;
         camera.StoppingRotateCameta(isActive); 

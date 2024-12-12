@@ -25,6 +25,7 @@ public class AnimatorController :ITickable, IInitializable, IDisposable, ILateTi
         inputCharacter.OnJumpInput += characterAnimator.InputCharacter_OnJump;
         inputCharacter.OnReadyForBattleToggle += characterAnimator.InputCharacter_OnReadyForButtle;
         inputCharacter.OnCrouchToggle += characterAnimator.InputCharacter_OnCrouch;
+        inputCharacter.OnReloadWeaponInput += characterAnimator.InputCharacter_OnRecharde;
     }
 
     public void Dispose()
@@ -32,6 +33,7 @@ public class AnimatorController :ITickable, IInitializable, IDisposable, ILateTi
         inputCharacter.OnJumpInput -= characterAnimator.InputCharacter_OnJump;
         inputCharacter.OnReadyForBattleToggle -= characterAnimator.InputCharacter_OnReadyForButtle;
         inputCharacter.OnCrouchToggle -= characterAnimator.InputCharacter_OnCrouch;
+        inputCharacter.OnReloadWeaponInput -= characterAnimator.InputCharacter_OnRecharde;
     } 
 
     public void Tick()
@@ -44,10 +46,10 @@ public class AnimatorController :ITickable, IInitializable, IDisposable, ILateTi
         characterAnimator.InputCharacter_OnAim(state.isAim);
          
 
-        characterIK.SetWeightIKShooter(state.isReadyForButtle);
+        characterIK.SetWeightIKReadyForBattle(state.isReadyForButtle, state.isReloadWeapon);
         characterIK.SetWeightIKAiming(state.isAim);
-        characterIK.SetWeightIKTiltRight(state.isLeanRight); 
-        characterIK.SetWeightIKTiltLeft(state.isLeanLeft); 
+        characterIK.SetWeightIKLeanRight(state.isLeanRight, state.isAim); 
+        characterIK.SetWeightIKLeanLeft(state.isLeanLeft, state.isAim); 
     }
 
     public void LateTick()

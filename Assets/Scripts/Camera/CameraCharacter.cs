@@ -37,9 +37,15 @@ public class CameraCharacter : MonoBehaviour
         currentLookPoint = pointRightLook;
         offset = transformCamera.position - currentLookPoint.position;
     }
-    public void SwitchLookPointCamera(bool isLeftPointLook)
+    public void SwitchLookPointCamera(bool isLeftPointLook, bool isCrouching)
     {
-         currentLookPoint = isLeftPointLook  ? pointLeftLook : pointRightLook;
+        float heightPoint = isCrouching ? 1f : 1.55f;
+        if (isLeftPointLook)
+            pointLeftLook.localPosition = new Vector3(-0.836f, heightPoint, 0);
+        else pointRightLook.localPosition = new Vector3(0.836f, heightPoint, 0);
+        Transform targetLookPoint = isLeftPointLook  ? pointLeftLook : pointRightLook;
+        targetLookPoint.position = Vector3.Lerp(currentLookPoint.position, targetLookPoint.position, Time.deltaTime * 0.5f);
+        currentLookPoint = targetLookPoint;
     }
     public void RotateCamera()
     { 

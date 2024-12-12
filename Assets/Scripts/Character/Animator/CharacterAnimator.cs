@@ -15,6 +15,7 @@ public class CharacterAnimator : MonoBehaviour
     private float switchAngleTurn;
     private float speedAnimation;
     private int weaponEquipLayerIndex;
+    private int weaponAimLayerIndex;
 
 
     [Inject]
@@ -27,6 +28,7 @@ public class CharacterAnimator : MonoBehaviour
     {     
         animator = GetComponent<Animator>();
         weaponEquipLayerIndex = animator.GetLayerIndex("WeaponEquip");
+        weaponAimLayerIndex = animator.GetLayerIndex("Recharge");
     } 
    
     public void MovAnimation(Vector3 inputAxis,bool isMoving)
@@ -65,8 +67,17 @@ public class CharacterAnimator : MonoBehaviour
             animator.SetTrigger("isJumping"); 
     } 
     public void InputCharacter_OnAim(bool isAiming)
-    {   
-        animator.SetBool("isAimForButtle", isAiming);
+    {
+        animator.SetLayerWeight(weaponAimLayerIndex, 1);
+        animator.SetBool("isAiming", isAiming);
+    }
+    public void InputCharacter_OnRecharde()
+    {
+        if (state.isReadyForButtle)
+        {
+            animator.SetLayerWeight(weaponAimLayerIndex, 1);
+            animator.SetTrigger("Recharge");
+        } 
     }
     public void InputCharacter_OnCrouch()
     {
