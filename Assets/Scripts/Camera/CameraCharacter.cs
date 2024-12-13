@@ -22,7 +22,7 @@ public class CameraCharacter : MonoBehaviour
     private float minZoom = 1f;
     private float maxZoom = 2f;
 
-    private float limitAngle = 40f;
+    private float limitAngle = 25f;
     private float limitAngleAim = 5f;
     public float currentAngle {  get; private set; }
 

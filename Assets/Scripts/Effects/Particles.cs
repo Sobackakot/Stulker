@@ -4,6 +4,7 @@ using UnityEngine;
 public class Particles : MonoBehaviour
 {
     [SerializeField] private ParticleSystem fireEffect;
+    [SerializeField] private ParticleSystem fireEffect2;
     [SerializeField] private ParticleSystem bulletEffect;
 
     [SerializeField] private float divideTime;
@@ -16,6 +17,7 @@ public class Particles : MonoBehaviour
         {
             nextTime = Time.time + intervalTime / divideTime;
             fireEffect.Play();
+            fireEffect2.Play();
             bulletEffect.Play();
             return true;
         }

@@ -44,12 +44,13 @@ public class AnimatorController :ITickable, IInitializable, IDisposable, ILateTi
         characterAnimator.MovAnimation(state.inputAxis, state.isMov);
         characterAnimator.SwithAnimationMove(state.isRun, state.isWalk, state.isAim,state.inputAxis);
         characterAnimator.InputCharacter_OnAim(state.isAim);
-         
+
 
         characterIK.SetWeightIKReadyForBattle(state.isReadyForButtle, state.isReloadWeapon);
         characterIK.SetWeightIKAiming(state.isAim);
         characterIK.SetWeightIKLeanRight(state.isLeanRight, state.isAim); 
         characterIK.SetWeightIKLeanLeft(state.isLeanLeft, state.isAim); 
+         
     }
 
     public void LateTick()

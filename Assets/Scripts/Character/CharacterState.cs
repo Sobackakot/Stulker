@@ -67,9 +67,9 @@ public class CharacterState
     {
         isCrouch = !isCrouch; 
     }
-    public void InputCharacter_OnReloadWeapon()
+    public void SetReloadWeaponAnimationState(bool isReload)
     {
-        isReloadWeapon = true;
+        isReloadWeapon = isReload;
     }
 
     public void SetInputAxisMove(Vector2 axis)

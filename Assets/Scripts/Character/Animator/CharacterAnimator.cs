@@ -86,9 +86,10 @@ public class CharacterAnimator : MonoBehaviour
     public void InputCharacter_OnReadyForButtle()
     {
         animator.SetTrigger("isReadyForButtle");
-        WeaponEquip(state.isReadyForButtle, state.isWeaponEquip);
+        WeaponEquip(state.isReadyForButtle);
     }
-    private void WeaponEquip(bool isReadyForButte, bool isEquipGun)
+
+    private void WeaponEquip(bool isReadyForButte)
     {
         animator.SetLayerWeight(weaponEquipLayerIndex, 1);
         if (isReadyForButte)
