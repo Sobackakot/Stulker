@@ -11,6 +11,7 @@ TagManager:
   - SlotBox
   - BoxInventory
   - Parkour
+  - Water
   layers:
   - Default
   - TransparentFX
