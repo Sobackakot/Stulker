@@ -39,7 +39,7 @@ public class CameraController: ILateTickable, IInitializable, IDisposable, IFixe
         camera.SwitchLookPointCamera(state.isLeftTargerPoint,state.isCrouch);
 
         bool isActive = inventoryUI.isActiveInventory;
-        camera.StoppingRotateCameta(isActive); 
+        state.StoppingRotateCamera(isActive); 
         windowUI.ShowInteractText();
     }
 
@@ -49,7 +49,8 @@ public class CameraController: ILateTickable, IInitializable, IDisposable, IFixe
         if (state.isAim)
         {
             ray.GetPointRayAim();
-            ray.Shooting(state.isFire);
+            ray.Shooting(state.isFire); 
         }
+        camera.CheckCameraRotateAngle();
     }
 }

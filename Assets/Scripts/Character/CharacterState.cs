@@ -1,5 +1,6 @@
 
 using System;
+using Unity.VisualScripting;
 using UnityEngine; 
 
 public class CharacterState  
@@ -17,16 +18,47 @@ public class CharacterState
     public bool isLeftTargerPoint {  get; private set; }  
     public bool isWeaponEquip { get; private set; }
     public bool isReloadWeapon { get; private set; }
-    public Vector3 inputAxis { get; private set; }
+    public Vector3 inputAxisMove { get; private set; }
+
+    public Vector3 inputAxisCamera { get; private set; }
+    public float currentAngleCamera { get; private set; }
+    public bool isFerstCamera { get; private set; }
+    public bool isRotateCamera { get; private set; }
+
+    public bool isMaxAngleCamera { get; private set; }
       
-    public void UpdateStateMove(bool isMoving)
+   
+    public void SetInputAxisCamera(Vector2 inputAxis)
     {
-        this.isMov = isMoving;
+        inputAxisCamera = new Vector3(inputAxis.x, 0, inputAxis.y);
     }
+    public void SetAngleForCamera(float angle)
+    {
+        currentAngleCamera = angle;
+    }
+    public void SetStateCameraAngle(bool isAngleMax)
+    {
+        isMaxAngleCamera = isAngleMax;
+    }
+    public void StoppingRotateCamera(bool isRotate)
+    {
+        isRotateCamera = isRotate;
+    }
+    public void InputCamera_OnSwitchCamera()
+    {
+        isFerstCamera = !isFerstCamera;
+    }
+
+
+
     public void InputCharacter_OnEquipWeapon()
     {
         if(!isAim)
             isWeaponEquip = !isWeaponEquip;
+    }
+    public void UpdateStateMove(bool isMoving)
+    {
+        this.isMov = isMoving;
     }
     public void InputCharacter_OnRun(bool isKeyRun)
     {
@@ -74,7 +106,7 @@ public class CharacterState
 
     public void SetInputAxisMove(Vector2 axis)
     {
-        inputAxis = new Vector3(axis.x, 0, axis.y);
+        inputAxisMove = new Vector3(axis.x, 0, axis.y);
     }
     public void SetCollision(bool isCollision)
     {

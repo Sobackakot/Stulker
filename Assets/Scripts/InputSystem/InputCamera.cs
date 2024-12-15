@@ -1,13 +1,14 @@
 
 using System; 
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.InputSystem; 
 using Zenject;
 
 public class InputCamera : IInitializable, IDisposable
 {
     public event Action<Vector2> onInputAxis;
     public event Action<Vector2> onScrollZoom;
+    public event Action OnSwitchCamera; 
     
      
     private InputActions inputActions; 
@@ -15,14 +16,19 @@ public class InputCamera : IInitializable, IDisposable
     {
         inputActions = new InputActions();
         inputActions.Enable();
-        inputActions.ActionMaps.MouseDelta.performed += ctx => MouseInputAxis(ctx);
-          
+        inputActions.ActionMaps.CameraSwitch.performed += ctx => CameraSwitcher(ctx);
+        inputActions.ActionMaps.MouseDelta.performed += ctx => MouseInputAxis(ctx); 
         inputActions.ActionMaps.MouseScroll.performed += ctx => MouseScrollZoom(ctx); 
         Cursor.lockState = CursorLockMode.Locked;
     } 
     public void Dispose()
     {
         inputActions.Disable();
+    }
+    private void CameraSwitcher(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            OnSwitchCamera?.Invoke();
     }
 
     private void MouseInputAxis(InputAction.CallbackContext context)

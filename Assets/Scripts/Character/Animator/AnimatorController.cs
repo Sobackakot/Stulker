@@ -2,24 +2,21 @@
 using System;
 using Zenject;
 
-public class AnimatorController :ITickable, IInitializable, IDisposable, ILateTickable
+public class AnimatorController :ITickable, IInitializable, IDisposable
 {
-    public AnimatorController(CharacterAnimator characterAnimator, CameraCharacter camera, 
+    public AnimatorController(CharacterAnimator characterAnimator, 
         CharacterState state, CharacterIK characterIK, InputCharacter inputCharacter)
     {
-        this.characterAnimator = characterAnimator;
-        this.camera = camera;
+        this.characterAnimator = characterAnimator; 
         this.state = state;
         this.characterIK = characterIK;
         this.inputCharacter = inputCharacter;
     }
     private CharacterState state;
     private InputCharacter inputCharacter;
-    private CharacterAnimator characterAnimator;
-    private CameraCharacter camera;
+    private CharacterAnimator characterAnimator; 
     private CharacterIK characterIK;
 
-    private bool isLimitAngle;
     public void Initialize()
     {
         inputCharacter.OnJumpInput += characterAnimator.InputCharacter_OnJump;
@@ -38,11 +35,11 @@ public class AnimatorController :ITickable, IInitializable, IDisposable, ILateTi
 
     public void Tick()
     { 
-        characterAnimator.SwitchAnimationTurn(camera.currentAngle, camera.isRotateCamera);
-        characterAnimator.TurnAnimation(camera.inputAxisMouse, camera.isRotateCamera, isLimitAngle);
+        characterAnimator.SwitchAnimationTurn(state.currentAngleCamera, state.isRotateCamera);
+        characterAnimator.TurnAnimation(state.inputAxisCamera, state.isRotateCamera, state.isMaxAngleCamera);
          
-        characterAnimator.MovAnimation(state.inputAxis, state.isMov);
-        characterAnimator.SwithAnimationMove(state.isRun, state.isWalk, state.isAim,state.inputAxis);
+        characterAnimator.MovAnimation(state.inputAxisMove, state.isMov);
+        characterAnimator.SwithAnimationMove(state.isRun, state.isWalk, state.isAim,state.inputAxisMove);
         characterAnimator.InputCharacter_OnAim(state.isAim);
 
 
@@ -52,9 +49,5 @@ public class AnimatorController :ITickable, IInitializable, IDisposable, ILateTi
         characterIK.SetWeightIKLeanLeft(state.isLeanLeft, state.isAim); 
          
     }
-
-    public void LateTick()
-    {
-        isLimitAngle = camera.CheckCameraRotateAngle(state.isAim);
-    }
+     
 }

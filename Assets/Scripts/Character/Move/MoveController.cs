@@ -11,7 +11,7 @@ public class MoveController : IInitializable, IDisposable, IFixedTickable, ILate
         this.character = character; 
         this.inventoryUI = inventoryUI;
     }
-
+     
     private InputCharacter inputCharacter;
     private CharacterMove character;
     private IInventoryUI inventoryUI;

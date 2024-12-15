@@ -179,6 +179,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CameraSwitch"",
+                    ""type"": ""Button"",
+                    ""id"": ""9702933e-6c6f-4b32-8824-4da43bffc712"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -412,6 +421,17 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""LeanLeft"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3b665eb8-9829-48e5-9744-79e167f21313"",
+                    ""path"": ""<Keyboard>/v"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CameraSwitch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -437,6 +457,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_ActionMaps_ExitInventory = m_ActionMaps.FindAction("ExitInventory", throwIfNotFound: true);
         m_ActionMaps_LeanRight = m_ActionMaps.FindAction("LeanRight", throwIfNotFound: true);
         m_ActionMaps_LeanLeft = m_ActionMaps.FindAction("LeanLeft", throwIfNotFound: true);
+        m_ActionMaps_CameraSwitch = m_ActionMaps.FindAction("CameraSwitch", throwIfNotFound: true);
     }
 
     ~@InputActions()
@@ -520,6 +541,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_ActionMaps_ExitInventory;
     private readonly InputAction m_ActionMaps_LeanRight;
     private readonly InputAction m_ActionMaps_LeanLeft;
+    private readonly InputAction m_ActionMaps_CameraSwitch;
     public struct ActionMapsActions
     {
         private @InputActions m_Wrapper;
@@ -541,6 +563,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @ExitInventory => m_Wrapper.m_ActionMaps_ExitInventory;
         public InputAction @LeanRight => m_Wrapper.m_ActionMaps_LeanRight;
         public InputAction @LeanLeft => m_Wrapper.m_ActionMaps_LeanLeft;
+        public InputAction @CameraSwitch => m_Wrapper.m_ActionMaps_CameraSwitch;
         public InputActionMap Get() { return m_Wrapper.m_ActionMaps; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -601,6 +624,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @LeanLeft.started += instance.OnLeanLeft;
             @LeanLeft.performed += instance.OnLeanLeft;
             @LeanLeft.canceled += instance.OnLeanLeft;
+            @CameraSwitch.started += instance.OnCameraSwitch;
+            @CameraSwitch.performed += instance.OnCameraSwitch;
+            @CameraSwitch.canceled += instance.OnCameraSwitch;
         }
 
         private void UnregisterCallbacks(IActionMapsActions instance)
@@ -656,6 +682,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @LeanLeft.started -= instance.OnLeanLeft;
             @LeanLeft.performed -= instance.OnLeanLeft;
             @LeanLeft.canceled -= instance.OnLeanLeft;
+            @CameraSwitch.started -= instance.OnCameraSwitch;
+            @CameraSwitch.performed -= instance.OnCameraSwitch;
+            @CameraSwitch.canceled -= instance.OnCameraSwitch;
         }
 
         public void RemoveCallbacks(IActionMapsActions instance)
@@ -692,5 +721,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnExitInventory(InputAction.CallbackContext context);
         void OnLeanRight(InputAction.CallbackContext context);
         void OnLeanLeft(InputAction.CallbackContext context);
+        void OnCameraSwitch(InputAction.CallbackContext context);
     }
 }

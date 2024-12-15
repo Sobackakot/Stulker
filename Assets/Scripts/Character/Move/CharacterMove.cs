@@ -15,6 +15,8 @@ public class CharacterMove : MonoBehaviour
 
 
     private CameraCharacter cameraCharacter;
+    private FerstCameraCharacter cameraFerst;
+    private Transform currentCamera;
     private Rigidbody rbCharacter;
     private Transform transformCharacter;
 
@@ -35,11 +37,20 @@ public class CharacterMove : MonoBehaviour
         transformCharacter = GetComponent<Transform>();
         rbCharacter = GetComponent<Rigidbody>();
         cameraCharacter = FindFirstObjectByType<CameraCharacter>();
+        cameraFerst = FindObjectOfType<FerstCameraCharacter>();
     } 
+    private void SetActiveCamera()
+    {
+        bool isActive = state.isFerstCamera ? true : false;
+        cameraFerst.gameObject.SetActive(isActive);
+        cameraCharacter.gameObject.SetActive(!isActive);
+        currentCamera = state.isFerstCamera ? cameraFerst.transform : cameraCharacter.transform; 
+    }
     public void RotateWithCamera()
     {
-        Vector3 cameraZ = Vector3.ProjectOnPlane(cameraCharacter.transform.forward, Vector3.up).normalized;
-        Vector3 cameraX = Vector3.ProjectOnPlane(cameraCharacter.transform.right, Vector3.up).normalized;
+        SetActiveCamera();
+        Vector3 cameraZ = Vector3.ProjectOnPlane(currentCamera.forward, Vector3.up).normalized;
+        Vector3 cameraX = Vector3.ProjectOnPlane(currentCamera.right, Vector3.up).normalized;
 
         newDirection = (inputAxis.z * cameraZ) + (inputAxis.x * cameraX);
         Rotating(cameraZ);

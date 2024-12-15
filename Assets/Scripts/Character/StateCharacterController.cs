@@ -3,13 +3,15 @@ using Zenject;
 
 public class StateCharacterController : IInitializable, IDisposable
 { 
-    public StateCharacterController(CharacterState state, InputCharacter input)
+    public StateCharacterController(CharacterState state, InputCharacter input, InputCamera inputCamera)
     {
         this.state = state;
         this.input = input;
+        this.inputCamera = inputCamera;
     }
     private CharacterState state;
     private InputCharacter input;
+    private InputCamera inputCamera;
 
     public void Initialize()
     { 
@@ -20,7 +22,9 @@ public class StateCharacterController : IInitializable, IDisposable
         input.OnReadyForBattleToggle += state.InputCharacter_OnReadyForBattle;
         input.OnCrouchToggle += state.InputCharacter_OnCrouch;
         input.OnEquipWeaponToggle += state.InputCharacter_OnEquipWeapon;
-        
+        inputCamera.OnSwitchCamera += state.InputCamera_OnSwitchCamera;
+
+
         input.OnLeanRightInput += state.InputCharacter_OnLeanRight;
         input.OnLeanLeftInput += state.InputCharacter_OnLeanLeft;
     }
@@ -34,6 +38,7 @@ public class StateCharacterController : IInitializable, IDisposable
         input.OnReadyForBattleToggle -= state.InputCharacter_OnReadyForBattle;
         input.OnCrouchToggle -= state.InputCharacter_OnCrouch;
         input.OnEquipWeaponToggle -= state.InputCharacter_OnEquipWeapon;
+        inputCamera.OnSwitchCamera -= state.InputCamera_OnSwitchCamera;
 
         input.OnLeanRightInput -= state.InputCharacter_OnLeanRight;
         input.OnLeanLeftInput -= state.InputCharacter_OnLeanLeft;

@@ -11,9 +11,9 @@ public class CameraCharacter : MonoBehaviour
     [SerializeField] private float sensitivityMouse = 45f;
     [SerializeField] private float scrollSpeed = 3f;
 
+    private CharacterState state;
     private Vector3 offset;
-    public Vector3 inputAxisMouse {  get; private set; }
-    public float mouseAxisX {  get; private set; }
+    public float mouseAxisX;
     private float mouseAxisY;
     private float mouseZoom;
 
@@ -22,12 +22,14 @@ public class CameraCharacter : MonoBehaviour
     private float minZoom = 1f;
     private float maxZoom = 2f;
 
-    private float limitAngle = 25f;
-    private float limitAngleAim = 5f;
-    public float currentAngle {  get; private set; }
+    private float limitAngle = 25f; 
 
-    public bool isRotateCamera {  get; private set; }
-       
+
+    [Inject]
+    private void Construct(CharacterState state)
+    {
+        this.state = state;
+    }
     private void Awake()
     {
         transformCamera = GetComponent<Transform>();
@@ -62,41 +64,33 @@ public class CameraCharacter : MonoBehaviour
 
     public void GetInputAxisMouse(Vector2 inputAxis)
     {
-        if (isRotateCamera)
+        if (state.isRotateCamera)
         {
             mouseAxisX += inputAxis.x * sensitivityMouse * Time.deltaTime;
             mouseAxisY -= inputAxis.y * sensitivityMouse * Time.deltaTime;
             if (inputAxis.sqrMagnitude > 0.2f)
-                inputAxisMouse = new Vector3(inputAxis.x, 0, inputAxis.y);
+                state.SetInputAxisCamera(inputAxis);
             else
-                inputAxisMouse = Vector3.zero; 
+                state.SetInputAxisCamera(Vector2.zero);
         }   
     }
-    public bool CheckCameraRotateAngle(bool isAiming)
+    public void CheckCameraRotateAngle()
     {   
         Vector3 cameraZ = Vector3.ProjectOnPlane(transformCamera.forward, Vector3.up).normalized;
         Vector3 characterZ = Vector3.ProjectOnPlane(currentLookPoint.forward, Vector3.up).normalized;
-        currentAngle = Vector3.SignedAngle(cameraZ, characterZ, Vector3.up);
-        if (isAiming && Mathf.Abs(currentAngle) > limitAngleAim)
-        { 
-            return true;
+        float currentAngleCamera = Vector3.SignedAngle(cameraZ, characterZ, Vector3.up);
+        state.SetAngleForCamera(currentAngleCamera);
+        if (Mathf.Abs(state.currentAngleCamera) > limitAngle)
+        {
+            state.SetStateCameraAngle(true);
         }
-        else if (Mathf.Abs(currentAngle) > limitAngle)
-        { 
-            return true;
-        }
-        else return false;
+        else state.SetStateCameraAngle(false);
     }
     public void GetInputScrollMouse(Vector2 scrollMouse)
     {
-        if (isRotateCamera)
+        if (state.isRotateCamera)
         {
             mouseZoom -= scrollMouse.y * scrollSpeed * Time.deltaTime;
         }    
-    }
-    
-    public void StoppingRotateCameta(bool isRotate)
-    {
-        isRotateCamera = isRotate;
     }
 }
