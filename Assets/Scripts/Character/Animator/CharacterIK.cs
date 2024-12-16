@@ -5,30 +5,54 @@ using UnityEngine.Animations.Rigging;
 public class CharacterIK : MonoBehaviour
 {
     [SerializeField] private MultiAimConstraint twoBoneIKSpine;
+    [SerializeField] private MultiAimConstraint twoBoneIKHead;
     [SerializeField] private MultiAimConstraint twoBoneIKRightHand;
     [SerializeField] private MultiAimConstraint twoBoneIKLeanRightBody; 
     [SerializeField] private MultiAimConstraint twoBoneIKLeanLeftBody; 
     [SerializeField] private TwoBoneIKConstraint twoBoneIKLeftHand;
-      
-    [SerializeField] private Transform targetPointAim;
-    [SerializeField] private Transform pointFromCamera;
-     
 
+    [SerializeField] private float offsetXSpineAim = -25f;
+    [SerializeField] private float offsetXSpineLeanRight = -45f;
+    [SerializeField] private float offsetXSpineLeanLeft = 45f;
+    [SerializeField] private Vector3 offsetHead = new Vector3(-15f,-25f,15f);
+
+       
     private float targetWeightAim;  
     private float targetWeightShoot;  
     private float targetWeightLeanRight;    
     private float targetWeightLeanLeft;    
     public void SetWeightIKAiming(bool isAiming)
     {
-        twoBoneIKSpine.weight = Mathf.Lerp(twoBoneIKSpine.weight, targetWeightAim, Time.deltaTime * 10f);
-        twoBoneIKRightHand.weight = Mathf.Lerp(twoBoneIKRightHand.weight, targetWeightAim, Time.deltaTime * 10f); 
         targetWeightAim = isAiming ? 1 : 0;
-        targetPointAim.position = pointFromCamera.position;
+        twoBoneIKSpine.weight = Mathf.Lerp(twoBoneIKSpine.weight, targetWeightAim, Time.deltaTime * 10f);
+        twoBoneIKRightHand.weight = Mathf.Lerp(twoBoneIKRightHand.weight, targetWeightAim, Time.deltaTime * 10f);
+        twoBoneIKHead.weight = Mathf.Lerp(twoBoneIKHead.weight, targetWeightAim, Time.deltaTime * 10f);
+        if (isAiming)
+        {
+            var data = twoBoneIKHead.data;
+            twoBoneIKHead.data.offset = Vector3.Lerp(data.offset, offsetHead, Time.deltaTime * 7.5f); 
+        }
+        else
+        {
+            var data = twoBoneIKHead.data;
+            twoBoneIKHead.data.offset = Vector3.Lerp(data.offset, Vector3.zero, Time.deltaTime * 7.5f);
+        }
     }
     public void SetWeightIKReadyForBattle(bool isReadyForBattle, bool isReloadWeapon)
     {
         targetWeightShoot = isReadyForBattle ? (isReloadWeapon ? 0 : 1) : 0;
         twoBoneIKLeftHand.weight = Mathf.Lerp(twoBoneIKLeftHand.weight, targetWeightShoot, Time.deltaTime * 10f);
+        if(isReadyForBattle)
+        {
+            Vector3 offsetRotate = new Vector3(offsetXSpineAim, 0,0);
+            var data = twoBoneIKSpine.data; 
+            twoBoneIKSpine.data.offset = Vector3.Lerp(data.offset, offsetRotate, Time.deltaTime * 7.5f);
+        }
+        else
+        {
+            var data = twoBoneIKSpine.data;
+            twoBoneIKSpine.data.offset = Vector3.Lerp(data.offset, Vector3.zero, Time.deltaTime * 7.5f);
+        }
     }
     public void SetWeightIKLeanRight(bool isLeanRight, bool isAim)
     { 
@@ -37,10 +61,9 @@ public class CharacterIK : MonoBehaviour
         if (isAim && isLeanRight)
         {
             // Adjust MultiAimConstraint rotation offset
-            Vector3 offsetRotation = new Vector3(-45f, 0, 0);
-            var data = twoBoneIKLeanRightBody.data;
-            data.offset = Vector3.Lerp(data.offset, offsetRotation, Time.deltaTime * 7.5f);
-            twoBoneIKLeanRightBody.data = data;
+            Vector3 offsetRotation = new Vector3(offsetXSpineLeanRight, 0, 0);
+            var data = twoBoneIKLeanRightBody.data; 
+            twoBoneIKLeanRightBody.data.offset = Vector3.Lerp(data.offset, offsetRotation, Time.deltaTime * 7.5f);
         }
         else
         {
@@ -54,10 +77,9 @@ public class CharacterIK : MonoBehaviour
         twoBoneIKLeanLeftBody.weight = Mathf.Lerp(twoBoneIKLeanLeftBody.weight, targetWeightLeanLeft, Time.deltaTime * 7.5f);
         if(isAim && isLeanLeft)
         {
-            Vector3 offsetRotation = new Vector3(45f, 0, 0);
-            var data = twoBoneIKLeanLeftBody.data;
-            data.offset = Vector3.Lerp(data.offset, offsetRotation, Time.deltaTime * 7.5f);
-            twoBoneIKLeanLeftBody.data = data;
+            Vector3 offsetRotation = new Vector3(offsetXSpineLeanLeft, 0, 0);
+            var data = twoBoneIKLeanLeftBody.data; 
+            twoBoneIKLeanLeftBody.data.offset = Vector3.Lerp(data.offset, offsetRotation, Time.deltaTime * 7.5f);
         }
         else
         {

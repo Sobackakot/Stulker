@@ -60,19 +60,19 @@ namespace StarterAssets
         public LayerMask GroundLayers;
 
         [Header("Cinemachine")]
-        [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
+        [Tooltip("The follow target set in the Cinemachine Virtual Camera that the cameraTird will follow")]
         public GameObject CinemachineCameraTarget;
 
-        [Tooltip("How far in degrees can you move the camera up")]
+        [Tooltip("How far in degrees can you move the cameraTird up")]
         public float TopClamp = 70.0f;
 
-        [Tooltip("How far in degrees can you move the camera down")]
+        [Tooltip("How far in degrees can you move the cameraTird down")]
         public float BottomClamp = -30.0f;
 
-        [Tooltip("Additional degress to override the camera. Useful for fine tuning camera position when locked")]
+        [Tooltip("Additional degress to override the cameraTird. Useful for fine tuning cameraTird position when locked")]
         public float CameraAngleOverride = 0.0f;
 
-        [Tooltip("For locking the camera position on all axis")]
+        [Tooltip("For locking the cameraTird position on all axis")]
         public bool LockCameraPosition = false;
 
         // cinemachine
@@ -125,7 +125,7 @@ namespace StarterAssets
 
         private void Awake()
         {
-            // get a reference to our main camera
+            // get a reference to our main cameraTird
             if (_mainCamera == null)
             {
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
@@ -192,7 +192,7 @@ namespace StarterAssets
 
         private void CameraRotation()
         {
-            // if there is an input and camera position is not fixed
+            // if there is an input and cameraTird position is not fixed
             if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
             {
                 //Don't multiply mouse input by Time.deltaTime;
@@ -260,7 +260,7 @@ namespace StarterAssets
                 float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
                     RotationSmoothTime);
 
-                // rotate to face input direction relative to camera position
+                // rotate to face input direction relative to cameraTird position
                 transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
             }
 

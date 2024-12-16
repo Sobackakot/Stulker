@@ -9,6 +9,8 @@ public class CharacterInstaller : ScriptableObjectInstaller
     private const string InventoryUI_ID = "inventoryUI";
     private const string InventoryBoxUI_ID = "inventoryBoxUI";
     private const string EquipmentUI_ID = "equipmentUI";
+    private const string CameraTird_ID = "cameraTird";
+    private const string CameraFerst_ID = "cameraFerst";
 
     public override void InstallBindings()
     {
@@ -21,15 +23,15 @@ public class CharacterInstaller : ScriptableObjectInstaller
 
         Container.Bind<Audios>().FromComponentInHierarchy(this).AsSingle();
         Container.Bind<Particles>().FromComponentInHierarchy(this).AsSingle();
-        Container.Bind<Lights>().FromComponentInHierarchy(this).AsSingle(); 
-
+        Container.Bind<Lights>().FromComponentInHierarchy(this).AsSingle();  
     }
 
     private void BindCamera()
     {
         Container.BindInterfacesAndSelfTo<CameraController>().AsSingle().NonLazy();
-        Container.BindInterfacesAndSelfTo<InputCamera>().AsSingle().NonLazy(); 
-        Container.Bind<CameraCharacter>().FromComponentInHierarchy(this).AsSingle();
+        Container.BindInterfacesAndSelfTo<InputCamera>().AsSingle().NonLazy();  
+        Container.Bind<ICameraCharacter>().WithId(CameraTird_ID).To<TirdCameraCharacter>().FromComponentInHierarchy(this).AsSingle();
+        Container.Bind<ICameraCharacter>().WithId(CameraFerst_ID).To<FerstCameraCharacter>().FromComponentInHierarchy(this).AsSingle();
         Container.Bind<RaycastCamera>().FromComponentInHierarchy(this).AsSingle();
     }
 

@@ -43,9 +43,9 @@ public class RaycastCamera : MonoBehaviour
         input.OnInventoryBoxToggle -= OnInteractButton; 
     } 
    
-    public void Shooting(bool isKeyPressDown)
+    public void Shooting(bool isLeftButtonDown)
     {
-        if (isKeyPressDown )
+        if (isLeftButtonDown )
         {
            
             ray = GetUpdateRay();
@@ -55,16 +55,16 @@ public class RaycastCamera : MonoBehaviour
             }
         }  
     }
-    public void GetPointRayAim()
+    public Vector3 GetPointRayAim()
     { 
         ray = GetUpdateRay();
         if (Physics.Raycast(ray, out hit, maxRayAiming, ~ignorLayerMask))
         {
-            targetAiming.position = hit.point; 
+            return targetAiming.position = hit.point; 
         } 
         else
         {
-            targetAiming.position = ray.GetPoint(1000); 
+            return targetAiming.position = ray.GetPoint(1000); 
         }
     }
     public void RayHitTakeItemInteract()

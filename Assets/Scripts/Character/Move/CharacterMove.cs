@@ -14,7 +14,7 @@ public class CharacterMove : MonoBehaviour
     [SerializeField] private string OnCollisionTag ="Parkour";
 
 
-    private CameraCharacter cameraCharacter;
+    private TirdCameraCharacter cameraCharacter;
     private FerstCameraCharacter cameraFerst;
     private Transform currentCamera;
     private Rigidbody rbCharacter;
@@ -36,14 +36,14 @@ public class CharacterMove : MonoBehaviour
     {
         transformCharacter = GetComponent<Transform>();
         rbCharacter = GetComponent<Rigidbody>();
-        cameraCharacter = FindFirstObjectByType<CameraCharacter>();
+        cameraCharacter = FindFirstObjectByType<TirdCameraCharacter>();
         cameraFerst = FindObjectOfType<FerstCameraCharacter>();
     } 
     private void SetActiveCamera()
     {
         bool isActive = state.isFerstCamera ? true : false;
-        cameraFerst.gameObject.SetActive(isActive);
-        cameraCharacter.gameObject.SetActive(!isActive);
+        cameraFerst.enabled = isActive;
+        cameraCharacter.enabled = !isActive;
         currentCamera = state.isFerstCamera ? cameraFerst.transform : cameraCharacter.transform; 
     }
     public void RotateWithCamera()

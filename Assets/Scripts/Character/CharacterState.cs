@@ -81,7 +81,7 @@ public class CharacterState
     }
     public void InputCharacter_OnAim(bool isPressed)
     {
-        if(isReadyForButtle) 
+        if (isReadyForButtle)
             isAim = isPressed;
     }
     public void InputCharacter_OnFire(bool isPressed)

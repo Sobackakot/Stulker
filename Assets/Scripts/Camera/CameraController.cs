@@ -1,56 +1,69 @@
  
 using Zenject;
 using System;
+using UnityEngine;
 
 public class CameraController: ILateTickable, IInitializable, IDisposable, IFixedTickable
-{   
-    public CameraController(InputCamera input, CameraCharacter camera, CharacterState state,
-        WindowUI windowUI, RaycastCamera ray,
-    [Inject(Id = "inventoryUI")]IInventoryUI inventoryUI)
+{
+    
+    public CameraController(InputCamera input, CharacterState state, WindowUI windowUI, RaycastCamera ray, 
+        [Inject(Id = "inventoryUI")]IInventoryUI inventoryUI , 
+    [Inject(Id = "cameraTird")] ICameraCharacter cameraTird, [Inject(Id = "cameraFerst")] ICameraCharacter cameraFerst)
     {
-        this.input = input; 
-        this.camera = camera;   
+        this.input = input;
+        this.windowUI = windowUI;
+        this.ray = ray;
         this.state = state;
         this.inventoryUI = inventoryUI;
-        this.windowUI = windowUI;
-        this.ray = ray; 
-    }
-    private InputCamera input; 
-    private CameraCharacter camera;
+        this.cameraTird = cameraTird;
+        this.cameraFerst = cameraFerst; 
+    } 
+    private InputCamera input;  
     private CharacterState state;
     private WindowUI windowUI;
     private RaycastCamera ray; 
     private IInventoryUI inventoryUI;
+    private ICameraCharacter cameraTird;
+    private ICameraCharacter cameraFerst;
+    private ICameraCharacter activeCamera;
 
-
+    private Vector3 hitPoint;
     public void Initialize()
     {
-        input.onInputAxis += camera.GetInputAxisMouse; 
+        input.onInputAxis += cameraTird.InputCamera_OnInputAxis; 
+        input.onInputAxis += cameraFerst.InputCamera_OnInputAxis; 
     }
     public void Dispose()
     {
-        input.onInputAxis -= camera.GetInputAxisMouse; 
+        input.onInputAxis -= cameraTird.InputCamera_OnInputAxis; 
+        input.onInputAxis -= cameraFerst.InputCamera_OnInputAxis; 
     }
 
+    private void SwitchCamera()
+    {
+        activeCamera = state.isFerstCamera ? cameraFerst : cameraTird;
+    }
     public void LateTick()
     {
-        camera.RotateCamera();
-        camera.ZoomCamera(state.isAim);
-        camera.SwitchLookPointCamera(state.isLeftTargerPoint,state.isCrouch);
+        SwitchCamera();
+        activeCamera.SetTargetPoint(state.isAim);
+        activeCamera.RotateCamera();
+        activeCamera.ZoomCamera(state.isAim);
+        activeCamera.SwitchLookPointCamera(state.isLeftTargerPoint,state.isCrouch);
 
         bool isActive = inventoryUI.isActiveInventory;
         state.StoppingRotateCamera(isActive); 
         windowUI.ShowInteractText();
+        activeCamera.CheckCameraRotateAngle(); 
     }
 
     public void FixedTick()
-    {
+    { 
         ray.RayHitTakeItemInteract();
         if (state.isAim)
         {
-            ray.GetPointRayAim();
+            hitPoint = ray.GetPointRayAim(); 
             ray.Shooting(state.isFire); 
-        }
-        camera.CheckCameraRotateAngle();
+        } 
     }
 }
