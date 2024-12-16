@@ -63,7 +63,7 @@ public class FerstCameraCharacter : MonoBehaviour, ICameraCharacter
                 state.SetInputAxisCamera(Vector2.zero);
         }
     }
-    public void SetTargetPoint(bool isAim)
+    public void SetTargetPointAim(bool isAim)
     {
         if (isAim)
             targetPointIKAim.position = pointFromRaycast.position;

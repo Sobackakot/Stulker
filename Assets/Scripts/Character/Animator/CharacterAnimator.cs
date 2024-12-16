@@ -1,4 +1,4 @@
- 
+
 using UnityEngine;
 using Zenject;
 
@@ -16,6 +16,7 @@ public class CharacterAnimator : MonoBehaviour
     private float speedAnimation;
     private int weaponEquipLayerIndex;
     private int weaponAimLayerIndex;
+    private int readyForButtleIndex;
 
 
     [Inject]
@@ -29,6 +30,7 @@ public class CharacterAnimator : MonoBehaviour
         animator = GetComponent<Animator>();
         weaponEquipLayerIndex = animator.GetLayerIndex("WeaponEquip");
         weaponAimLayerIndex = animator.GetLayerIndex("Recharge");
+        readyForButtleIndex = animator.GetLayerIndex("ReadyForButtle");
     } 
    
     public void MovAnimation(Vector3 inputAxis,bool isMoving)
@@ -87,19 +89,28 @@ public class CharacterAnimator : MonoBehaviour
     {
         animator.SetTrigger("isReadyForButtle");
         WeaponEquip(state.isReadyForButtle);
+         
     }
-
-    private void WeaponEquip(bool isReadyForButte)
+    public void ReadyForButtle(bool isReadyForButtle, bool isAim, bool isSprint, bool isReloadWeapon)
     {
-        animator.SetLayerWeight(weaponEquipLayerIndex, 1);
-        if (isReadyForButte)
+
+        if (isReadyForButtle && !isAim && !isSprint && !isReloadWeapon)
         {
-            animator.SetTrigger("PullOut");
+            animator.SetLayerWeight(readyForButtleIndex, 1);
+            animator.SetBool("isReady", true);
         }
         else
         {
-            animator.SetTrigger("PutAway");
-        }
+            animator.SetBool("isReady", false);
+            animator.SetLayerWeight(readyForButtleIndex, 0);
+        } 
+    }
+    private void WeaponEquip(bool isReadyForButtle)
+    {
+        animator.SetLayerWeight(weaponEquipLayerIndex, 1);
+        if (isReadyForButtle)
+            animator.SetTrigger("PullOut");
+        else animator.SetTrigger("PutAway");
     }
     public void ParkourUp(bool isParkour)
     {

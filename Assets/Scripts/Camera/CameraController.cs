@@ -46,7 +46,7 @@ public class CameraController: ILateTickable, IInitializable, IDisposable, IFixe
     public void LateTick()
     {
         SwitchCamera();
-        activeCamera.SetTargetPoint(state.isAim);
+        activeCamera.SetTargetPointAim(state.isAim);
         activeCamera.RotateCamera();
         activeCamera.ZoomCamera(state.isAim);
         activeCamera.SwitchLookPointCamera(state.isLeftTargerPoint,state.isCrouch);

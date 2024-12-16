@@ -21,8 +21,8 @@ public class TirdCameraCharacter : MonoBehaviour, ICameraCharacter
     private float mouseAxisY;
     private float mouseZoom;
 
-    private float minAngle = -60f;
-    private float maxAngle = 60f;
+    private float minAngle = -90f;
+    private float maxAngle = 90f;
     private float minZoom = 1f;
     private float maxZoom = 2f;
 
@@ -40,7 +40,7 @@ public class TirdCameraCharacter : MonoBehaviour, ICameraCharacter
     }
     private void Start()
     {
-        currentTargetLookPoint = targetPointRightLook;
+        currentTargetLookPoint = targetPointRightLook; 
         offset = transformCamera.position - currentTargetLookPoint.position;
     }
    
@@ -97,13 +97,15 @@ public class TirdCameraCharacter : MonoBehaviour, ICameraCharacter
             targetPointLeftLook.localPosition = new Vector3(-0.836f, heightPoint, 0);
         else targetPointRightLook.localPosition = new Vector3(0.836f, heightPoint, 0);
         Transform targetLookPoint = isLeftPointLook ? targetPointLeftLook : targetPointRightLook;
-        targetLookPoint.position = Vector3.Lerp(currentTargetLookPoint.position, targetLookPoint.position, Time.deltaTime * 0.5f);
-        currentTargetLookPoint = targetLookPoint;
+        targetLookPoint.position = Vector3.Lerp(currentTargetLookPoint.position, targetLookPoint.position, Time.deltaTime * 7.5f);
+        currentTargetLookPoint = targetLookPoint; 
     }
 
-    public void SetTargetPoint(bool isAim)
+    public void SetTargetPointAim(bool isAim)
     {   
-        if (isAim) 
+        if (isAim)
+        {
             targetPointIKAim.position = pointFromRaycast.position;
+        }  
     }
 }

@@ -41,13 +41,16 @@ public class AnimatorController :ITickable, IInitializable, IDisposable
         characterAnimator.MovAnimation(state.inputAxisMove, state.isMov);
         characterAnimator.SwithAnimationMove(state.isRun, state.isWalk, state.isAim,state.inputAxisMove);
         characterAnimator.InputCharacter_OnAim(state.isAim);
+        characterAnimator.ReadyForButtle(state.isReadyForButtle, state.isAim, state.isRun, state.isReloadWeapon);
 
 
         characterIK.SetWeightIKReadyForBattle(state.isReadyForButtle, state.isReloadWeapon);
         characterIK.SetWeightIKAiming(state.isAim);
         characterIK.SetWeightIKLeanRight(state.isLeanRight, state.isAim); 
-        characterIK.SetWeightIKLeanLeft(state.isLeanLeft, state.isAim); 
-         
+        characterIK.SetWeightIKLeanLeft(state.isLeanLeft, state.isAim);
+        characterIK.SetWeightIKRedyMoveForButtle(state.isReadyForButtle, state.isAim, state.isRun);
+
+
     }
      
 }
