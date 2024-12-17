@@ -91,20 +91,6 @@ public class CharacterAnimator : MonoBehaviour
         WeaponEquip(state.isReadyForButtle);
          
     }
-    public void ReadyForButtle(bool isReadyForButtle, bool isAim, bool isSprint, bool isReloadWeapon)
-    {
-
-        if (isReadyForButtle && !isAim && !isSprint && !isReloadWeapon)
-        {
-            animator.SetLayerWeight(readyForButtleIndex, 1);
-            animator.SetBool("isReady", true);
-        }
-        else
-        {
-            animator.SetBool("isReady", false);
-            animator.SetLayerWeight(readyForButtleIndex, 0);
-        } 
-    }
     private void WeaponEquip(bool isReadyForButtle)
     {
         animator.SetLayerWeight(weaponEquipLayerIndex, 1);

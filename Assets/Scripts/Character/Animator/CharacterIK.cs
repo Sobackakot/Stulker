@@ -10,9 +10,7 @@ public class CharacterIK : MonoBehaviour
     [SerializeField] private MultiAimConstraint twoBoneIKLeanRightBody; 
     [SerializeField] private MultiAimConstraint twoBoneIKLeanLeftBody; 
 
-    [SerializeField] private TwoBoneIKConstraint LeftHandAim;
-    [SerializeField] private TwoBoneIKConstraint LeftHandMoveRedy;
-    [SerializeField] private TwoBoneIKConstraint RightHandMoveRedy;
+    [SerializeField] private TwoBoneIKConstraint LeftHandAim; 
 
     [SerializeField] private float offsetXSpineAim = -25f;
     [SerializeField] private float offsetXSpineLeanRight = -45f;
@@ -56,20 +54,7 @@ public class CharacterIK : MonoBehaviour
             var data = twoBoneIKSpine.data;
             twoBoneIKSpine.data.offset = Vector3.Lerp(data.offset, Vector3.zero, Time.deltaTime * 7.5f);
         }
-    }
-    public void SetWeightIKRedyMoveForButtle(bool isReadyForBattle, bool isAim, bool isSprint)
-    { 
-        if (isReadyForBattle && !isAim && !isSprint)
-        {
-            RightHandMoveRedy.weight = Mathf.Lerp(RightHandMoveRedy.weight, targetWeightShoot, Time.deltaTime * 10f);
-            LeftHandMoveRedy.weight = Mathf.Lerp(LeftHandMoveRedy.weight, targetWeightShoot, Time.deltaTime * 10f); 
-        }
-        else
-        {
-            RightHandMoveRedy.weight = Mathf.Lerp(RightHandMoveRedy.weight, 0, Time.deltaTime * 10f);
-            LeftHandMoveRedy.weight = Mathf.Lerp(LeftHandMoveRedy.weight, 0, Time.deltaTime * 10f);
-        }
-    }
+    } 
     public void SetWeightIKLeanRight(bool isLeanRight, bool isAim)
     { 
         targetWeightLeanRight = isLeanRight ? 1 : 0;  
