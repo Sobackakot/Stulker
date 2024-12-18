@@ -5,15 +5,17 @@ using Zenject;
 public class AnimatorController :ITickable, IInitializable, IDisposable
 {
     public AnimatorController(CharacterAnimator characterAnimator, 
-        CharacterState state, InputCharacter inputCharacter)
+        CharacterState state, CharacterIK characterIK, InputCharacter inputCharacter)
     {
         this.characterAnimator = characterAnimator; 
         this.state = state;
+        this.characterIK = characterIK;
         this.inputCharacter = inputCharacter;
     }
     private CharacterState state;
     private InputCharacter inputCharacter;
     private CharacterAnimator characterAnimator; 
+    private CharacterIK characterIK;
 
     public void Initialize()
     {
@@ -38,7 +40,11 @@ public class AnimatorController :ITickable, IInitializable, IDisposable
          
         characterAnimator.MovAnimation(state.inputAxisMove, state.isMov);
         characterAnimator.SwithAnimationMove(state.isRun, state.isWalk, state.isAim,state.inputAxisMove);
-        characterAnimator.InputCharacter_OnAim(state.isAim);   
+        characterAnimator.InputCharacter_OnAim(state.isAim); 
+
+
+        characterIK.SetWeightIKReadyForBattle(state.isReadyForButtle, state.isReloadWeapon);
+        characterIK.SetWeightIKAiming(state.isAim);  
 
     }
      

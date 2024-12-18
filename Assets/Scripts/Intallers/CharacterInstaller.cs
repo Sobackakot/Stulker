@@ -47,7 +47,8 @@ public class CharacterInstaller : ScriptableObjectInstaller
         Container.Bind<CharacterMove>().FromComponentInHierarchy(this).AsSingle();
         Container.Bind<CharacterAnimator>().FromComponentInHierarchy(this).AsSingle();
         Container.Bind<CharacterParkour>().FromComponentInHierarchy(this).AsSingle();   
-        Container.Bind<CharacterComponent>().FromComponentInHierarchy(this).AsSingle();    
+        Container.Bind<CharacterComponent>().FromComponentInHierarchy(this).AsSingle();   
+        Container.Bind<CharacterIK>().FromComponentInHierarchy(this).AsSingle();   
            
     }
     private void BindInventory()
