@@ -4,9 +4,11 @@ using UnityEngine.Animations.Rigging;
 
 public class CharacterIK : MonoBehaviour
 {
+    [SerializeField] private Rig aimBody;
     [SerializeField] private Rig readyForButtleParent;  
     [SerializeField] private Rig aimWeaponParent;
     [SerializeField] private Rig handsIK; 
+    
     
 
 
@@ -30,7 +32,8 @@ public class CharacterIK : MonoBehaviour
     public void SetWeightIKAiming(bool isAiming)
     {
         weightAim = isAiming ? 1 : 0; 
-        aimWeaponParent.weight = Mathf.Lerp(aimWeaponParent.weight, weightAim, Time.deltaTime * factor);  
+        aimWeaponParent.weight = Mathf.Lerp(aimWeaponParent.weight, weightAim, Time.deltaTime * factor);
+        aimBody.weight = Mathf.Lerp(aimBody.weight, weightAim, Time.deltaTime * factor);  
     }
     public void SetWeightIKReadyForBattle(bool isReadyForBattle, bool isReloadWeapon)
     {

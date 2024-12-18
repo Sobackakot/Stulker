@@ -6,10 +6,7 @@ public class FerstCameraCharacter : MonoBehaviour, ICameraCharacter
 {
     [SerializeField] private Transform targetLookPoint;
     [HideInInspector] public Transform transformCamera;
-
-    [SerializeField] private Transform targetPointIKAim;
-    [SerializeField] private Transform pointFromRaycast;
-
+      
     [SerializeField] private float sensitivityMouse = 6f;
      
     private Vector3 offset;
@@ -62,11 +59,6 @@ public class FerstCameraCharacter : MonoBehaviour, ICameraCharacter
             else
                 state.SetInputAxisCamera(Vector2.zero);
         }
-    }
-    public void SetTargetPointAim(bool isAim)
-    {
-        if (isAim)
-            targetPointIKAim.position = pointFromRaycast.position;
     }
     public void InputCamera_OnScrollMouse(Vector2 scrollMouse)
     {

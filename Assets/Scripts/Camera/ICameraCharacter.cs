@@ -8,7 +8,6 @@ public interface ICameraCharacter
     void InputCamera_OnInputAxis(Vector2 inputAxis);
     void InputCamera_OnScrollMouse(Vector2 scrollMouse);
     void CheckCameraRotateAngle();
-    void SwitchLookPointCamera(bool isLeftPointLook, bool isCrouching);
-    void SetTargetPointAim(bool isAim);
+    void SwitchLookPointCamera(bool isLeftPointLook, bool isCrouching); 
 
 }
