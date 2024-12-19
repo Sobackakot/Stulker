@@ -1835,6 +1835,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1159732550}
   - component: {fileID: 1159732549}
+  - component: {fileID: 1159732551}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -1889,6 +1890,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1159732551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1159732548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bea710b0146a14479eda783a8675be8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  countBullet: 31
+  sizeWeapon: 2.5
+  nameWeopon: Ak-47
+  terraObject: {fileID: 0}
 --- !u!1 &1257533281
 GameObject:
   m_ObjectHideFlags: 0
@@ -2566,7 +2583,17 @@ PrefabInstance:
     - target: {fileID: 3853353423595758678, guid: 8b76a29402ae8b64fb01b52dd633429a,
         type: 3}
       propertyPath: m_Data.m_Offset.x
-      value: -15
+      value: -25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3853353423595758678, guid: 8b76a29402ae8b64fb01b52dd633429a,
+        type: 3}
+      propertyPath: m_Data.m_ConstrainedAxes.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3853353423595758678, guid: 8b76a29402ae8b64fb01b52dd633429a,
+        type: 3}
+      propertyPath: m_Data.m_ConstrainedAxes.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3853353423595758678, guid: 8b76a29402ae8b64fb01b52dd633429a,
         type: 3}
@@ -2581,23 +2608,48 @@ PrefabInstance:
     - target: {fileID: 4286036646284454059, guid: 8b76a29402ae8b64fb01b52dd633429a,
         type: 3}
       propertyPath: m_Weight
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4286036646284454059, guid: 8b76a29402ae8b64fb01b52dd633429a,
         type: 3}
       propertyPath: m_Data.m_MaxLimit
-      value: 65
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 4286036646284454059, guid: 8b76a29402ae8b64fb01b52dd633429a,
         type: 3}
       propertyPath: m_Data.m_MinLimit
-      value: -65
+      value: -45
+      objectReference: {fileID: 0}
+    - target: {fileID: 4286036646284454059, guid: 8b76a29402ae8b64fb01b52dd633429a,
+        type: 3}
+      propertyPath: m_Data.m_ConstrainedAxes.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4286036646284454059, guid: 8b76a29402ae8b64fb01b52dd633429a,
+        type: 3}
+      propertyPath: m_Data.m_ConstrainedAxes.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4286036646284454059, guid: 8b76a29402ae8b64fb01b52dd633429a,
         type: 3}
       propertyPath: m_Data.m_SourceObjects.m_Item0.transform
       value: 
       objectReference: {fileID: 322543997}
+    - target: {fileID: 4810836550123640355, guid: 8b76a29402ae8b64fb01b52dd633429a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.015
+      objectReference: {fileID: 0}
+    - target: {fileID: 4810836550123640355, guid: 8b76a29402ae8b64fb01b52dd633429a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.095
+      objectReference: {fileID: 0}
+    - target: {fileID: 4810836550123640355, guid: 8b76a29402ae8b64fb01b52dd633429a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4814463111594208928, guid: 8b76a29402ae8b64fb01b52dd633429a,
         type: 3}
       propertyPath: m_Weight
@@ -2611,17 +2663,27 @@ PrefabInstance:
     - target: {fileID: 5256612732659536390, guid: 8b76a29402ae8b64fb01b52dd633429a,
         type: 3}
       propertyPath: m_Weight
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 5256612732659536390, guid: 8b76a29402ae8b64fb01b52dd633429a,
         type: 3}
       propertyPath: m_Data.m_MaxLimit
-      value: 65
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 5256612732659536390, guid: 8b76a29402ae8b64fb01b52dd633429a,
         type: 3}
       propertyPath: m_Data.m_MinLimit
-      value: -65
+      value: -45
+      objectReference: {fileID: 0}
+    - target: {fileID: 5256612732659536390, guid: 8b76a29402ae8b64fb01b52dd633429a,
+        type: 3}
+      propertyPath: m_Data.m_ConstrainedAxes.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5256612732659536390, guid: 8b76a29402ae8b64fb01b52dd633429a,
+        type: 3}
+      propertyPath: m_Data.m_ConstrainedAxes.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5256612732659536390, guid: 8b76a29402ae8b64fb01b52dd633429a,
         type: 3}
@@ -2640,6 +2702,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6821965381459325129, guid: 8b76a29402ae8b64fb01b52dd633429a,
         type: 3}
+      propertyPath: m_Data.m_Offset.x
+      value: -45
+      objectReference: {fileID: 0}
+    - target: {fileID: 6821965381459325129, guid: 8b76a29402ae8b64fb01b52dd633429a,
+        type: 3}
+      propertyPath: m_Data.m_ConstrainedAxes.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6821965381459325129, guid: 8b76a29402ae8b64fb01b52dd633429a,
+        type: 3}
+      propertyPath: m_Data.m_ConstrainedAxes.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6821965381459325129, guid: 8b76a29402ae8b64fb01b52dd633429a,
+        type: 3}
+      propertyPath: m_Data.m_ConstrainedAxes.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6821965381459325129, guid: 8b76a29402ae8b64fb01b52dd633429a,
+        type: 3}
       propertyPath: m_Data.m_SourceObjects.m_Item0.transform
       value: 
       objectReference: {fileID: 322543997}
@@ -2649,7 +2731,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1268155206}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 619360838487744060, guid: 8b76a29402ae8b64fb01b52dd633429a, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b76a29402ae8b64fb01b52dd633429a, type: 3}
@@ -3006,7 +3089,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.17
+  near clip plane: 0.01
   far clip plane: 5000
   field of view: 60.000004
   orthographic: 0

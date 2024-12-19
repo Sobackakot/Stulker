@@ -86,10 +86,10 @@ public class TirdCameraCharacter : MonoBehaviour, ICameraCharacter
     }
     public void SwitchLookPointCamera(bool isLeftPointLook, bool isCrouching)
     {
-        float heightPoint = isCrouching ? 1f : 1.55f;
+        float heightPoint = isCrouching ? 1f : 1.6f;
         if (isLeftPointLook)
-            targetPointLeftLook.localPosition = new Vector3(-0.435f, heightPoint, 0);
-        else targetPointRightLook.localPosition = new Vector3(0.435f, heightPoint, 0);
+            targetPointLeftLook.localPosition = new Vector3(-0.600f, heightPoint, 0);
+        else targetPointRightLook.localPosition = new Vector3(0.600f, heightPoint, 0);
         Transform targetLookPoint = isLeftPointLook ? targetPointLeftLook : targetPointRightLook;
         targetLookPoint.position = Vector3.Lerp(currentTargetLookPoint.position, targetLookPoint.position, Time.deltaTime * 7.5f);
         currentTargetLookPoint = targetLookPoint; 
