@@ -45,8 +45,7 @@ public class CameraController: ILateTickable, IInitializable, IDisposable, IFixe
     }
     public void LateTick()
     {
-        SwitchCamera(); 
-        activeCamera.RotateCamera();
+        SwitchCamera();
         activeCamera.ZoomCamera(state.isAim);
         activeCamera.SwitchLookPointCamera(state.isLeftTargerPoint,state.isCrouch);
 
@@ -57,7 +56,9 @@ public class CameraController: ILateTickable, IInitializable, IDisposable, IFixe
     }
 
     public void FixedTick()
-    { 
+    {   
+        SwitchCamera(); 
+        activeCamera.RotateCamera();
         ray.RayHitTakeItemInteract();
         if (state.isAim)
         {

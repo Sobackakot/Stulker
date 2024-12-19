@@ -11,6 +11,7 @@ public class CharacterMove : MonoBehaviour
     [SerializeField] private float speedWalkBack = 0.5f;
 
     [SerializeField] private float jumpForce = 3f;
+    [SerializeField] private float speedRotate = 5f;
     [SerializeField] private string OnCollisionTag ="Parkour";
 
 
@@ -23,8 +24,7 @@ public class CharacterMove : MonoBehaviour
     public Vector3 inputAxis { get; private set; }
     public Vector3 newDirection { get; private set; }
     public float speedMove { get; private set; }
-    public float speedRotate { get; private set; }
-
+     
     private CharacterState state;
 
     [Inject]
@@ -90,10 +90,14 @@ public class CharacterMove : MonoBehaviour
         else state.UpdateStateMove(true);
     }
     private void Rotating(Vector3 cameraZ)
-    {
-        speedRotate = state.isAim ? 8f : 3f;
-        Quaternion direction = Quaternion.LookRotation(cameraZ, Vector3.up);
-        transformCharacter.rotation = Quaternion.Lerp(transformCharacter.rotation, direction, speedRotate * Time.deltaTime); 
+    { 
+        if (state.isAim)
+            transformCharacter.rotation = Quaternion.LookRotation(cameraZ, Vector3.up);
+        else
+        {
+            Quaternion direction = Quaternion.LookRotation(cameraZ, Vector3.up);
+            transformCharacter.rotation = Quaternion.Lerp(transformCharacter.rotation, direction, speedRotate * Time.deltaTime);
+        }  
     }
     private void OnCollisionEnter(Collision collision)
     {

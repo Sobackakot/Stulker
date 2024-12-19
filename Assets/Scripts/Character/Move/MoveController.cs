@@ -25,16 +25,17 @@ public class MoveController : IInitializable, IDisposable, IFixedTickable, ILate
     {
         inputCharacter.OnMoveInput -= character.InputCharacter_OnAxisMove;
         inputCharacter.OnJumpInput -= character.InputCharacter_OnJumpingKeyDown;
-    }
-    public void LateTick()
-    {
-        character.RotateWithCamera();
-    }
+    } 
     public void FixedTick()
-    { 
+    {  
         character.Moving();
         bool isActiveInventoryBox = inventoryUI.isActiveInventory;
         character.StopingMoveCharacter(isActiveInventoryBox);
         character.SwitchVelocityMove();
-    } 
+    }
+
+    public void LateTick()
+    {
+        character.RotateWithCamera();
+    }
 }

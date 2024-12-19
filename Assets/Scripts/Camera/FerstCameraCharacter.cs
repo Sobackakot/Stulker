@@ -50,14 +50,11 @@ public class FerstCameraCharacter : MonoBehaviour, ICameraCharacter
 
     public void InputCamera_OnInputAxis(Vector2 inputAxis)
     {
-        if (state.isRotateCamera)
+        if (state.isStopingRotate)
         {
             mouseAxisX += inputAxis.x * sensitivityMouse * Time.deltaTime;
             mouseAxisY -= inputAxis.y * sensitivityMouse * Time.deltaTime;
-            if (inputAxis.sqrMagnitude > 0.2f)
-                state.SetInputAxisCamera(inputAxis);
-            else
-                state.SetInputAxisCamera(Vector2.zero);
+            state.SetInputAxisCamera(inputAxis); 
         }
     }
     public void InputCamera_OnScrollMouse(Vector2 scrollMouse)

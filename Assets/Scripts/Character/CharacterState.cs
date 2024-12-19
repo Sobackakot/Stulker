@@ -23,14 +23,18 @@ public class CharacterState
     public Vector3 inputAxisCamera { get; private set; }
     public float currentAngleCamera { get; private set; }
     public bool isFerstCamera { get; private set; }
+    public bool isStopingRotate { get; private set; }
     public bool isRotateCamera { get; private set; }
-
     public bool isMaxAngleCamera { get; private set; }
       
-   
     public void SetInputAxisCamera(Vector2 inputAxis)
     {
-        inputAxisCamera = new Vector3(inputAxis.x, 0, inputAxis.y);
+        inputAxisCamera = new Vector3(inputAxis.x, 0, inputAxis.y); 
+        if(inputAxisCamera.sqrMagnitude > 0.2f )
+        { 
+            isRotateCamera = true;
+        }
+         else isRotateCamera = false;
     }
     public void SetAngleForCamera(float angle)
     {
@@ -42,7 +46,7 @@ public class CharacterState
     }
     public void StoppingRotateCamera(bool isRotate)
     {
-        isRotateCamera = isRotate;
+        isStopingRotate = isRotate;
     }
     public void InputCamera_OnSwitchCamera()
     {

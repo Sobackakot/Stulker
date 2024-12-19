@@ -2,7 +2,7 @@
 using System;
 using Zenject;
 
-public class AnimatorController :ITickable, IInitializable, IDisposable
+public class AnimatorController : ITickable, IInitializable, IDisposable,  IFixedTickable
 {
     public AnimatorController(CharacterAnimator characterAnimator, 
         CharacterState state, CharacterIK characterIK, InputCharacter inputCharacter)
@@ -35,17 +35,18 @@ public class AnimatorController :ITickable, IInitializable, IDisposable
 
     public void Tick()
     { 
-        characterAnimator.SwitchAnimationTurn(state.currentAngleCamera, state.isRotateCamera);
-        characterAnimator.TurnAnimation(state.inputAxisCamera, state.isRotateCamera, state.isMaxAngleCamera);
+        characterAnimator.SwitchAnimationTurn(state.currentAngleCamera, state.isStopingRotate);
+        characterAnimator.TurnAnimation(state.inputAxisCamera, state.isStopingRotate, state.isMaxAngleCamera);
          
         characterAnimator.MovAnimation(state.inputAxisMove, state.isMov);
         characterAnimator.SwithAnimationMove(state.isRun, state.isWalk, state.isAim,state.inputAxisMove);
-        characterAnimator.InputCharacter_OnAim(state.isAim); 
-
-
+        characterAnimator.InputCharacter_OnAim(state.isAim);
         characterIK.SetWeightIKReadyForBattle(state.isReadyForButtle, state.isReloadWeapon);
-        characterIK.SetWeightIKAiming(state.isAim);  
+        characterIK.SetWeightIKAiming(state.isAim);
 
+    } 
+    public void FixedTick()
+    {
+       
     }
-     
 }
