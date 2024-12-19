@@ -2,7 +2,7 @@
 using System;
 using Zenject;
 
-public class AnimatorController : ITickable, IInitializable, IDisposable, ILateTickable
+public class AnimatorController : ITickable, IInitializable, IDisposable, ILateTickable 
 {
     public AnimatorController(CharacterAnimator characterAnimator, 
         CharacterState state, CharacterIK characterIK, InputCharacter inputCharacter)
@@ -40,13 +40,12 @@ public class AnimatorController : ITickable, IInitializable, IDisposable, ILateT
          
         characterAnimator.MovAnimation(state.inputAxisMove, state.isMov);
         characterAnimator.SwithAnimationMove(state.isRun, state.isWalk, state.isAim,state.inputAxisMove);
-        characterAnimator.InputCharacter_OnAim(state.isAim);
-        
-
+        characterAnimator.InputCharacter_OnAim(state.isAim); 
     }  
     public void LateTick()
     {
         characterIK.SetWeightIKReadyForBattle(state.isReadyForButtle, state.isReloadWeapon);
         characterIK.SetWeightIKAiming(state.isAim);
     }
+     
 }

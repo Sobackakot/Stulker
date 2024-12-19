@@ -46,9 +46,9 @@ public class CameraController: ILateTickable, IInitializable, IDisposable, IFixe
     public void LateTick()
     {
         SwitchCamera();
+        activeCamera.RotateCamera();
         activeCamera.ZoomCamera(state.isAim);
-        activeCamera.SwitchLookPointCamera(state.isLeftTargerPoint,state.isCrouch);
-
+        activeCamera.SwitchLookPointCamera(state.isLeftTargerPoint,state.isCrouch); 
         bool isActive = inventoryUI.isActiveInventory;
         state.StoppingRotateCamera(isActive); 
         windowUI.ShowInteractText();
@@ -56,9 +56,7 @@ public class CameraController: ILateTickable, IInitializable, IDisposable, IFixe
     }
 
     public void FixedTick()
-    {   
-        SwitchCamera(); 
-        activeCamera.RotateCamera();
+    {    
         ray.RayHitTakeItemInteract();
         if (state.isAim)
         {

@@ -6,6 +6,7 @@ using Zenject;
 public class RaycastCamera : MonoBehaviour
 {
     [SerializeField] private Transform targetAiming;
+    [SerializeField] private float  aimPointSpeed = 45f;
 
     private Transform point;
     private float maxRayInteract = 5f;
@@ -59,13 +60,9 @@ public class RaycastCamera : MonoBehaviour
     { 
         ray = GetUpdateRay();
         if (Physics.Raycast(ray, out hit, maxRayAiming, ~ignorLayerMask))
-        {
-            return targetAiming.position = hit.point; 
-        } 
+            return targetAiming.position = Vector3.Lerp(targetAiming.position, hit.point, Time.deltaTime * aimPointSpeed);
         else
-        {
-            return targetAiming.position = ray.GetPoint(1000); 
-        }
+            return targetAiming.position = Vector3.Lerp(targetAiming.position, ray.GetPoint(1000), Time.deltaTime * aimPointSpeed);
     }
     public void RayHitTakeItemInteract()
     {

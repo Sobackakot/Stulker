@@ -15,7 +15,7 @@ public class CharacterIK : MonoBehaviour
  
     [SerializeField] private float offsetXSpineLeanRight = -45f;
     [SerializeField] private float offsetXSpineLeanLeft = 45f; 
-    [SerializeField] private float factor = 6f;
+    [SerializeField] private float factor = 45f;
     private float weightAim;  
     private float weightReady;
 

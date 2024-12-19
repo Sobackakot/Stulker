@@ -8,6 +8,7 @@ public class FerstCameraCharacter : MonoBehaviour, ICameraCharacter
     [HideInInspector] public Transform transformCamera;
       
     [SerializeField] private float sensitivityMouse = 6f;
+    [SerializeField] private float speedCamera = 45f;
      
     private Vector3 offset;
     private float mouseAxisX;
@@ -39,7 +40,7 @@ public class FerstCameraCharacter : MonoBehaviour, ICameraCharacter
         mouseAxisY = Mathf.Clamp(mouseAxisY, minAngle, maxAngle);
         transformCamera.localEulerAngles = new Vector3(mouseAxisY, mouseAxisX, 0);
         Vector3 newPosition = transformCamera.localRotation * offset + targetLookPoint.position;
-        transformCamera.position = Vector3.Lerp(transformCamera.position, newPosition, Time.deltaTime);
+        transformCamera.position = Vector3.Lerp(transformCamera.position, newPosition, Time.deltaTime * speedCamera); 
     } 
 
     public void ZoomCamera(bool isAiming)
