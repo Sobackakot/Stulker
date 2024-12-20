@@ -31,7 +31,8 @@ public class MoveController : IInitializable, IDisposable
         character.Moving();
         bool isActiveInventoryBox = inventoryUI.isActiveInventory;
         character.StopingMoveCharacter(isActiveInventoryBox);
-        character.SwitchVelocityMove(); 
+        character.SwitchVelocityMove();
+        character.Rotating();
     }
 
     public void LateTick_()

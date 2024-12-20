@@ -44,8 +44,12 @@ public class AnimatorController :IInitializable, IDisposable
     }  
     public void LateTick_()
     {
+       
+    }
+    public void FixedTick_()
+    {
         characterIK.SetWeightIKReadyForBattle(state.isReadyForButtle, state.isReloadWeapon);
         characterIK.SetWeightIKAiming(state.isAim);
     }
-     
+
 }

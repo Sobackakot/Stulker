@@ -19,10 +19,10 @@ public class CharacterMove : MonoBehaviour
     private FerstCameraCharacter cameraFerst;
     private Transform currentCamera;
     private Rigidbody rbCharacter;
-    private Transform transformCharacter;
 
     public Vector3 inputAxis { get; private set; }
     public Vector3 newDirection { get; private set; }
+    public Vector3 cameraZ { get; private set; }
     public float speedMove { get; private set; }
      
     private CharacterState state;
@@ -34,7 +34,6 @@ public class CharacterMove : MonoBehaviour
     }
     private void Awake()
     {
-        transformCharacter = GetComponent<Transform>();
         rbCharacter = GetComponent<Rigidbody>();
         cameraCharacter = FindFirstObjectByType<TirdCameraCharacter>();
         cameraFerst = FindObjectOfType<FerstCameraCharacter>();
@@ -49,11 +48,23 @@ public class CharacterMove : MonoBehaviour
     public void RotateWithCamera()
     {
         SetActiveCamera();
-        Vector3 cameraZ = Vector3.ProjectOnPlane(currentCamera.forward, Vector3.up).normalized;
-        Vector3 cameraX = Vector3.ProjectOnPlane(currentCamera.right, Vector3.up).normalized;
-
+        cameraZ = Vector3.ProjectOnPlane(currentCamera.forward, Vector3.up).normalized;
+        Vector3 cameraX = Vector3.ProjectOnPlane(currentCamera.right, Vector3.up).normalized; 
         newDirection = (inputAxis.z * cameraZ) + (inputAxis.x * cameraX);
-        Rotating(cameraZ);
+    }
+    public void Rotating()
+    {
+        if (state.isAim)
+        {
+            Quaternion rot = Quaternion.LookRotation(cameraZ, Vector3.up);
+            rbCharacter.MoveRotation(rot);
+        }
+        else
+        {
+            Quaternion direction = Quaternion.LookRotation(cameraZ, Vector3.up);
+            Quaternion rot = Quaternion.Lerp(rbCharacter.rotation, direction, Time.deltaTime * speedRotate);
+            rbCharacter.MoveRotation(rot);
+        }
     }
     public void Moving()
     { 
@@ -89,18 +100,7 @@ public class CharacterMove : MonoBehaviour
         } 
         else state.UpdateStateMove(true);
     }
-    private void Rotating(Vector3 cameraZ)
-    { 
-        if (state.isAim)
-        { 
-            transformCharacter.rotation = Quaternion.LookRotation(cameraZ, Vector3.up);
-        } 
-        else
-        {
-            Quaternion direction = Quaternion.LookRotation(cameraZ, Vector3.up);
-            transformCharacter.rotation = Quaternion.Lerp(transformCharacter.rotation, direction,  Time.deltaTime * speedRotate);
-        }  
-    }
+    
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == OnCollisionTag)

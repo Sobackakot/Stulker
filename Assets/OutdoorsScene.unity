@@ -1902,10 +1902,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bea710b0146a14479eda783a8675be8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  countBullet: 31
-  sizeWeapon: 2.5
-  nameWeopon: Ak-47
-  terraObject: {fileID: 0}
 --- !u!1 &1257533281
 GameObject:
   m_ObjectHideFlags: 0
@@ -2386,6 +2382,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetAiming: {fileID: 322543997}
+  aimPointSpeed: 45
   layerMaskBox:
     serializedVersion: 2
     m_Bits: 64
@@ -2533,6 +2530,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1311434362790149166, guid: 8b76a29402ae8b64fb01b52dd633429a,
+        type: 3}
+      propertyPath: m_Weight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512204374662837959, guid: 8b76a29402ae8b64fb01b52dd633429a,
+        type: 3}
+      propertyPath: m_Weight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3604270998933652365, guid: 8b76a29402ae8b64fb01b52dd633429a,
+        type: 3}
+      propertyPath: m_Weight
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3853353423595758678, guid: 8b76a29402ae8b64fb01b52dd633429a,
         type: 3}
       propertyPath: m_Data.m_SourceObjects.m_Item0.transform
@@ -2548,11 +2560,26 @@ PrefabInstance:
       propertyPath: m_Data.m_SourceObjects.m_Item0.transform
       value: 
       objectReference: {fileID: 322543997}
+    - target: {fileID: 5182149642892827269, guid: 8b76a29402ae8b64fb01b52dd633429a,
+        type: 3}
+      propertyPath: m_Weight
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5256612732659536390, guid: 8b76a29402ae8b64fb01b52dd633429a,
         type: 3}
       propertyPath: m_Data.m_SourceObjects.m_Item0.transform
       value: 
       objectReference: {fileID: 322543997}
+    - target: {fileID: 7005180534826986712, guid: 8b76a29402ae8b64fb01b52dd633429a,
+        type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7005180534826986712, guid: 8b76a29402ae8b64fb01b52dd633429a,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3149,6 +3176,7 @@ MonoBehaviour:
   targetLookPoint: {fileID: 1837894621}
   transformCamera: {fileID: 0}
   sensitivityMouse: 6
+  speedCamera: 45
 --- !u!114 &1823688474
 MonoBehaviour:
   m_ObjectHideFlags: 0

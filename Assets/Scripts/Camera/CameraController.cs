@@ -41,7 +41,7 @@ public class CameraController: IInitializable, IDisposable
     {
         activeCamera = state.isFerstCamera ? cameraFerst : cameraTird;
     }
-    public void Tickable_()
+    public void Tick_()
     {
         SwitchCamera();
         activeCamera.SwitchLookPointCamera(state.isLeftTargerPoint, state.isCrouch);
