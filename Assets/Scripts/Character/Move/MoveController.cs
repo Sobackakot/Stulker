@@ -2,7 +2,7 @@
 using System;
 using Zenject;
 
-public class MoveController : IInitializable, IDisposable, IFixedTickable , ILateTickable
+public class MoveController : IInitializable, IDisposable 
 {
     public MoveController(InputCharacter inputCharacter, CharacterMove character, 
         [Inject(Id = "inventoryBoxUI")]IInventoryUI inventoryUI)
@@ -26,7 +26,7 @@ public class MoveController : IInitializable, IDisposable, IFixedTickable , ILat
         inputCharacter.OnMoveInput -= character.InputCharacter_OnAxisMove;
         inputCharacter.OnJumpInput -= character.InputCharacter_OnJumpingKeyDown;
     } 
-    public void FixedTick()
+    public void FixedTick_()
     {  
         character.Moving();
         bool isActiveInventoryBox = inventoryUI.isActiveInventory;
@@ -34,7 +34,7 @@ public class MoveController : IInitializable, IDisposable, IFixedTickable , ILat
         character.SwitchVelocityMove(); 
     }
 
-    public void LateTick()
+    public void LateTick_()
     {
         character.RotateWithCamera();
     }

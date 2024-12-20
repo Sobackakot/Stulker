@@ -6,6 +6,7 @@ public class TirdCameraCharacter : MonoBehaviour, ICameraCharacter
 {
     [SerializeField] private Transform targetPointRightLook;
     [SerializeField] private Transform targetPointLeftLook;
+    private float speedCamera = 45f;
     private Transform currentTargetLookPoint;
       
     [HideInInspector]public Transform transformCamera; 
@@ -23,7 +24,7 @@ public class TirdCameraCharacter : MonoBehaviour, ICameraCharacter
     private float minZoom = 1f;
     private float maxZoom = 2f;
 
-    private float limitAngle = 25f;
+    private float limitAngle = 6f;
 
     private CharacterState state;
     [Inject]
@@ -46,7 +47,7 @@ public class TirdCameraCharacter : MonoBehaviour, ICameraCharacter
         mouseAxisY = Mathf.Clamp(mouseAxisY, minAngle, maxAngle);
         transformCamera.localEulerAngles = new Vector3(mouseAxisY, mouseAxisX, 0);
         Vector3 newPosition = transformCamera.localRotation * offset + currentTargetLookPoint.position;
-        transformCamera.position = Vector3.Lerp(transformCamera.position, newPosition, Time.deltaTime);
+        transformCamera.position = Vector3.Lerp(transformCamera.position, newPosition, Time.deltaTime * speedCamera);
     }
     public void ZoomCamera(bool isAiming)
     {

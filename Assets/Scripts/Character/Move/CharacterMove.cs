@@ -92,7 +92,9 @@ public class CharacterMove : MonoBehaviour
     private void Rotating(Vector3 cameraZ)
     { 
         if (state.isAim)
+        { 
             transformCharacter.rotation = Quaternion.LookRotation(cameraZ, Vector3.up);
+        } 
         else
         {
             Quaternion direction = Quaternion.LookRotation(cameraZ, Vector3.up);

@@ -17,9 +17,12 @@ public class CharacterInstaller : ScriptableObjectInstaller
         BindCharacter();
         BindCamera();
         BindInventory();
+        Container.BindInterfacesAndSelfTo<MainHandler>().AsSingle().NonLazy();
+
         Container.Bind<WindowUI>().FromComponentInHierarchy(this).AsSingle();
        
         Container.BindInterfacesAndSelfTo<EffectsController>().AsSingle().NonLazy();
+       
 
         Container.Bind<Audios>().FromComponentInHierarchy(this).AsSingle();
         Container.Bind<Particles>().FromComponentInHierarchy(this).AsSingle();

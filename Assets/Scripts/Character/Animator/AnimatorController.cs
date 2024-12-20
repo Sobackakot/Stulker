@@ -2,7 +2,7 @@
 using System;
 using Zenject;
 
-public class AnimatorController : ITickable, IInitializable, IDisposable, ILateTickable 
+public class AnimatorController :IInitializable, IDisposable
 {
     public AnimatorController(CharacterAnimator characterAnimator, 
         CharacterState state, CharacterIK characterIK, InputCharacter inputCharacter)
@@ -33,7 +33,7 @@ public class AnimatorController : ITickable, IInitializable, IDisposable, ILateT
         inputCharacter.OnReloadWeaponInput -= characterAnimator.InputCharacter_OnRecharde;
     } 
 
-    public void Tick()
+    public void Tick_()
     { 
         characterAnimator.SwitchAnimationTurn(state.currentAngleCamera, state.isStopingRotate);
         characterAnimator.TurnAnimation(state.inputAxisCamera, state.isStopingRotate, state.isMaxAngleCamera);
@@ -42,7 +42,7 @@ public class AnimatorController : ITickable, IInitializable, IDisposable, ILateT
         characterAnimator.SwithAnimationMove(state.isRun, state.isWalk, state.isAim,state.inputAxisMove);
         characterAnimator.InputCharacter_OnAim(state.isAim); 
     }  
-    public void LateTick()
+    public void LateTick_()
     {
         characterIK.SetWeightIKReadyForBattle(state.isReadyForButtle, state.isReloadWeapon);
         characterIK.SetWeightIKAiming(state.isAim);

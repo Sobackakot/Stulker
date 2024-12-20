@@ -56,13 +56,13 @@ public class RaycastCamera : MonoBehaviour
             }
         }  
     }
-    public Vector3 GetPointRayAim()
+    public void GetPointRayAim()
     { 
         ray = GetUpdateRay();
         if (Physics.Raycast(ray, out hit, maxRayAiming, ~ignorLayerMask))
-            return targetAiming.position = Vector3.Lerp(targetAiming.position, hit.point, Time.deltaTime * aimPointSpeed);
+            targetAiming.position = Vector3.Lerp(targetAiming.position, hit.point, Time.deltaTime * aimPointSpeed);
         else
-            return targetAiming.position = Vector3.Lerp(targetAiming.position, ray.GetPoint(1000), Time.deltaTime * aimPointSpeed);
+            targetAiming.position = Vector3.Lerp(targetAiming.position, ray.GetPoint(1000), Time.deltaTime * aimPointSpeed);
     }
     public void RayHitTakeItemInteract()
     {

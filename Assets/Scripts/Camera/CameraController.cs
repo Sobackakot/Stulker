@@ -1,9 +1,8 @@
  
 using Zenject;
-using System;
-using UnityEngine;
+using System; 
 
-public class CameraController: ILateTickable, IInitializable, IDisposable, IFixedTickable
+public class CameraController: IInitializable, IDisposable 
 {
     
     public CameraController(InputCamera input, CharacterState state, WindowUI windowUI, RaycastCamera ray, 
@@ -26,8 +25,7 @@ public class CameraController: ILateTickable, IInitializable, IDisposable, IFixe
     private ICameraCharacter cameraTird;
     private ICameraCharacter cameraFerst;
     private ICameraCharacter activeCamera;
-
-    private Vector3 hitPoint;
+     
     public void Initialize()
     {
         input.onInputAxis += cameraTird.InputCamera_OnInputAxis; 
@@ -43,24 +41,28 @@ public class CameraController: ILateTickable, IInitializable, IDisposable, IFixe
     {
         activeCamera = state.isFerstCamera ? cameraFerst : cameraTird;
     }
-    public void LateTick()
+    public void Tickable_()
+    {
+        SwitchCamera();
+        activeCamera.SwitchLookPointCamera(state.isLeftTargerPoint, state.isCrouch);
+        bool isActive = inventoryUI.isActiveInventory;
+        state.StoppingRotateCamera(isActive);
+        windowUI.ShowInteractText();
+        activeCamera.CheckCameraRotateAngle();
+    }
+    public void LateTick_()
     {
         SwitchCamera();
         activeCamera.RotateCamera();
-        activeCamera.ZoomCamera(state.isAim);
-        activeCamera.SwitchLookPointCamera(state.isLeftTargerPoint,state.isCrouch); 
-        bool isActive = inventoryUI.isActiveInventory;
-        state.StoppingRotateCamera(isActive); 
-        windowUI.ShowInteractText();
-        activeCamera.CheckCameraRotateAngle(); 
+        activeCamera.ZoomCamera(state.isAim); 
     }
 
-    public void FixedTick()
+    public void FixedTick_()
     {    
         ray.RayHitTakeItemInteract();
         if (state.isAim)
         {
-            hitPoint = ray.GetPointRayAim(); 
+            ray.GetPointRayAim(); 
             ray.Shooting(state.isFire); 
         } 
     }
