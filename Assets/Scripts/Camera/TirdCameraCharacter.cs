@@ -4,14 +4,14 @@ using Zenject;
 
 public class TirdCameraCharacter : MonoBehaviour, ICameraCharacter
 {
-    [SerializeField] private Transform targetPointRightLook;
-    [SerializeField] private Transform targetPointLeftLook;
-    private float speedCamera = 45f;
-    private Transform currentTargetLookPoint;
+    [SerializeField] private Transform targetLookPoint;  
       
     [HideInInspector]public Transform transformCamera; 
     [SerializeField] private float sensitivityMouse = 45f;
     [SerializeField] private float scrollSpeed = 3f;
+    [SerializeField] private float transitionSpeed = 5f;
+    [SerializeField] private float leftTarget = -0.500f;
+    [SerializeField] private float rightTarget = 0.500f;
 
     
     private Vector3 offset;
@@ -25,6 +25,7 @@ public class TirdCameraCharacter : MonoBehaviour, ICameraCharacter
     private float maxZoom = 2f;
 
     private float limitAngle = 6f;
+    private float newHeigth;
 
     private CharacterState state;
     [Inject]
@@ -37,22 +38,27 @@ public class TirdCameraCharacter : MonoBehaviour, ICameraCharacter
         transformCamera = GetComponent<Transform>();
     }
     private void Start()
-    {
-        currentTargetLookPoint = targetPointRightLook; 
-        offset = transformCamera.position - currentTargetLookPoint.position;
-    }
-   
-    public void RotateCamera()
     { 
-        mouseAxisY = Mathf.Clamp(mouseAxisY, minAngle, maxAngle);
-        transformCamera.localEulerAngles = new Vector3(mouseAxisY, mouseAxisX, 0);
-        Vector3 newPosition = transformCamera.localRotation * offset + currentTargetLookPoint.position;
-        transformCamera.position = Vector3.Lerp(transformCamera.position, newPosition, Time.deltaTime * speedCamera);
+        offset = transformCamera.position - targetLookPoint.position;
+    }
+    public void FollowCamera()
+    { 
+        // Smoothly adjust the position to maintain the offset
+        Vector3 newPosition = transformCamera.localRotation * offset + targetLookPoint.position;
+        transformCamera.position = Vector3.Lerp(transformCamera.position, newPosition, Time.deltaTime * transitionSpeed);
+    }
+    public void RotateCamera()
+    {
+        // Clamp and smooth the rotation
+        mouseAxisY = Mathf.Clamp(mouseAxisY, minAngle, maxAngle);  
+        transformCamera.rotation = Quaternion.Euler(mouseAxisY, mouseAxisX, 0);
     }
     public void ZoomCamera(bool isAiming)
     {
-        mouseZoom = isAiming ? minZoom : maxZoom;
-        transformCamera.position = currentTargetLookPoint.position - transformCamera.forward * mouseZoom; 
+        float targetZoom = isAiming ? minZoom : maxZoom;
+        mouseZoom = Mathf.Lerp(mouseZoom, targetZoom, Time.deltaTime * transitionSpeed);
+         
+        transformCamera.position = targetLookPoint.position - transformCamera.forward * mouseZoom;
     }
 
     public void InputCamera_OnInputAxis(Vector2 inputAxis)
@@ -76,7 +82,7 @@ public class TirdCameraCharacter : MonoBehaviour, ICameraCharacter
     public void CheckCameraRotateAngle()
     {   
         Vector3 cameraZ = Vector3.ProjectOnPlane(transformCamera.forward, Vector3.up).normalized;
-        Vector3 characterZ = Vector3.ProjectOnPlane(currentTargetLookPoint.forward, Vector3.up).normalized;
+        Vector3 characterZ = Vector3.ProjectOnPlane(targetLookPoint.forward, Vector3.up).normalized;
         float currentAngleCamera = Vector3.SignedAngle(cameraZ, characterZ, Vector3.up);
         state.SetAngleForCamera(currentAngleCamera);
         if (Mathf.Abs(state.currentAngleCamera) > limitAngle)
@@ -88,12 +94,12 @@ public class TirdCameraCharacter : MonoBehaviour, ICameraCharacter
     public void SwitchLookPointCamera(bool isLeftPointLook, bool isCrouching)
     {
         float heightPoint = isCrouching ? 1f : 1.6f;
-        if (isLeftPointLook)
-            targetPointLeftLook.localPosition = new Vector3(-0.600f, heightPoint, 0);
-        else targetPointRightLook.localPosition = new Vector3(0.600f, heightPoint, 0);
-        Transform targetLookPoint = isLeftPointLook ? targetPointLeftLook : targetPointRightLook;
-        targetLookPoint.position = Vector3.Lerp(currentTargetLookPoint.position, targetLookPoint.position, Time.deltaTime * 7.5f);
-        currentTargetLookPoint = targetLookPoint; 
+        newHeigth = Mathf.Lerp(newHeigth, heightPoint, Time.deltaTime * transitionSpeed); 
+
+        // Smoothly transition to the new height and look point position
+        Vector3 targetPosition = new Vector3(isLeftPointLook ? leftTarget : rightTarget, newHeigth, 0);
+
+        targetLookPoint.localPosition = Vector3.Lerp(targetLookPoint.localPosition, targetPosition, Time.deltaTime * transitionSpeed); 
     }
      
 }

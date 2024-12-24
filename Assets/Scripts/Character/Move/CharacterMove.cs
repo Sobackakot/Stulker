@@ -16,7 +16,7 @@ public class CharacterMove : MonoBehaviour
 
 
     private TirdCameraCharacter cameraCharacter;
-    private FerstCameraCharacter cameraFerst;
+    private FirstCameraCharacter cameraFerst;
     private Transform currentCamera;
     private Rigidbody rbCharacter;
 
@@ -36,7 +36,7 @@ public class CharacterMove : MonoBehaviour
     {
         rbCharacter = GetComponent<Rigidbody>();
         cameraCharacter = FindFirstObjectByType<TirdCameraCharacter>();
-        cameraFerst = FindObjectOfType<FerstCameraCharacter>();
+        cameraFerst = FindObjectOfType<FirstCameraCharacter>();
     } 
     private void SetActiveCamera()
     {

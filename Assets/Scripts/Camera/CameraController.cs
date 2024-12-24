@@ -52,14 +52,15 @@ public class CameraController: IInitializable, IDisposable
     }
     public void LateTick_()
     {
-        SwitchCamera();
+        SwitchCamera(); 
+        activeCamera.FollowCamera();
         activeCamera.RotateCamera();
         activeCamera.ZoomCamera(state.isAim); 
     }
 
     public void FixedTick_()
-    {    
-        ray.RayHitTakeItemInteract();
+    { 
+        ray.RayHitTakeItemInteract(); 
         if (state.isAim)
         {
             ray.GetPointRayAim(); 

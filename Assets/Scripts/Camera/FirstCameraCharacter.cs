@@ -2,13 +2,13 @@
 using UnityEngine;
 using Zenject;
 
-public class FerstCameraCharacter : MonoBehaviour, ICameraCharacter
+public class FirstCameraCharacter : MonoBehaviour, ICameraCharacter
 {
     [SerializeField] private Transform targetLookPoint;
     [HideInInspector] public Transform transformCamera;
       
-    [SerializeField] private float sensitivityMouse = 6f;
-    [SerializeField] private float speedCamera = 45f;
+    [SerializeField] private float sensitivityMouse = 6f; 
+    [SerializeField] private float transitionSpeed = 5f;
      
     private Vector3 offset;
     private float mouseAxisX;
@@ -34,13 +34,17 @@ public class FerstCameraCharacter : MonoBehaviour, ICameraCharacter
     void Start()
     { 
         offset = transformCamera.position - targetLookPoint.position;
-    } 
+    }
+    public void FollowCamera()
+    {
+        // Smoothly adjust the position to maintain the offset 
+        Vector3 newPosition = transformCamera.localRotation * offset + targetLookPoint.position;
+        transformCamera.position = Vector3.Lerp(transformCamera.position, newPosition, Time.deltaTime * transitionSpeed);
+    }
     public void RotateCamera()
     { 
-        mouseAxisY = Mathf.Clamp(mouseAxisY, minAngle, maxAngle);
-        transformCamera.localEulerAngles = new Vector3(mouseAxisY, mouseAxisX, 0);
-        Vector3 newPosition = transformCamera.localRotation * offset + targetLookPoint.position;
-        transformCamera.position = Vector3.Lerp(transformCamera.position, newPosition, Time.deltaTime * speedCamera); 
+        mouseAxisY = Mathf.Clamp(mouseAxisY, minAngle, maxAngle);  
+        transformCamera.rotation = Quaternion.Euler(mouseAxisY, mouseAxisX, 0);
     } 
 
     public void ZoomCamera(bool isAiming)

@@ -4,6 +4,7 @@ using UnityEngine;
 public interface ICameraCharacter  
 {
     void RotateCamera();
+    void FollowCamera();
     void ZoomCamera(bool isAiming);
     void InputCamera_OnInputAxis(Vector2 inputAxis);
     void InputCamera_OnScrollMouse(Vector2 scrollMouse);

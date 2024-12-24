@@ -34,7 +34,7 @@ public class CharacterInstaller : ScriptableObjectInstaller
         Container.BindInterfacesAndSelfTo<CameraController>().AsSingle().NonLazy();
         Container.BindInterfacesAndSelfTo<InputCamera>().AsSingle().NonLazy();  
         Container.Bind<ICameraCharacter>().WithId(CameraTird_ID).To<TirdCameraCharacter>().FromComponentInHierarchy(this).AsSingle();
-        Container.Bind<ICameraCharacter>().WithId(CameraFerst_ID).To<FerstCameraCharacter>().FromComponentInHierarchy(this).AsSingle();
+        Container.Bind<ICameraCharacter>().WithId(CameraFerst_ID).To<FirstCameraCharacter>().FromComponentInHierarchy(this).AsSingle();
         Container.Bind<RaycastCamera>().FromComponentInHierarchy(this).AsSingle();
     }
 
