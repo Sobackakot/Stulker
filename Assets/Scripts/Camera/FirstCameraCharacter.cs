@@ -8,7 +8,7 @@ public class FirstCameraCharacter : MonoBehaviour, ICameraCharacter
     [HideInInspector] public Transform transformCamera;
       
     [SerializeField] private float sensitivityMouse = 6f; 
-    [SerializeField] private float transitionSpeed = 5f;
+    [SerializeField] private float transitionSpeed = 9f;
      
     private Vector3 offset;
     private float mouseAxisX;
@@ -41,10 +41,12 @@ public class FirstCameraCharacter : MonoBehaviour, ICameraCharacter
         Vector3 newPosition = transformCamera.localRotation * offset + targetLookPoint.position;
         transformCamera.position = Vector3.Lerp(transformCamera.position, newPosition, Time.deltaTime * transitionSpeed);
     }
-    public void RotateCamera()
-    { 
-        mouseAxisY = Mathf.Clamp(mouseAxisY, minAngle, maxAngle);  
-        transformCamera.rotation = Quaternion.Euler(mouseAxisY, mouseAxisX, 0);
+    public void RotateCamera(bool isAim)
+    {
+        transitionSpeed = isAim ? 15 : 9;
+        mouseAxisY = Mathf.Clamp(mouseAxisY, minAngle, maxAngle);   
+        Quaternion newRot = Quaternion.Euler(mouseAxisY, mouseAxisX, 0);
+        transformCamera.rotation = Quaternion.Slerp(transformCamera.rotation, newRot, Time.smoothDeltaTime * transitionSpeed);
     } 
 
     public void ZoomCamera(bool isAiming)

@@ -62,13 +62,13 @@ public class CharacterMove : MonoBehaviour
         else
         {
             Quaternion direction = Quaternion.LookRotation(cameraZ, Vector3.up);
-            Quaternion rot = Quaternion.Lerp(rbCharacter.rotation, direction, Time.deltaTime * speedRotate);
+            Quaternion rot = Quaternion.Lerp(rbCharacter.rotation, direction, Time.fixedDeltaTime * speedRotate);
             rbCharacter.MoveRotation(rot);
         }
     }
     public void Moving()
     { 
-        rbCharacter.MovePosition(rbCharacter.position + newDirection * speedMove * Time.deltaTime);
+        rbCharacter.MovePosition(rbCharacter.position + newDirection * speedMove * Time.fixedDeltaTime);
     }
     public void InputCharacter_OnAxisMove(Vector2 axis)
     {

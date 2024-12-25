@@ -1,4 +1,5 @@
 
+using System.Security.Claims;
 using UnityEngine;
 using Zenject;
 
@@ -9,7 +10,7 @@ public class TirdCameraCharacter : MonoBehaviour, ICameraCharacter
     [HideInInspector]public Transform transformCamera; 
     [SerializeField] private float sensitivityMouse = 45f;
     [SerializeField] private float scrollSpeed = 3f;
-    [SerializeField] private float transitionSpeed = 5f;
+    [SerializeField] private float transitionSpeed = 9f;
     [SerializeField] private float leftTarget = -0.500f;
     [SerializeField] private float rightTarget = 0.500f;
 
@@ -47,11 +48,13 @@ public class TirdCameraCharacter : MonoBehaviour, ICameraCharacter
         Vector3 newPosition = transformCamera.localRotation * offset + targetLookPoint.position;
         transformCamera.position = Vector3.Lerp(transformCamera.position, newPosition, Time.deltaTime * transitionSpeed);
     }
-    public void RotateCamera()
+    public void RotateCamera(bool isAim)
     {
         // Clamp and smooth the rotation
+        transitionSpeed = isAim ? 15 : 9;
         mouseAxisY = Mathf.Clamp(mouseAxisY, minAngle, maxAngle);  
-        transformCamera.rotation = Quaternion.Euler(mouseAxisY, mouseAxisX, 0);
+        Quaternion newRot = Quaternion.Euler(mouseAxisY, mouseAxisX, 0);
+        transformCamera.rotation = Quaternion.Slerp(transformCamera.rotation, newRot, Time.smoothDeltaTime * transitionSpeed);
     }
     public void ZoomCamera(bool isAiming)
     {

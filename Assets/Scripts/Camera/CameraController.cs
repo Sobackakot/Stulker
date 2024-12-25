@@ -54,7 +54,7 @@ public class CameraController: IInitializable, IDisposable
     {
         SwitchCamera(); 
         activeCamera.FollowCamera();
-        activeCamera.RotateCamera();
+        activeCamera.RotateCamera(state.isAim);
         activeCamera.ZoomCamera(state.isAim); 
     }
 
