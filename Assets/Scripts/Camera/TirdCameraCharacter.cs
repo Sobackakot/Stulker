@@ -56,9 +56,9 @@ public class TirdCameraCharacter : MonoBehaviour, ICameraCharacter
         Quaternion newRot = Quaternion.Euler(mouseAxisY, mouseAxisX, 0);
         transformCamera.rotation = Quaternion.Slerp(transformCamera.rotation, newRot, Time.smoothDeltaTime * transitionSpeed);
     }
-    public void ZoomCamera(bool isAiming)
+    public void ZoomCamera(bool isAiming, bool isReloadWeapon)
     {
-        float targetZoom = isAiming ? minZoom : maxZoom;
+        float targetZoom = isAiming ? (isReloadWeapon ? maxZoom : minZoom) : maxZoom;
         mouseZoom = Mathf.Lerp(mouseZoom, targetZoom, Time.deltaTime * transitionSpeed);
          
         transformCamera.position = targetLookPoint.position - transformCamera.forward * mouseZoom;

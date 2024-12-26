@@ -4,27 +4,27 @@ using Zenject;
 
 public class MoveController : IInitializable, IDisposable 
 {
-    public MoveController(InputCharacter inputCharacter, CharacterMove character, 
-        [Inject(Id = "inventoryBoxUI")]IInventoryUI inventoryUI)
-    {
-        this.inputCharacter = inputCharacter;
+    public MoveController(CharacterMove character,
+        CharacterState state, [Inject(Id = "inventoryBoxUI")]IInventoryUI inventoryUI)
+    { 
         this.character = character; 
-        this.inventoryUI = inventoryUI;
+        this.state = state;
+        this.inventoryUI = inventoryUI; 
     }
-     
-    private InputCharacter inputCharacter;
+      
     private CharacterMove character;
+    private CharacterState state;
     private IInventoryUI inventoryUI;
      
     public void Initialize()
-    { 
-        inputCharacter.OnMoveInput += character.InputCharacter_OnAxisMove;
-        inputCharacter.OnJumpInput += character.InputCharacter_OnJumpingKeyDown;
+    {
+        state.OnMoving += character.CharacterState_OnAxisMove;
+        state.OnJumping += character.CharacterState_OnJumping;
     }
     public void Dispose()
     {
-        inputCharacter.OnMoveInput -= character.InputCharacter_OnAxisMove;
-        inputCharacter.OnJumpInput -= character.InputCharacter_OnJumpingKeyDown;
+        state.OnMoving -= character.CharacterState_OnAxisMove;
+        state.OnJumping -= character.CharacterState_OnJumping;
     } 
     public void FixedTick_()
     {  

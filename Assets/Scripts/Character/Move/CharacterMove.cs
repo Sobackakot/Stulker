@@ -3,13 +3,12 @@ using UnityEngine;
 using Zenject;
 
 public class CharacterMove : MonoBehaviour
-{
+{  
     [SerializeField] private float speedSprint = 5f;
     [SerializeField] private float speedRunForward = 3f;
     [SerializeField] private float speedRunBack = 2f;
     [SerializeField] private float speedWalkForward = 1.5f;
     [SerializeField] private float speedWalkBack = 0.5f;
-
     [SerializeField] private float jumpForce = 3f;
     [SerializeField] private float speedRotate = 45f;
     [SerializeField] private string OnCollisionTag ="Parkour";
@@ -70,15 +69,14 @@ public class CharacterMove : MonoBehaviour
     { 
         rbCharacter.MovePosition(rbCharacter.position + newDirection * speedMove * Time.fixedDeltaTime);
     }
-    public void InputCharacter_OnAxisMove(Vector2 axis)
+    public void CharacterState_OnAxisMove(Vector2 axis)
     {
-        if (state.isMov)
+        if (state.isMove)
         {
-            inputAxis = new Vector3(axis.x, 0, axis.y);
-            state.SetInputAxisMove(axis);
+            inputAxis = new Vector3(axis.x, 0, axis.y); 
         }    
     }
-    public void InputCharacter_OnJumpingKeyDown()
+    public void CharacterState_OnJumping()
     {
         if (state.isCollision)
         { 

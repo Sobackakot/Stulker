@@ -14,7 +14,9 @@ public class StateCharacterController : IInitializable, IDisposable
     private InputCamera inputCamera;
 
     public void Initialize()
-    { 
+    {
+        input.OnMoveInput += state.InputCharacter_OnMove;
+        input.OnJumpInput += state.InputCharacter_OnJamp;
         input.OnRunInput += state.InputCharacter_OnRun;
         input.OnWalkInput += state.InputCharacter_OnWalk;
         input.OnAimInput += state.InputCharacter_OnAim;
@@ -22,7 +24,10 @@ public class StateCharacterController : IInitializable, IDisposable
         input.OnReadyForBattleToggle += state.InputCharacter_OnReadyForBattle;
         input.OnCrouchToggle += state.InputCharacter_OnCrouch;
         input.OnEquipWeaponToggle += state.InputCharacter_OnEquipWeapon;
+        input.OnReloadWeaponInput += state.InputCharacter_OnReloadWeapon;
+
         inputCamera.OnSwitchCamera += state.InputCamera_OnSwitchCamera;
+        
 
 
         input.OnLeanRightInput += state.InputCharacter_OnLeanRight;
@@ -30,7 +35,9 @@ public class StateCharacterController : IInitializable, IDisposable
     }
 
     public void Dispose()
-    { 
+    {
+        input.OnMoveInput -= state.InputCharacter_OnMove;
+        input.OnJumpInput -= state.InputCharacter_OnJamp;
         input.OnRunInput -= state.InputCharacter_OnRun;
         input.OnWalkInput -= state.InputCharacter_OnWalk;
         input.OnAimInput -= state.InputCharacter_OnAim;
@@ -38,6 +45,8 @@ public class StateCharacterController : IInitializable, IDisposable
         input.OnReadyForBattleToggle -= state.InputCharacter_OnReadyForBattle;
         input.OnCrouchToggle -= state.InputCharacter_OnCrouch;
         input.OnEquipWeaponToggle -= state.InputCharacter_OnEquipWeapon;
+        input.OnReloadWeaponInput -= state.InputCharacter_OnReloadWeapon;
+
         inputCamera.OnSwitchCamera -= state.InputCamera_OnSwitchCamera;
 
         input.OnLeanRightInput -= state.InputCharacter_OnLeanRight;

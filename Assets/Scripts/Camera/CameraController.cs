@@ -55,7 +55,7 @@ public class CameraController: IInitializable, IDisposable
         SwitchCamera(); 
         activeCamera.FollowCamera();
         activeCamera.RotateCamera(state.isAim);
-        activeCamera.ZoomCamera(state.isAim); 
+        activeCamera.ZoomCamera(state.isAim, state.isReloadWeapon); 
     }
 
     public void FixedTick_()

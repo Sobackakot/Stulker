@@ -27,7 +27,7 @@ public class StateAnimatorCharacter : StateMachineBehaviour
     { 
         ParkourStateEnter(stateInfo);
         JumpStateEnter(stateInfo);
-        if(layerIndex == 2)
+        if(layerIndex == 1)
         {
             ReloadWeaponStateEnter(stateInfo); 
         }
@@ -40,7 +40,7 @@ public class StateAnimatorCharacter : StateMachineBehaviour
         animator.SetBool("isJumping", false); 
         ParkourStateExit(stateInfo);
         JumpStateEnter(stateInfo);
-        if (layerIndex == 2)
+        if (layerIndex == 1)
         {
             ReloadWeaponStateExit(stateInfo);
         }    

@@ -49,9 +49,9 @@ public class FirstCameraCharacter : MonoBehaviour, ICameraCharacter
         transformCamera.rotation = Quaternion.Slerp(transformCamera.rotation, newRot, Time.smoothDeltaTime * transitionSpeed);
     } 
 
-    public void ZoomCamera(bool isAiming)
+    public void ZoomCamera(bool isAiming, bool isReloadWeapon)
     {
-        mouseZoom = isAiming ? minZoom : maxZoom;
+        mouseZoom = isAiming ? (isReloadWeapon ?  maxZoom : minZoom) : maxZoom;
         transformCamera.position = targetLookPoint.position - transformCamera.forward * mouseZoom;
     }
 

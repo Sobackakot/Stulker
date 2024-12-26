@@ -4,8 +4,7 @@ using Zenject;
 
 public class CharacterAnimator : MonoBehaviour
 { 
-    private Animator animator;  
-    private CharacterState state;
+    private Animator animator;   
 
     [SerializeField] private float speedWalkAnimation = 0.5f;
     [SerializeField] private float speedRunAnimation = 0.8f;
@@ -15,22 +14,13 @@ public class CharacterAnimator : MonoBehaviour
     private float switchAngleTurn;
     private float speedAnimation;
     private int weaponEquipLayerIndex;
-    private int weaponAimLayerIndex;
-    private int readyForButtleIndex;
-
-
-    [Inject]
-    private void Construct(CharacterState state)
-    {
-        this.state = state;
-    }
-
+    private int weaponAimLayerIndex; 
+     
     private void Awake()
     {     
         animator = GetComponent<Animator>();
         weaponEquipLayerIndex = animator.GetLayerIndex("WeaponEquip");
-        weaponAimLayerIndex = animator.GetLayerIndex("Recharge");
-        readyForButtleIndex = animator.GetLayerIndex("ReadyForButtle");
+        weaponAimLayerIndex = animator.GetLayerIndex("Recharge"); 
     } 
    
     public void MovAnimation(Vector3 inputAxis,bool isMoving)
@@ -63,33 +53,27 @@ public class CharacterAnimator : MonoBehaviour
         if (isWalking | isAiming) speedAnimation = speedWalkAnimation;
         else speedAnimation = isRanning ? (inputAxis.z > 0 ? speedSprint : speedRunAnimation) : speedRunAnimation;
     }
-    public void InputCharacter_OnJump()
-    { 
-        if(state.isCollision) 
-            animator.SetTrigger("isJumping"); 
+    public void CharacterState_OnJump()
+    {
+        animator.SetTrigger("isJumping"); 
     } 
-    public void InputCharacter_OnAim(bool isAiming)
+    public void AimingAnimation(bool isAiming)
     {
         animator.SetLayerWeight(weaponAimLayerIndex, 1);
         animator.SetBool("isAiming", isAiming);
     }
-    public void InputCharacter_OnRecharde()
+    public void CharacterState_OnRecharde()
     {
-        if (state.isReadyForButtle)
-        {
-            animator.SetLayerWeight(weaponAimLayerIndex, 1);
-            animator.SetTrigger("Recharge");
-        } 
+        animator.SetLayerWeight(weaponAimLayerIndex, 1);
+        animator.SetTrigger("Recharge");
     }
-    public void InputCharacter_OnCrouch()
+    public void CharacterState_OnCrouch()
     {
         animator.SetTrigger("isCrouching");
     }  
-    public void InputCharacter_OnReadyForButtle()
+    public void CharacterState_OnReadyForButtle()
     {
         animator.SetTrigger("isReadyForButtle");
-        WeaponEquip(state.isReadyForButtle);
-         
     }
     private void WeaponEquip(bool isReadyForButtle)
     {

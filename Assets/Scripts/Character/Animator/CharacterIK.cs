@@ -21,9 +21,9 @@ public class CharacterIK : MonoBehaviour
 
     private float targetWeightLeanRight;
     private float targetWeightLeanLeft;
-    public void SetWeightIKAiming(bool isAiming)
+    public void SetWeightIKAiming(bool isAiming, bool isReloadWeapon)
     {
-        weightAim = isAiming ? 1 : 0; 
+        weightAim = isAiming ? (isReloadWeapon ? 0 : 1) : 0;
         aimWeaponParent.weight = Mathf.Lerp(aimWeaponParent.weight, weightAim, Time.fixedDeltaTime * factor);
         aimBody.weight = Mathf.Lerp(aimBody.weight, weightAim, Time.fixedDeltaTime * factor);  
     }
