@@ -1,10 +1,10 @@
 
 using UnityEngine;
-using Zenject;
 
 public class CharacterAnimator : MonoBehaviour
-{ 
-    private Animator animator;   
+{
+    [SerializeField] private Animator animatorWeapon;   
+    private Animator animatorCharacter;   
 
     [SerializeField] private float speedWalkAnimation = 0.5f;
     [SerializeField] private float speedRunAnimation = 0.8f;
@@ -18,29 +18,29 @@ public class CharacterAnimator : MonoBehaviour
      
     private void Awake()
     {     
-        animator = GetComponent<Animator>();
-        weaponEquipLayerIndex = animator.GetLayerIndex("WeaponEquip");
-        weaponAimLayerIndex = animator.GetLayerIndex("Recharge"); 
+        animatorCharacter = GetComponent<Animator>();
+        weaponEquipLayerIndex = animatorCharacter.GetLayerIndex("WeaponEquip");
+        weaponAimLayerIndex = animatorCharacter.GetLayerIndex("Recharge"); 
     } 
    
     public void MovAnimation(Vector3 inputAxis,bool isMoving)
     {
         if (inputAxis.sqrMagnitude > 0.2f && isMoving)
         { 
-            animator.SetFloat("X", inputAxis.x * speedAnimation, 0.2f, Time.deltaTime);
-            animator.SetFloat("Y", inputAxis.z * speedAnimation, 0.2f, Time.deltaTime);  
+            animatorCharacter.SetFloat("X", inputAxis.x * speedAnimation, 0.2f, Time.deltaTime);
+            animatorCharacter.SetFloat("Y", inputAxis.z * speedAnimation, 0.2f, Time.deltaTime);  
         }
         else
         {   
-            animator.SetFloat("Y", 0, 0.2f, Time.deltaTime);
-            animator.SetFloat("X", 0, 0.2f, Time.deltaTime);  
+            animatorCharacter.SetFloat("Y", 0, 0.2f, Time.deltaTime);
+            animatorCharacter.SetFloat("X", 0, 0.2f, Time.deltaTime);  
         } 
     }
     public void TurnAnimation(Vector3 input, bool isRotate, bool isLimitAngle)
     {
         if (isRotate && isLimitAngle && Mathf.Abs(input.x) > 0.2f) 
-            animator.SetFloat("DeltaMouse", input.x * switchAngleTurn, 0.2f, Time.deltaTime);
-        else animator.SetFloat("DeltaMouse", 0, 0.1f, Time.deltaTime);
+            animatorCharacter.SetFloat("DeltaMouse", input.x * switchAngleTurn, 0.2f, Time.deltaTime);
+        else animatorCharacter.SetFloat("DeltaMouse", 0, 0.1f, Time.deltaTime);
     }
  
     public void SwitchAnimationTurn(float angle,bool isRotate)
@@ -55,36 +55,37 @@ public class CharacterAnimator : MonoBehaviour
     }
     public void CharacterState_OnJump()
     {
-        animator.SetTrigger("isJumping"); 
+        animatorCharacter.SetTrigger("isJumping"); 
     } 
     public void AimingAnimation(bool isAiming)
     {
-        animator.SetLayerWeight(weaponAimLayerIndex, 1);
-        animator.SetBool("isAiming", isAiming);
+        animatorCharacter.SetLayerWeight(weaponAimLayerIndex, 1);
+        animatorCharacter.SetBool("isAiming", isAiming);
     }
     public void CharacterState_OnRecharde()
     {
-        animator.SetLayerWeight(weaponAimLayerIndex, 1);
-        animator.SetTrigger("Recharge");
+        //animatorCharacter.SetLayerWeight(weaponAimLayerIndex, 1);
+        //animatorCharacter.SetTrigger("Recharge");
+        animatorWeapon.SetTrigger("Reload");
     }
     public void CharacterState_OnCrouch()
     {
-        animator.SetTrigger("isCrouching");
+        animatorCharacter.SetTrigger("isCrouching");
     }  
-    public void CharacterState_OnReadyForButtle()
+    public void CharacterState_OnReadyForBattle()
     {
-        animator.SetTrigger("isReadyForButtle");
+        animatorCharacter.SetTrigger("isReadyForBattle");
     }
     private void WeaponEquip(bool isReadyForButtle)
     {
-        animator.SetLayerWeight(weaponEquipLayerIndex, 1);
+        animatorCharacter.SetLayerWeight(weaponEquipLayerIndex, 1);
         if (isReadyForButtle)
-            animator.SetTrigger("PullOut");
-        else animator.SetTrigger("PutAway");
+            animatorCharacter.SetTrigger("PullOut");
+        else animatorCharacter.SetTrigger("PutAway");
     }
     public void ParkourUp(bool isParkour)
     {
         if (isParkour)
-            animator.SetBool("isParkourUp", true);
+            animatorCharacter.SetBool("isParkourUp", true);
     }
 }

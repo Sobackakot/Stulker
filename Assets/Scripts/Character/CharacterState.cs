@@ -15,7 +15,7 @@ public class CharacterState
     public bool isAim { get; private set; } 
     public bool isFire { get; private set; } 
     public bool isMove { get; private set; }  
-    public bool isReadyForButtle { get; private set; }
+    public bool isReadyForBattle { get; private set; }
     public bool isLeanRight { get; private set; }
     public bool isLeanLeft { get; private set; }
     public bool isCrouch { get; private set; } 
@@ -98,17 +98,17 @@ public class CharacterState
     }
     public void InputCharacter_OnAim(bool isPressed)
     {
-        if (isReadyForButtle && !isReloadWeapon)
+        if (isReadyForBattle && !isReloadWeapon)
             isAim = isPressed;
     }
     public void InputCharacter_OnFire(bool isPressed)
     {
-        if (isReadyForButtle && isAim)
+        if (isReadyForBattle && isAim)
             isFire = isPressed;
     }
     public void InputCharacter_OnReloadWeapon()
     {
-        if(!isAim && isReadyForButtle)
+        if(!isAim && isReadyForBattle)
         {
             OnReloadWeapon?.Invoke();
         } 
@@ -117,7 +117,7 @@ public class CharacterState
     {
         if (!isAim && !isReloadWeapon)
         {
-            isReadyForButtle = !isReadyForButtle;
+            isReadyForBattle = !isReadyForBattle;
             OnReadyForBattle?.Invoke();
         }   
     } 

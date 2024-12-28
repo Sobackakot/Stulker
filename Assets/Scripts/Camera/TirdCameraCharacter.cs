@@ -25,7 +25,7 @@ public class TirdCameraCharacter : MonoBehaviour, ICameraCharacter
     private float minZoom = 1f;
     private float maxZoom = 2f;
 
-    private float limitAngle = 6f;
+    private float limitAngle = 10f;
     private float newHeigth;
 
     private CharacterState state;

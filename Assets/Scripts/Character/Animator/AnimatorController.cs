@@ -18,7 +18,7 @@ public class AnimatorController :IInitializable, IDisposable
     public void Initialize()
     {
         state.OnJumping += characterAnimator.CharacterState_OnJump;
-        state.OnReadyForBattle += characterAnimator.CharacterState_OnReadyForButtle;
+        state.OnReadyForBattle += characterAnimator.CharacterState_OnReadyForBattle;
         state.OnCrouch += characterAnimator.CharacterState_OnCrouch;
         state.OnReloadWeapon += characterAnimator.CharacterState_OnRecharde;
     }
@@ -26,7 +26,7 @@ public class AnimatorController :IInitializable, IDisposable
     public void Dispose()
     {
         state.OnJumping -= characterAnimator.CharacterState_OnJump;
-        state.OnReadyForBattle -= characterAnimator.CharacterState_OnReadyForButtle;
+        state.OnReadyForBattle -= characterAnimator.CharacterState_OnReadyForBattle;
         state.OnCrouch -= characterAnimator.CharacterState_OnCrouch;
         state.OnReloadWeapon -= characterAnimator.CharacterState_OnRecharde;
     } 
@@ -46,7 +46,7 @@ public class AnimatorController :IInitializable, IDisposable
     }
     public void FixedTick_()
     {
-        characterIK.SetWeightIKReadyForBattle(state.isReadyForButtle, state.isReloadWeapon);
+        characterIK.SetWeightIKReadyForBattle(state.isReadyForBattle, state.isReloadWeapon);
         characterIK.SetWeightIKAiming(state.isAim, state.isReloadWeapon);
     }
 

@@ -1072,7 +1072,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: isReadyForButtle
+    m_ConditionEvent: isReadyForBattle
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1053145076027788689}
@@ -1115,7 +1115,7 @@ BlendTree:
     m_DirectBlendParameter: X
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: -203655887218126122, guid: 6f65af5fb1528034a839c1232822ab63,
+    m_Motion: {fileID: -203655887218126122, guid: c543547a661534d408d105f79355015e,
       type: 3}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
@@ -1577,7 +1577,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: isReadyForButtle
+    m_ConditionEvent: isReadyForBattle
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -1293526181802515986}
@@ -2314,7 +2314,7 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: isReadyForButtle
+  - m_Name: isReadyForBattle
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -2354,7 +2354,7 @@ AnimatorController:
     m_BlendingMode: 0
     m_SyncedLayerIndex: -1
     m_DefaultWeight: 0
-    m_IKPass: 0
+    m_IKPass: 1
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
   - serializedVersion: 5
@@ -2438,7 +2438,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: isReadyForButtle
+    m_ConditionEvent: isReadyForBattle
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 4030255283447390911}
@@ -4442,7 +4442,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: isReadyForButtle
+    m_ConditionEvent: isReadyForBattle
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6934245250322184281}
