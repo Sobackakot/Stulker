@@ -8,7 +8,7 @@ public class WriteLine : MonoBehaviour
 
     private void LateUpdate()
     {
-         handRight.position = target.position;
+        handRight.position = target.position;
         handRight.rotation = target.rotation;
     }
 
