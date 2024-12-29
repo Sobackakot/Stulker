@@ -28,16 +28,11 @@ public class CharacterComponent : MonoBehaviour
     } 
     public bool UpdateStateComponetn()
     {
-         rigidbodyCharacter.isKinematic = stateMachine.isKinematic;
-        
+         rigidbodyCharacter.isKinematic = stateMachine.isKinematic; 
         if (stateMachine.isKinematic)
-        {
-            colliderCharacter.enabled = false; 
-        } 
+            colliderCharacter.enabled = false;
         else
-        {   
-            colliderCharacter.enabled = true; 
-        } 
+            colliderCharacter.enabled = true;
         return stateMachine.isMoving;
     } 
     public void SetAnimatorMatchTarget()

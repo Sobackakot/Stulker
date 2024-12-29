@@ -46,8 +46,8 @@ public class AnimatorController :IInitializable, IDisposable
     }
     public void FixedTick_()
     {
-        characterIK.SetWeightIKReadyForBattle(state.isReadyForBattle, state.isReloadWeapon);
-        characterIK.SetWeightIKAiming(state.isAim, state.isReloadWeapon);
+        characterIK.SetWeightIKReadyForBattle(state.isReadyForBattle);
+        characterIK.SetWeightIKAiming(state.isAim);
     }
 
 }

@@ -1,12 +1,10 @@
-
-using Unity.VisualScripting;
+ 
 using UnityEngine;
 using Zenject;
 
 public class CharacterAnimator : MonoBehaviour
 {
-    [SerializeField] private Animator animatorWeapon;
-    private StateAnimatorCharacter stateAnim;
+    [SerializeField] private Animator animatorWeapon; 
     private Animator animatorCharacter;   
 
     [SerializeField] private float speedWalkAnimation = 0.5f;
@@ -17,20 +15,13 @@ public class CharacterAnimator : MonoBehaviour
     private float switchAngleTurn;
     private float speedAnimation;
     private int weaponEquipLayerIndex;
-
-    [Inject]
-    private void Construct(StateAnimatorCharacter stateAnim)
-    {
-        this.stateAnim = stateAnim;
-    }
+     
      
     private void Awake()
     {     
         animatorCharacter = GetComponent<Animator>();
-        weaponEquipLayerIndex = animatorCharacter.GetLayerIndex("WeaponEquip");
-        stateAnim.SetExternalAnimator(animatorCharacter);
+        weaponEquipLayerIndex = animatorCharacter.GetLayerIndex("WeaponEquip"); 
     } 
-   
     public void MovAnimation(Vector3 inputAxis,bool isMoving)
     {
         if (inputAxis.sqrMagnitude > 0.2f && isMoving)
