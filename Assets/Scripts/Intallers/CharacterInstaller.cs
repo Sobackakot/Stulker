@@ -45,6 +45,7 @@ public class CharacterInstaller : ScriptableObjectInstaller
         Container.BindInterfacesAndSelfTo<StateCharacterController>().AsSingle().NonLazy(); 
         Container.BindInterfacesAndSelfTo<CharacterState>().AsSingle().NonLazy(); 
         Container.BindInterfacesAndSelfTo<AnimatorController>().AsSingle().NonLazy(); 
+        Container.Bind<StateAnimatorCharacter>().FromNew().AsSingle().NonLazy();
 
         //MonoBehaviour  
         Container.Bind<CharacterMove>().FromComponentInHierarchy(this).AsSingle();

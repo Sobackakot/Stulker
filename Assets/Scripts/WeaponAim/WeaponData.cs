@@ -1,7 +1,7 @@
  
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "weapon", menuName = "Wepons")]
+[CreateAssetMenu(fileName = "weaponTrans", menuName = "Wepons")]
 public class WeaponData : ScriptableObject
 {
     public string weaponName = "animation name";

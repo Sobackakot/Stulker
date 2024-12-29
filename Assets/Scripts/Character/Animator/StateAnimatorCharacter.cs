@@ -5,6 +5,7 @@ using Zenject;
 public class StateAnimatorCharacter : StateMachineBehaviour
 {   
     private CharacterState state;
+    private Animator externalAnimator;
     public bool isMoving { get; private set; }
     public bool isKinematic { get; private set; } 
     public bool isClimbing { get; private set; }
@@ -23,27 +24,24 @@ public class StateAnimatorCharacter : StateMachineBehaviour
         isMoving = true;
         isKinematic = false;
     }
+    public void SetExternalAnimator(Animator newAnimator)
+    {
+        externalAnimator = newAnimator;
+    }
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    { 
+    {
+        
         ParkourStateEnter(stateInfo);
         JumpStateEnter(stateInfo);
-        if(layerIndex == 1)
-        {
-            ReloadWeaponStateEnter(stateInfo); 
-        }
-            
-
+        ReloadWeaponStateEnter(); 
     }
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {   
+    { 
         animator.SetBool("isParkourUp", false); 
         animator.SetBool("isJumping", false); 
         ParkourStateExit(stateInfo);
         JumpStateEnter(stateInfo);
-        if (layerIndex == 1)
-        {
-            ReloadWeaponStateExit(stateInfo);
-        }    
+        ReloadWeaponStateExit();
     } 
     private void ParkourStateEnter(AnimatorStateInfo stateInfo)
     {
@@ -71,19 +69,25 @@ public class StateAnimatorCharacter : StateMachineBehaviour
     {
         isJump = stateInfo.IsName("Jump_Run");
     }
-    private void ReloadWeaponStateEnter(AnimatorStateInfo stateInfo)
-    { 
-        if (stateInfo.IsName("Recharge"))
+    private void ReloadWeaponStateEnter()
+    {
+        if (externalAnimator == null) return;
+        AnimatorStateInfo stateAnimator = externalAnimator.GetCurrentAnimatorStateInfo(0);
+        if (stateAnimator.IsName("ReloadWeapon"))
         {
-            state.SetReloadWeaponAnimationState(true); 
+            state.SetReloadWeaponAnimationState(true);
+            Debug.Log("startReload");
         }
 
     }
-    private void ReloadWeaponStateExit(AnimatorStateInfo stateInfo)
-    { 
-        if (stateInfo.IsName("Recharge"))
+    private void ReloadWeaponStateExit()
+    {
+        if (externalAnimator == null) return;
+        AnimatorStateInfo stateAnimator = externalAnimator.GetCurrentAnimatorStateInfo(0);
+        if (stateAnimator.IsName("ReloadWeapon"))
         {
-            state.SetReloadWeaponAnimationState(false); 
+            state.SetReloadWeaponAnimationState(false);
+            Debug.Log("endReload");
         }     
     }
 }

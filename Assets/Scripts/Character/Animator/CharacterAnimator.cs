@@ -1,9 +1,12 @@
 
+using Unity.VisualScripting;
 using UnityEngine;
+using Zenject;
 
 public class CharacterAnimator : MonoBehaviour
 {
-    [SerializeField] private Animator animatorWeapon;   
+    [SerializeField] private Animator animatorWeapon;
+    private StateAnimatorCharacter stateAnim;
     private Animator animatorCharacter;   
 
     [SerializeField] private float speedWalkAnimation = 0.5f;
@@ -14,13 +17,18 @@ public class CharacterAnimator : MonoBehaviour
     private float switchAngleTurn;
     private float speedAnimation;
     private int weaponEquipLayerIndex;
-    private int weaponAimLayerIndex; 
+
+    [Inject]
+    private void Construct(StateAnimatorCharacter stateAnim)
+    {
+        this.stateAnim = stateAnim;
+    }
      
     private void Awake()
     {     
         animatorCharacter = GetComponent<Animator>();
         weaponEquipLayerIndex = animatorCharacter.GetLayerIndex("WeaponEquip");
-        weaponAimLayerIndex = animatorCharacter.GetLayerIndex("Recharge"); 
+        stateAnim.SetExternalAnimator(animatorCharacter);
     } 
    
     public void MovAnimation(Vector3 inputAxis,bool isMoving)
@@ -59,14 +67,11 @@ public class CharacterAnimator : MonoBehaviour
     } 
     public void AimingAnimation(bool isAiming)
     {
-        animatorCharacter.SetLayerWeight(weaponAimLayerIndex, 1);
         animatorCharacter.SetBool("isAiming", isAiming);
     }
     public void CharacterState_OnRecharde()
-    {
-        //animatorCharacter.SetLayerWeight(weaponAimLayerIndex, 1);
-        //animatorCharacter.SetTrigger("Recharge");
-        animatorWeapon.SetTrigger("Reload");
+    { 
+        animatorWeapon.SetTrigger("Reload"); 
     }
     public void CharacterState_OnCrouch()
     {

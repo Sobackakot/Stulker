@@ -122,6 +122,37 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &52779200
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 52779201}
+  m_Layer: 0
+  m_Name: TargetPointRightHand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &52779201
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52779200}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.0009156463, y: 0.07404484, z: 0.7084728, w: -0.7018425}
+  m_LocalPosition: {x: 0.030897727, y: 0.1138989, z: 0.0075009568}
+  m_LocalScale: {x: 0.066666715, y: 0.066666685, z: 0.0666667}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1638513097}
+  m_LocalEulerAnglesHint: {x: -5.948, y: -6.073, z: -90.223}
 --- !u!1 &157207112
 GameObject:
   m_ObjectHideFlags: 0
@@ -2583,7 +2614,11 @@ PrefabInstance:
       objectReference: {fileID: 322543997}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 8368626562909540304, guid: 8b76a29402ae8b64fb01b52dd633429a,
+        type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 52779201}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b76a29402ae8b64fb01b52dd633429a, type: 3}
 --- !u!1001 &1596662665
@@ -2767,6 +2802,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4835899192707740, guid: 167ccd36f78cceb46a4d150b76b96fab,
     type: 3}
   m_PrefabInstance: {fileID: 1638396289}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1638513097 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8368626562909540304, guid: 8b76a29402ae8b64fb01b52dd633429a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1536750698}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1665321730
 PrefabInstance:

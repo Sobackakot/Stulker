@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Zenject.SpaceFighter;
 
 public class Cell : MonoBehaviour, IPointerClickHandler
 {
@@ -29,5 +30,5 @@ public class Cell : MonoBehaviour, IPointerClickHandler
             list.RemoveItem(index);
             Debug.Log("rigt");
         }
-    }  
+    } 
 }
