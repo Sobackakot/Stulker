@@ -130,7 +130,7 @@ public class CharacterState
     }
     public void InputCharacter_OnAim(bool isPressed)
     {
-        if (isReadyForBattle && !isReloadWeapon)
+        if (isReadyForBattle && !isReloadWeapon && !isEquipingWeapon)
             isAim = isPressed;
     }
     public void InputCharacter_OnFire(bool isPressed)
@@ -175,8 +175,8 @@ public class CharacterState
 
 
     public void SetReloadWeaponAnimationState(bool isReload)
-    {
-        isReloadWeapon = isReload;
+    { 
+        isReloadWeapon = isReload; 
     }
     public void SetEquipWeaponAnimationState(bool isEquiping)
     {
