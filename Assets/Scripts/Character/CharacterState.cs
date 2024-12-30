@@ -9,10 +9,13 @@ public class CharacterState
     public event Action OnReadyForBattle;
     public event Action OnCrouch;
     public event Action OnReloadWeapon;
+    public event Action<bool> OnEquipWeapon;
 
     public event Action<bool> OnSearcheInventoryBox;
     public event Action OnPickUpItem;
    
+    public bool isIdle { get; private set; }
+    public bool isSprint { get; private set; }
     public bool isRun { get; private set; }
     public bool isWalk { get; private set; } 
     public bool isCollision { get; private set; }
@@ -25,6 +28,7 @@ public class CharacterState
     public bool isCrouch { get; private set; } 
     public bool isLeftTargerPoint {  get; private set; }  
     public bool isWeaponEquip { get; private set; }
+    public bool isEquipingWeapon { get; private set; }
     public bool isReloadWeapon { get; private set; }
     public Vector3 inputAxisMove { get; private set; }
     public bool isRayHitToItem { get; private set; } 
@@ -72,16 +76,30 @@ public class CharacterState
     public void UpdateStateMove(bool isMoving)
     {
         this.isMove = isMoving;
+        if(!isSprint && !isWalk && inputAxisMove.sqrMagnitude > 0.2f)
+        {
+            isRun = true;
+            isIdle = false;
+        }  
+        else
+        {
+            isIdle = true;
+            isRun = false;
+        }
     }
     public void InputCharacter_OnMove(Vector2 inputAxis)
     {
-        inputAxisMove = new Vector3(inputAxis.x, 0, inputAxis.y);
-        OnMoving.Invoke(inputAxis);
+        inputAxisMove = new Vector3(inputAxis.x, 0, inputAxis.y); 
+        OnMoving.Invoke(inputAxis); 
     }
     public void InputCharacter_OnRun(bool isKeyRun)
     {
-        isRun = isKeyRun;
+        isSprint = isKeyRun;
     }
+    public void InputCharacter_OnWalk(bool isKeyWalk)
+    {
+        isWalk = isKeyWalk;
+    } 
     public void InputCharacter_OnJamp()
     {
         if (isCollision && !isAim)
@@ -89,10 +107,7 @@ public class CharacterState
             OnJumping?.Invoke();
         } 
     }
-    public void InputCharacter_OnWalk(bool isKeyWalk)
-    {
-        isWalk = isKeyWalk;
-    }
+    
       
 
     public void InputCharacter_OnLeanRight(bool isTiltRight)
@@ -108,7 +123,10 @@ public class CharacterState
     public void InputCharacter_OnEquipWeapon()
     {
         if (!isAim && !isReloadWeapon)
+        {
             isWeaponEquip = !isWeaponEquip;
+            OnEquipWeapon?.Invoke(isWeaponEquip);
+        }   
     }
     public void InputCharacter_OnAim(bool isPressed)
     {
@@ -122,7 +140,7 @@ public class CharacterState
     }
     public void InputCharacter_OnReloadWeapon()
     {
-        if(!isAim && isReadyForBattle && !isReloadWeapon)
+        if(!isAim && isReadyForBattle && !isReloadWeapon && !isSprint)
         {
             OnReloadWeapon?.Invoke();
         } 
@@ -159,6 +177,10 @@ public class CharacterState
     public void SetReloadWeaponAnimationState(bool isReload)
     {
         isReloadWeapon = isReload;
+    }
+    public void SetEquipWeaponAnimationState(bool isEquiping)
+    {
+        isEquipingWeapon = isEquiping;
     }
      
     public void SetCollision(bool isCollision)

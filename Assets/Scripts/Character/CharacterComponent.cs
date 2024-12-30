@@ -26,14 +26,13 @@ public class CharacterComponent : MonoBehaviour
        stateMachine = animatorCharacter.GetBehaviour<StateAnimatorCharacter>();
          
     } 
-    public bool UpdateStateComponetn()
+    public void UpdateStateComponetn()
     {
          rigidbodyCharacter.isKinematic = stateMachine.isKinematic; 
         if (stateMachine.isKinematic)
             colliderCharacter.enabled = false;
         else
             colliderCharacter.enabled = true;
-        return stateMachine.isMoving;
     } 
     public void SetAnimatorMatchTarget()
     {

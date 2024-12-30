@@ -22,6 +22,7 @@ public class AnimatorController :IInitializable, IDisposable
         state.OnCrouch += characterAnimator.CharacterState_OnCrouch;
         state.OnReloadWeapon += characterAnimator.CharacterState_OnRecharde;
         state.OnPickUpItem += characterAnimator.CharacterState_OnPickUpItem;
+        state.OnEquipWeapon += characterAnimator.CharacterState_WeaponEquip;
     }
 
     public void Dispose()
@@ -31,6 +32,7 @@ public class AnimatorController :IInitializable, IDisposable
         state.OnCrouch -= characterAnimator.CharacterState_OnCrouch;
         state.OnReloadWeapon -= characterAnimator.CharacterState_OnRecharde;
         state.OnPickUpItem -= characterAnimator.CharacterState_OnPickUpItem;
+        state.OnEquipWeapon -= characterAnimator.CharacterState_WeaponEquip;
     } 
 
     public void Tick_()
@@ -39,7 +41,7 @@ public class AnimatorController :IInitializable, IDisposable
         characterAnimator.TurnAnimation(state.inputAxisCamera, state.isStopingRotate, state.isMaxAngleCamera);
          
         characterAnimator.MovAnimation(state.inputAxisMove, state.isMove);
-        characterAnimator.SwithAnimationMove(state.isRun, state.isWalk, state.isAim,state.inputAxisMove);
+        characterAnimator.SwithAnimationMove(state.isSprint, state.isWalk, state.isAim,state.inputAxisMove);
         characterAnimator.AimingAnimation(state.isAim); 
     }  
     public void LateTick_()
@@ -48,7 +50,7 @@ public class AnimatorController :IInitializable, IDisposable
     }
     public void FixedTick_()
     {
-        characterIK.SetWeightIKReadyForBattle(state.isReadyForBattle);
+        characterIK.SetWeightIKReadyForBattle(state.isReadyForBattle, state.isEquipingWeapon);
         characterIK.SetWeightIKAiming(state.isAim);
     }
 

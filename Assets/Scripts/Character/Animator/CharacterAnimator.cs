@@ -15,12 +15,16 @@ public class CharacterAnimator : MonoBehaviour
     private float switchAngleTurn;
     private float speedAnimation;
     private int pickUpItemLayer;
+    private int reloadWeaponLayer;
+    private int equipWeaponLayer;
      
      
     private void Awake()
     {     
         animatorCharacter = GetComponent<Animator>();
-        pickUpItemLayer = animatorCharacter.GetLayerIndex("PickUpItem_Layer"); 
+        pickUpItemLayer = animatorCharacter.GetLayerIndex("PickUpItem_Layer");
+        reloadWeaponLayer = animatorCharacter.GetLayerIndex("ReloadWeapon_Layer");
+        equipWeaponLayer = animatorCharacter.GetLayerIndex("Take_Weapon_Layer"); 
     } 
     public void MovAnimation(Vector3 inputAxis,bool isMoving)
     {
@@ -34,7 +38,7 @@ public class CharacterAnimator : MonoBehaviour
             animatorCharacter.SetFloat("Y", 0, 0.2f, Time.deltaTime);
             animatorCharacter.SetFloat("X", 0, 0.2f, Time.deltaTime);  
         } 
-    }
+    } 
     public void TurnAnimation(Vector3 input, bool isRotate, bool isLimitAngle)
     {
         if (isRotate && isLimitAngle && Mathf.Abs(input.x) > 0.2f) 
@@ -78,11 +82,12 @@ public class CharacterAnimator : MonoBehaviour
         animatorCharacter.SetTrigger("PickUpItem_Trigger");
         Debug.Log("pickUpItem anim");
     }
-    private void WeaponEquip(bool isReadyForButtle)
-    { 
-        if (isReadyForButtle)
-            animatorCharacter.SetTrigger("PullOut");
-        else animatorCharacter.SetTrigger("PutAway");
+    public void CharacterState_WeaponEquip(bool isEquipWeapon)
+    {
+        animatorCharacter.SetLayerWeight(equipWeaponLayer, 1); 
+        if (isEquipWeapon)
+            animatorCharacter.SetTrigger("EquipWeapon");
+        else  animatorCharacter.SetTrigger("UnquipWeapon");
     }
     public void ParkourUp(bool isParkour)
     {

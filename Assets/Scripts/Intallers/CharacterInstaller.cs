@@ -22,8 +22,7 @@ public class CharacterInstaller : ScriptableObjectInstaller
         Container.Bind<WindowUI>().FromComponentInHierarchy(this).AsSingle();
        
         Container.BindInterfacesAndSelfTo<EffectsController>().AsSingle().NonLazy();
-       
-
+         
         Container.Bind<Audios>().FromComponentInHierarchy(this).AsSingle();
         Container.Bind<Particles>().FromComponentInHierarchy(this).AsSingle();
         Container.Bind<Lights>().FromComponentInHierarchy(this).AsSingle();  
@@ -44,7 +43,7 @@ public class CharacterInstaller : ScriptableObjectInstaller
         Container.BindInterfacesAndSelfTo<MoveController>().AsSingle().NonLazy(); 
         Container.BindInterfacesAndSelfTo<StateCharacterController>().AsSingle().NonLazy(); 
         Container.BindInterfacesAndSelfTo<CharacterState>().AsSingle().NonLazy(); 
-        Container.BindInterfacesAndSelfTo<AnimatorController>().AsSingle().NonLazy();  
+        Container.BindInterfacesAndSelfTo<AnimatorController>().AsSingle().NonLazy(); 
 
         //MonoBehaviour  
         Container.Bind<CharacterMove>().FromComponentInHierarchy(this).AsSingle();

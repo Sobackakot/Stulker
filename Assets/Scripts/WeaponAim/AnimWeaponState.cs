@@ -25,8 +25,7 @@ public class AnimWeaponState : StateMachineBehaviour
     { 
         if (stateInfo.IsName("ReloadWeapon"))
         {
-            state.SetReloadWeaponAnimationState(true);
-            Debug.Log("startReload");
+            state.SetReloadWeaponAnimationState(true); 
         }
 
     }
@@ -34,8 +33,7 @@ public class AnimWeaponState : StateMachineBehaviour
     { 
         if (stateInfo.IsName("ReloadWeapon"))
         {
-            state.SetReloadWeaponAnimationState(false);
-            Debug.Log("endReload");
+            state.SetReloadWeaponAnimationState(false); 
         }
     }
 }

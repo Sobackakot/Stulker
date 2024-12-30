@@ -27,9 +27,9 @@ public class CharacterIK : MonoBehaviour
         aimWeaponParent.weight = Mathf.Lerp(aimWeaponParent.weight, weightAim, Time.fixedDeltaTime * factor);
         aimBody.weight = Mathf.Lerp(aimBody.weight, weightAim, Time.fixedDeltaTime * factor);  
     }
-    public void SetWeightIKReadyForBattle(bool isReadyForBattle)
+    public void SetWeightIKReadyForBattle(bool isReadyForBattle, bool isEquipingWeapon)
     {
-        weightReady = isReadyForBattle ? 1 : 0;
+        weightReady = isReadyForBattle ? (isEquipingWeapon ? 0 : 1) : 0;
         readyForButtleParent.weight = Mathf.Lerp(readyForButtleParent.weight, weightReady, Time.fixedDeltaTime * factor);
         handsIK.weight = Mathf.Lerp(handsIK.weight, weightReady, Time.fixedDeltaTime * factor);
     } 
