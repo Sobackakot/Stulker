@@ -17,6 +17,6 @@ MonoBehaviour:
     durability: 0
     amount: 1
     isStackable: 0
-    closedIMage: {fileID: 21300000, guid: 6de27a597474c904499f7cade038c210, type: 3}
+    closedIMage: {fileID: 21300000, guid: e05d6e3562129c74ca7270d10561ad20, type: 3}
     isClosed: 0
   fieldType: 4

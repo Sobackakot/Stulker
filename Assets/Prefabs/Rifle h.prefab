@@ -11,7 +11,10 @@ GameObject:
   - component: {fileID: 7036179010962571035}
   - component: {fileID: 8012026691930397231}
   - component: {fileID: 321451003648510804}
-  m_Layer: 0
+  - component: {fileID: 3015389139705825634}
+  - component: {fileID: 3506849280517058824}
+  - component: {fileID: 3843139269479989078}
+  m_Layer: 7
   m_Name: Rifle h
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,6 +104,68 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &3015389139705825634
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 125972977150083730}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.043031678, y: 0.6362844, z: 0.15725273}
+  m_Center: {x: 0.00017790745, y: -0.059489828, z: 0.03559892}
+--- !u!54 &3506849280517058824
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 125972977150083730}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &3843139269479989078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 125972977150083730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3be9ab5498da247499c16e54b4596ffb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <item>k__BackingField: {fileID: 11400000, guid: 48ea461eda2a02d4fb93747a4a0749f8,
+    type: 2}
 --- !u!1 &301710197355624468
 GameObject:
   m_ObjectHideFlags: 0
@@ -110,7 +175,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4469049633219215231}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Hand_Right_target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -141,7 +206,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5117934759035965006}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Hand_Right_hint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,7 +239,7 @@ GameObject:
   - component: {fileID: 8517616624694696914}
   - component: {fileID: 177218074783690893}
   - component: {fileID: 6218119778721621172}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rifle butt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -257,7 +322,7 @@ GameObject:
   - component: {fileID: 725646555622937050}
   - component: {fileID: 5274062274987508946}
   - component: {fileID: 5992445072854100527}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rifle h aim1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -340,7 +405,7 @@ GameObject:
   - component: {fileID: 3663920733158490443}
   - component: {fileID: 2767676943142271159}
   - component: {fileID: 256707111028388155}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rifle h handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -423,7 +488,7 @@ GameObject:
   - component: {fileID: 4989726889330174844}
   - component: {fileID: 5536809177409419044}
   - component: {fileID: 4888706134067913605}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rifle h004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -506,7 +571,7 @@ GameObject:
   - component: {fileID: 5158060796159951829}
   - component: {fileID: 7831099954802412400}
   - component: {fileID: 9176418443978704059}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rifle h trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -589,7 +654,7 @@ GameObject:
   - component: {fileID: 7803673260733510433}
   - component: {fileID: 4630300019816403033}
   - component: {fileID: 1083538350055974338}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rifle holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -670,7 +735,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2246051611609004072}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Hand_Left_hint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -703,7 +768,7 @@ GameObject:
   - component: {fileID: 8787339106306962946}
   - component: {fileID: 3110833169722118732}
   - component: {fileID: 3761490347647358578}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rifle h barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -786,7 +851,7 @@ GameObject:
   - component: {fileID: 6657230923504387441}
   - component: {fileID: 5421048853619184970}
   - component: {fileID: 8471727144172385639}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rifle h trigger 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -867,7 +932,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 606966819461318845}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Hand_Left_target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -900,7 +965,7 @@ GameObject:
   - component: {fileID: 7731633214983940432}
   - component: {fileID: 2451640077074327362}
   - component: {fileID: 4650377960747031855}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rifle h ring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -983,7 +1048,7 @@ GameObject:
   - component: {fileID: 5357757510469707389}
   - component: {fileID: 7310936415344322589}
   - component: {fileID: 4333494835931533498}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rifle h aim2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1198,6 +1263,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FirePart2
       objectReference: {fileID: 0}
+    - target: {fileID: 4938567440547860096, guid: 0121e26070f8e184ba9dbb7a11457b76,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1291,6 +1361,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FirePointLight
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440628813855167675, guid: f9dacccef275c1141b72fc7990563c5d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8681777055302008771, guid: f9dacccef275c1141b72fc7990563c5d,
         type: 3}
@@ -1411,6 +1486,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FirePart
       objectReference: {fileID: 0}
+    - target: {fileID: 6885248733691689398, guid: 4ae6ec60e01ab284bbd1bd2cd3dd3ae1,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 9085269533121999356, guid: 4ae6ec60e01ab284bbd1bd2cd3dd3ae1,
         type: 3}
       propertyPath: looping
@@ -1439,6 +1519,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BulletEffetPart
+      objectReference: {fileID: 0}
+    - target: {fileID: 3803435463308441259, guid: 198e99fe8a7501c4884a5a50add3d1aa,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4037341670623455940, guid: 198e99fe8a7501c4884a5a50add3d1aa,
         type: 3}

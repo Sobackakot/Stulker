@@ -25,7 +25,7 @@ public class InventoryBoxController : IInventoryContoller, IInitializable, IDisp
         inventoryBox = box.inventoryBox; // get pick Box for inventory
         inventoryBoxUI.UpdateInventorySlots();
     }
-    public bool AddItemToInventory(ItemScrObj newItem) //coll from EquipmentController,PickUpItem
+    public bool AddItemToInventory(ItemScrObj newItem) //coll from EquipmentController,CharacterState_OnPickUpItem
     {
         bool isHas = inventoryBox.AddItemToInventory(newItem, out short index);
         inventoryBoxUI.SetNewItemByInventoryCell(newItem, index);

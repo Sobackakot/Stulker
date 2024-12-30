@@ -12,6 +12,14 @@ public class PickUpItems : Interactable
     {
         this.inventory = inventory;
     }
+    private void OnEnable()
+    {
+        
+    }
+    private void OnDisable()
+    {
+        
+    }
     public override void Interaction()
     {   
         base.Interaction(); //interaction with default item

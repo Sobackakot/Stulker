@@ -18,32 +18,23 @@ public class RaycastCamera : MonoBehaviour
 
     private Ray ray;
     private RaycastHit hit;
-
-    private InputCharacter input;
+     
+    private CharacterState state;
     private InventoryPersonGameObject inventoryGameObject;
     private WindowUI windowUI;
     private bool isActiveInventoryBox;
 
     [Inject]
-    private void Container(InputCharacter input)
-    {
-        this.input = input; 
+    private void Container(InputCharacter input, CharacterState state)
+    { 
+        this.state = state;
     }
     private void Awake()
     {
         point = GetComponent<Transform>();
         inventoryGameObject = FindObjectOfType<InventoryPersonGameObject>();
         windowUI = FindObjectOfType<WindowUI>(); 
-    } 
-    private void OnEnable()
-    {
-        input.OnInventoryBoxToggle += OnInteractButton;
-    }
-    private void OnDisable()
-    {
-        input.OnInventoryBoxToggle -= OnInteractButton; 
-    } 
-   
+    }  
     public void Shooting(bool isLeftButtonDown)
     {
         if (isLeftButtonDown )
@@ -69,7 +60,9 @@ public class RaycastCamera : MonoBehaviour
         ray = GetUpdateRay(); 
         if (Physics.Raycast(ray, out hit, maxRayInteract, layerMaskTake.value))
         {
-            windowUI.SetInteractText("Take (F)");
+            state.UpdateStateRayHitToItem(true);
+            state.UpdateStateRayHitToInventory(false);
+            windowUI.SetInteractText("Take (F)"); 
         }
         else RayHitInventoryBoxInteract();
     }
@@ -78,45 +71,37 @@ public class RaycastCamera : MonoBehaviour
         ray = GetUpdateRay();
         if (Physics.Raycast(ray, out hit, maxRayInteract, layerMaskBox.value))
         {
+            state.UpdateStateRayHitToItem(false);
+            state.UpdateStateRayHitToInventory(true);
             windowUI.SetInteractText("Search (F)");
         }
         else
         {
+            state.UpdateStateRayHitToItem(false);
+            state.UpdateStateRayHitToInventory(false);
             windowUI.SetInteractText(" ");
         }
-    }
-    private void OnInteractButton(bool isActive)
+            
+    } 
+    public void CharacterState_OnSearcheInventoryBox(bool isActive)
     {
         ray = GetUpdateRay();
-        isActiveInventoryBox = isActive;     
+        isActiveInventoryBox = isActive;
         if (Physics.Raycast(ray, out hit, maxRayInteract))
         {
-            SearcheInventoryBox(hit);
-            PickUpItem(hit); 
-        }
-    } 
-    private void SearcheInventoryBox(RaycastHit hit)
-    {   
-        if((layerMaskBox.value & (1 << hit.collider.gameObject.layer)) != 0)
-        { 
             InventoryBoxTrigger box = hit.collider.transform.GetComponent<InventoryBoxTrigger>();
-            if (box != null)
-            {
-                box.OnActiveInventoryBox(isActiveInventoryBox);
-                inventoryGameObject.SetActiveInventory(isActiveInventoryBox);
-            } 
+            box?.OnActiveInventoryBox(isActiveInventoryBox);
+            inventoryGameObject.SetActiveInventory(isActiveInventoryBox);
         } 
     }
-    private void PickUpItem(RaycastHit hit)
+    public void CharacterState_OnPickUpItem()
     {
-        if ((layerMaskTake.value & (1 << hit.collider.gameObject.layer)) != 0)
+        ray = GetUpdateRay(); 
+        if (Physics.Raycast(ray, out hit, maxRayInteract))
         {
             Interactable interact = hit.collider.transform.GetComponent<Interactable>();
-            if (interact != null)
-            {
-                interact.Interaction(); 
-            } 
-        }      
+            interact?.Interaction();
+        } 
     }
     
     private Ray GetUpdateRay()

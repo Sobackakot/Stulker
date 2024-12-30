@@ -27,7 +27,9 @@ public class StateCharacterController : IInitializable, IDisposable
         input.OnReloadWeaponInput += state.InputCharacter_OnReloadWeapon;
 
         inputCamera.OnSwitchCamera += state.InputCamera_OnSwitchCamera;
-        
+
+        input.OnInventoryBoxToggle += state.InputCharacter_OnSearcheInventoryBox;
+        input.OnPickUpItem += state.InputCharacter_OnPickUpItem;
 
 
         input.OnLeanRightInput += state.InputCharacter_OnLeanRight;
@@ -48,6 +50,9 @@ public class StateCharacterController : IInitializable, IDisposable
         input.OnReloadWeaponInput -= state.InputCharacter_OnReloadWeapon;
 
         inputCamera.OnSwitchCamera -= state.InputCamera_OnSwitchCamera;
+
+        input.OnInventoryBoxToggle -= state.InputCharacter_OnSearcheInventoryBox;
+        input.OnPickUpItem -= state.InputCharacter_OnPickUpItem;
 
         input.OnLeanRightInput -= state.InputCharacter_OnLeanRight;
         input.OnLeanLeftInput -= state.InputCharacter_OnLeanLeft;

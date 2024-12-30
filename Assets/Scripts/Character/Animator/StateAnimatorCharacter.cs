@@ -17,8 +17,7 @@ public class StateAnimatorCharacter : StateMachineBehaviour
         isKinematic = false;
     } 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {
-        
+    { 
         ParkourStateEnter(stateInfo);
         JumpStateEnter(stateInfo); 
     }

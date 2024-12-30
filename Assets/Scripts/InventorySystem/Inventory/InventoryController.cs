@@ -31,7 +31,7 @@ public class InventoryController: IInventoryContoller, IInitializable, IDisposab
         inventoryUI.onSetNewItem -= GetCurrentItems; 
     } 
 
-    public bool AddItemToInventory(ItemScrObj newItem) //coll from EquipmentController,PickUpItem
+    public bool AddItemToInventory(ItemScrObj newItem) //coll from EquipmentController,CharacterState_OnPickUpItem
     { 
         for (byte i = 0; i < itemsInventory.Count; i++)
         {

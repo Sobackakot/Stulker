@@ -9,6 +9,10 @@ public class CharacterState
     public event Action OnReadyForBattle;
     public event Action OnCrouch;
     public event Action OnReloadWeapon;
+
+    public event Action<bool> OnSearcheInventoryBox;
+    public event Action OnPickUpItem;
+   
     public bool isRun { get; private set; }
     public bool isWalk { get; private set; } 
     public bool isCollision { get; private set; }
@@ -23,6 +27,8 @@ public class CharacterState
     public bool isWeaponEquip { get; private set; }
     public bool isReloadWeapon { get; private set; }
     public Vector3 inputAxisMove { get; private set; }
+    public bool isRayHitToItem { get; private set; } 
+    public bool isRayHitToInventoryBox { get; private set; } 
 
     public Vector3 inputAxisCamera { get; private set; }
     public float currentAngleCamera { get; private set; }
@@ -54,7 +60,15 @@ public class CharacterState
 
 
 
-   
+    public void UpdateStateRayHitToInventory(bool isHit)
+    { 
+        isRayHitToInventoryBox = isHit;
+    }
+    public void UpdateStateRayHitToItem(bool isHit)
+    {
+        isRayHitToItem = isHit;
+    }
+
     public void UpdateStateMove(bool isMoving)
     {
         this.isMove = isMoving;
@@ -126,6 +140,22 @@ public class CharacterState
         isCrouch = !isCrouch;
         OnCrouch?.Invoke();
     }
+    public void InputCharacter_OnPickUpItem()
+    {
+        if (isRayHitToItem)
+        {
+            OnPickUpItem?.Invoke();
+        }
+    }
+    public void InputCharacter_OnSearcheInventoryBox(bool isActive)
+    {
+        if (isRayHitToInventoryBox)
+        {
+            OnSearcheInventoryBox?.Invoke(isActive);
+        }
+    }
+
+
     public void SetReloadWeaponAnimationState(bool isReload)
     {
         isReloadWeapon = isReload;

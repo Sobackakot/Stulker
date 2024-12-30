@@ -14,13 +14,13 @@ public class CharacterAnimator : MonoBehaviour
     private float angleMaxTurn = 1;
     private float switchAngleTurn;
     private float speedAnimation;
-    private int weaponEquipLayerIndex;
+    private int pickUpItemLayer;
      
      
     private void Awake()
     {     
         animatorCharacter = GetComponent<Animator>();
-        weaponEquipLayerIndex = animatorCharacter.GetLayerIndex("WeaponEquip"); 
+        pickUpItemLayer = animatorCharacter.GetLayerIndex("PickUpItem_Layer"); 
     } 
     public void MovAnimation(Vector3 inputAxis,bool isMoving)
     {
@@ -72,9 +72,14 @@ public class CharacterAnimator : MonoBehaviour
     {
         animatorCharacter.SetTrigger("isReadyForBattle");
     }
-    private void WeaponEquip(bool isReadyForButtle)
+    public void CharacterState_OnPickUpItem()
     {
-        animatorCharacter.SetLayerWeight(weaponEquipLayerIndex, 1);
+        animatorCharacter.SetLayerWeight(pickUpItemLayer, 1);
+        animatorCharacter.SetTrigger("PickUpItem_Trigger");
+        Debug.Log("pickUpItem anim");
+    }
+    private void WeaponEquip(bool isReadyForButtle)
+    { 
         if (isReadyForButtle)
             animatorCharacter.SetTrigger("PullOut");
         else animatorCharacter.SetTrigger("PutAway");

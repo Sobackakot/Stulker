@@ -29,12 +29,16 @@ public class CameraController: IInitializable, IDisposable
     public void Initialize()
     {
         input.onInputAxis += cameraTird.InputCamera_OnInputAxis; 
-        input.onInputAxis += cameraFerst.InputCamera_OnInputAxis; 
+        input.onInputAxis += cameraFerst.InputCamera_OnInputAxis;
+        state.OnPickUpItem += ray.CharacterState_OnPickUpItem;
+        state.OnSearcheInventoryBox += ray.CharacterState_OnSearcheInventoryBox;
     }
     public void Dispose()
     {
         input.onInputAxis -= cameraTird.InputCamera_OnInputAxis; 
-        input.onInputAxis -= cameraFerst.InputCamera_OnInputAxis; 
+        input.onInputAxis -= cameraFerst.InputCamera_OnInputAxis;
+        state.OnPickUpItem -= ray.CharacterState_OnPickUpItem;
+        state.OnSearcheInventoryBox -= ray.CharacterState_OnSearcheInventoryBox;
     }
 
     private void SwitchCamera()

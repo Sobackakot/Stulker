@@ -22,6 +22,7 @@ public class InputCharacter : IInitializable, IDisposable
     public event Action OnReadyForBattleToggle;  
     public event Action<bool> OnInventoryToggle;
     public event Action<bool> OnInventoryBoxToggle;
+    public event Action OnPickUpItem;
     
 
     private InputActions inputActions;
@@ -133,6 +134,7 @@ public class InputCharacter : IInitializable, IDisposable
         {
             isInventoryActive = !isInventoryActive;
             OnInventoryBoxToggle?.Invoke(isInventoryActive);
+            OnPickUpItem?.Invoke();
         }  
     }
     private void HandleInventoryExitInput(InputAction.CallbackContext context)
