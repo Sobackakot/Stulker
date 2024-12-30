@@ -108,7 +108,7 @@ public class CharacterState
     }
     public void InputCharacter_OnReloadWeapon()
     {
-        if(!isAim && isReadyForBattle)
+        if(!isAim && isReadyForBattle && !isReloadWeapon)
         {
             OnReloadWeapon?.Invoke();
         } 
