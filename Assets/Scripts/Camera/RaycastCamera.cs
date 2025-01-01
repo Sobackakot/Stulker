@@ -19,11 +19,13 @@ public class RaycastCamera : MonoBehaviour
     private Ray ray;
     private RaycastHit hit;
      
-    private CharacterState state;
+   
     private InventoryPersonGameObject inventoryGameObject;
+    private WeaponHandle weapon;
     private WindowUI windowUI;
     private bool isActiveInventoryBox;
 
+    private CharacterState state;
     [Inject]
     private void Container(InputCharacter input, CharacterState state)
     { 
@@ -33,6 +35,7 @@ public class RaycastCamera : MonoBehaviour
     {
         point = GetComponent<Transform>();
         inventoryGameObject = FindObjectOfType<InventoryPersonGameObject>();
+        weapon = FindObjectOfType<WeaponHandle>();
         windowUI = FindObjectOfType<WindowUI>(); 
     }  
     public void Shooting(bool isLeftButtonDown)
@@ -96,14 +99,25 @@ public class RaycastCamera : MonoBehaviour
     }
     public void CharacterState_OnPickUpItem()
     {
-        ray = GetUpdateRay(); 
+        ray = GetUpdateRay();
         if (Physics.Raycast(ray, out hit, maxRayInteract))
         {
+            PickUpItems pickUpItem = hit.collider.transform.GetComponent<PickUpItems>();
+            bool isWeapon = pickUpItem.IsWeapon();
+            PickUpWeapon(isWeapon, hit);
             Interactable interact = hit.collider.transform.GetComponent<Interactable>();
             interact?.Interaction();
-        } 
+        }
     }
-    
+    public void PickUpWeapon(bool isWeapon, RaycastHit hit)
+    {
+        if (isWeapon)
+        {
+            weapon.SetWeapon(hit.collider.gameObject);
+            return;
+        }
+    }
+
     private Ray GetUpdateRay()
     {
         return new Ray(point.position, point.forward);

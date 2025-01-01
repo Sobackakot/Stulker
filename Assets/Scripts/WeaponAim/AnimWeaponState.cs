@@ -13,19 +13,17 @@ public class AnimWeaponState : StateMachineBehaviour
     }
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    { 
-        ReloadWeaponStateEnter(stateInfo);
+    {  
     }
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    { 
-        ReloadWeaponStateExit(stateInfo);
+    {  
     }
 
     private void ReloadWeaponStateEnter(AnimatorStateInfo stateInfo)
     { 
         if (stateInfo.IsName("ReloadWeapon"))
         {
-            state.SetReloadWeaponAnimationState(true); 
+            //state.SetReloadWeaponAnimationState(true); 
         }
 
     }
@@ -33,7 +31,7 @@ public class AnimWeaponState : StateMachineBehaviour
     { 
         if (stateInfo.IsName("ReloadWeapon"))
         {
-            state.SetReloadWeaponAnimationState(false); 
+            //state.SetReloadWeaponAnimationState(false); 
         }
     }
 }

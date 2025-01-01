@@ -24,7 +24,7 @@ public class StateCharacterController : IInitializable, IDisposable
         input.OnReadyForBattleToggle += state.InputCharacter_OnReadyForBattle;
         input.OnCrouchToggle += state.InputCharacter_OnCrouch;
         input.OnEquipWeaponToggle += state.InputCharacter_OnEquipWeapon;
-        input.OnReloadWeaponInput += state.InputCharacter_OnReloadWeapon;
+        //input.OnReloadWeaponInput += state.InputCharacter_OnReloadWeapon;
 
         inputCamera.OnSwitchCamera += state.InputCamera_OnSwitchCamera;
 
@@ -47,7 +47,7 @@ public class StateCharacterController : IInitializable, IDisposable
         input.OnReadyForBattleToggle -= state.InputCharacter_OnReadyForBattle;
         input.OnCrouchToggle -= state.InputCharacter_OnCrouch;
         input.OnEquipWeaponToggle -= state.InputCharacter_OnEquipWeapon;
-        input.OnReloadWeaponInput -= state.InputCharacter_OnReloadWeapon;
+        //input.OnReloadWeaponInput -= state.InputCharacter_OnReloadWeapon;
 
         inputCamera.OnSwitchCamera -= state.InputCamera_OnSwitchCamera;
 

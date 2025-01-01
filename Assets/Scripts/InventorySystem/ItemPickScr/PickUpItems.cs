@@ -35,6 +35,14 @@ public class PickUpItems : Interactable
                 Destroy(gameObject);
             }
         } 
-    } 
+    }
+    public bool IsWeapon()
+    {
+        if (item.itemType == EquipItems.Weapon_1 || item.itemType == EquipItems.Weapon_2)
+        {
+            return true;
+        }
+        else return false;
+    }
 }
       
