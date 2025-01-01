@@ -96,7 +96,7 @@ public class TirdCameraCharacter : MonoBehaviour, ICameraCharacter
     }
     public void SwitchLookPointCamera(bool isLeftPointLook, bool isCrouching)
     {
-        float heightPoint = isCrouching ? 1f : 1.6f;
+        float heightPoint = isCrouching ? 1.2f : 1.6f;
         newHeigth = Mathf.Lerp(newHeigth, heightPoint, Time.deltaTime * transitionSpeed); 
 
         // Smoothly transition to the new height and look point position
