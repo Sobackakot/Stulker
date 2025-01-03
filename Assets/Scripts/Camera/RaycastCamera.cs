@@ -97,17 +97,18 @@ public class RaycastCamera : MonoBehaviour
             inventoryGameObject.SetActiveInventory(isActiveInventoryBox);
         } 
     }
-    public void CharacterState_OnPickUpItem()
+    public bool CharacterState_OnPickUpItem()
     {
         ray = GetUpdateRay();
         if (Physics.Raycast(ray, out hit, maxRayInteract))
         {
             PickUpItems pickUpItem = hit.collider.transform.GetComponent<PickUpItems>();
             bool isWeapon = pickUpItem.IsWeapon();
-            if(PickUpWeapon(isWeapon, hit)) return;
+            if (PickUpWeapon(isWeapon, hit)) return true; 
             Interactable interact = hit.collider.transform.GetComponent<Interactable>();
             interact?.Interaction();
         }
+        return false; 
     }
     public bool PickUpWeapon(bool isWeapon, RaycastHit hit)
     {

@@ -18,8 +18,7 @@ public class InputCharacter : IInitializable, IDisposable
     public event Action OnInventoryExitInput;
 
     public event Action OnEquipWeaponToggle;
-    public event Action OnCrouchToggle; 
-    public event Action OnReadyForBattleToggle;  
+    public event Action OnCrouchToggle;  
     public event Action<bool> OnInventoryToggle;
     public event Action<bool> OnInventoryBoxToggle;
     public event Action OnPickUpItem;
@@ -37,8 +36,7 @@ public class InputCharacter : IInitializable, IDisposable
 
         inputActions.ActionMaps.Jump.performed += ctx => HandleJumpInput(ctx);      
         inputActions.ActionMaps.ReloadWeapon.performed += ctx => HandleReloadWeaponInput(ctx);
-        inputActions.ActionMaps.ToggleEquipWeapon.performed += ctx => HandleEquipWeaponToggle(ctx); 
-        inputActions.ActionMaps.ToggleEquipWeapon.performed += ctx => HandleReadyForBattleToggle(ctx);
+        inputActions.ActionMaps.ToggleEquipWeapon.performed += ctx => HandleEquipWeaponToggle(ctx);  
         inputActions.ActionMaps.Crouch.performed += ctx => HandleCrouchToggle(ctx); 
         inputActions.ActionMaps.ToggleInventory.performed += ctx => HandleInventoryToggle(ctx);
         inputActions.ActionMaps.ToggleInventoryBox.performed += ctx => HandleInventoryBoxToggle(ctx);
@@ -99,20 +97,15 @@ public class InputCharacter : IInitializable, IDisposable
     private void HandleEquipWeaponToggle(InputAction.CallbackContext context)
     {
         if (context.performed)
-            OnEquipWeaponToggle?.Invoke();
+        {
+            OnEquipWeaponToggle?.Invoke(); 
+        }    
     }
     private void HandleReloadWeaponInput(InputAction.CallbackContext context)
     {
         if (context.performed)
             OnReloadWeaponInput?.Invoke(); 
-    }
-    private void HandleReadyForBattleToggle(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            OnReadyForBattleToggle?.Invoke();
-        }
-    }
+    } 
     private void HandleCrouchToggle(InputAction.CallbackContext context)
     {
         if (context.performed)

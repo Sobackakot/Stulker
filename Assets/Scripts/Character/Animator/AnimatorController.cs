@@ -21,7 +21,7 @@ public class AnimatorController :IInitializable, IDisposable
         state.OnReadyForBattle += characterAnimator.CharacterState_OnReadyForBattle;
         state.OnCrouch += characterAnimator.CharacterState_OnCrouch;
         //state.OnReloadWeapon += characterAnimator.CharacterState_OnRecharde;
-        state.OnPickUpItem += characterAnimator.CharacterState_OnPickUpItem;
+        state.OnPickUpItemAnimation += characterAnimator.CharacterState_OnPickUpItem;
         state.OnEquipWeapon += characterAnimator.CharacterState_WeaponEquip;
     }
 
@@ -31,7 +31,7 @@ public class AnimatorController :IInitializable, IDisposable
         state.OnReadyForBattle -= characterAnimator.CharacterState_OnReadyForBattle;
         state.OnCrouch -= characterAnimator.CharacterState_OnCrouch;
         //state.OnReloadWeapon -= characterAnimator.CharacterState_OnRecharde;
-        state.OnPickUpItem -= characterAnimator.CharacterState_OnPickUpItem;
+        state.OnPickUpItemAnimation -= characterAnimator.CharacterState_OnPickUpItem;
         state.OnEquipWeapon -= characterAnimator.CharacterState_WeaponEquip;
     } 
 

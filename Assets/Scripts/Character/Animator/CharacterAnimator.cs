@@ -79,8 +79,7 @@ public class CharacterAnimator : MonoBehaviour
     public void CharacterState_OnPickUpItem()
     {
         animatorCharacter.SetLayerWeight(pickUpItemLayer, 1);
-        animatorCharacter.SetTrigger("PickUpItem_Trigger");
-        Debug.Log("pickUpItem anim");
+        animatorCharacter.SetTrigger("PickUpItem_Trigger"); 
     }
     public void CharacterState_WeaponEquip(bool isEquipWeapon)
     {

@@ -12,7 +12,8 @@ public class CharacterState
     public event Action<bool> OnEquipWeapon;
 
     public event Action<bool> OnSearcheInventoryBox;
-    public event Action OnPickUpItem;
+    public event Func<bool> OnPickUpItem;
+    public event Action OnPickUpItemAnimation;
    
     public bool isIdle { get; private set; }
     public bool isSprint { get; private set; }
@@ -26,9 +27,9 @@ public class CharacterState
     public bool isLeanRight { get; private set; }
     public bool isLeanLeft { get; private set; }
     public bool isCrouch { get; private set; } 
-    public bool isLeftTargerPoint {  get; private set; }  
-    public bool isWeaponEquip { get; private set; }
+    public bool isLeftTargerPoint {  get; private set; }   
     public bool isEquippingWeapon { get; private set; }
+    public bool isAvailableWeapons { get; private set; }
     public bool isReloadWeapon { get; private set; }
     public Vector3 inputAxisMove { get; private set; }
     public bool isRayHitToItem { get; private set; } 
@@ -122,10 +123,11 @@ public class CharacterState
     }
     public void InputCharacter_OnEquipWeapon()
     {
-        if (!isAim && !isReloadWeapon)
+        if (!isAim && !isReloadWeapon && isAvailableWeapons)
         {
-            isWeaponEquip = !isWeaponEquip;
-            OnEquipWeapon?.Invoke(isWeaponEquip);
+            isReadyForBattle = !isReadyForBattle;
+            OnEquipWeapon?.Invoke(isReadyForBattle);
+            OnReadyForBattle?.Invoke();
         }   
     }
     public void InputCharacter_OnAim(bool isPressed)
@@ -144,14 +146,6 @@ public class CharacterState
         {
             OnReloadWeapon?.Invoke();
         } 
-    }
-    public void InputCharacter_OnReadyForBattle()
-    {
-        if (!isAim && !isReloadWeapon)
-        {
-            isReadyForBattle = !isReadyForBattle;
-            OnReadyForBattle?.Invoke();
-        }   
     } 
     public void InputCharacter_OnCrouch()
     { 
@@ -162,7 +156,10 @@ public class CharacterState
     {
         if (isRayHitToItem)
         {
-            OnPickUpItem?.Invoke();
+            OnPickUpItemAnimation?.Invoke();    
+            if (OnPickUpItem.Invoke())
+                isAvailableWeapons = true;
+            else isAvailableWeapons = false;
         }
     }
     public void InputCharacter_OnSearcheInventoryBox(bool isActive)

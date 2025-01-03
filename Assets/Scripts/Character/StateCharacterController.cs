@@ -20,8 +20,7 @@ public class StateCharacterController : IInitializable, IDisposable
         input.OnRunInput += state.InputCharacter_OnRun;
         input.OnWalkInput += state.InputCharacter_OnWalk;
         input.OnAimInput += state.InputCharacter_OnAim;
-        input.OnFireInput += state.InputCharacter_OnFire;
-        input.OnReadyForBattleToggle += state.InputCharacter_OnReadyForBattle;
+        input.OnFireInput += state.InputCharacter_OnFire; 
         input.OnCrouchToggle += state.InputCharacter_OnCrouch;
         input.OnEquipWeaponToggle += state.InputCharacter_OnEquipWeapon;
         //input.OnReloadWeaponInput += state.InputCharacter_OnReloadWeapon;
@@ -43,8 +42,7 @@ public class StateCharacterController : IInitializable, IDisposable
         input.OnRunInput -= state.InputCharacter_OnRun;
         input.OnWalkInput -= state.InputCharacter_OnWalk;
         input.OnAimInput -= state.InputCharacter_OnAim;
-        input.OnFireInput -= state.InputCharacter_OnFire;
-        input.OnReadyForBattleToggle -= state.InputCharacter_OnReadyForBattle;
+        input.OnFireInput -= state.InputCharacter_OnFire; 
         input.OnCrouchToggle -= state.InputCharacter_OnCrouch;
         input.OnEquipWeaponToggle -= state.InputCharacter_OnEquipWeapon;
         //input.OnReloadWeaponInput -= state.InputCharacter_OnReloadWeapon;
