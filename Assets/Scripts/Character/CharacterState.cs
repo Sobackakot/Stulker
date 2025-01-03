@@ -154,7 +154,7 @@ public class CharacterState
     }
     public void InputCharacter_OnPickUpItem()
     {
-        if (isRayHitToItem)
+        if (isRayHitToItem && !isReloadWeapon)
         {
             OnPickUpItemAnimation?.Invoke();    
             if (OnPickUpItem.Invoke())
