@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+ 
 using UnityEngine;
 
 public class WeaponHandle : MonoBehaviour
@@ -9,15 +8,17 @@ public class WeaponHandle : MonoBehaviour
     {
         trWeapon = transform.GetComponent<Transform>();
     }
-    public void SetWeapon(GameObject weapon)
+    public bool SetWeapon(GameObject weapon)
     {
-        // Instantiate weapon as a child of trWeapon
-        GameObject newWeapon = Instantiate(weapon, trWeapon);
-
-        // Reset local position and rotation
-        newWeapon.transform.localPosition = Vector3.zero;
-        newWeapon.transform.localRotation = Quaternion.identity;
-        newWeapon.transform.GetComponent<Rigidbody>().isKinematic = true;
-        newWeapon.transform.GetComponent<Collider>().enabled = false;
+        if (weapon == null) return false;
+        else
+        {
+            weapon.transform.SetParent(trWeapon);
+            weapon.transform.localPosition = Vector3.zero;
+            weapon.transform.localRotation = Quaternion.identity;
+            weapon.transform.GetComponent<Rigidbody>().isKinematic = true;
+            weapon.transform.GetComponent<Collider>().enabled = false;
+            return true;
+        }  
     }
 }

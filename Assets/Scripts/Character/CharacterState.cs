@@ -28,7 +28,7 @@ public class CharacterState
     public bool isCrouch { get; private set; } 
     public bool isLeftTargerPoint {  get; private set; }  
     public bool isWeaponEquip { get; private set; }
-    public bool isEquipingWeapon { get; private set; }
+    public bool isEquippingWeapon { get; private set; }
     public bool isReloadWeapon { get; private set; }
     public Vector3 inputAxisMove { get; private set; }
     public bool isRayHitToItem { get; private set; } 
@@ -130,7 +130,7 @@ public class CharacterState
     }
     public void InputCharacter_OnAim(bool isPressed)
     {
-        if (isReadyForBattle && !isReloadWeapon && !isEquipingWeapon)
+        if (isReadyForBattle && !isReloadWeapon && !isEquippingWeapon)
             isAim = isPressed;
     }
     public void InputCharacter_OnFire(bool isPressed)
@@ -180,7 +180,7 @@ public class CharacterState
     }
     public void SetEquipWeaponAnimationState(bool isEquiping)
     {
-        isEquipingWeapon = isEquiping;
+        isEquippingWeapon = isEquiping;
     }
      
     public void SetCollision(bool isCollision)

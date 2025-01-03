@@ -104,18 +104,16 @@ public class RaycastCamera : MonoBehaviour
         {
             PickUpItems pickUpItem = hit.collider.transform.GetComponent<PickUpItems>();
             bool isWeapon = pickUpItem.IsWeapon();
-            PickUpWeapon(isWeapon, hit);
+            if(PickUpWeapon(isWeapon, hit)) return;
             Interactable interact = hit.collider.transform.GetComponent<Interactable>();
             interact?.Interaction();
         }
     }
-    public void PickUpWeapon(bool isWeapon, RaycastHit hit)
+    public bool PickUpWeapon(bool isWeapon, RaycastHit hit)
     {
         if (isWeapon)
-        {
-            weapon.SetWeapon(hit.collider.gameObject);
-            return;
-        }
+            return weapon.SetWeapon(hit.collider.gameObject);
+        else return false;
     }
 
     private Ray GetUpdateRay()

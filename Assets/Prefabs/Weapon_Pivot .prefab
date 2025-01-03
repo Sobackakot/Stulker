@@ -73,8 +73,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8442013362803321779}
   - component: {fileID: 6937339320722569005}
-  - component: {fileID: 5728075441737577103}
   - component: {fileID: 8293604362532915333}
+  - component: {fileID: 5728075441737577103}
   m_Layer: 7
   m_Name: 'Weapon_Pivot '
   m_TagString: Untagged
@@ -123,20 +123,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.06981588, y: 0.24770814, z: 0.9614211}
   m_Center: {x: -0.000000033527613, y: -0.08251634, z: 0.480095}
---- !u!114 &5728075441737577103
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4502966251692376938}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3be9ab5498da247499c16e54b4596ffb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <item>k__BackingField: {fileID: 11400000, guid: 48ea461eda2a02d4fb93747a4a0749f8,
-    type: 2}
 --- !u!54 &8293604362532915333
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -164,6 +150,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5728075441737577103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4502966251692376938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3be9ab5498da247499c16e54b4596ffb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <item>k__BackingField: {fileID: 11400000, guid: 48ea461eda2a02d4fb93747a4a0749f8,
+    type: 2}
 --- !u!1 &7998800766597797533
 GameObject:
   m_ObjectHideFlags: 0

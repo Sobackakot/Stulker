@@ -3,24 +3,24 @@ using UnityEngine;
 
 public class Lights : MonoBehaviour
 {
-    [SerializeField] private Light lightShooting;
+    private Light lightFire;
     private void OnEnable()
     {
-        lightShooting.enabled = false;
+        lightFire = GetComponent<Light>();
+        lightFire.enabled = false;
     }
-
     public void TurnOnLightShooting(bool isKeyDownLeft)
     {
         if (isKeyDownLeft)
         {
-            lightShooting.enabled = true; 
+            lightFire.enabled = true; 
         }
     }
     public void TurnOfLightShooting(bool isKeyDownLeft)
     {
         if (!isKeyDownLeft)
         {
-            lightShooting.enabled = false;
+            lightFire.enabled = false;
         }
     }
 

@@ -1,5 +1,4 @@
-
-using UnityEngine;
+ 
 using Zenject;
 
 public class EffectsController : ITickable, IFixedTickable
@@ -32,6 +31,6 @@ public class EffectsController : ITickable, IFixedTickable
     public void FixedTick()
     {
         if (state.isAim)
-            lights.TurnOfLightShooting(state.isFire);
+           lights.TurnOfLightShooting(state.isFire);
     }
 }

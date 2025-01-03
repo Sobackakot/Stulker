@@ -2,15 +2,14 @@
 using UnityEngine;
 
 public class Particles : MonoBehaviour
-{
+{ 
     [SerializeField] private ParticleSystem fireEffect;
-    [SerializeField] private ParticleSystem fireEffect2;
+    [SerializeField]private ParticleSystem fireEffect2;
     [SerializeField] private ParticleSystem bulletEffect;
-
-    [SerializeField] private float divideTime;
+    [SerializeField] private float divideTime =10;
 
     private float nextTime;
-    private float intervalTime = 1;
+    private float intervalTime = 1; 
     public bool PlayParticleShooting(bool isKeyDownLeft)
     {
         if (isKeyDownLeft && Time.time > nextTime)
@@ -21,6 +20,9 @@ public class Particles : MonoBehaviour
             bulletEffect.Play();
             return true;
         }
-        else return false;
-    }
+        else
+        { 
+            return false;
+        }
+    } 
 }

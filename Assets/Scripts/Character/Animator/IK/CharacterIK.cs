@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
 public class CharacterIK : MonoBehaviour
-{
+{ 
     [SerializeField] private Rig aimBody;
     [SerializeField] private Rig readyForButtleParent;  
     [SerializeField] private Rig aimWeaponParent;
@@ -20,7 +20,7 @@ public class CharacterIK : MonoBehaviour
     private float weightReady;
 
     private float targetWeightLeanRight;
-    private float targetWeightLeanLeft;
+    private float targetWeightLeanLeft; 
     public void SetWeightIKAiming(bool isAiming, bool isReloadWeapon)
     {
         weightAim = isAiming ? (isReloadWeapon ? 0 : 1) : 0;
