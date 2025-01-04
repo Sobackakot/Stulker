@@ -4,7 +4,7 @@ using Zenject;
 
 public class CharacterAnimator : MonoBehaviour
 {
-    [SerializeField] private Animator animatorWeapon; 
+    //[SerializeField] private Animator animatorWeapon; 
     private Animator animatorCharacter;   
 
     [SerializeField] private float speedWalkAnimation = 0.5f;
@@ -66,7 +66,7 @@ public class CharacterAnimator : MonoBehaviour
     }
     public void CharacterState_OnRecharde()
     { 
-        animatorWeapon.SetTrigger("Reload"); 
+        //animatorWeapon.SetTrigger("Reload"); 
     }
     public void CharacterState_OnCrouch()
     {

@@ -31,8 +31,6 @@ Transform:
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 472280881008780633}
-  - {fileID: 290268356990649916}
   - {fileID: 8517616624694696914}
   - {fileID: 725646555622937050}
   - {fileID: 5357757510469707389}
@@ -428,37 +426,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &3474279273272242825
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 290268356990649916}
-  m_Layer: 0
-  m_Name: TargetRightHandReadLineAnim
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &290268356990649916
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3474279273272242825}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0.0009156463, y: 0.07404484, z: 0.7084728, w: -0.7018425}
-  m_LocalPosition: {x: 0.030897727, y: 0.1138989, z: 0.0075009568}
-  m_LocalScale: {x: 0.066666715, y: 0.066666685, z: 0.0666667}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7036179010962571035}
-  m_LocalEulerAnglesHint: {x: -5.948, y: -6.073, z: -90.223}
 --- !u!1 &3905486770840535599
 GameObject:
   m_ObjectHideFlags: 0
@@ -1120,37 +1087,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &8964918682684589180
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 472280881008780633}
-  m_Layer: 0
-  m_Name: TargetPointRightHand
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &472280881008780633
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8964918682684589180}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0.0009156463, y: 0.07404484, z: 0.7084728, w: -0.7018425}
-  m_LocalPosition: {x: 0.030897727, y: 0.1138989, z: 0.0075009568}
-  m_LocalScale: {x: 0.066666715, y: 0.066666685, z: 0.0666667}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7036179010962571035}
-  m_LocalEulerAnglesHint: {x: -5.948, y: -6.073, z: -90.223}
 --- !u!1001 &2095849980535031057
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1237,6 +1173,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: 'FirePart  '
+      objectReference: {fileID: 0}
+    - target: {fileID: 5306737006962173029, guid: 844a06eae30b341418a06ec99b3b9d8d,
+        type: 3}
+      propertyPath: looping
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7027553865667233128, guid: 844a06eae30b341418a06ec99b3b9d8d,
         type: 3}

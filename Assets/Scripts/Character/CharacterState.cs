@@ -6,14 +6,14 @@ public class CharacterState
 {
     public event Action OnJumping;
     public event Action<Vector2> OnMoving;
-    public event Action OnReadyForBattle;
-    public event Action OnCrouch;
+    public event Action OnReadyForBattleAnim;
+    public event Action OnCrouchAnim;
     public event Action OnReloadWeapon;
-    public event Action<bool> OnEquipWeapon;
+    public event Action<bool> OnEquipWeaponAnim;
 
     public event Action<bool> OnSearcheInventoryBox;
     public event Func<bool> OnPickUpItem;
-    public event Action OnPickUpItemAnimation;
+    public event Action OnPickUpItemAnim;
    
     public bool isIdle { get; private set; }
     public bool isSprint { get; private set; }
@@ -126,8 +126,10 @@ public class CharacterState
         if (!isAim && !isReloadWeapon && isAvailableWeapons)
         {
             isReadyForBattle = !isReadyForBattle;
-            OnEquipWeapon?.Invoke(isReadyForBattle);
-            OnReadyForBattle?.Invoke();
+            OnEquipWeaponAnim?.Invoke(isReadyForBattle);
+            OnReadyForBattleAnim?.Invoke();
+            Debug.Log("is Redy For Battle " + isReadyForBattle);
+            Debug.Log("is Available Weapons " + isAvailableWeapons);
         }   
     }
     public void InputCharacter_OnAim(bool isPressed)
@@ -150,16 +152,15 @@ public class CharacterState
     public void InputCharacter_OnCrouch()
     { 
         isCrouch = !isCrouch;
-        OnCrouch?.Invoke();
+        OnCrouchAnim?.Invoke();
     }
     public void InputCharacter_OnPickUpItem()
     {
         if (isRayHitToItem && !isReloadWeapon)
         {
-            OnPickUpItemAnimation?.Invoke();    
+            OnPickUpItemAnim?.Invoke();    
             if (OnPickUpItem.Invoke())
-                isAvailableWeapons = true;
-            else isAvailableWeapons = false;
+                isAvailableWeapons = true; 
         }
     }
     public void InputCharacter_OnSearcheInventoryBox(bool isActive)

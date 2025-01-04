@@ -18,21 +18,21 @@ public class AnimatorController :IInitializable, IDisposable
     public void Initialize()
     {
         state.OnJumping += characterAnimator.CharacterState_OnJump;
-        state.OnReadyForBattle += characterAnimator.CharacterState_OnReadyForBattle;
-        state.OnCrouch += characterAnimator.CharacterState_OnCrouch;
+        state.OnReadyForBattleAnim += characterAnimator.CharacterState_OnReadyForBattle;
+        state.OnCrouchAnim += characterAnimator.CharacterState_OnCrouch;
         //state.OnReloadWeapon += characterAnimator.CharacterState_OnRecharde;
-        state.OnPickUpItemAnimation += characterAnimator.CharacterState_OnPickUpItem;
-        state.OnEquipWeapon += characterAnimator.CharacterState_WeaponEquip;
+        state.OnPickUpItemAnim += characterAnimator.CharacterState_OnPickUpItem;
+        state.OnEquipWeaponAnim += characterAnimator.CharacterState_WeaponEquip;
     }
 
     public void Dispose()
     {
         state.OnJumping -= characterAnimator.CharacterState_OnJump;
-        state.OnReadyForBattle -= characterAnimator.CharacterState_OnReadyForBattle;
-        state.OnCrouch -= characterAnimator.CharacterState_OnCrouch;
+        state.OnReadyForBattleAnim -= characterAnimator.CharacterState_OnReadyForBattle;
+        state.OnCrouchAnim -= characterAnimator.CharacterState_OnCrouch;
         //state.OnReloadWeapon -= characterAnimator.CharacterState_OnRecharde;
-        state.OnPickUpItemAnimation -= characterAnimator.CharacterState_OnPickUpItem;
-        state.OnEquipWeapon -= characterAnimator.CharacterState_WeaponEquip;
+        state.OnPickUpItemAnim -= characterAnimator.CharacterState_OnPickUpItem;
+        state.OnEquipWeaponAnim -= characterAnimator.CharacterState_WeaponEquip;
     } 
 
     public void Tick_()
@@ -50,8 +50,9 @@ public class AnimatorController :IInitializable, IDisposable
     }
     public void FixedTick_()
     {
-        characterIK.SetWeightIKReadyForBattle(state.isReadyForBattle, state.isEquippingWeapon);
-        characterIK.SetWeightIKAiming(state.isAim, state.isReloadWeapon);
+        characterIK.WeaponParentIK(state.isReadyForBattle, state.isEquippingWeapon);
+        characterIK.AimWeaponParentIK(state.isAim, state.isReloadWeapon);
+        characterIK.EquipWeaponParentIK(state.isReadyForBattle, state.isAvailableWeapons);
     }
 
 }
