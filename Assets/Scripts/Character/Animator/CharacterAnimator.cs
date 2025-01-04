@@ -17,6 +17,7 @@ public class CharacterAnimator : MonoBehaviour
     private int pickUpItemLayer;
     private int reloadWeaponLayer;
     private int equipWeaponLayer;
+    private int runningLayer;
      
      
     private void Awake()
@@ -24,7 +25,8 @@ public class CharacterAnimator : MonoBehaviour
         animatorCharacter = GetComponent<Animator>();
         pickUpItemLayer = animatorCharacter.GetLayerIndex("PickUpItem_Layer");
         reloadWeaponLayer = animatorCharacter.GetLayerIndex("ReloadWeapon_Layer");
-        equipWeaponLayer = animatorCharacter.GetLayerIndex("Take_Weapon_Layer"); 
+        equipWeaponLayer = animatorCharacter.GetLayerIndex("Take_Weapon_Layer");
+        runningLayer = animatorCharacter.GetLayerIndex("Running_Layer"); 
     } 
     public void MovAnimation(Vector3 inputAxis,bool isMoving)
     {
@@ -55,6 +57,19 @@ public class CharacterAnimator : MonoBehaviour
     {
         if (isWalking | isAiming) speedAnimation = speedWalkAnimation;
         else speedAnimation = isRanning ? (inputAxis.z > 0 ? speedSprint : speedRunAnimation) : speedRunAnimation;
+    }
+    public void RunningDiagonal(bool isRunDiagonal)
+    {
+        if (isRunDiagonal)
+        {
+            animatorCharacter.SetLayerWeight(runningLayer, 1);
+            animatorCharacter.SetBool("isDiagonalRunning", true); 
+        }
+        else
+        {
+            animatorCharacter.SetBool("isDiagonalRunning", false);
+            animatorCharacter.SetLayerWeight(runningLayer, 0); 
+        }
     }
     public void CharacterState_OnJump()
     {

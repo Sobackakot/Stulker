@@ -19,6 +19,7 @@ public class CharacterState
     public bool isSprint { get; private set; }
     public bool isRun { get; private set; }
     public bool isWalk { get; private set; } 
+    public bool isRunDiagonal { get; private set; }
     public bool isCollision { get; private set; }
     public bool isAim { get; private set; } 
     public bool isFire { get; private set; } 
@@ -88,14 +89,20 @@ public class CharacterState
             isRun = false;
         }
     }
+
     public void InputCharacter_OnMove(Vector2 inputAxis)
     {
         inputAxisMove = new Vector3(inputAxis.x, 0, inputAxis.y); 
         OnMoving.Invoke(inputAxis); 
     }
-    public void InputCharacter_OnRun(bool isKeyRun)
+    public void InputCharacter_OnRun(bool isKeySprint)
     {
-        isSprint = isKeyRun;
+        isSprint = isKeySprint; 
+    }
+    public void UpdateIsDiagonalRunning()
+    {
+        bool isDiagonalMovement = Mathf.Abs(inputAxisMove.x) > 0.2f && Mathf.Abs(inputAxisMove.z) > 0.2f;
+        isRunDiagonal = isSprint && isDiagonalMovement; 
     }
     public void InputCharacter_OnWalk(bool isKeyWalk)
     {
@@ -127,9 +134,7 @@ public class CharacterState
         {
             isReadyForBattle = !isReadyForBattle;
             OnEquipWeaponAnim?.Invoke(isReadyForBattle);
-            OnReadyForBattleAnim?.Invoke();
-            Debug.Log("is Redy For Battle " + isReadyForBattle);
-            Debug.Log("is Available Weapons " + isAvailableWeapons);
+            OnReadyForBattleAnim?.Invoke();  
         }   
     }
     public void InputCharacter_OnAim(bool isPressed)

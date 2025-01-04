@@ -1,7 +1,7 @@
 using System;
 using Zenject;
 
-public class StateCharacterController : IInitializable, IDisposable
+public class StateCharacterController : IInitializable, IDisposable, ITickable
 { 
     public StateCharacterController(CharacterState state, InputCharacter input, InputCamera inputCamera)
     {
@@ -54,6 +54,11 @@ public class StateCharacterController : IInitializable, IDisposable
 
         input.OnLeanRightInput -= state.InputCharacter_OnLeanRight;
         input.OnLeanLeftInput -= state.InputCharacter_OnLeanLeft;
+    }
+
+    public void Tick()
+    {
+        state.UpdateIsDiagonalRunning();
     }
 } 
 

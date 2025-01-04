@@ -43,6 +43,7 @@ public class AnimatorController :IInitializable, IDisposable
         characterAnimator.MovAnimation(state.inputAxisMove, state.isMove);
         characterAnimator.SwithAnimationMove(state.isSprint, state.isWalk, state.isAim,state.inputAxisMove);
         characterAnimator.AimingAnimation(state.isAim); 
+        characterAnimator.RunningDiagonal(state.isRunDiagonal);
     }  
     public void LateTick_()
     {
