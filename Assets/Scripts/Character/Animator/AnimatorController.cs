@@ -50,7 +50,8 @@ public class AnimatorController :IInitializable, IDisposable
        
     }
     public void FixedTick_()
-    {
+    {   
+        characterIK.BodyLoockTargetIK(state.isIdle, state.isAim);
         characterIK.WeaponParentIK(state.isReadyForBattle, state.isEquippingWeapon);
         characterIK.AimWeaponParentIK(state.isAim, state.isReloadWeapon);
         characterIK.EquipWeaponParentIK(state.isReadyForBattle, state.isAvailableWeapons);

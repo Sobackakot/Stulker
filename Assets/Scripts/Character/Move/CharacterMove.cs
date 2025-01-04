@@ -53,17 +53,17 @@ public class CharacterMove : MonoBehaviour
     }
     public void Rotating()
     {
-        if (state.isAim)
+        if (state.isAim | !state.isIdle)
         {
             Quaternion rot = Quaternion.LookRotation(cameraZ, Vector3.up);
             rbCharacter.MoveRotation(rot);
         }
-        else
+        else if(state.isMaxAngleCamera && state.isIdle) 
         {
             Quaternion direction = Quaternion.LookRotation(cameraZ, Vector3.up);
             Quaternion rot = Quaternion.Lerp(rbCharacter.rotation, direction, Time.fixedDeltaTime * speedRotate);
             rbCharacter.MoveRotation(rot);
-        }
+        } 
     }
     public void Moving()
     { 

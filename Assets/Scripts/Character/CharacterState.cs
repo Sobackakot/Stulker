@@ -78,7 +78,7 @@ public class CharacterState
     public void UpdateStateMove(bool isMoving)
     {
         this.isMove = isMoving;
-        if(!isSprint && !isWalk && inputAxisMove.sqrMagnitude > 0.2f)
+        if(!isSprint | !isWalk && inputAxisMove.sqrMagnitude > 0.2f)
         {
             isRun = true;
             isIdle = false;
@@ -97,7 +97,8 @@ public class CharacterState
     }
     public void InputCharacter_OnRun(bool isKeySprint)
     {
-        isSprint = isKeySprint; 
+        isSprint = isKeySprint;
+        isIdle = false;
     }
     public void UpdateIsDiagonalRunning()
     {
