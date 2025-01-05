@@ -39,7 +39,5 @@ public class CharacterIK : MonoBehaviour
     {
         weightLoockTarget = idle ? (isAiming ? 0 : 1) : 0;
         loockBody.weight = Mathf.Lerp(loockBody.weight, weightLoockTarget, Time.fixedDeltaTime * factor);
-    }
-
-
+    } 
 }

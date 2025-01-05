@@ -5,7 +5,7 @@ using Zenject;
 public class CharacterAnimator : MonoBehaviour
 {
     //[SerializeField] private Animator animatorWeapon; 
-    private Animator animatorCharacter;   
+    private Animator anim;   
 
     [SerializeField] private float speedWalkAnimation = 0.5f;
     [SerializeField] private float speedRunAnimation = 0.8f;
@@ -22,31 +22,35 @@ public class CharacterAnimator : MonoBehaviour
      
     private void Awake()
     {     
-        animatorCharacter = GetComponent<Animator>();
-        pickUpItemLayer = animatorCharacter.GetLayerIndex("PickUpItem_Layer");
-        reloadWeaponLayer = animatorCharacter.GetLayerIndex("ReloadWeapon_Layer");
-        equipWeaponLayer = animatorCharacter.GetLayerIndex("Take_Weapon_Layer");
-        runningLayer = animatorCharacter.GetLayerIndex("Running_Layer"); 
+        anim = GetComponent<Animator>();
+        pickUpItemLayer = anim.GetLayerIndex("PickUpItem_Layer");
+        reloadWeaponLayer = anim.GetLayerIndex("ReloadWeapon_Layer");
+        equipWeaponLayer = anim.GetLayerIndex("Take_Weapon_Layer");
+        runningLayer = anim.GetLayerIndex("Running_Layer"); 
     } 
     public void MovAnimation(Vector3 inputAxis,bool isMoving)
     {
         if (inputAxis.sqrMagnitude > 0.2f && isMoving)
         { 
-            animatorCharacter.SetFloat("X", inputAxis.x * speedAnimation, 0.2f, Time.deltaTime);
-            animatorCharacter.SetFloat("Y", inputAxis.z * speedAnimation, 0.2f, Time.deltaTime);  
+            anim.SetFloat("X", inputAxis.x * speedAnimation, 0.2f, Time.smoothDeltaTime);
+            anim.SetFloat("Y", inputAxis.z * speedAnimation, 0.2f, Time.smoothDeltaTime);  
         }
         else
         {   
-            animatorCharacter.SetFloat("Y", 0, 0.2f, Time.deltaTime);
-            animatorCharacter.SetFloat("X", 0, 0.2f, Time.deltaTime);  
+            anim.SetFloat("Y", 0, 0.2f, Time.smoothDeltaTime);
+            anim.SetFloat("X", 0, 0.2f, Time.smoothDeltaTime);  
         } 
     } 
-    public void TurnAnimation(Vector3 input, bool isRotate, bool isLimitAngle)
-    {
-        if (isRotate && isLimitAngle && Mathf.Abs(input.x) > 0.2f) 
-            animatorCharacter.SetFloat("DeltaMouse", input.x * switchAngleTurn, 0.2f, Time.deltaTime);
-        else animatorCharacter.SetFloat("DeltaMouse", 0, 0.1f, Time.deltaTime);
-    }
+    public void TurnAnimation(Vector3 input, bool isRotate, bool isLimitAngle, bool isRun)
+    { 
+        float currentDeltaMouse = anim.GetFloat("DeltaMouse");
+        float smoothDeltaMouse = Mathf.Lerp(currentDeltaMouse, input.x * switchAngleTurn, 0.1f);
+        if (isRotate && isLimitAngle && Mathf.Abs(input.x) > 0.1f)
+            anim.SetFloat("DeltaMouse", input.x * switchAngleTurn, 0.1f, Time.smoothDeltaTime);
+        else if (Mathf.Abs(input.x) > 0.4f && isRun) 
+            anim.SetFloat("DeltaMouse", smoothDeltaMouse, 0.1f, Time.smoothDeltaTime); 
+        else anim.SetFloat("DeltaMouse", 0, 0.1f, Time.smoothDeltaTime); 
+    } 
  
     public void SwitchAnimationTurn(float angle,bool isRotate)
     {
@@ -62,22 +66,22 @@ public class CharacterAnimator : MonoBehaviour
     {
         if (isRunDiagonal)
         {
-            animatorCharacter.SetLayerWeight(runningLayer, 1);
-            animatorCharacter.SetBool("isDiagonalRunning", true); 
+            anim.SetLayerWeight(runningLayer, 1);
+            anim.SetBool("isDiagonalRunning", true); 
         }
         else
         {
-            animatorCharacter.SetBool("isDiagonalRunning", false);
-            animatorCharacter.SetLayerWeight(runningLayer, 0); 
+            anim.SetBool("isDiagonalRunning", false);
+            anim.SetLayerWeight(runningLayer, 0); 
         }
     }
     public void CharacterState_OnJump()
     {
-        animatorCharacter.SetTrigger("isJumping"); 
+        anim.SetTrigger("isJumping"); 
     } 
     public void AimingAnimation(bool isAiming)
     {
-        animatorCharacter.SetBool("isAiming", isAiming);
+        anim.SetBool("isAiming", isAiming);
     }
     public void CharacterState_OnRecharde()
     { 
@@ -85,27 +89,27 @@ public class CharacterAnimator : MonoBehaviour
     }
     public void CharacterState_OnCrouch()
     {
-        animatorCharacter.SetTrigger("isCrouching");
+        anim.SetTrigger("isCrouching");
     }  
     public void CharacterState_OnReadyForBattle()
     {
-        animatorCharacter.SetTrigger("isReadyForBattle");
+        anim.SetTrigger("isReadyForBattle");
     }
     public void CharacterState_OnPickUpItem()
     {
-        animatorCharacter.SetLayerWeight(pickUpItemLayer, 1);
-        animatorCharacter.SetTrigger("PickUpItem_Trigger"); 
+        anim.SetLayerWeight(pickUpItemLayer, 1);
+        anim.SetTrigger("PickUpItem_Trigger"); 
     }
     public void CharacterState_WeaponEquip(bool isEquipWeapon)
     {
-        animatorCharacter.SetLayerWeight(equipWeaponLayer, 1); 
+        anim.SetLayerWeight(equipWeaponLayer, 1); 
         if (isEquipWeapon)
-            animatorCharacter.SetTrigger("EquipWeapon");
-        else  animatorCharacter.SetTrigger("UnquipWeapon");
+            anim.SetTrigger("EquipWeapon");
+        else  anim.SetTrigger("UnquipWeapon");
     }
     public void ParkourUp(bool isParkour)
     {
         if (isParkour)
-            animatorCharacter.SetBool("isParkourUp", true);
+            anim.SetBool("isParkourUp", true);
     }
 }
