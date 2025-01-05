@@ -2280,11 +2280,6 @@ PrefabInstance:
       objectReference: {fileID: 322543997}
     - target: {fileID: 5256612732659536390, guid: 8b76a29402ae8b64fb01b52dd633429a,
         type: 3}
-      propertyPath: m_Data.m_Offset.x
-      value: -25
-      objectReference: {fileID: 0}
-    - target: {fileID: 5256612732659536390, guid: 8b76a29402ae8b64fb01b52dd633429a,
-        type: 3}
       propertyPath: m_Data.m_SourceObjects.m_Item0.transform
       value: 
       objectReference: {fileID: 322543997}

@@ -26,6 +26,7 @@ public class TirdCameraCharacter : MonoBehaviour, ICameraCharacter
     private float maxZoom = 2f;
 
     private float limitAngle = 65f;
+    private float limitAngleAim = 5f;
     private float newHeigth;
 
     private CharacterState state;
@@ -82,13 +83,17 @@ public class TirdCameraCharacter : MonoBehaviour, ICameraCharacter
     }
 
 
-    public void CheckCameraRotateAngle()
+    public void CheckCameraRotateAngle(CharacterState state)
     {   
         Vector3 cameraZ = Vector3.ProjectOnPlane(transformCamera.forward, Vector3.up).normalized;
         Vector3 characterZ = Vector3.ProjectOnPlane(targetLookPoint.forward, Vector3.up).normalized;
         float currentAngleCamera = Vector3.SignedAngle(cameraZ, characterZ, Vector3.up);
         state.SetAngleForCamera(currentAngleCamera);
-        if (Mathf.Abs(state.currentAngleCamera) > limitAngle)
+        if (state.isAim && Mathf.Abs(state.currentAngleCamera) > limitAngleAim)
+        {
+            state.SetStateCameraAngle(true);
+        }
+        else if(Mathf.Abs(state.currentAngleCamera) > limitAngle)
         {
             state.SetStateCameraAngle(true);
         }

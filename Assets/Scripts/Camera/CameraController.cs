@@ -52,7 +52,7 @@ public class CameraController: IInitializable, IDisposable
         bool isActive = inventoryUI.isActiveInventory;
         state.StoppingRotateCamera(isActive);
         windowUI.ShowInteractText();
-        activeCamera.CheckCameraRotateAngle();
+        activeCamera.CheckCameraRotateAngle(state);
     }
     public void LateTick_()
     {

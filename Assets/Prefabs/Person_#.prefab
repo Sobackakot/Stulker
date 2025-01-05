@@ -469,7 +469,7 @@ MonoBehaviour:
       m_Item7:
         transform: {fileID: 0}
         weight: 0
-    m_Offset: {x: -25, y: 15, z: 15}
+    m_Offset: {x: -25, y: 15, z: 0}
     m_MinLimit: -45
     m_MaxLimit: 45
     m_AimAxis: 3
@@ -922,7 +922,7 @@ Transform:
   m_GameObject: {fileID: 1286066125859822944}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071069, y: -0.000000059604638, z: 0.000000026077029, w: 0.70710677}
-  m_LocalPosition: {x: -0.596, y: -0.933, z: 0.17}
+  m_LocalPosition: {x: -0.989, y: -0.932, z: 0.537}
   m_LocalScale: {x: 0.09999998, y: 0.09999999, z: 0.09999999}
   m_ConstrainProportionsScale: 0
   m_Children: []

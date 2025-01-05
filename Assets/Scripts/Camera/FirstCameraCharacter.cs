@@ -69,7 +69,7 @@ public class FirstCameraCharacter : MonoBehaviour, ICameraCharacter
          
     }
 
-    public void CheckCameraRotateAngle()
+    public void CheckCameraRotateAngle(CharacterState state)
     { 
     }
 
