@@ -38,8 +38,7 @@ public class AnimatorController :IInitializable, IDisposable
     public void Tick_()
     { 
         characterAnimator.SwitchAnimationTurn(state.currentAngleCamera, state.isStopingRotate);
-        characterAnimator.TurnAnimation(state.inputAxisCamera, state.isStopingRotate, state.isMaxAngleCamera, state.isRun);
-         
+        characterAnimator.TurnAnimation(state.inputAxisCamera, state.isStopingRotate, state.isMaxAngleCamera, state.isRun, state.currentAngleCamera);
         characterAnimator.MovAnimation(state.inputAxisMove, state.isMove);
         characterAnimator.SwithAnimationMove(state.isSprint, state.isWalk, state.isAim,state.inputAxisMove);
         characterAnimator.AimingAnimation(state.isAim); 
@@ -55,6 +54,7 @@ public class AnimatorController :IInitializable, IDisposable
         characterIK.WeaponParentIK(state.isReadyForBattle, state.isEquippingWeapon);
         characterIK.AimWeaponParentIK(state.isAim, state.isReloadWeapon);
         characterIK.EquipWeaponParentIK(state.isReadyForBattle, state.isAvailableWeapons);
+        
     }
 
 }

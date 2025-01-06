@@ -190,7 +190,7 @@ AnimatorStateMachine:
     m_Position: {x: 210, y: -30, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1342584521428759806}
-    m_Position: {x: 580, y: -10, z: 0}
+    m_Position: {x: 450, y: -40, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1293526181802515986}
     m_Position: {x: 210, y: 200, z: 0}
@@ -1097,7 +1097,7 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: -203655887218126122, guid: 733d570e1c0a721499497b1e4b3421d2,
       type: 3}
-    m_Threshold: -1
+    m_Threshold: -90
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -1106,7 +1106,7 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: -203655887218126122, guid: 2b53bd742e437dc41aa5bd2a47460131,
       type: 3}
-    m_Threshold: -0.5
+    m_Threshold: -45
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -1124,7 +1124,7 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: -203655887218126122, guid: 81a653761c4627c4a850e1ff02b2a50c,
       type: 3}
-    m_Threshold: 0.5
+    m_Threshold: 45
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -1133,7 +1133,7 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: -203655887218126122, guid: 013f0ce56606c16409bf8739cfc58a6d,
       type: 3}
-    m_Threshold: 1
+    m_Threshold: 90
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -1141,8 +1141,8 @@ BlendTree:
     m_Mirror: 0
   m_BlendParameter: DeltaMouse
   m_BlendParameterY: X
-  m_MinThreshold: -1
-  m_MaxThreshold: 1
+  m_MinThreshold: -90
+  m_MaxThreshold: 90
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
@@ -1217,7 +1217,7 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: -203655887218126122, guid: 3240f261d7a8d1d499d6e60fa225dd27,
       type: 3}
-    m_Threshold: -1
+    m_Threshold: -90
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -1235,7 +1235,7 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: -203655887218126122, guid: 79bb29c9d973eab4bbed1e49a4436b03,
       type: 3}
-    m_Threshold: 1
+    m_Threshold: 90
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -1243,8 +1243,8 @@ BlendTree:
     m_Mirror: 0
   m_BlendParameter: DeltaMouse
   m_BlendParameterY: X
-  m_MinThreshold: -1
-  m_MaxThreshold: 1
+  m_MinThreshold: -90
+  m_MaxThreshold: 90
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
@@ -1525,7 +1525,7 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: -203655887218126122, guid: 0eb8969c72faa7540a1487b62472df5d,
       type: 3}
-    m_Threshold: -0.5
+    m_Threshold: -25
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -1543,7 +1543,7 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: -203655887218126122, guid: 3fd0d748c7fb8604eb7f92a2bfda28c8,
       type: 3}
-    m_Threshold: 0.5
+    m_Threshold: 25
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -1551,8 +1551,8 @@ BlendTree:
     m_Mirror: 0
   m_BlendParameter: DeltaMouse
   m_BlendParameterY: X
-  m_MinThreshold: -0.5
-  m_MaxThreshold: 0.5
+  m_MinThreshold: -25
+  m_MaxThreshold: 25
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
@@ -1634,7 +1634,7 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: -203655887218126122, guid: e236576fd399d0e49b5c74f4f4f9c2ec,
       type: 3}
-    m_Threshold: -0.5
+    m_Threshold: -25
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -1652,7 +1652,7 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: -203655887218126122, guid: cdc77a53c5bf9484aa9eecc7c3c18fa9,
       type: 3}
-    m_Threshold: 0.5
+    m_Threshold: 25
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -1660,8 +1660,8 @@ BlendTree:
     m_Mirror: 0
   m_BlendParameter: DeltaMouse
   m_BlendParameterY: X
-  m_MinThreshold: -0.5
-  m_MaxThreshold: 0.5
+  m_MinThreshold: -25
+  m_MaxThreshold: 25
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
@@ -2541,7 +2541,7 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: -203655887218126122, guid: d4a01a2860b5f444aa53cb5f449593d5,
       type: 3}
-    m_Threshold: -1
+    m_Threshold: -25
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -2559,7 +2559,7 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: -203655887218126122, guid: 74e212b55fccb244baaef03ac5e289f0,
       type: 3}
-    m_Threshold: 1
+    m_Threshold: 25
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -2567,8 +2567,8 @@ BlendTree:
     m_Mirror: 0
   m_BlendParameter: DeltaMouse
   m_BlendParameterY: X
-  m_MinThreshold: -1
-  m_MaxThreshold: 1
+  m_MinThreshold: -25
+  m_MaxThreshold: 25
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
@@ -5032,7 +5032,7 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: -203655887218126122, guid: 78b30f8215164b0438f9b7ac92fd2cea,
       type: 3}
-    m_Threshold: -1
+    m_Threshold: -90
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -5050,7 +5050,7 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: -203655887218126122, guid: 978eb9879cb1ff34fb3f46cc05576160,
       type: 3}
-    m_Threshold: 1
+    m_Threshold: 90
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -5058,8 +5058,8 @@ BlendTree:
     m_Mirror: 0
   m_BlendParameter: DeltaMouse
   m_BlendParameterY: Y
-  m_MinThreshold: -1
-  m_MaxThreshold: 1
+  m_MinThreshold: -90
+  m_MaxThreshold: 90
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
