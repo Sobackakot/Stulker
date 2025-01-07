@@ -1,5 +1,5 @@
 
-using System;
+using System; 
 using Zenject;
 
 public class AnimatorController :IInitializable, IDisposable
@@ -38,11 +38,12 @@ public class AnimatorController :IInitializable, IDisposable
     public void Tick_()
     { 
         characterAnimator.SwitchAnimationTurn(state.currentAngleCamera, state.isStopingRotate);
-        characterAnimator.TurnAnimation(state.inputAxisCamera, state.isStopingRotate, state.isMaxAngleCamera, state.isRun, state.currentAngleCamera);
+        characterAnimator.TurnAnimation(state.inputAxisCamera, state.isStopingRotate, state.isMaxAngleCamera, state.isRun);
         characterAnimator.MovAnimation(state.inputAxisMove, state.isMove);
         characterAnimator.SwithAnimationMove(state.isSprint, state.isWalk, state.isAim,state.inputAxisMove);
         characterAnimator.AimingAnimation(state.isAim); 
         characterAnimator.RunningDiagonal(state.isRunDiagonal);
+         
     }  
     public void LateTick_()
     {

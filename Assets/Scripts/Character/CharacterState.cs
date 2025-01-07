@@ -32,7 +32,7 @@ public class CharacterState
     public bool isEquippingWeapon { get; private set; }
     public bool isAvailableWeapons { get; private set; }
     public bool isReloadWeapon { get; private set; }
-    public Vector3 inputAxisMove { get; private set; }
+    public Vector3 inputAxisMove { get; private set; } 
     public bool isRayHitToItem { get; private set; } 
     public bool isRayHitToInventoryBox { get; private set; } 
 
@@ -88,8 +88,7 @@ public class CharacterState
             isIdle = true;
             isRun = false;
         }
-    }
-
+    } 
     public void InputCharacter_OnMove(Vector2 inputAxis)
     {
         inputAxisMove = new Vector3(inputAxis.x, 0, inputAxis.y); 

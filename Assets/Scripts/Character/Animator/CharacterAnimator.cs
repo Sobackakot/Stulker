@@ -5,13 +5,14 @@ using Zenject;
 public class CharacterAnimator : MonoBehaviour
 {
     //[SerializeField] private Animator animatorWeapon; 
-    private Animator anim;   
-    private Rigidbody rb;
+    private Animator anim;    
     private Transform tr;
 
     [SerializeField] private float speedWalkAnimation = 0.5f;
     [SerializeField] private float speedRunAnimation = 0.8f;
     [SerializeField] private float speedSprint = 1f;
+
+    public Vector3 newAngleRotateCharacter { get; private set; }  
     private float angleTurn = 45f;
     private float angleMaxTurn = 90f;
     private float switchAngleTurn;
@@ -24,8 +25,7 @@ public class CharacterAnimator : MonoBehaviour
      
     private void Awake()
     {     
-        anim = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody>();
+        anim = GetComponent<Animator>(); 
         tr = GetComponent<Transform>();
         pickUpItemLayer = anim.GetLayerIndex("PickUpItem_Layer");
         reloadWeaponLayer = anim.GetLayerIndex("ReloadWeapon_Layer");
@@ -34,12 +34,11 @@ public class CharacterAnimator : MonoBehaviour
     }
     private void OnAnimatorMove()
     {
-        Vector3 newRot = new Vector3(
-            tr.eulerAngles.x + anim.deltaRotation.eulerAngles.x,
-            tr.eulerAngles.y + anim.deltaRotation.eulerAngles.y,
-            tr.eulerAngles.z + anim.deltaRotation.eulerAngles.z);
-        rb.MoveRotation(Quaternion.Euler(newRot)); 
-    }
+            //newAngleRotateCharacter = new Vector3(
+            //tr.eulerAngles.x + anim.deltaRotation.eulerAngles.x,
+            //tr.eulerAngles.y + anim.deltaRotation.eulerAngles.y,
+            //tr.eulerAngles.z + anim.deltaRotation.eulerAngles.z); 
+    } 
     public void MovAnimation(Vector3 inputAxis,bool isMoving)
     {
         if (inputAxis.sqrMagnitude > 0.2f && isMoving)
@@ -53,11 +52,11 @@ public class CharacterAnimator : MonoBehaviour
             anim.SetFloat("X", 0, 0.2f, Time.smoothDeltaTime);  
         } 
     } 
-    public void TurnAnimation(Vector3 input, bool isRotate, bool isLimitAngle, bool isRun, float eulerAngle)
+    public void TurnAnimation(Vector3 input, bool isRotate, bool isLimitAngle, bool isRun)
     {
         float currentDeltaMouse = anim.GetFloat("DeltaMouse");
         float smoothDeltaMouse = Mathf.Lerp(currentDeltaMouse, input.x * switchAngleTurn, 0.1f);
-        if (isRotate && eulerAngle > 0 && isLimitAngle)
+        if (isRotate && isLimitAngle && Mathf.Abs(input.x) > 0.1f)
             anim.SetFloat("DeltaMouse", smoothDeltaMouse, 0.1f, Time.smoothDeltaTime);
         else if (Mathf.Abs(input.x) > 0.4f && isRun) 
             anim.SetFloat("DeltaMouse", smoothDeltaMouse, 0.1f, Time.smoothDeltaTime); 

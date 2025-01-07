@@ -30,6 +30,7 @@ public class TirdCameraCharacter : MonoBehaviour, ICameraCharacter
     private float newHeigth;
 
     private CharacterState state;
+
     [Inject]
     private void Construct(CharacterState state)
     {
@@ -99,6 +100,7 @@ public class TirdCameraCharacter : MonoBehaviour, ICameraCharacter
         }
         else state.SetStateCameraAngle(false);
     }
+
     public void SwitchLookPointCamera(bool isLeftPointLook, bool isCrouching)
     {
         float heightPoint = isCrouching ? 1.2f : 1.6f;
