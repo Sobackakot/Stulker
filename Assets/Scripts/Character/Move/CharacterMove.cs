@@ -85,7 +85,7 @@ public class CharacterMove : MonoBehaviour
     }  
     public void SwitchVelocityMove()
     {
-        if (state.isWalk | state.isAim | state.isCrouch) speedMove = inputAxis.z < 0 ? speedWalkBack : speedWalkForward;
+        if (state.isWalck | state.isAim | state.isCrouch) speedMove = inputAxis.z < 0 ? speedWalkBack : speedWalkForward;
         else speedMove = inputAxis.z < 0 ? speedRunBack : (state.isSprint ? (inputAxis.z > 0 ? speedSprint : speedRunForward) : speedRunForward); 
     }
     public void StopingMoveCharacter(bool isActiveInventoryBox)

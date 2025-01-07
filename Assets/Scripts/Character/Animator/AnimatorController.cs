@@ -40,10 +40,11 @@ public class AnimatorController :IInitializable, IDisposable
         characterAnimator.SwitchAnimationTurn(state.currentAngleCamera, state.isStopingRotate);
         characterAnimator.TurnAnimation(state.inputAxisCamera, state.isStopingRotate, state.isMaxAngleCamera, state.isRun);
         characterAnimator.MovAnimation(state.inputAxisMove, state.isMove);
-        characterAnimator.SwithAnimationMove(state.isSprint, state.isWalk, state.isAim,state.inputAxisMove);
+        characterAnimator.SwithAnimationMove(state.isSprint, state.isWalck, state.isAim,state.inputAxisMove);
         characterAnimator.AimingAnimation(state.isAim); 
         characterAnimator.RunningDiagonal(state.isRunDiagonal);
-         
+        characterAnimator.StoppingRunning(state.isIdle, state.isSprint);   
+        characterAnimator.StartingRunning(state.isIdle, state.isSprint);   
     }  
     public void LateTick_()
     {

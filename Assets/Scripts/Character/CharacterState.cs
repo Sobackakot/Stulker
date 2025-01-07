@@ -18,7 +18,7 @@ public class CharacterState
     public bool isIdle { get; private set; }
     public bool isSprint { get; private set; }
     public bool isRun { get; private set; }
-    public bool isWalk { get; private set; } 
+    public bool isWalck { get; private set; } 
     public bool isRunDiagonal { get; private set; }
     public bool isCollision { get; private set; }
     public bool isAim { get; private set; } 
@@ -78,7 +78,7 @@ public class CharacterState
     public void UpdateStateMove(bool isMoving)
     {
         this.isMove = isMoving;
-        if(!isSprint | !isWalk && inputAxisMove.sqrMagnitude > 0.2f)
+        if(!isSprint | !isWalck && inputAxisMove.sqrMagnitude > 0.2f)
         {
             isRun = true;
             isIdle = false;
@@ -96,8 +96,13 @@ public class CharacterState
     }
     public void InputCharacter_OnRun(bool isKeySprint)
     {
-        isSprint = isKeySprint;
-        isIdle = false;
+        if(inputAxisMove.sqrMagnitude > 0.2f && isKeySprint)
+        {
+            isSprint = true;
+            isIdle = false;
+            isWalck= false;
+            isRun = false;
+        } else isSprint = false;
     }
     public void UpdateIsDiagonalRunning()
     {
@@ -106,7 +111,13 @@ public class CharacterState
     }
     public void InputCharacter_OnWalk(bool isKeyWalk)
     {
-        isWalk = isKeyWalk;
+        if (inputAxisMove.sqrMagnitude > 0.2f && isKeyWalk)
+        {
+            isWalck = true;
+            isIdle = false;
+            isRun = false;
+            isSprint = false;
+        } else isWalck = false;
     } 
     public void InputCharacter_OnJamp()
     {

@@ -1,4 +1,5 @@
- 
+
+using System.Net.Mail;
 using UnityEngine;
 using Zenject;
 
@@ -17,12 +18,20 @@ public class CharacterAnimator : MonoBehaviour
     private float angleMaxTurn = 90f;
     private float switchAngleTurn;
     private float speedAnimation;
+     
+
     private int pickUpItemLayer;
     private int reloadWeaponLayer;
     private int equipWeaponLayer;
     private int runningLayer;
-     
-     
+
+
+    bool fersCheck;
+    bool secondCheck;
+    bool thirdCheck;
+    bool fourthCheck;
+    float inertiaCount = 1.5f;
+
     private void Awake()
     {     
         anim = GetComponent<Animator>(); 
@@ -32,34 +41,61 @@ public class CharacterAnimator : MonoBehaviour
         equipWeaponLayer = anim.GetLayerIndex("Take_Weapon_Layer");
         runningLayer = anim.GetLayerIndex("Running_Layer"); 
     }
-    private void OnAnimatorMove()
+
+    public void StartingRunning(bool isIdle, bool isSprint)
     {
-            //newAngleRotateCharacter = new Vector3(
-            //tr.eulerAngles.x + anim.deltaRotation.eulerAngles.x,
-            //tr.eulerAngles.y + anim.deltaRotation.eulerAngles.y,
-            //tr.eulerAngles.z + anim.deltaRotation.eulerAngles.z); 
-    } 
+        if (isIdle) fersCheck = true;
+        else if (!fersCheck) return;
+        if (isSprint ) secondCheck = true;
+        if (fersCheck && secondCheck)
+        {
+            anim.SetLayerWeight(runningLayer, 1);
+            anim.SetTrigger("StartingRun");
+            fersCheck = false;
+            secondCheck = false;
+        }
+    }
+     public void StoppingRunning(bool isIdle,bool isSprint)
+     {
+        if (isSprint) thirdCheck = true; 
+        else if (!thirdCheck) return ;
+        if(isIdle) fourthCheck = true;
+        if(thirdCheck && fourthCheck)
+        {
+            anim.SetLayerWeight(runningLayer, 1);
+            anim.SetTrigger("StoppingRun");
+            thirdCheck = false;
+            fourthCheck = false;
+        } 
+     }
     public void MovAnimation(Vector3 inputAxis,bool isMoving)
     {
         if (inputAxis.sqrMagnitude > 0.2f && isMoving)
         { 
             anim.SetFloat("X", inputAxis.x * speedAnimation, 0.2f, Time.smoothDeltaTime);
-            anim.SetFloat("Y", inputAxis.z * speedAnimation, 0.2f, Time.smoothDeltaTime);  
-        }
-        else
-        {   
+            anim.SetFloat("Y", inputAxis.z * speedAnimation, 0.2f, Time.smoothDeltaTime); 
+        } 
+        else 
+        { 
             anim.SetFloat("Y", 0, 0.2f, Time.smoothDeltaTime);
             anim.SetFloat("X", 0, 0.2f, Time.smoothDeltaTime);  
         } 
     } 
     public void TurnAnimation(Vector3 input, bool isRotate, bool isLimitAngle, bool isRun)
     {
-        float currentDeltaMouse = anim.GetFloat("DeltaMouse");
-        float smoothDeltaMouse = Mathf.Lerp(currentDeltaMouse, input.x * switchAngleTurn, 0.1f);
+        
         if (isRotate && isLimitAngle && Mathf.Abs(input.x) > 0.1f)
+        {
+            float currentDeltaMouse = anim.GetFloat("DeltaMouse");
+            float smoothDeltaMouse = Mathf.Lerp(currentDeltaMouse, input.x * switchAngleTurn, 0.1f);
             anim.SetFloat("DeltaMouse", smoothDeltaMouse, 0.1f, Time.smoothDeltaTime);
-        else if (Mathf.Abs(input.x) > 0.4f && isRun) 
-            anim.SetFloat("DeltaMouse", smoothDeltaMouse, 0.1f, Time.smoothDeltaTime); 
+        } 
+        else if (Mathf.Abs(input.x) > 0.99f && isRun)
+        {
+            float currentDeltaMouse = anim.GetFloat("DeltaMouse");
+            float smoothDeltaMouse = Mathf.Lerp(currentDeltaMouse, input.x * switchAngleTurn, 0.1f);
+            anim.SetFloat("DeltaMouse", smoothDeltaMouse, 0.1f, Time.smoothDeltaTime);
+        }   
         else anim.SetFloat("DeltaMouse", 0, 0.1f, Time.smoothDeltaTime); 
     } 
  
