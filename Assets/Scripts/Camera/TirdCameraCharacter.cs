@@ -106,7 +106,7 @@ public class TirdCameraCharacter : MonoBehaviour, ICameraCharacter
         float heightPoint = isCrouching ? 1.2f : 1.6f;
         newHeigth = Mathf.Lerp(newHeigth, heightPoint, Time.deltaTime * transitionSpeed); 
 
-        // Smoothly transition to the new height and look point position
+        // Smoothly transition to the new height and look pointRay position
         Vector3 targetPosition = new Vector3(isLeftPointLook ? leftTarget : rightTarget, newHeigth, 0);
 
         targetLookPoint.localPosition = Vector3.Lerp(targetLookPoint.localPosition, targetPosition, Time.deltaTime * transitionSpeed); 

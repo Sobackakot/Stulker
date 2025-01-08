@@ -2,7 +2,7 @@
 using System;
 using Zenject;
 
-public class MoveController : IInitializable, IDisposable 
+public class MoveController : IInitializable, IDisposable
 {
     public MoveController(CharacterMove character,
         CharacterState state, [Inject(Id = "inventoryBoxUI")]IInventoryUI inventoryUI)

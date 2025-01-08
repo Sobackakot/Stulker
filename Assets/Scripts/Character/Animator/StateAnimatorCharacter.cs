@@ -3,12 +3,12 @@ using UnityEngine;
 using Zenject;
 
 public class StateAnimatorCharacter : StateMachineBehaviour
-{
-    public bool isKinematic { get; private set; }
+{ 
     public bool isClimbing { get; private set; }
     public bool isClimbUp { get; private set; }
     public bool isParkour { get; private set; }
     public bool isJump { get; private set; }
+    public bool isKinematic;
 
     private CharacterState state;
 
@@ -17,11 +17,7 @@ public class StateAnimatorCharacter : StateMachineBehaviour
     {
         this.state = state;
     }
-
-    private void OnEnable()
-    {
-        isKinematic = false;
-    }
+     
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         ParkourStateEnter(stateInfo);
@@ -38,22 +34,36 @@ public class StateAnimatorCharacter : StateMachineBehaviour
         if (layerIndex == 1)
             EquipWeaponExit(stateInfo);
     }
+    private void SprintStateEnter(AnimatorStateInfo stateInfo)
+    {
+        // Check if the animation is at the start
+        if (stateInfo.normalizedTime < 0.1f)
+        {
+            // Compare the shortNameHash of the current state to a target animation
+            if (stateInfo.shortNameHash == Animator.StringToHash("RunAnimation"))
+            {
+                Debug.Log("Run Animation Started!");
+            }
+        }
+    }
     private void ParkourStateEnter(AnimatorStateInfo stateInfo)
     {
         if (stateInfo.IsName("Parkour_Up"))
         {
-            isParkour = true;
+            isKinematic = true;
+            isParkour = true; 
         }
         isClimbUp = stateInfo.IsName("ClimbingUP");
         isClimbing = stateInfo.IsName("Freehang Climb");
     }
     private void ParkourStateExit(AnimatorStateInfo stateInfo)
     {
+        isParkour = stateInfo.IsName("Parkour_Up");
         isClimbUp = stateInfo.IsName("ClimbingUP");
         if (stateInfo.IsName("Freehang Climb"))
-        {
-            isParkour = false;
-            isClimbing = false;
+        { 
+            isClimbing = false; 
+            isKinematic = false;
         }
     }
     private void JumpStateEnter(AnimatorStateInfo stateInfo)

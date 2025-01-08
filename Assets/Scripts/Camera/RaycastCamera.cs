@@ -1,5 +1,6 @@
 
 using System;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using Zenject;
 
@@ -8,8 +9,8 @@ public class RaycastCamera : MonoBehaviour
     [SerializeField] private Transform targetAiming;
     [SerializeField] private float  aimPointSpeed = 45f;
 
-    private Transform point;
-    private float maxRayInteract = 5f;
+    private Transform pointRay;
+    [SerializeField] private float maxRayInteract = 2f;
     private float maxRayAiming = 1000f;
      
     public LayerMask layerMaskBox;
@@ -33,7 +34,7 @@ public class RaycastCamera : MonoBehaviour
     }
     private void Awake()
     {
-        point = GetComponent<Transform>();
+        pointRay = GetComponent<Transform>();
         inventoryGameObject = FindObjectOfType<InventoryPersonGameObject>();
         weapon = FindObjectOfType<WeaponHandle>();
         windowUI = FindObjectOfType<WindowUI>(); 
@@ -115,10 +116,30 @@ public class RaycastCamera : MonoBehaviour
         if (isWeapon)
             return weapon.SetWeapon(hit.collider.gameObject);
         else return false;
+    } 
+    public bool GetDataObstacle(out Vector3 pointRay, out Vector3 scale, out Quaternion rotation)
+    {
+        ray = GetUpdateRay();
+        if (Physics.Raycast(ray, out hit, maxRayInteract, ~layerMaskTake))
+        {
+            pointRay = hit.collider.transform.position;
+            scale = hit.collider.transform.localScale;
+            rotation = hit.collider.transform.localRotation;
+            Debug.Log(" point " + pointRay);
+            Debug.Log(" scale " + scale);
+            Debug.Log(" rotate " + rotation);
+            return true;
+        }
+        else
+        {
+            pointRay = Vector3.zero;
+            scale = Vector3.zero;
+            rotation = Quaternion.identity;
+            return false;
+        } 
     }
-
     private Ray GetUpdateRay()
     {
-        return new Ray(point.position, point.forward);
+        return new Ray(pointRay.position, pointRay.forward);
     }
 }

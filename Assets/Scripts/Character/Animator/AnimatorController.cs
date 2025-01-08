@@ -38,7 +38,7 @@ public class AnimatorController :IInitializable, IDisposable
     public void Tick_()
     { 
         characterAnimator.SwitchAnimationTurn(state.currentAngleCamera, state.isStopingRotate);
-        characterAnimator.TurnAnimation(state.inputAxisCamera, state.isStopingRotate, state.isMaxAngleCamera, state.isRun);
+        characterAnimator.TurnAnimation(state.inputAxisCamera, state.isStopingRotate, state.isMaxAngleCamera);
         characterAnimator.MovAnimation(state.inputAxisMove, state.isMove);
         characterAnimator.SwithAnimationMove(state.isSprint, state.isWalck, state.isAim,state.inputAxisMove);
         characterAnimator.AimingAnimation(state.isAim); 

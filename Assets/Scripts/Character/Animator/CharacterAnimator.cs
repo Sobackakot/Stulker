@@ -81,7 +81,7 @@ public class CharacterAnimator : MonoBehaviour
             anim.SetFloat("X", 0, 0.2f, Time.smoothDeltaTime);  
         } 
     } 
-    public void TurnAnimation(Vector3 input, bool isRotate, bool isLimitAngle, bool isRun)
+    public void TurnAnimation(Vector3 input, bool isRotate, bool isLimitAngle)
     {
         
         if (isRotate && isLimitAngle && Mathf.Abs(input.x) > 0.1f)
@@ -89,14 +89,7 @@ public class CharacterAnimator : MonoBehaviour
             float currentDeltaMouse = anim.GetFloat("DeltaMouse");
             float smoothDeltaMouse = Mathf.Lerp(currentDeltaMouse, input.x * switchAngleTurn, 0.1f);
             anim.SetFloat("DeltaMouse", smoothDeltaMouse, 0.1f, Time.smoothDeltaTime);
-        } 
-        else if (Mathf.Abs(input.x) > 0.99f && isRun)
-        {
-            float currentDeltaMouse = anim.GetFloat("DeltaMouse");
-            float smoothDeltaMouse = Mathf.Lerp(currentDeltaMouse, input.x * switchAngleTurn, 0.1f);
-            anim.SetFloat("DeltaMouse", smoothDeltaMouse, 0.1f, Time.smoothDeltaTime);
-        }   
-        else anim.SetFloat("DeltaMouse", 0, 0.1f, Time.smoothDeltaTime); 
+        } else anim.SetFloat("DeltaMouse", 0, 0.1f, Time.smoothDeltaTime); 
     } 
  
     public void SwitchAnimationTurn(float angle,bool isRotate)
