@@ -53,7 +53,7 @@ public class StateAnimatorCharacter : StateMachineBehaviour
         isClimbingStart = stateInfo.IsName("StartClimbing");
         isNextClimbing = stateInfo.IsName("NextClimbing");
         isFinishClimbing = stateInfo.IsName("FinishClimbing");
-        if (isClimbingStart || stateInfo.IsName("ClimbingMidle") || stateInfo.IsName("ClimbingMini"))
+        if (isClimbingStart || stateInfo.IsName("ClimbingUp") || stateInfo.IsName("ClimbingMini"))
         {
             isKinematic = true;
             isParcureState = true;
@@ -64,7 +64,7 @@ public class StateAnimatorCharacter : StateMachineBehaviour
         isClimbingStart = stateInfo.IsName("StartClimbing");
         isNextClimbing = stateInfo.IsName("NextClimbing");
         isFinishClimbing = stateInfo.IsName("FinishClimbing");
-        if (isFinishClimbing || stateInfo.IsName("ClimbingMidle") || stateInfo.IsName("ClimbingMini"))
+        if (isFinishClimbing || stateInfo.IsName("Climbing Down") || stateInfo.IsName("ClimbingMini"))
         {  
             isKinematic = false;
             isParcureState= false;

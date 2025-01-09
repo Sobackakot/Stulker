@@ -118,23 +118,21 @@ public class RaycastCamera : MonoBehaviour
             return weapon.SetWeapon(hit.collider.gameObject);
         else return false;
     } 
-    public bool GetDataObstacle(out Vector3 pointRay, out Vector3 scale, out Quaternion rotation, out ObstacleData data)
+    public bool GetDataObstacle(out Vector3 pointRay, out Vector3 scale, out ObstacleData data)
     {
         ray = GetUpdateRay();
         if (Physics.Raycast(ray, out hit, maxRayInteract, climbLayerMask))
         {
             pointRay = hit.collider.transform.position;
-            scale = hit.collider.transform.localScale;
-            rotation = hit.collider.transform.localRotation; 
-            data = hit.collider.GetComponent<Obstacle>().data;
+            scale = hit.collider.transform.localScale; 
+            data = hit.collider.GetComponent<Obstacle>().data; 
             return true;
         }
         else
         {
             pointRay = Vector3.zero;
-            scale = Vector3.zero;
-            rotation = Quaternion.identity;
-            data = null;
+            scale = Vector3.zero; 
+            data = null; 
             return false;
         } 
     }

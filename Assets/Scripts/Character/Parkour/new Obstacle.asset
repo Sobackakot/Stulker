@@ -12,11 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d4bdfab03b1a52409429c3c3f8b28d7, type: 3}
   m_Name: new Obstacle
   m_EditorClassIdentifier: 
-  avatarTarget: 0
+  avatarTarget: 3
   climbType: 0
-  startTime: 0
-  targetTime: 0
-  maxHeight: 2.6
+  startTime: 0.5
+  targetTime: 0.62
+  maxHeight: 3
   midleHeight: 2
-  miniHeight: 1
-  nameClimbAnim: 
+  miniHeight: 1.5
+  lastHeight: 1
+  miniSquar: 0.5
+  nameTriggerAnim: isClimbingMini
+  nameStateAnim: ClimbingMini

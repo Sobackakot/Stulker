@@ -9,15 +9,19 @@ public class ObstacleData : ScriptableObject
 
     public float startTime;
     public float targetTime;
-    public float maxHeight = 2.6f;
+    
+    public float maxHeight = 3f;
     public float midleHeight = 2f;
-    public float miniHeight = 1.0f;
+    public float miniHeight = 1.5f; 
+    public float maxMiniHeight = 1f;
+    public float miniWidth = 0.5f;
+
     public string nameTriggerAnim = "";
     public string nameStateAnim = "";
 
-    public bool GetHeightObstacle(float height)
-    {
-        if (height <= miniHeight)
+    public bool GetHeightObstacle(float height, float width)
+    { 
+        if (height <= miniHeight && height >= maxMiniHeight && width >= miniWidth)
         {
             climbType = ClimbType.miniClimb;
             nameTriggerAnim = "isClimbingMini";
@@ -25,26 +29,27 @@ public class ObstacleData : ScriptableObject
             avatarTarget = AvatarTarget.RightFoot;
             startTime = 0.50f;
             targetTime = 0.62f;
+            Input.GetAxis("Mouse X");
             return true; 
         }
-        else if (height <= midleHeight)
+        else if (height <= midleHeight && height > miniHeight && width < miniWidth)
         {
-            climbType = ClimbType.midleClimb;
-            nameTriggerAnim = "isClimbingMidle";
-            nameStateAnim = "ClimbingMidle";
+            climbType = ClimbType.climbingUpDown;
+            nameTriggerAnim = "isClimbingUpDown";
+            nameStateAnim = "ClimbingUp";
             avatarTarget = AvatarTarget.RightHand;
-            startTime = 0.37f;
-            targetTime = 0.64f;
+            startTime = 0.67f;
+            targetTime = 0.78f;
             return true;
         }
-        else if (height <= maxHeight)
+        else if (height <= maxHeight && height > midleHeight && width >= miniWidth)
         {
             climbType = ClimbType.maxClimb;
             nameTriggerAnim = "isClimbingFulle";
             nameStateAnim = "StartClimbing";
             avatarTarget = AvatarTarget.RightHand;
-            startTime = 0.62f;
-            targetTime = 0.74f;
+            startTime = 0.29f;
+            targetTime = 0.52f; 
             return true;
         }
         else return false;
@@ -53,6 +58,6 @@ public class ObstacleData : ScriptableObject
 public enum ClimbType
 {
     miniClimb,
-    midleClimb,
+    climbingUpDown,
     maxClimb
 }
