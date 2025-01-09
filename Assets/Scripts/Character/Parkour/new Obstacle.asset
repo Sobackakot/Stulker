@@ -9,7 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7cd5ed6e45abb69439f7abe4000bbacd, type: 3}
-  m_Name: hintRight
+  m_Script: {fileID: 11500000, guid: 7d4bdfab03b1a52409429c3c3f8b28d7, type: 3}
+  m_Name: new Obstacle
   m_EditorClassIdentifier: 
-  targetTypeHand: 2
+  avatarTarget: 0
+  climbType: 0
+  startTime: 0
+  targetTime: 0
+  maxHeight: 2.6
+  midleHeight: 2
+  miniHeight: 1
+  nameClimbAnim: 

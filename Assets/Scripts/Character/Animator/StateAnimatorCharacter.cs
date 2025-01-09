@@ -3,12 +3,14 @@ using UnityEngine;
 using Zenject;
 
 public class StateAnimatorCharacter : StateMachineBehaviour
-{ 
-    public bool isClimbing { get; private set; }
-    public bool isClimbUp { get; private set; }
-    public bool isParkour { get; private set; }
+{  
     public bool isJump { get; private set; }
     public bool isKinematic;
+    public bool isClimbingStart;
+    public bool isNextClimbing;
+    public bool isFinishClimbing;
+
+    public bool isParcureState;
 
     private CharacterState state;
 
@@ -48,23 +50,25 @@ public class StateAnimatorCharacter : StateMachineBehaviour
     }
     private void ParkourStateEnter(AnimatorStateInfo stateInfo)
     {
-        if (stateInfo.IsName("Parkour_Up"))
+        isClimbingStart = stateInfo.IsName("StartClimbing");
+        isNextClimbing = stateInfo.IsName("NextClimbing");
+        isFinishClimbing = stateInfo.IsName("FinishClimbing");
+        if (isClimbingStart || stateInfo.IsName("ClimbingMidle") || stateInfo.IsName("ClimbingMini"))
         {
             isKinematic = true;
-            isParkour = true; 
-        }
-        isClimbUp = stateInfo.IsName("ClimbingUP");
-        isClimbing = stateInfo.IsName("Freehang Climb");
+            isParcureState = true;
+        } 
     }
     private void ParkourStateExit(AnimatorStateInfo stateInfo)
     {
-        isParkour = stateInfo.IsName("Parkour_Up");
-        isClimbUp = stateInfo.IsName("ClimbingUP");
-        if (stateInfo.IsName("Freehang Climb"))
-        { 
-            isClimbing = false; 
+        isClimbingStart = stateInfo.IsName("StartClimbing");
+        isNextClimbing = stateInfo.IsName("NextClimbing");
+        isFinishClimbing = stateInfo.IsName("FinishClimbing");
+        if (isFinishClimbing || stateInfo.IsName("ClimbingMidle") || stateInfo.IsName("ClimbingMini"))
+        {  
             isKinematic = false;
-        }
+            isParcureState= false;
+        } 
     }
     private void JumpStateEnter(AnimatorStateInfo stateInfo)
     {

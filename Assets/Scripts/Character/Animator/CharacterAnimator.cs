@@ -147,9 +147,9 @@ public class CharacterAnimator : MonoBehaviour
             anim.SetTrigger("EquipWeapon");
         else  anim.SetTrigger("UnquipWeapon");
     }
-    public void ParkourUp(bool isParkour)
+    public void ParkourUp(bool isParkour, string nameAnim)
     {
         if (isParkour)
-            anim.SetBool("isParkourUp", true);
-    }
+            anim.SetTrigger(nameAnim);
+    } 
 }

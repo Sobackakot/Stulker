@@ -1,26 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class CharacterParcure : MonoBehaviour
 {
     private Rigidbody rb;
+    private Collider col;
     private RaycastCamera ray;
     private CharacterAnimator anim;
     private Animator animator;
     private StateAnimatorCharacter stateMachin;
+    private ObstacleData data;
 
     private Vector3 obstaclePoint;
     private Vector3 obstacleScale;
     private Quaternion obstacleRotate;
     private Vector3 offset;
-    [SerializeField] private float startTime = 0.74f;
-    [SerializeField] private float targetTime = 0.84f;
     public bool isStartingParcure {  get; private set; }
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        col = GetComponent<Collider>();
         ray = FindObjectOfType<RaycastCamera>();
         animator = GetComponent<Animator>();
         stateMachin = animator.GetBehaviour<StateAnimatorCharacter>();
@@ -32,27 +32,33 @@ public class CharacterParcure : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            isStartingParcure = ray.GetDataObstacle(out obstaclePoint, out obstacleScale, out obstacleRotate);
-            if(isStartingParcure) anim.ParkourUp(true);
+            isStartingParcure = ray.GetDataObstacle(out obstaclePoint, out obstacleScale, out obstacleRotate, out data);
+            if(isStartingParcure)
+            {
+                bool isClimb = data.GetHeightObstacle(obstacleScale.y);
+                if (isStartingParcure && isClimb) anim.ParkourUp(true, data.nameTriggerAnim);
+            }  
         }
-        if (stateMachin.isParkour) SetMatchTargetHand();
-        if (stateMachin.isClimbUp) SetMatchTargetFoot();
-        if (stateMachin.isClimbing) SetMatchTargetFoot2();
-        rb.isKinematic = stateMachin.isKinematic; 
+        if (stateMachin.isClimbingStart) SetMatchTarget(data.avatarTarget, data.startTime, data.targetTime);
+        rb.isKinematic = stateMachin.isKinematic;
+        col.enabled = !stateMachin.isKinematic;
+
+        if (stateMachin.isNextClimbing) SetMatchTargetFoot();
+        if (stateMachin.isFinishClimbing) SetMatchTargetFoot2(); 
     }
-    private void SetMatchTargetHand()
+    private void SetMatchTarget(AvatarTarget avatarTarget, float time, float nexTime)
     {
         offset.z = obstacleScale.z /2;
         offset.y = obstacleScale.y /2;
         MatchTargetWeightMask WeightMask = new MatchTargetWeightMask(new Vector3(0, 0.5f, 0), 0);
-        animator.MatchTarget(obstaclePoint + offset, obstacleRotate, AvatarTarget.LeftHand, WeightMask, 0.63f,0.74f);
+        animator.MatchTarget(obstaclePoint + offset, obstacleRotate, avatarTarget, WeightMask, time, nexTime);
     }
     private void SetMatchTargetFoot()
     {
         offset.z = obstacleScale.z / 2;
         offset.y = obstacleScale.y / 2;
         MatchTargetWeightMask WeightMask = new MatchTargetWeightMask(new Vector3(0,0.5f,0), 0);
-        animator.MatchTarget(obstaclePoint + offset, obstacleRotate, AvatarTarget.LeftFoot, WeightMask, 0.28f, 0.86f);
+        animator.MatchTarget(obstaclePoint + offset, obstacleRotate, AvatarTarget.LeftFoot, WeightMask, 0.28f, 0.87f);
     }
     private void SetMatchTargetFoot2()
     {

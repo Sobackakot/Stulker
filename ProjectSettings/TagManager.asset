@@ -12,6 +12,7 @@ TagManager:
   - BoxInventory
   - Parkour
   - Water
+  - Climb
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - UI
   - Box
   - PickUpItem
-  - 
+  - Climb
   - 
   - 
   - 

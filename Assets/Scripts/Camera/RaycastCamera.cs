@@ -16,6 +16,7 @@ public class RaycastCamera : MonoBehaviour
     public LayerMask layerMaskBox;
     public LayerMask layerMaskTake;
     public LayerMask ignorLayerMask;
+    public LayerMask climbLayerMask;
 
     private Ray ray;
     private RaycastHit hit;
@@ -117,17 +118,15 @@ public class RaycastCamera : MonoBehaviour
             return weapon.SetWeapon(hit.collider.gameObject);
         else return false;
     } 
-    public bool GetDataObstacle(out Vector3 pointRay, out Vector3 scale, out Quaternion rotation)
+    public bool GetDataObstacle(out Vector3 pointRay, out Vector3 scale, out Quaternion rotation, out ObstacleData data)
     {
         ray = GetUpdateRay();
-        if (Physics.Raycast(ray, out hit, maxRayInteract, ~layerMaskTake))
+        if (Physics.Raycast(ray, out hit, maxRayInteract, climbLayerMask))
         {
             pointRay = hit.collider.transform.position;
             scale = hit.collider.transform.localScale;
-            rotation = hit.collider.transform.localRotation;
-            Debug.Log(" point " + pointRay);
-            Debug.Log(" scale " + scale);
-            Debug.Log(" rotate " + rotation);
+            rotation = hit.collider.transform.localRotation; 
+            data = hit.collider.GetComponent<Obstacle>().data;
             return true;
         }
         else
@@ -135,6 +134,7 @@ public class RaycastCamera : MonoBehaviour
             pointRay = Vector3.zero;
             scale = Vector3.zero;
             rotation = Quaternion.identity;
+            data = null;
             return false;
         } 
     }
