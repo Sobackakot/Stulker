@@ -8,7 +8,8 @@ public class RaycastCamera : MonoBehaviour
     [SerializeField] private float  aimPointSpeed = 45f;
 
     private Transform pointRay;
-    [SerializeField] private float maxRayInteract = 2f;
+    [SerializeField] private float maxRayInteract = 4f;
+    [SerializeField] private float maxRayParcoure = 3.5f;
     private float maxRayAiming = 1000f;
      
     public LayerMask layerMaskBox;
@@ -63,8 +64,8 @@ public class RaycastCamera : MonoBehaviour
         ray = GetUpdateRay(); 
         if (Physics.Raycast(ray, out hit, maxRayInteract, layerMaskTake.value))
         {
-            state.UpdateStateRayHitToItem(true);
-            state.UpdateStateRayHitToInventory(false);
+            state.SetStateHitToItem(true);
+            state.SetStateHitToInventory(false);
             windowUI.SetInteractText("Take (F)"); 
         }
         else RayHitInventoryBoxInteract();
@@ -74,14 +75,14 @@ public class RaycastCamera : MonoBehaviour
         ray = GetUpdateRay();
         if (Physics.Raycast(ray, out hit, maxRayInteract, layerMaskBox.value))
         {
-            state.UpdateStateRayHitToItem(false);
-            state.UpdateStateRayHitToInventory(true);
+            state.SetStateHitToItem(false);
+            state.SetStateHitToInventory(true);
             windowUI.SetInteractText("Search (F)");
         }
         else
         {
-            state.UpdateStateRayHitToItem(false);
-            state.UpdateStateRayHitToInventory(false);
+            state.SetStateHitToItem(false);
+            state.SetStateHitToInventory(false);
             windowUI.SetInteractText(" ");
         }
             
@@ -97,7 +98,7 @@ public class RaycastCamera : MonoBehaviour
             inventoryGameObject.SetActiveInventory(isActiveInventoryBox);
         } 
     }
-    public bool CharacterState_OnPickUpItem()
+    public bool CharacterState_GetItemFromHitRay()
     {
         ray = GetUpdateRay();
         if (Physics.Raycast(ray, out hit, maxRayInteract))
@@ -119,18 +120,20 @@ public class RaycastCamera : MonoBehaviour
     public bool GetDataObstacle(out Vector3 pointRay, out Vector3 scale, out ObstacleData data)
     {
         ray = GetUpdateRay();
-        if (Physics.Raycast(ray, out hit, maxRayInteract, climbLayerMask))
+        if (Physics.Raycast(ray, out hit, maxRayParcoure, climbLayerMask))
         {
             pointRay = hit.collider.transform.position;
             scale = hit.collider.transform.localScale; 
-            data = hit.collider.GetComponent<Obstacle>().data; 
+            data = hit.collider.GetComponent<Obstacle>().data;
+            state.SetStateHitToObstacle(true);
             return true;
         }
         else
         {
             pointRay = Vector3.zero;
             scale = Vector3.zero; 
-            data = null; 
+            data = null;                
+            state.SetStateHitToObstacle(false);
             return false;
         } 
     }

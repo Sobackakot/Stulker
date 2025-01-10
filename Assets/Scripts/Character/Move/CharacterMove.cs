@@ -22,7 +22,7 @@ public class CharacterMove : MonoBehaviour
     public Vector3 inputAxis { get; private set; }
     public Vector3 newDirection { get; private set; }
     public Vector3 cameraZ { get; private set; }
-    public float speedMove { get; private set; }
+    public float speedMove { get; private set; } 
      
     private CharacterState state;
 
@@ -51,30 +51,30 @@ public class CharacterMove : MonoBehaviour
         Vector3 cameraX = Vector3.ProjectOnPlane(currentCamera.right, Vector3.up).normalized; 
         newDirection = (inputAxis.z * cameraZ) + (inputAxis.x * cameraX);
     }
-    public void Rotating()
+    public void Rotating(bool isMove)
     {
-        if (state.isAim | !state.isIdle )
+        if (state.isAim | !state.isIdle && isMove)
         {
             Quaternion rot = Quaternion.LookRotation(cameraZ, Vector3.up);
             rbCharacter.MoveRotation(rot);
         }
-        else if(state.isMaxAngleCamera && state.isIdle) 
+        else if(state.isMaxAngleCamera && state.isIdle && isMove) 
         {
             Quaternion direction = Quaternion.LookRotation(cameraZ, Vector3.up); 
             Quaternion rot = Quaternion.Lerp(rbCharacter.rotation, direction, Time.fixedDeltaTime * speedRotate);
             rbCharacter.MoveRotation(rot);
         } 
     }
-    public void Moving()
+    public void Moving(bool isMove)
     { 
-        rbCharacter.MovePosition(rbCharacter.position + newDirection * speedMove * Time.fixedDeltaTime);
+        if (isMove)
+        {
+            rbCharacter.MovePosition(rbCharacter.position + newDirection * speedMove * Time.fixedDeltaTime);
+        } 
     }
     public void CharacterState_OnAxisMove(Vector2 axis)
     {
-        if (state.isMove)
-        {
-            inputAxis = new Vector3(axis.x, 0, axis.y); 
-        }    
+        inputAxis = new Vector3(axis.x, 0, axis.y);
     }
     public void CharacterState_OnJumping()
     {
@@ -83,20 +83,18 @@ public class CharacterMove : MonoBehaviour
             rbCharacter.AddForce(Vector3.up * jumpForce, ForceMode.Impulse); 
         }
     }  
-    public void SwitchVelocityMove()
+    public void SwitchVelocityMove(CharacterState state)
     {
         if (state.isWalck | state.isAim | state.isCrouch) speedMove = inputAxis.z < 0 ? speedWalkBack : speedWalkForward;
         else speedMove = inputAxis.z < 0 ? speedRunBack : (state.isSprint ? (inputAxis.z > 0 ? speedSprint : speedRunForward) : speedRunForward); 
     }
-    public void StopingMoveCharacter(bool isActiveInventoryBox)
+    public void StopingMoveCharacter(bool isActiveInventoryBox )
     {
-        if (isActiveInventoryBox)   
+        if (isActiveInventoryBox)    
         {
-            state.UpdateStateMove(false);
-            inputAxis = Vector3.zero;
-            newDirection = Vector3.zero;
+            state.SetStateMove(false);
         } 
-        else state.UpdateStateMove(true);
+        else state.SetStateMove(true);
     }
     
     private void OnCollisionEnter(Collision collision)

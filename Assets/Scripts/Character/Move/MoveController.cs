@@ -2,41 +2,55 @@
 using System;
 using Zenject;
 
-public class MoveController : IInitializable, IDisposable
+public class MoveController : IInitializable, IDisposable , ITickable
 {
     public MoveController(CharacterMove character,
-        CharacterState state, [Inject(Id = "inventoryBoxUI")]IInventoryUI inventoryUI)
+        CharacterState state, CharacterParcure parcure, [Inject(Id = "inventoryBoxUI")]IInventoryUI inventoryUI)
     { 
         this.character = character; 
         this.state = state;
-        this.inventoryUI = inventoryUI; 
+        this.parcoure = parcure;
+        this.inventoryUI = inventoryUI;  
     }
       
     private CharacterMove character;
     private CharacterState state;
+    private CharacterParcure parcoure;
     private IInventoryUI inventoryUI;
      
     public void Initialize()
     {
         state.OnMoving += character.CharacterState_OnAxisMove;
         state.OnJumping += character.CharacterState_OnJumping;
+        state.OnParcoure += parcoure.CharacterState_OnParcoure;
     }
     public void Dispose()
     {
         state.OnMoving -= character.CharacterState_OnAxisMove;
         state.OnJumping -= character.CharacterState_OnJumping;
+        state.OnParcoure -= parcoure.CharacterState_OnParcoure;
     } 
     public void FixedTick_()
     {  
-        character.Moving();
-        bool isActiveInventoryBox = inventoryUI.isActiveInventory;
-        character.StopingMoveCharacter(isActiveInventoryBox);
-        character.SwitchVelocityMove(); 
-        character.Rotating();
+        character.Moving(state.isMove); 
+        character.SwitchVelocityMove(state); 
+        character.Rotating(state.isMove);
     }
 
     public void LateTick_()
     {
         character.RotateWithCamera();
+    }
+
+    public void Tick()
+    { 
+        bool isParcoure = parcoure.UpdateParcour();
+        state.SetStateParcour(isParcoure);
+        bool isActiveInventoryBox = inventoryUI.isActiveInventory;
+        if (isActiveInventoryBox || isParcoure)
+        {
+            character.StopingMoveCharacter(true);
+        }
+        else character.StopingMoveCharacter(false);
     }
 }

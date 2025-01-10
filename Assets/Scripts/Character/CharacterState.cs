@@ -1,10 +1,11 @@
 
-using System; 
-using UnityEngine; 
+using System;
+using UnityEngine;
 
 public class CharacterState  
 {
     public event Action OnJumping;
+    public event Action<bool> OnParcoure;
     public event Action<Vector2> OnMoving;
     public event Action OnReadyForBattleAnim;
     public event Action OnCrouchAnim;
@@ -12,13 +13,14 @@ public class CharacterState
     public event Action<bool> OnEquipWeaponAnim;
 
     public event Action<bool> OnSearcheInventoryBox;
-    public event Func<bool> OnPickUpItem;
+    public event Func<bool> OnGetItemFromHitRay;
     public event Action OnPickUpItemAnim;
    
     public bool isIdle { get; private set; }
     public bool isSprint { get; private set; }
     public bool isRun { get; private set; }
     public bool isWalck { get; private set; } 
+    public bool isParcour {  get; private set; }
     public bool isRunDiagonal { get; private set; }
     public bool isCollision { get; private set; }
     public bool isAim { get; private set; } 
@@ -34,18 +36,21 @@ public class CharacterState
     public bool isReloadWeapon { get; private set; }
     public Vector3 inputAxisMove { get; private set; } 
     public bool isRayHitToItem { get; private set; } 
-    public bool isRayHitToInventoryBox { get; private set; } 
+    public bool isRayHitToInventoryBox { get; private set; }
+    public bool isRayHitToObstacle { get; private set; }
+     
+
 
     public Vector3 inputAxisCamera { get; private set; }
     public float currentAngleCamera { get; private set; }
     public bool isFerstCamera { get; private set; }
     public bool isStopingRotate { get; private set; } 
     public bool isMaxAngleCamera { get; private set; }
-      
+
+     
     public void SetInputAxisCamera(Vector2 inputAxis)
-    {
-        inputAxisCamera = new Vector3(inputAxis.x, 0, inputAxis.y); 
-       
+    { 
+        inputAxisCamera = new Vector3(inputAxis.x, 0, inputAxis.y);  
     }
     public void SetAngleForCamera(float angle)
     {
@@ -55,7 +60,7 @@ public class CharacterState
     {
         isMaxAngleCamera = isAngleMax;
     }
-    public void StoppingRotateCamera(bool isRotate)
+    public void SetStateRotateCamera(bool isRotate)
     {
         isStopingRotate = isRotate;
     }
@@ -66,16 +71,24 @@ public class CharacterState
 
 
 
-    public void UpdateStateRayHitToInventory(bool isHit)
+    public void SetStateHitToInventory(bool isHit)
     { 
         isRayHitToInventoryBox = isHit;
     }
-    public void UpdateStateRayHitToItem(bool isHit)
+    public void SetStateHitToItem(bool isHit)
     {
         isRayHitToItem = isHit;
     }
+    public void SetStateHitToObstacle(bool isHit)
+    {
+        isRayHitToObstacle = isHit;
+    }
+    public void SetStateParcour(bool isParcour)
+    {
+        this.isParcour = isParcour;
+    }
 
-    public void UpdateStateMove(bool isMoving)
+    public void SetStateMove(bool isMoving)
     {
         this.isMove = isMoving;
         if(!isSprint | !isWalck && inputAxisMove.sqrMagnitude > 0.2f)
@@ -91,12 +104,12 @@ public class CharacterState
     } 
     public void InputCharacter_OnMove(Vector2 inputAxis)
     {
-        inputAxisMove = new Vector3(inputAxis.x, 0, inputAxis.y); 
+         inputAxisMove = new Vector3(inputAxis.x, 0, inputAxis.y); 
         OnMoving.Invoke(inputAxis); 
     }
     public void InputCharacter_OnRun(bool isKeySprint)
-    {
-        if(inputAxisMove.sqrMagnitude > 0.2f && isKeySprint)
+    { 
+        if (inputAxisMove.sqrMagnitude > 0.2f && isKeySprint)
         {
             isSprint = true;
             isIdle = false;
@@ -118,16 +131,18 @@ public class CharacterState
             isRun = false;
             isSprint = false;
         } else isWalck = false;
-    } 
-    public void InputCharacter_OnJamp()
-    {
-        if (isCollision && !isAim)
-        {
-            OnJumping?.Invoke();
-        } 
     }
-    
-      
+   
+    public void InputCharacter_OnJamp()
+    { 
+       if (isCollision && !isAim)
+       {
+            OnParcoure.Invoke(isRun || isSprint);
+            if (!isRayHitToObstacle)
+                OnJumping?.Invoke();
+       }
+    }
+     
 
     public void InputCharacter_OnLeanRight(bool isTiltRight)
     {
@@ -175,7 +190,7 @@ public class CharacterState
         if (isRayHitToItem && !isReloadWeapon)
         {
             OnPickUpItemAnim?.Invoke();    
-            if (OnPickUpItem.Invoke())
+            if (OnGetItemFromHitRay.Invoke())
                 isAvailableWeapons = true; 
         }
     }

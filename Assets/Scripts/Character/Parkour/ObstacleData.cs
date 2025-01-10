@@ -14,14 +14,14 @@ public class ObstacleData : ScriptableObject
     public float midleHeight = 2f;
     public float miniHeight = 1.5f; 
     public float maxMiniHeight = 1f;
-    public float miniWidth = 0.5f;
+    public float miniWidth = 1f;
 
     public string nameTriggerAnim = "";
     public string nameStateAnim = "";
 
-    public bool GetHeightObstacle(float height, float width)
+    public bool SetHeightObstacle(float height, float width, bool isRun)
     { 
-        if(height <= miniHeight && height >= maxMiniHeight && width <= miniWidth)
+        if(height <= miniHeight && height >= maxMiniHeight && width <= miniWidth && isRun)
         {
             climbType = ClimbType.JumpClimb;
             nameTriggerAnim = "isJumpOverClimb";

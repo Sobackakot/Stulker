@@ -2487,6 +2487,7 @@ MonoBehaviour:
   targetAiming: {fileID: 322543997}
   aimPointSpeed: 45
   maxRayInteract: 4
+  maxRayParcoure: 3.5
   layerMaskBox:
     serializedVersion: 2
     m_Bits: 64

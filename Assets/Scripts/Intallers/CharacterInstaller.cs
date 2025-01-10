@@ -49,7 +49,7 @@ public class CharacterInstaller : ScriptableObjectInstaller
         Container.Bind<CharacterMove>().FromComponentInHierarchy(this).AsSingle();
         Container.Bind<CharacterAnimator>().FromComponentInHierarchy(this).AsSingle();   
         Container.Bind<CharacterIK>().FromComponentInHierarchy(this).AsSingle();   
-           
+        Container.Bind<CharacterParcure>().FromComponentInHierarchy(this).AsSingle();    
     }
     private void BindInventory()
     {

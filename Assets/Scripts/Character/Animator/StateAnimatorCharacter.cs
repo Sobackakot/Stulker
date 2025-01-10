@@ -17,7 +17,7 @@ public class StateAnimatorCharacter : StateMachineBehaviour
     public bool isClimbingUp; 
     public bool isStandingClimb;
 
-    public bool isParcureState;
+    public bool isParcoureState;
 
     private CharacterState state;
 
@@ -69,7 +69,7 @@ public class StateAnimatorCharacter : StateMachineBehaviour
         if (isStartClimbing || isClimbingUp || isJumpOverClimb || isClimbingMini)
         {
             isKinematic = true;
-            isParcureState = true;
+            isParcoureState = true;
         } 
     }
     private void ParkourStateExit(AnimatorStateInfo stateInfo)
@@ -86,7 +86,7 @@ public class StateAnimatorCharacter : StateMachineBehaviour
         if (isFinishClimbing || isStandingClimb || isJumpOverClimb || isClimbingMini)
         {  
             isKinematic = false;
-            isParcureState= false;
+            isParcoureState= false;
         } 
     }
     private void JumpStateEnter(AnimatorStateInfo stateInfo)

@@ -13,10 +13,9 @@ public class CharacterParcure : MonoBehaviour
 
     public AnimatorStateInfo animState;
     private Vector3 obstaclePoint;
-    private Vector3 obstacleScale;
-    private Quaternion obstacleRotate;
+    private Vector3 obstacleScale; 
     private Vector3 offset;
-    public bool isStartingParcure {  get; private set; }
+    public bool isStartingParcoure {  get; private set; }
 
     private void Awake()
     {
@@ -28,26 +27,27 @@ public class CharacterParcure : MonoBehaviour
         anim = GetComponent<CharacterAnimator>();
     }
 
-
-    private void Update()
+    public void CharacterState_OnParcoure(bool isRun)
     {
         animState = animator.GetCurrentAnimatorStateInfo(0);
-        if (Input.GetKeyDown(KeyCode.R))
+        isStartingParcoure = ray.GetDataObstacle(out obstaclePoint, out obstacleScale, out data);
+        if (isStartingParcoure)
         {
-            isStartingParcure = ray.GetDataObstacle(out obstaclePoint, out obstacleScale, out data); 
-            if(isStartingParcure)
-            {
-                bool isClimb = data.GetHeightObstacle(obstacleScale.y, obstacleScale.z);
-                if (isStartingParcure && isClimb) anim.ParkourUp(true, data.nameTriggerAnim);
-                offset.z = obstacleScale.z / 2;
-                offset.y = obstacleScale.y / 2;
-                isStartingParcure = false;
-            }  
-        }
-        
-        if (stateMachin.isParcureState) SetMatchTarget(data.avatarTarget, obstaclePoint, Quaternion.identity, offset, data.startTime, data.targetTime);
+            bool isClimb = data.SetHeightObstacle(obstacleScale.y, obstacleScale.z, isRun);
+            if (isStartingParcoure && isClimb) anim.StartParcoureAnim(isStartingParcoure, data.nameTriggerAnim);
+            offset.z = obstacleScale.z / 2;
+            offset.y = obstacleScale.y / 2;
+            isStartingParcoure = false; 
+        } 
+    }
+    public bool UpdateParcour()
+    {
         rb.isKinematic = stateMachin.isKinematic;
-        
+        if (stateMachin.isParcoureState)
+        {
+            SetMatchTarget(data.avatarTarget, obstaclePoint, Quaternion.identity, offset, data.startTime, data.targetTime);
+            return true;
+        } else return false; 
     }
     public void SetMatchTarget(AvatarTarget avatarTarget, Vector3 targetPos, Quaternion targetRot, Vector3 offset, float startnormalizedTime, float targetNormalizedTime)
     {

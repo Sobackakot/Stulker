@@ -56,7 +56,6 @@ public class AnimatorController :IInitializable, IDisposable
         characterIK.WeaponParentIK(state.isReadyForBattle, state.isEquippingWeapon);
         characterIK.AimWeaponParentIK(state.isAim, state.isReloadWeapon);
         characterIK.EquipWeaponParentIK(state.isReadyForBattle, state.isAvailableWeapons);
-        
     }
 
 }

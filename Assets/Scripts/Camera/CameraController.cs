@@ -30,14 +30,14 @@ public class CameraController: IInitializable, IDisposable
     {
         input.onInputAxis += cameraTird.InputCamera_OnInputAxis; 
         input.onInputAxis += cameraFerst.InputCamera_OnInputAxis;
-        state.OnPickUpItem += ray.CharacterState_OnPickUpItem;
+        state.OnGetItemFromHitRay += ray.CharacterState_GetItemFromHitRay;
         state.OnSearcheInventoryBox += ray.CharacterState_OnSearcheInventoryBox;
     }
     public void Dispose()
     {
         input.onInputAxis -= cameraTird.InputCamera_OnInputAxis; 
         input.onInputAxis -= cameraFerst.InputCamera_OnInputAxis;
-        state.OnPickUpItem -= ray.CharacterState_OnPickUpItem;
+        state.OnGetItemFromHitRay -= ray.CharacterState_GetItemFromHitRay;
         state.OnSearcheInventoryBox -= ray.CharacterState_OnSearcheInventoryBox;
     }
 
@@ -49,19 +49,20 @@ public class CameraController: IInitializable, IDisposable
     {
         SwitchCamera();
         activeCamera.SwitchLookPointCamera(state.isLeftTargerPoint, state.isCrouch);
-        bool isActive = inventoryUI.isActiveInventory;
-        state.StoppingRotateCamera(isActive);
+        bool isActive = inventoryUI.isActiveInventory; 
+        state.SetStateRotateCamera(isActive);
         windowUI.ShowInteractText();
         activeCamera.CheckCameraRotateAngle(state);
     }
     public void LateTick_()
     {
         SwitchCamera(); 
-        activeCamera.FollowCamera();
-        activeCamera.RotateCamera(state.isAim);
+        activeCamera.FollowCamera();     
+        if (state.isStopingRotate)  
+             activeCamera.RotateCamera(state.isAim);
         activeCamera.ZoomCamera(state.isAim, state.isReloadWeapon); 
     }
-
+      
     public void FixedTick_()
     { 
         ray.RayHitTakeItemInteract(); 
