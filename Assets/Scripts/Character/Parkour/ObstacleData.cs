@@ -21,35 +21,44 @@ public class ObstacleData : ScriptableObject
 
     public bool GetHeightObstacle(float height, float width)
     { 
-        if (height <= miniHeight && height >= maxMiniHeight && width >= miniWidth)
+        if(height <= miniHeight && height >= maxMiniHeight && width <= miniWidth)
         {
-            climbType = ClimbType.miniClimb;
+            climbType = ClimbType.JumpClimb;
+            nameTriggerAnim = "isJumpOverClimb";
+            nameStateAnim = "JumpOverClimb";
+            avatarTarget = AvatarTarget.LeftHand;
+            startTime = 0.20f;
+            targetTime = 0.43f;
+            return true;
+        }
+        else if (height <= miniHeight && height >= maxMiniHeight && width >= miniWidth)
+        {
+            climbType = ClimbType.MiniClimb;
             nameTriggerAnim = "isClimbingMini";
             nameStateAnim = "ClimbingMini";
             avatarTarget = AvatarTarget.RightFoot;
-            startTime = 0.50f;
-            targetTime = 0.62f;
-            Input.GetAxis("Mouse X");
+            startTime = 0.30f;
+            targetTime = 0.70f; 
             return true; 
         }
-        else if (height <= midleHeight && height > miniHeight && width < miniWidth)
+        else if (height <= midleHeight && height > miniHeight && width >= miniWidth)
         {
-            climbType = ClimbType.climbingUpDown;
-            nameTriggerAnim = "isClimbingUpDown";
+            climbType = ClimbType.ClimbingUpDown;
+            nameTriggerAnim = "isClimbingUpStand";
             nameStateAnim = "ClimbingUp";
             avatarTarget = AvatarTarget.RightHand;
-            startTime = 0.67f;
-            targetTime = 0.78f;
+            startTime = 0.29f;
+            targetTime = 0.66f;
             return true;
         }
         else if (height <= maxHeight && height > midleHeight && width >= miniWidth)
         {
-            climbType = ClimbType.maxClimb;
+            climbType = ClimbType.MaxClimb;
             nameTriggerAnim = "isClimbingFulle";
             nameStateAnim = "StartClimbing";
             avatarTarget = AvatarTarget.RightHand;
-            startTime = 0.29f;
-            targetTime = 0.52f; 
+            startTime = 0.3f;
+            targetTime = 0.7f; 
             return true;
         }
         else return false;
@@ -57,7 +66,8 @@ public class ObstacleData : ScriptableObject
 }
 public enum ClimbType
 {
-    miniClimb,
-    climbingUpDown,
-    maxClimb
+    JumpClimb,
+    MiniClimb,
+    ClimbingUpDown,
+    MaxClimb
 }

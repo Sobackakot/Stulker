@@ -6,9 +6,16 @@ public class StateAnimatorCharacter : StateMachineBehaviour
 {  
     public bool isJump { get; private set; }
     public bool isKinematic;
-    public bool isClimbingStart;
+
+    public bool isStartClimbing;
     public bool isNextClimbing;
     public bool isFinishClimbing;
+
+    public bool isJumpOverClimb;
+    public bool isClimbingMini;
+
+    public bool isClimbingUp; 
+    public bool isStandingClimb;
 
     public bool isParcureState;
 
@@ -50,10 +57,16 @@ public class StateAnimatorCharacter : StateMachineBehaviour
     }
     private void ParkourStateEnter(AnimatorStateInfo stateInfo)
     {
-        isClimbingStart = stateInfo.IsName("StartClimbing");
+        isStartClimbing = stateInfo.IsName("StartClimbing");
         isNextClimbing = stateInfo.IsName("NextClimbing");
         isFinishClimbing = stateInfo.IsName("FinishClimbing");
-        if (isClimbingStart || stateInfo.IsName("ClimbingUp") || stateInfo.IsName("ClimbingMini"))
+
+        isClimbingUp = stateInfo.IsName("ClimbingUp");
+        isStandingClimb = stateInfo.IsName("StandingClimb");
+
+        isJumpOverClimb = stateInfo.IsName("JumpOverClimb");
+        isClimbingMini = stateInfo.IsName("ClimbingMini");
+        if (isStartClimbing || isClimbingUp || isJumpOverClimb || isClimbingMini)
         {
             isKinematic = true;
             isParcureState = true;
@@ -61,10 +74,16 @@ public class StateAnimatorCharacter : StateMachineBehaviour
     }
     private void ParkourStateExit(AnimatorStateInfo stateInfo)
     {
-        isClimbingStart = stateInfo.IsName("StartClimbing");
+        isStartClimbing = stateInfo.IsName("StartClimbing");
         isNextClimbing = stateInfo.IsName("NextClimbing");
         isFinishClimbing = stateInfo.IsName("FinishClimbing");
-        if (isFinishClimbing || stateInfo.IsName("Climbing Down") || stateInfo.IsName("ClimbingMini"))
+
+        isClimbingUp = stateInfo.IsName("ClimbingUp");
+        isStandingClimb = stateInfo.IsName("StandingClimb");
+
+        isJumpOverClimb = stateInfo.IsName("JumpOverClimb");
+        isClimbingMini = stateInfo.IsName("ClimbingMini");
+        if (isFinishClimbing || isStandingClimb || isJumpOverClimb || isClimbingMini)
         {  
             isKinematic = false;
             isParcureState= false;
