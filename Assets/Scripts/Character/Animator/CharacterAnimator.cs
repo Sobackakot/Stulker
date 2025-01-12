@@ -150,6 +150,9 @@ public class CharacterAnimator : MonoBehaviour
     public void StartParcoureAnim(bool isParkour, string nameAnim)
     {
         if (isParkour)
-            anim.SetTrigger(nameAnim);
+        {
+            anim.CrossFade(nameAnim, 0.2f);
+            Debug.Log("startAnim");
+        }    
     } 
 }

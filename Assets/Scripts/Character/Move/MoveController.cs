@@ -44,9 +44,10 @@ public class MoveController : IInitializable, IDisposable , ITickable
 
     public void Tick()
     { 
-        bool isParcoure = parcoure.UpdateParcour();
+        bool isParcoure = parcoure.UpdateParcour(); 
         state.SetStateParcour(isParcoure);
         bool isActiveInventoryBox = inventoryUI.isActiveInventory;
+
         if (isActiveInventoryBox || isParcoure)
         {
             character.StopingMoveCharacter(true);

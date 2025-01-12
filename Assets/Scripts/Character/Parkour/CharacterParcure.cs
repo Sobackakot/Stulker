@@ -1,15 +1,16 @@
-
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterParcure : MonoBehaviour
 {
     private Rigidbody rb;
-    private Collider col;
+    private Transform charTrans;
     private RaycastCamera ray;
     private CharacterAnimator anim;
     private Animator animator;
     private StateAnimatorCharacter stateMachin;
-    private ObstacleData data;
+    [SerializeField] private List<ObstacleData>  obstaclesData = new List<ObstacleData>();
+    private ObstacleData currentObstacle;
 
     public AnimatorStateInfo animState;
     private Vector3 obstaclePoint;
@@ -20,23 +21,31 @@ public class CharacterParcure : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        col = GetComponent<Collider>();
+        charTrans = GetComponent<Transform>();
         ray = FindObjectOfType<RaycastCamera>();
         animator = GetComponent<Animator>();
         stateMachin = animator.GetBehaviour<StateAnimatorCharacter>();
         anim = GetComponent<CharacterAnimator>();
     }
 
-    public void CharacterState_OnParcoure(bool isRun)
+    public void CharacterState_OnParcoure()
     {
         animState = animator.GetCurrentAnimatorStateInfo(0);
-        isStartingParcoure = ray.GetDataObstacle(out obstaclePoint, out obstacleScale, out data);
+        isStartingParcoure = ray.SetRayHitParcour(out RaycastHit hit); 
         if (isStartingParcoure)
-        {
-            bool isClimb = data.SetHeightObstacle(obstacleScale.y, obstacleScale.z, isRun);
-            if (isStartingParcoure && isClimb) anim.StartParcoureAnim(isStartingParcoure, data.nameTriggerAnim);
-            offset.z = obstacleScale.z / 2;
-            offset.y = obstacleScale.y / 2;
+        {   
+            foreach(ObstacleData data in obstaclesData)
+            {
+                
+                if(data.CheckHeightObstacle(hit, charTrans))
+                {
+                    currentObstacle = data;
+                    anim.StartParcoureAnim(isStartingParcoure, data.nameStateAnim);
+                    Debug.Log("Check Height " + true);
+                    break;
+                }
+            }
+            Debug.Log("Check Height " + false);
             isStartingParcoure = false; 
         } 
     }
@@ -45,7 +54,7 @@ public class CharacterParcure : MonoBehaviour
         rb.isKinematic = stateMachin.isKinematic;
         if (stateMachin.isParcoureState)
         {
-            SetMatchTarget(data.avatarTarget, obstaclePoint, Quaternion.identity, offset, data.startTime, data.targetTime);
+            //SetMatchTarget(currentObstacle.avatarTarget, obstaclePoint, Quaternion.identity, offset, currentObstacle.startTime, currentObstacle.targetTime);
             return true;
         } else return false; 
     }

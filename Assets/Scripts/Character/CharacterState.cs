@@ -5,7 +5,7 @@ using UnityEngine;
 public class CharacterState  
 {
     public event Action OnJumping;
-    public event Action<bool> OnParcoure;
+    public event Action OnParcoure;
     public event Action<Vector2> OnMoving;
     public event Action OnReadyForBattleAnim;
     public event Action OnCrouchAnim;
@@ -137,9 +137,9 @@ public class CharacterState
     { 
        if (isCollision && !isAim)
        {
-            OnParcoure.Invoke(isRun || isSprint);
             if (!isRayHitToObstacle)
                 OnJumping?.Invoke();
+            OnParcoure.Invoke(); 
        }
     }
      

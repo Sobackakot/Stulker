@@ -586,7 +586,7 @@ MonoBehaviour:
   isClimbingMini: 0
   isClimbingUp: 0
   isStandingClimb: 0
-  isParcureState: 0
+  isParcoureState: 0
 --- !u!206 &-6432753301505277038
 BlendTree:
   m_ObjectHideFlags: 1
@@ -887,31 +887,6 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1101 &-5425686290043146448
-AnimatorStateTransition:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: isClimbingFulle
-    m_EventTreshold: 0
-  m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 3002532492379955033}
-  m_Solo: 0
-  m_Mute: 0
-  m_IsExit: 0
-  serializedVersion: 3
-  m_TransitionDuration: 0.25
-  m_TransitionOffset: 0
-  m_ExitTime: 0.726776
-  m_HasExitTime: 0
-  m_HasFixedDuration: 1
-  m_InterruptionSource: 0
-  m_OrderedInterruption: 1
-  m_CanTransitionToSelf: 1
 --- !u!206 &-5090625213810509675
 BlendTree:
   m_ObjectHideFlags: 1
@@ -1507,31 +1482,6 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
---- !u!1101 &-3778735499640367252
-AnimatorStateTransition:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: isJumpOverClimb
-    m_EventTreshold: 0
-  m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: -1240532173680915124}
-  m_Solo: 0
-  m_Mute: 0
-  m_IsExit: 0
-  serializedVersion: 3
-  m_TransitionDuration: 0.25
-  m_TransitionOffset: 0
-  m_ExitTime: 0.7263682
-  m_HasExitTime: 0
-  m_HasFixedDuration: 1
-  m_InterruptionSource: 0
-  m_OrderedInterruption: 1
-  m_CanTransitionToSelf: 1
 --- !u!206 &-3677935299144819626
 BlendTree:
   m_ObjectHideFlags: 1
@@ -1806,7 +1756,7 @@ MonoBehaviour:
   isClimbingMini: 0
   isClimbingUp: 0
   isStandingClimb: 0
-  isParcureState: 0
+  isParcoureState: 0
 --- !u!206 &-3013675567507871698
 BlendTree:
   m_ObjectHideFlags: 1
@@ -1849,31 +1799,6 @@ BlendTree:
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
---- !u!1101 &-2532177435432002478
-AnimatorStateTransition:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: isClimbingUpStand
-    m_EventTreshold: 0
-  m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: -1285315871163368972}
-  m_Solo: 0
-  m_Mute: 0
-  m_IsExit: 0
-  serializedVersion: 3
-  m_TransitionDuration: 0.25
-  m_TransitionOffset: 0
-  m_ExitTime: 0.7263682
-  m_HasExitTime: 0
-  m_HasFixedDuration: 1
-  m_InterruptionSource: 0
-  m_OrderedInterruption: 1
-  m_CanTransitionToSelf: 1
 --- !u!206 &-2495900244608549865
 BlendTree:
   m_ObjectHideFlags: 1
@@ -2676,31 +2601,6 @@ BlendTree:
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 3
---- !u!1101 &-1042686513662343660
-AnimatorStateTransition:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: isClimbingMini
-    m_EventTreshold: 0
-  m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: -8490581413029500038}
-  m_Solo: 0
-  m_Mute: 0
-  m_IsExit: 0
-  serializedVersion: 3
-  m_TransitionDuration: 0.25
-  m_TransitionOffset: 0
-  m_ExitTime: 0.7263682
-  m_HasExitTime: 0
-  m_HasFixedDuration: 1
-  m_InterruptionSource: 2
-  m_OrderedInterruption: 1
-  m_CanTransitionToSelf: 1
 --- !u!206 &-699271657370849305
 BlendTree:
   m_ObjectHideFlags: 1
@@ -2889,30 +2789,6 @@ AnimatorController:
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
   - m_Name: StartingRun
-    m_Type: 9
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: isClimbingMini
-    m_Type: 9
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: isJumpOverClimb
-    m_Type: 9
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: isClimbingUpStand
-    m_Type: 9
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: isClimbingFulle
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -3522,14 +3398,10 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 7683189684020860353}
-  - {fileID: -5425686290043146448}
   - {fileID: 73649292265720486}
   - {fileID: -4271390822702543441}
   - {fileID: 1222286123375679441}
   - {fileID: -5933493754412396295}
-  - {fileID: -1042686513662343660}
-  - {fileID: -3778735499640367252}
-  - {fileID: -2532177435432002478}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -4214,7 +4086,7 @@ MonoBehaviour:
   isClimbingMini: 0
   isClimbingUp: 0
   isStandingClimb: 0
-  isParcureState: 0
+  isParcoureState: 0
 --- !u!1101 &2812061384835897171
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -4677,7 +4549,7 @@ MonoBehaviour:
   isClimbingMini: 0
   isClimbingUp: 0
   isStandingClimb: 0
-  isParcureState: 0
+  isParcoureState: 0
 --- !u!1102 &3406762857820118139
 AnimatorState:
   serializedVersion: 6
@@ -5362,25 +5234,25 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 3002532492379955033}
-    m_Position: {x: 250, y: 10, z: 0}
+    m_Position: {x: 320, y: -300, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6632045672273952321}
-    m_Position: {x: 250, y: -70, z: 0}
+    m_Position: {x: 320, y: -240, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6116729295292395005}
-    m_Position: {x: 250, y: -140, z: 0}
+    m_Position: {x: 320, y: -180, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8490581413029500038}
-    m_Position: {x: 580, y: -210, z: 0}
+    m_Position: {x: 600, y: -350, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -7800727418477607359}
-    m_Position: {x: 710, y: -40, z: 0}
+    m_Position: {x: 640, y: -240, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1240532173680915124}
-    m_Position: {x: 370, y: -210, z: 0}
+    m_Position: {x: 380, y: -350, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1285315871163368972}
-    m_Position: {x: 710, y: -130, z: 0}
+    m_Position: {x: 640, y: -300, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
