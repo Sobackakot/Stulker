@@ -16,6 +16,7 @@ public class CharacterParcure : MonoBehaviour
     private Vector3 obstaclePoint;
     private Vector3 obstacleScale; 
     private Vector3 offset;
+    
     public bool isStartingParcoure {  get; private set; }
 
     private void Awake()
@@ -31,21 +32,19 @@ public class CharacterParcure : MonoBehaviour
     public void CharacterState_OnParcoure()
     {
         animState = animator.GetCurrentAnimatorStateInfo(0);
-        isStartingParcoure = ray.SetRayHitParcour(out RaycastHit hit); 
+        isStartingParcoure = ray.SetRayHitParcour(out RaycastHit hitForward,out RaycastHit hitDown); 
         if (isStartingParcoure)
         {   
             foreach(ObstacleData data in obstaclesData)
             {
                 
-                if(data.CheckHeightObstacle(hit, charTrans))
+                if(data.CheckHeightObstacle(hitForward,hitDown, charTrans))
                 {
                     currentObstacle = data;
-                    anim.StartParcoureAnim(isStartingParcoure, data.nameStateAnim);
-                    Debug.Log("Check Height " + true);
+                    anim.StartParcoureAnim(isStartingParcoure, data.nameStateAnim); 
                     break;
                 }
-            }
-            Debug.Log("Check Height " + false);
+            } 
             isStartingParcoure = false; 
         } 
     }
@@ -54,7 +53,8 @@ public class CharacterParcure : MonoBehaviour
         rb.isKinematic = stateMachin.isKinematic;
         if (stateMachin.isParcoureState)
         {
-            //SetMatchTarget(currentObstacle.avatarTarget, obstaclePoint, Quaternion.identity, offset, currentObstacle.startTime, currentObstacle.targetTime);
+            //SetMatchTarget(currentObstacle.avatarTarget, obstaclePoint, Quaternion.identity, offset, currentObstacle.startTime, currentObstacle.targetTime); 
+            charTrans.rotation = Quaternion.RotateTowards(charTrans.rotation, currentObstacle.targetRotate, 360f * Time.deltaTime);
             return true;
         } else return false; 
     }

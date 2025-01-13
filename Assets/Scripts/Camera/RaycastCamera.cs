@@ -125,14 +125,21 @@ public class RaycastCamera : MonoBehaviour
             return weapon.SetWeapon(hit.collider.gameObject);
         else return false;
     } 
-    public bool SetRayHitParcour(out RaycastHit hit)
+    public bool SetRayHitParcour(out RaycastHit hitForward,out RaycastHit hitDown)
     {
         bool isHitForward = RayCharacterForward(charTransPointRay, offsetPointRay);
-        bool isHitDown = RayCharacterDown(hitForward, isHitForward);
+        bool isHitDown = RayCharacterDown(this.hitForward, isHitForward);
         state.SetStateHitToObstacle(isHitDown);
-        Debug.Log("isHitDown " + isHitDown);
-        if (isHitDown) hit = hitDown;
-        else hit = default;
+        if (isHitDown)
+        {
+            hitForward = this.hitForward;
+            hitDown = this.hitDown;
+        }
+        else
+        {
+            hitForward = default;
+            hitDown = default;
+        }
         return isHitDown; 
     }
    

@@ -112,7 +112,7 @@ namespace FischlWorks
                         homebrewIK._LeftFootIKPositionTarget,
                         homebrewIK._LeftFootProjectedAngle);
 
-                    /* We can reuse the initial vector because this function does not rotate by, but towards */
+                    /* We can reuse the initial vector because this function does not targetRotate by, but towards */
 
                     RotateToAngle(ref ankleHeightOffsetVector, 90 + homebrewIK._RightFootProjectedAngle * -1);
                     RotateToAngle(ref raySphereRadiusVector, 90 + homebrewIK._RightFootProjectedAngle * -1);
@@ -140,7 +140,7 @@ namespace FischlWorks
                         homebrewIK._LeftFootIKPositionTarget,
                         homebrewIK._LeftFootProjectedAngle);
 
-                    /* We can reuse the initial vector because this function does not rotate by, but towards */
+                    /* We can reuse the initial vector because this function does not targetRotate by, but towards */
 
                     RotateToAngle(ref ankleHeightOffsetVector, 90 + homebrewIK._RightFootProjectedAngle);
                     RotateToAngle(ref raySphereRadiusVector, 90 + homebrewIK._RightFootProjectedAngle);

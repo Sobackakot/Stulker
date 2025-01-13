@@ -2470,7 +2470,7 @@ MonoBehaviour:
   aimPointSpeed: 45
   offsetPointRay: {x: 0, y: 0.25, z: 0}
   maxRayInteract: 4
-  maxRayForwardParcoure: 0.8
+  maxRayForwardParcoure: 1.2
   maxRayHeightParcoure: 6
   layerMaskBox:
     serializedVersion: 2

@@ -11,11 +11,9 @@ public class StateAnimatorCharacter : StateMachineBehaviour
     public bool isNextClimbing;
     public bool isFinishClimbing;
 
-    public bool isJumpOverClimb;
-    public bool isClimbingMini;
-
-    public bool isClimbingUp; 
-    public bool isStandingClimb;
+    public bool isJumpOn;  
+    public bool isStepUp; 
+    public bool isJumpingObstacle;
 
     public bool isParcoureState;
 
@@ -61,12 +59,11 @@ public class StateAnimatorCharacter : StateMachineBehaviour
         isNextClimbing = stateInfo.IsName("NextClimbing");
         isFinishClimbing = stateInfo.IsName("FinishClimbing");
 
-        isClimbingUp = stateInfo.IsName("ClimbingUp");
-        isStandingClimb = stateInfo.IsName("StandingClimb");
+        isStepUp = stateInfo.IsName("StepUp");
+        isJumpingObstacle = stateInfo.IsName("JumpingObstacle");
 
-        isJumpOverClimb = stateInfo.IsName("JumpOverClimb");
-        isClimbingMini = stateInfo.IsName("ClimbingMini");
-        if (isStartClimbing || isClimbingUp || isJumpOverClimb || isClimbingMini)
+        isJumpOn = stateInfo.IsName("JumpOn"); 
+        if (isStartClimbing || isStepUp || isJumpOn || isJumpingObstacle)
         {
             isKinematic = true;
             isParcoureState = true;
@@ -78,12 +75,11 @@ public class StateAnimatorCharacter : StateMachineBehaviour
         isNextClimbing = stateInfo.IsName("NextClimbing");
         isFinishClimbing = stateInfo.IsName("FinishClimbing");
 
-        isClimbingUp = stateInfo.IsName("ClimbingUp");
-        isStandingClimb = stateInfo.IsName("StandingClimb");
+        isStepUp = stateInfo.IsName("StepUp");
+        isJumpingObstacle = stateInfo.IsName("JumpingObstacle");
 
-        isJumpOverClimb = stateInfo.IsName("JumpOverClimb");
-        isClimbingMini = stateInfo.IsName("ClimbingMini");
-        if (isFinishClimbing || isStandingClimb || isJumpOverClimb || isClimbingMini)
+        isJumpOn = stateInfo.IsName("JumpOn"); 
+        if (isFinishClimbing || isJumpingObstacle || isJumpOn || isStepUp)
         {  
             isKinematic = false;
             isParcoureState= false;

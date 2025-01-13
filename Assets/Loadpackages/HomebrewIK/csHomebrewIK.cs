@@ -361,7 +361,7 @@ namespace FischlWorks
             rightFootRayStartPosition = rightFootTransform.position;
             rightFootRayStartPosition.y += rightFootRayStartHeight;
 
-            /* SphereCast is used here just because we need a normal vector to rotate our foot towards */
+            /* SphereCast is used here just because we need a normal vector to targetRotate our foot towards */
 
             // Vector3.up is used here instead of transform.up to get normal vector in world orientation
             Physics.SphereCast(

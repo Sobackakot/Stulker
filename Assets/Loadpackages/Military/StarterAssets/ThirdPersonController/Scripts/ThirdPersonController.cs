@@ -252,7 +252,7 @@ namespace StarterAssets
             Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
 
             // note: Vector2's != operator uses approximation so is not floating pointRay error prone, and is cheaper than magnitude
-            // if there is a move input rotate player when the player is moving
+            // if there is a move input targetRotate player when the player is moving
             if (_input.move != Vector2.zero)
             {
                 _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
@@ -260,7 +260,7 @@ namespace StarterAssets
                 float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
                     RotationSmoothTime);
 
-                // rotate to face input direction relative to cameraTird position
+                // targetRotate to face input direction relative to cameraTird position
                 transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
             }
 

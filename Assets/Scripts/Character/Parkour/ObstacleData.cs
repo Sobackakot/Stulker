@@ -6,12 +6,17 @@ public class ObstacleData : ScriptableObject
 {  
     public float maxHeight;
     public float minHeight;   
-    public string nameStateAnim = ""; 
-    public bool CheckHeightObstacle(RaycastHit hit, Transform charTrans)
+    public string nameStateAnim = "";
+    public Quaternion targetRotate {  get; private set; } 
+    public bool CheckHeightObstacle(RaycastHit hitForward,RaycastHit hitDown, Transform charTrans)
     {
-        float height = hit.point.y - charTrans.position.y;
+        float height = hitDown.point.y - charTrans.position.y;
         if (height > maxHeight || height < minHeight) return false;
-        else return true;
+        else
+        { 
+            targetRotate = Quaternion.LookRotation(-hitForward.normal);
+            return true;
+        }
     }
 }
  
