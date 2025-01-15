@@ -68,7 +68,7 @@ public class InventoryBoxController : IInventoryContoller, IInitializable, IDisp
     }
     public ItemScrObj UpdatePickItem(ItemScrObj pickItem, short index, string slotType)
     {
-        if (slotType == "EquipSlot" && pickItem != null && pickItem.itemType != EquipItems.None)
+        if (slotType == "EquipSlot" && pickItem != null && pickItem.IsEquipmentItem())
         {
             return SwapItemFromInventory(pickItem, index);
         }

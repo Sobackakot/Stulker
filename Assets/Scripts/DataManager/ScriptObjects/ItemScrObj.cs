@@ -4,9 +4,9 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Item", menuName = "InventoryItems/Item")]
 public class ItemScrObj : ScriptableObject
-{
-    public Item item;
+{ 
     public string Id { get; private set; }
+    public int amount =1;
     public string NameItem;
     public Sprite IconItem;
     public float Weight;
@@ -15,10 +15,20 @@ public class ItemScrObj : ScriptableObject
 
     private bool isInstaled;
 
-    public float Armor;
-    public float Damage;
-    public EquipItems itemType; //equipmentSlots for equipping items
-    
+    public virtual bool IsCompatibleWithSlot(EquipFieldScrObj equipData)
+    {
+        // Default implementation for non-equipment items 
+        return false;
+    }
+    public virtual bool IsEquipmentItem()
+    {
+        return false;
+    }
+    public virtual bool IsRequiredItem(EquipItemTypes itemType)
+    {
+        return false;
+    }
+
     public void SetIdFromNewItem()
     {
         if (isInstaled)
@@ -28,21 +38,4 @@ public class ItemScrObj : ScriptableObject
         }
     } 
 }
-public enum EquipItems : byte
-{
-    Helmet,
-    ArmorVest,
-    Backpack,
-    Weapon_1,
-    Weapon_2,
-    Flashlight,
-    Binoculars,
-    Knife,
-    Bolts,
-    Grenades,
-    PDA,
-    Devices,
-    Ñonsumables,
-    Upgrade, 
-    None
-}
+

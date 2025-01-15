@@ -44,7 +44,7 @@ public class ItemInSlot : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
     {
         if (newItem == null) return;
         dataItem = newItem;
-        itemAmount.text = dataItem.item.itemAmount.ToString();
+        itemAmount.text = dataItem.amount.ToString();
         itemIcon.sprite = dataItem.IconItem;
         itemIcon.enabled = true; 
     }

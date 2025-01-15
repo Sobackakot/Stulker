@@ -4,23 +4,21 @@ using UnityEngine;
 public class EquipFieldScrObj : ScriptableObject
 {
     public EquipField equipField;
-    public EquipFields fieldType;
+    public EquipFieldTypes fieldType;
 }
-public enum EquipFields : byte
+public enum EquipFieldTypes : short
 {
     Helmet,
     ArmorVest,
     Backpack,
-    Weapon_1,
-    Weapon_2,
+    Weapon_1, 
     Flashlight,
     Binoculars,
     Knife,
     Bolts,
     Grenades,
     PDA,
-    Devices,
-    Ñonsumables,
+    Devices, 
     Upgrade,
     None
 }

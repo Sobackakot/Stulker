@@ -38,7 +38,7 @@ public class PickUpItems : Interactable
     }
     public bool IsWeapon()
     {
-        if (item.itemType == EquipItems.Weapon_1 || item.itemType == EquipItems.Weapon_2)
+        if (item.IsRequiredItem(EquipItemTypes.Weapon_1))
         {
             return true;
         }

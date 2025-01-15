@@ -67,7 +67,7 @@ public class InventoryBoxUI : MonoBehaviour, IInventoryUI
 
     public short GetIndexFreeSlot(ItemScrObj item, string slotType)
     {
-        if (slotType == "EquipSlot" && item.itemType != EquipItems.Ñonsumables && CheckFreeSlot(item, out short index))
+        if (slotType == "EquipSlot" && CheckFreeSlot(item, out short index))
         { 
             return index;
         }

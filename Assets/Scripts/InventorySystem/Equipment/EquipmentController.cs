@@ -10,7 +10,7 @@ public class EquipmentController : IInventoryContoller, IInitializable, IDisposa
         this.equipmentUI = equipmentUI;
         this.inventoryBox = inventoryBox;
 
-        int countSlotsItem = System.Enum.GetNames(typeof(EquipItems)).Length; //get the number1 of equipmentSlots for equipmentUI items
+        int countSlotsItem = System.Enum.GetNames(typeof(EquipItemTypes)).Length; //get the number1 of equipmentSlots for equipmentUI items
         equipmentItems = new List<ItemScrObj>(countSlotsItem);
         for (int i = 0; i < countSlotsItem; i++)
         {
@@ -86,11 +86,11 @@ public class EquipmentController : IInventoryContoller, IInitializable, IDisposa
     }
     public ItemScrObj UpdatePickItem(ItemScrObj item, short index, string slotType)
     {
-        if (slotType == "Slot" && item != null && item.itemType != EquipItems.None)
+        if (slotType == "Slot" && item != null && item.IsEquipmentItem())
         {
             return SwapItemFromInventory(item, index);
         }
-        else if (slotType == "SlotBox" && item != null && item.itemType != EquipItems.None)
+        else if (slotType == "SlotBox" && item != null && item.IsEquipmentItem())
         {
             return SwapItemFromInventory(item, index);
         }
