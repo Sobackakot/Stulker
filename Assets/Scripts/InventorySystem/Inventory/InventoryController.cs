@@ -88,7 +88,7 @@ namespace Inventory_
                 }
             }
         }
-        public ItemScrObj UpdatePickItem(ItemScrObj pickItem, short index, string slotType)
+        ItemScrObj IInventoryController.UpdatePickItem(ItemScrObj pickItem, short index, string slotType)
         {
             if (slotType == "EquipSlot" && pickItem != null && pickItem.IsEquipmentItem())
             {

@@ -26,7 +26,7 @@ namespace Inventory_
                 equipItemInSlots[i].equipSlotIndex = i;
             }
         }
-        public void SetNewItemByInventoryCell(ItemScrObj newItem, short slotIndex)
+        void IInventoryUI.SetNewItemByInventoryCell(ItemScrObj newItem, short slotIndex)
         {
             List<ItemScrObj> items = onSetNewItem?.Invoke();
             if (slotIndex < items.Count && items[slotIndex] != null) //updates the inventoryController user interface, those equipmentSlots that have been changed
@@ -34,7 +34,7 @@ namespace Inventory_
                 equipmentSlots[slotIndex].AddItemInSlot(equipItemInSlots[slotIndex], newItem);
             }
         }
-        public void ResetItemByInventoryCell(short slot)
+        void IInventoryUI.ResetItemByInventoryCell(short slot)
         {
             List<ItemScrObj> items = onSetNewItem?.Invoke();
             if (slot < items.Count) //updates the inventoryController user interface, those equipmentSlots that have been changed
@@ -42,7 +42,7 @@ namespace Inventory_
                 equipmentSlots[slot].RemoveItemInSlot(equipItemInSlots[slot]);
             }
         }
-        public void UpdateInventorySlots()
+        void IInventoryUI.UpdateInventorySlots()
         {
             List<ItemScrObj> items = onSetNewItem?.Invoke();
             for (short i = 0; i < equipmentSlots.Count; i++) //Updates the inventoryController UI completely when changing characters
@@ -57,7 +57,7 @@ namespace Inventory_
                 }
             }
         }
-        public short GetIndexFreeSlot(ItemScrObj item, string slotType)
+        short IInventoryUI.GetIndexFreeSlot(ItemScrObj item, string slotType)
         {
             if (slotType == "Slot" && CheckFreeSlot(item, out short index))
             {
