@@ -21,18 +21,18 @@ namespace Inventory_
         {
             inventoryBoxUI.onSetNewItem -= GetCurrentItems;
         }
-        public void SetBoxByInventory(InventoryBoxScrObj box) // coll from class CharacterSwitchSystem
+        void IInventoryController.SetBoxByInventory(InventoryBoxScrObj box) // coll from class CharacterSwitchSystem
         {
             inventoryBox = box.inventoryBox; // get pick Box for inventory
             inventoryBoxUI.UpdateInventorySlots();
         }
-        public bool AddItemToInventory(ItemScrObj newItem) //coll from EquipmentController,CharacterState_GetItemFromHitRay
+        bool IInventoryController.AddItemToInventory(ItemScrObj newItem) //coll from EquipmentController,CharacterState_GetItemFromHitRay
         {
             bool isHas = inventoryBox.AddItemToInventory(newItem, out short index);
             inventoryBoxUI.SetNewItemByInventoryCell(newItem, index);
             return isHas;
         }
-        public void RemoveItemFromInventory(ItemScrObj item) // coll from ItemInSlot
+        void IInventoryController.RemoveItemFromInventory(ItemScrObj item) // coll from ItemInSlot
         {
             inventoryBox.RemoveItemFromInventory(item, out short index);
             inventoryBoxUI.ResetItemByInventoryCell(index);// update inventoryController equipmentSlots 
@@ -67,7 +67,7 @@ namespace Inventory_
                 }
             }
         }
-        public ItemScrObj UpdatePickItem(ItemScrObj pickItem, short index, string slotType)
+        ItemScrObj IInventoryController.UpdatePickItem(ItemScrObj pickItem, short index, string slotType)
         {
             if (slotType == "EquipSlot" && pickItem != null && pickItem.IsEquipmentItem())
             {
@@ -83,7 +83,7 @@ namespace Inventory_
         {
             return inventoryBox.GetCurrentItems();//
         }
-        public short GetIndexFreeSlot(ItemScrObj item, string slotType)
+        short IInventoryController.GetIndexFreeSlot(ItemScrObj item, string slotType)
         {
             return inventoryBoxUI.GetIndexFreeSlot(item, slotType);
         }
