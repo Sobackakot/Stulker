@@ -1,12 +1,13 @@
 
-using System;
-using System.Collections.Generic;  
+using System; 
+using System.Collections.Generic; 
 using Zenject;
+using Debug = UnityEngine.Debug;
 
 
 namespace Inventory_
 {
-    public class InventoryController : IInventoryContoller, IInitializable, IDisposable
+    public class InventoryController : IInventoryController, IInitializable, IDisposable
     {
         public InventoryController([Inject(Id = "inventoryUI")] IInventoryUI inventoryUI)
         {
@@ -39,6 +40,7 @@ namespace Inventory_
                 if (itemsInventory[i] == null)
                 {
                     // update inventoryController equipmentSlots
+                    Debug.Log("controllr " + newItem.NameItem);
                     itemsInventory[i] = newItem;
                     inventoryUI.SetNewItemByInventoryCell(newItem, i);
                     return true;
@@ -106,6 +108,10 @@ namespace Inventory_
         public short GetIndexFreeSlot(ItemScrObj item, string slotType)
         {
             return inventoryUI.GetIndexFreeSlot(item, slotType);
+        }
+
+        public void SetBoxByInventory(InventoryBoxScrObj box)
+        { 
         }
     }
 }

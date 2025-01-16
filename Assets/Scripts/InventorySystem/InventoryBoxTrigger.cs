@@ -8,13 +8,13 @@ public class InventoryBoxTrigger : MonoBehaviour
     private InventoryPersonGameObject playerInventoryPanel;
 
     public InventoryBoxScrObj inventoryBoxScrObj;
-    private InventoryBoxController inventoryBoxController;
+    private IInventoryController inventoryBox;
 
     [SerializeField] private Material materialBox;
     [Inject]
-    private void Container(InventoryBoxController inventoryBoxController)
+    private void Container([Inject(Id = "inventoryBox")] IInventoryController inventoryBox)
     {
-        this.inventoryBoxController = inventoryBoxController;
+        this.inventoryBox = inventoryBox;
     }
 
     private void Awake()
@@ -31,7 +31,7 @@ public class InventoryBoxTrigger : MonoBehaviour
     {
         boxInventoryPanel.gameObject.SetActive(isActive);
         playerInventoryPanel.gameObject.SetActive(isActive);
-        inventoryBoxController.SetBoxByInventory(inventoryBoxScrObj);
+        inventoryBox.SetBoxByInventory(inventoryBoxScrObj);
         materialBox.color = Color.green;
     } 
 }

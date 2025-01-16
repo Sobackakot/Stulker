@@ -9,17 +9,18 @@ namespace Inventory_
     public class EquipmentSlot : InventorySlot
     {
         public EquipFieldScrObj equipFieldData;
-        private InventoryController inventoryController;
-        private InventoryBoxController inventoryBoxController;
-        private EquipmentController equipmentController;
+        private IInventoryController inventory;
+        private IInventoryController inventoryEquip;
+        private IInventoryController inventoryBox;
         private RectTransform equipmentSlot;
 
         [Inject]
-        private void Container(InventoryController inventory, EquipmentController equipmentController, InventoryBoxController inventoryBoxController)
+        private void Container([Inject(Id = "inventory")] IInventoryController inventory, [Inject(Id = "inventoryEquip")] IInventoryController inventoryEquip,
+            [Inject(Id = "inventoryBox")] IInventoryController inventoryBox)
         {
-            this.inventoryController = inventory;
-            this.equipmentController = equipmentController;
-            this.inventoryBoxController = inventoryBoxController;
+            this.inventory = inventory;
+            this.inventoryBox = inventoryBox;
+            this.inventoryEquip = inventoryEquip;
         }
         private void Awake()
         {
@@ -52,20 +53,20 @@ namespace Inventory_
         }
         private bool Equipping(ItemInSlot dropItem, string slotType)
         {
-            short index = equipmentController.GetIndexFreeSlot(dropItem.dataItem, slotType);
+            short index = inventoryEquip.GetIndexFreeSlot(dropItem.dataItem, slotType);
 
             if (slotType == "Slot" && index != -1)
             {
-                ItemScrObj oldItem = equipmentController.UpdatePickItem(dropItem.dataItem, index, slotType);
-                inventoryController.RemoveItemFromInventory(dropItem.dataItem);
-                if (oldItem != null) inventoryController.AddItemToInventory(oldItem);
+                ItemScrObj oldItem = inventoryEquip.UpdatePickItem(dropItem.dataItem, index, slotType);
+                inventory.RemoveItemFromInventory(dropItem.dataItem);
+                if (oldItem != null) inventory.AddItemToInventory(oldItem);
                 return true;
             }
             else if (slotType == "SlotBox" && index != -1)
             {
-                ItemScrObj oldItem = equipmentController.UpdatePickItem(dropItem.dataItem, index, slotType);
-                inventoryBoxController.RemoveItemFromInventory(dropItem.dataItem);
-                if (oldItem != null) inventoryBoxController.AddItemToInventory(oldItem);
+                ItemScrObj oldItem = inventoryEquip.UpdatePickItem(dropItem.dataItem, index, slotType);
+                inventoryBox.RemoveItemFromInventory(dropItem.dataItem);
+                if (oldItem != null) inventoryBox.AddItemToInventory(oldItem);
                 return true;
             }
             else return false;

@@ -6,10 +6,10 @@ using Inventory_;
 public class PickUpItems : Interactable 
 {   
     [field : SerializeField] public ItemScrObj item {  get; private set; }
-    private InventoryController inventory;
+    private IInventoryController inventory;
 
     [Inject]
-    private void Container(InventoryController inventory)
+    private void Container([Inject(Id = "inventory")] IInventoryController inventory)
     {
         this.inventory = inventory;
     }

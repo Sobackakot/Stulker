@@ -48,7 +48,7 @@ namespace Inventory_
         }
         public void ResetItemByInventoryCell(short slot) //coll from InventoryController
         {
-            List<ItemScrObj> items = onSetNewItem?.Invoke();
+            List<ItemScrObj> items = onSetNewItem?.Invoke(); 
             if (slot < items.Count) //updates the inventoryController user interface, those equipmentSlots that have been changed
             {
                 inventorySlots[slot].RemoveItemInSlot(itemsInSlots[slot]);

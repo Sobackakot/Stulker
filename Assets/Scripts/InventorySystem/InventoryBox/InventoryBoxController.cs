@@ -4,7 +4,7 @@ using Zenject;
 
 namespace Inventory_
 {
-    public class InventoryBoxController : IInventoryContoller, IInitializable, IDisposable
+    public class InventoryBoxController : IInventoryController, IInitializable, IDisposable
     {
         public InventoryBoxController([Inject(Id = "inventoryBoxUI")] IInventoryUI inventoryBoxUI)
         {

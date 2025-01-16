@@ -7,21 +7,23 @@ namespace Inventory_
 {
     public class EquipmentItemInSlot : ItemInSlot
     {
-        public int equipSlotIndex { get; set; }
-        private EquipmentController equipmentController;
-        private InventoryController inventoryController;
-        private InventoryBoxController inventoryBoxController;
+        
+
+        private IInventoryController inventory;
+        private IInventoryController inventoryEquip;
+        private IInventoryController inventoryBox;
         private CharacterState state;
 
         private Transform originEquipSlot;
+        public int equipSlotIndex { get; set; }
 
         [Inject]
-        private void Container(EquipmentController equipmentController, InventoryController inventoryController, 
-            InventoryBoxController inventoryBoxController, CharacterState state)
+        private void Container([Inject(Id = "inventory")] IInventoryController inventory, [Inject(Id = "inventoryEquip")] IInventoryController inventoryEquip,
+            [Inject(Id = "inventoryBox")] IInventoryController inventoryBox,CharacterState state)
         {
-            this.equipmentController = equipmentController;
-            this.inventoryController = inventoryController;
-            this.inventoryBoxController = inventoryBoxController;
+            this.inventory = inventory;
+            this.inventoryEquip = inventoryEquip;
+            this.inventoryBox = inventoryBox;
             this.state = state;
         }
         public override void SetItem(ItemScrObj newItem)
@@ -56,17 +58,17 @@ namespace Inventory_
         }
         private void Equipping(string slotType)
         {
-            short index = inventoryController.GetIndexFreeSlot(dataItem, slotType);
-            short index1 = inventoryBoxController.GetIndexFreeSlot(dataItem, slotType);
+            short index = inventory.GetIndexFreeSlot(dataItem, slotType);
+            short index1 = inventoryBox.GetIndexFreeSlot(dataItem, slotType);
             if (index != -1)
             {
-                inventoryController.UpdatePickItem(dataItem, index, slotType);
-                equipmentController.RemoveItemFromInventory(dataItem);
+                inventory.UpdatePickItem(dataItem, index, slotType);
+                inventoryEquip.RemoveItemFromInventory(dataItem);
             }
             else if (index1 != -1 && state.isActiveInventory)
             {
-                inventoryBoxController.UpdatePickItem(dataItem, index, slotType);
-                equipmentController.RemoveItemFromInventory(dataItem);
+                inventoryBox.UpdatePickItem(dataItem, index, slotType);
+                inventoryEquip.RemoveItemFromInventory(dataItem);
             }
         }
     }

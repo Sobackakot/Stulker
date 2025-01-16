@@ -8,18 +8,19 @@ namespace Inventory_
 {
     public class InventorySlotBox : InventorySlot
     {
-        private InventoryController inventoryController;
-        private EquipmentController equipmentController;
-        private InventoryBoxController inventoryBoxController;
+        private IInventoryController inventory;
+        private IInventoryController inventoryEquip;
+        private IInventoryController inventoryBox;
 
         private RectTransform transformBoxSlot;
 
         [Inject]
-        private void Container(InventoryController inventory, EquipmentController equipmentController, InventoryBoxController inventoryBoxController)
+        private void Container([Inject(Id = "inventory")] IInventoryController inventory, [Inject(Id = "inventoryEquip")] IInventoryController inventoryEquip,
+            [Inject(Id = "inventoryBox")] IInventoryController inventoryBox)
         {
-            this.inventoryController = inventory;
-            this.equipmentController = equipmentController;
-            this.inventoryBoxController = inventoryBoxController;
+           this.inventory = inventory;
+            this.inventoryEquip = inventoryEquip;
+            this.inventoryBox = inventoryBox;
         }
         private void Awake()
         {
@@ -60,18 +61,18 @@ namespace Inventory_
         }
         private bool UnEquip(ItemInSlot dropItem, string slotType)
         {
-            short index = inventoryBoxController.GetIndexFreeSlot(dropItem.dataItem, slotType);
+            short index = inventoryBox.GetIndexFreeSlot(dropItem.dataItem, slotType);
 
             if (slotType == "EquipSlot" && index != -1)
             {
-                inventoryBoxController.UpdatePickItem(dropItem.dataItem, index, slotType);
-                equipmentController.RemoveItemFromInventory(dropItem.dataItem);
+                inventoryBox.UpdatePickItem(dropItem.dataItem, index, slotType);
+                inventoryEquip.RemoveItemFromInventory(dropItem.dataItem);
                 return true;
             }
             else if (slotType == "Slot" && index != -1)
             {
-                inventoryBoxController.UpdatePickItem(dropItem.dataItem, index, slotType);
-                inventoryController.RemoveItemFromInventory(dropItem.dataItem);
+                inventoryBox.UpdatePickItem(dropItem.dataItem, index, slotType);
+                inventory.RemoveItemFromInventory(dropItem.dataItem);
                 return true;
             }
             else return false;

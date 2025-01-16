@@ -7,17 +7,18 @@ namespace Inventory_
 {
     public class InventorySlot : MonoBehaviour, IDropHandler
     {
-        private InventoryController inventoryController;
-        private InventoryBoxController inventoryBoxController;
-        private EquipmentController equipmentController;
+        private IInventoryController inventory;
+        private IInventoryController inventoryEquip;
+        private IInventoryController inventoryBox;
         private RectTransform transformSlot;
 
         [Inject]
-        private void Container(InventoryController inventory, EquipmentController equipmentController, InventoryBoxController inventoryBoxController)
-        {
-            this.inventoryController = inventory;
-            this.equipmentController = equipmentController;
-            this.inventoryBoxController = inventoryBoxController;
+        private void Container([Inject(Id = "inventory")] IInventoryController inventory, [Inject(Id = "inventoryEquip")] IInventoryController inventoryEquip,
+            [Inject(Id = "inventoryBox")] IInventoryController inventoryBox)
+        {   
+             this.inventory = inventory;
+             this.inventoryEquip = inventoryEquip;
+             this.inventoryBox = inventoryBox; 
         }
         private void Awake()
         {
@@ -42,8 +43,8 @@ namespace Inventory_
         {
             ItemInSlot pickItem = transformSlot.GetChild(0).GetComponent<ItemInSlot>();
             if (!CheckDropItemType(dropItem, pickItem)) return;
-            ItemScrObj oldItemData = inventoryController.SwapItemFromInventory(itemData, pickItem.slotIndex);
-            if (oldItemData != null) inventoryController.SwapItemFromInventory(oldItemData, dropItem.slotIndex);
+            ItemScrObj oldItemData = inventory.SwapItemFromInventory(itemData, pickItem.slotIndex);
+            if (oldItemData != null) inventory.SwapItemFromInventory(oldItemData, dropItem.slotIndex);
         }
         public virtual bool CheckDropItemType(ItemInSlot dropItem, ItemInSlot pickItem)
         {
@@ -55,18 +56,18 @@ namespace Inventory_
         }
         private bool UnEquip(ItemInSlot dropItem, string slotType)
         {
-            short index = inventoryController.GetIndexFreeSlot(dropItem.dataItem, slotType);
+            short index = inventory.GetIndexFreeSlot(dropItem.dataItem, slotType);
 
             if (slotType == "EquipSlot" && index != -1)
             {
-                inventoryController.UpdatePickItem(dropItem.dataItem, index, slotType);
-                equipmentController.RemoveItemFromInventory(dropItem.dataItem);
+                inventory.UpdatePickItem(dropItem.dataItem, index, slotType);
+                inventoryEquip.RemoveItemFromInventory(dropItem.dataItem);
                 return true;
             }
             else if (slotType == "SlotBox" && index != -1)
             {
-                inventoryController.UpdatePickItem(dropItem.dataItem, index, slotType);
-                inventoryBoxController.RemoveItemFromInventory(dropItem.dataItem);
+                inventory.UpdatePickItem(dropItem.dataItem, index, slotType);
+                inventoryBox.RemoveItemFromInventory(dropItem.dataItem);
                 return true;
             }
             else return false;

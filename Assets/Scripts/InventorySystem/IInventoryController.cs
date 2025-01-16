@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Inventory_
 {
-    public interface IInventoryContoller
+    public interface IInventoryController
     {
         bool AddItemToInventory(ItemScrObj newItem);
         void RemoveItemFromInventory(ItemScrObj item);
@@ -11,6 +11,7 @@ namespace Inventory_
         ItemScrObj UpdatePickItem(ItemScrObj pickItem, short index, string slotType);
         List<ItemScrObj> GetCurrentItems();
         short GetIndexFreeSlot(ItemScrObj item, string slotType);
+        void SetBoxByInventory(InventoryBoxScrObj box);
     }
 }
 

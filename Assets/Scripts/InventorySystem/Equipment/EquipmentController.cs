@@ -6,7 +6,7 @@ using Zenject;
 
 namespace Inventory_
 {
-    public class EquipmentController : IInventoryContoller, IInitializable, IDisposable
+    public class EquipmentController : IInventoryController, IInitializable, IDisposable
     {
         public EquipmentController([Inject(Id = "equipmentUI")] IInventoryUI equipmentUI)
         {
@@ -106,6 +106,11 @@ namespace Inventory_
         public short GetIndexFreeSlot(ItemScrObj item, string slotType)
         {
             return equipmentUI.GetIndexFreeSlot(item, slotType);
+        }
+
+        public void SetBoxByInventory(InventoryBoxScrObj box)
+        {
+            
         }
     }
 }

@@ -2,16 +2,23 @@
 using UnityEngine;
 using Zenject;
 using Inventory_;
+using System;
 
 
 [CreateAssetMenu(fileName = "Installer(Character)", menuName = "Installers/Character")]
-public class CharacterInstaller : ScriptableObjectInstaller
-{   
+public class CharacterInstaller : ScriptableObjectInstaller 
+{
+    private const string Inventory_ID = "inventory";
+    private const string InventoryBox_ID = "inventoryBox";
+    private const string InventoryEquip_ID = "inventoryEquip";
+
     private const string InventoryUI_ID = "inventoryUI";
     private const string InventoryBoxUI_ID = "inventoryBoxUI";
     private const string EquipmentUI_ID = "equipmentUI";
+
     private const string CameraTird_ID = "cameraTird";
     private const string CameraFerst_ID = "cameraFerst";
+     
 
     public override void InstallBindings()
     {
@@ -64,8 +71,14 @@ public class CharacterInstaller : ScriptableObjectInstaller
         Container.Bind<InventoryPersonGameObject>().FromComponentInHierarchy(this).AsSingle();
         Container.Bind<InventoryBoxGameObject>().FromComponentInHierarchy(this).AsTransient();
 
-        Container.BindInterfacesAndSelfTo<InventoryController>().FromNew().AsSingle().NonLazy();
-        Container.BindInterfacesAndSelfTo<InventoryBoxController>().FromNew().AsSingle().NonLazy();
-        Container.BindInterfacesAndSelfTo<EquipmentController>().FromNew().AsSingle().NonLazy();
+
+        Container.Bind(typeof(IInventoryController), typeof(IInitializable), typeof(IDisposable))
+            .WithId(Inventory_ID).To<InventoryController>().AsSingle().NonLazy();
+
+        Container.Bind(typeof(IInventoryController), typeof(IInitializable), typeof(IDisposable))
+            .WithId(InventoryEquip_ID).To<EquipmentController>().AsSingle().NonLazy();
+
+        Container.Bind(typeof(IInventoryController), typeof(IInitializable), typeof(IDisposable))
+            .WithId(InventoryBox_ID).To<InventoryBoxController>().AsTransient().NonLazy();  
     }
 }
