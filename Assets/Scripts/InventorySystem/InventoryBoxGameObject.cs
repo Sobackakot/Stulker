@@ -1,10 +1,17 @@
  
 using UnityEngine;
+using Zenject;
 
 public class InventoryBoxGameObject : MonoBehaviour
 {
     private InventoryPersonGameObject inventoryPerson;
-    public bool isActiveInventoryBox { get; private set; }
+    private CharacterState state;
+
+    [Inject]
+    private void Construct(CharacterState state)
+    {
+        this.state = state;
+    }
     private void Awake()
     {
         inventoryPerson = FindObjectOfType<InventoryPersonGameObject>();
@@ -15,13 +22,13 @@ public class InventoryBoxGameObject : MonoBehaviour
     }
     private void OnEnable()
     {
-        isActiveInventoryBox = true;
+        state.SetActiveInventory(true);
         inventoryPerson.onExitInventoryBox += InventoryPerson_OnExitInventoryBox;
 
     } 
     private void OnDisable()
     {
-        isActiveInventoryBox = false; 
+        state.SetActiveInventory(false);
     }
     private void OnDestroy()
     {

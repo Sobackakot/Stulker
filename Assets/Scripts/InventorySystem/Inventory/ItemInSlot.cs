@@ -20,16 +20,20 @@ namespace Inventory_
 
         private Image itemIcon;
         private TextMeshProUGUI itemAmount;
+
         private EquipmentController equipmentController;
         private InventoryController inventoryController;
         private InventoryBoxController inventoryBoxController;
+        private CharacterState state;
 
         [Inject]
-        private void Container(EquipmentController equipmenrt, InventoryController inventoryController, InventoryBoxController inventoryBoxController)
+        private void Container(EquipmentController equipmenrt, InventoryController inventoryController,
+            InventoryBoxController inventoryBoxController, CharacterState state)
         {
             equipmentController = equipmenrt;
             this.inventoryController = inventoryController;
             this.inventoryBoxController = inventoryBoxController;
+            this.state = state;
         }
 
         private void Awake()
@@ -90,7 +94,7 @@ namespace Inventory_
         {
             short index = inventoryBoxController.GetIndexFreeSlot(dataItem, slotType);
             short index2 = equipmentController.GetIndexFreeSlot(dataItem, slotType);
-            if (index != -1 && inventoryController.CheckIsActiveInventoryBox())
+            if (index != -1 && state.isActiveInventory)
             {
                 inventoryBoxController.UpdatePickItem(dataItem, index, slotType);
                 inventoryController.RemoveItemFromInventory(dataItem);

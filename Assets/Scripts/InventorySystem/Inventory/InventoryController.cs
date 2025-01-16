@@ -8,10 +8,9 @@ namespace Inventory_
 {
     public class InventoryController : IInventoryContoller, IInitializable, IDisposable
     {
-        public InventoryController([Inject(Id = "inventoryUI")] IInventoryUI inventoryUI, InventoryBoxGameObject inventoryBox)
+        public InventoryController([Inject(Id = "inventoryUI")] IInventoryUI inventoryUI)
         {
             this.inventoryUI = inventoryUI;
-            this.inventoryBox = inventoryBox;
 
             itemsInventory = new List<ItemScrObj>(space);
             for (int i = 0; i < space; i++)
@@ -20,7 +19,6 @@ namespace Inventory_
             }
         }
         private IInventoryUI inventoryUI;
-        private InventoryBoxGameObject inventoryBox;
 
         public readonly List<ItemScrObj> itemsInventory;
         private int space = 48;
@@ -101,10 +99,6 @@ namespace Inventory_
             return null;
         }
 
-        public bool CheckIsActiveInventoryBox()
-        {
-            return inventoryBox.isActiveInventoryBox;
-        }
         public List<ItemScrObj> GetCurrentItems() //get a list of items from a character's inventoryController
         {
             return itemsInventory;

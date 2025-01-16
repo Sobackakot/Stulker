@@ -8,10 +8,9 @@ namespace Inventory_
 {
     public class EquipmentController : IInventoryContoller, IInitializable, IDisposable
     {
-        public EquipmentController([Inject(Id = "equipmentUI")] IInventoryUI equipmentUI, InventoryBoxGameObject inventoryBox)
+        public EquipmentController([Inject(Id = "equipmentUI")] IInventoryUI equipmentUI)
         {
             this.equipmentUI = equipmentUI;
-            this.inventoryBox = inventoryBox;
 
             int countSlotsItem = System.Enum.GetNames(typeof(EquipItemTypes)).Length; //get the number1 of equipmentSlots for equipmentUI items
             equipmentItems = new List<ItemScrObj>(countSlotsItem);
@@ -21,7 +20,6 @@ namespace Inventory_
             }
         }
         private IInventoryUI equipmentUI;
-        private InventoryBoxGameObject inventoryBox;
 
         public readonly List<ItemScrObj> equipmentItems;
 
@@ -108,10 +106,6 @@ namespace Inventory_
         public short GetIndexFreeSlot(ItemScrObj item, string slotType)
         {
             return equipmentUI.GetIndexFreeSlot(item, slotType);
-        }
-        public bool CheckIsActiveInventoryBox()
-        {
-            return inventoryBox.isActiveInventoryBox;
         }
     }
 }

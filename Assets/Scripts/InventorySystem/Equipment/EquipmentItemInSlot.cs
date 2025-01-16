@@ -11,15 +11,18 @@ namespace Inventory_
         private EquipmentController equipmentController;
         private InventoryController inventoryController;
         private InventoryBoxController inventoryBoxController;
+        private CharacterState state;
 
         private Transform originEquipSlot;
 
         [Inject]
-        private void Container(EquipmentController equipmentController, InventoryController inventoryController, InventoryBoxController inventoryBoxController)
+        private void Container(EquipmentController equipmentController, InventoryController inventoryController, 
+            InventoryBoxController inventoryBoxController, CharacterState state)
         {
             this.equipmentController = equipmentController;
             this.inventoryController = inventoryController;
             this.inventoryBoxController = inventoryBoxController;
+            this.state = state;
         }
         public override void SetItem(ItemScrObj newItem)
         {
@@ -60,7 +63,7 @@ namespace Inventory_
                 inventoryController.UpdatePickItem(dataItem, index, slotType);
                 equipmentController.RemoveItemFromInventory(dataItem);
             }
-            else if (index1 != -1 && equipmentController.CheckIsActiveInventoryBox())
+            else if (index1 != -1 && state.isActiveInventory)
             {
                 inventoryBoxController.UpdatePickItem(dataItem, index, slotType);
                 equipmentController.RemoveItemFromInventory(dataItem);

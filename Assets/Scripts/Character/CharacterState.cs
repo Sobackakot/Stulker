@@ -47,7 +47,13 @@ public class CharacterState
     public bool isStopingRotate { get; private set; } 
     public bool isMaxAngleCamera { get; private set; }
 
+    public bool isActiveInventory {  get; private set; }
+
      
+    public void SetActiveInventory(bool isActive)
+    {
+        isActiveInventory = isActive;
+    }
     public void SetInputAxisCamera(Vector2 inputAxis)
     { 
         inputAxisCamera = new Vector3(inputAxis.x, 0, inputAxis.y);  
