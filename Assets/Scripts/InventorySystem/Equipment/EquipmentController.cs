@@ -6,7 +6,7 @@ using Zenject;
 
 namespace Inventory_
 {
-    public class EquipmentController : IInventoryController, IInitializable, IDisposable
+    public class EquipmentController : IInventoryController, IInitializable, IDisposable// не работает
     {
         public EquipmentController([Inject(Id = "equipmentUI")] IInventoryUI equipmentUI)
         {
@@ -23,11 +23,11 @@ namespace Inventory_
 
         public readonly List<ItemScrObj> equipmentItems;
 
-        public void Initialize()
+        public void Initialize()// не работает
         {
             equipmentUI.onSetNewItem += GetCurrentItems;
         }
-        public void Dispose()
+        public void Dispose()// не работает
         {
             equipmentUI.onSetNewItem -= GetCurrentItems;
         }

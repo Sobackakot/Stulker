@@ -4,7 +4,7 @@ using Zenject;
 
 namespace Inventory_
 {
-    public class InventoryBoxController : IInventoryController, IInitializable, IDisposable
+    public class InventoryBoxController : IInventoryController, IInitializable, IDisposable// не работает бин IInitializable, IDisposable
     {
         public InventoryBoxController([Inject(Id = "inventoryBoxUI")] IInventoryUI inventoryBoxUI)
         {
@@ -13,11 +13,11 @@ namespace Inventory_
         private IInventoryUI inventoryBoxUI;
         public InventoryBox inventoryBox;
 
-        public void Initialize()
+        public void Initialize() // не работает bind ---------------------------------------------------------------------------------
         {
             inventoryBoxUI.onSetNewItem += GetCurrentItems;
         }
-        public void Dispose()
+        public void Dispose()// не работает bind ---------------------------------------------------------------------------------
         {
             inventoryBoxUI.onSetNewItem -= GetCurrentItems;
         }
@@ -81,7 +81,7 @@ namespace Inventory_
         }
         public List<ItemScrObj> GetCurrentItems() //get a list of items from a character's inventoryController
         {
-            return inventoryBox.GetCurrentItems();
+            return inventoryBox.GetCurrentItems();//
         }
         public short GetIndexFreeSlot(ItemScrObj item, string slotType)
         {

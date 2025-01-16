@@ -72,10 +72,13 @@ public class CharacterInstaller : ScriptableObjectInstaller
         Container.Bind<InventoryBoxGameObject>().FromComponentInHierarchy(this).AsTransient();
 
 
-        Container.Bind<IInventoryController>().WithId(Inventory_ID).To<InventoryController>().AsTransient().NonLazy(); 
+        Container.Bind<IInventoryController>().WithId(Inventory_ID).To<InventoryController>().AsTransient().NonLazy();
+        Container.BindInterfacesAndSelfTo<InventoryController>().AsTransient().NonLazy();// бинд всех interfaces
 
-        Container.Bind<IInventoryController>().WithId(InventoryEquip_ID).To<EquipmentController>().AsTransient().NonLazy(); 
+        Container.Bind<IInventoryController>().WithId(InventoryEquip_ID).To<EquipmentController>().AsTransient().NonLazy();
+        Container.BindInterfacesAndSelfTo<EquipmentController>().AsTransient().NonLazy();
 
-        Container.Bind<IInventoryController>().WithId(InventoryBox_ID).To<InventoryBoxController>().AsTransient().NonLazy();  
+        Container.Bind<IInventoryController>().WithId(InventoryBox_ID).To<InventoryBoxController>().AsTransient().NonLazy();
+        Container.BindInterfacesAndSelfTo<InventoryBoxController>().AsTransient().NonLazy();
     }
 }
