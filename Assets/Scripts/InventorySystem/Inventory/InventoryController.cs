@@ -1,113 +1,118 @@
 
 using System;
 using System.Collections.Generic;  
-using Zenject; 
+using Zenject;
 
-public class InventoryController: IInventoryContoller, IInitializable, IDisposable
+
+namespace Inventory_
 {
-    public InventoryController([Inject(Id = "inventoryUI")]IInventoryUI inventoryUI, InventoryBoxGameObject inventoryBox)
+    public class InventoryController : IInventoryContoller, IInitializable, IDisposable
     {
-        this.inventoryUI = inventoryUI; 
-        this.inventoryBox = inventoryBox;
-
-        itemsInventory = new List<ItemScrObj>(space);
-        for (int i = 0; i < space; i++)
+        public InventoryController([Inject(Id = "inventoryUI")] IInventoryUI inventoryUI, InventoryBoxGameObject inventoryBox)
         {
-            itemsInventory.Add(null); // Initialize the list with null values 
-        }
-    }
-    private IInventoryUI inventoryUI;
-    private InventoryBoxGameObject inventoryBox;
+            this.inventoryUI = inventoryUI;
+            this.inventoryBox = inventoryBox;
 
-    public readonly List<ItemScrObj> itemsInventory;
-    private int space = 48; 
-
-    public void Initialize()
-    {
-        inventoryUI.onSetNewItem += GetCurrentItems; 
-    }
-    public void Dispose()
-    {
-        inventoryUI.onSetNewItem -= GetCurrentItems; 
-    } 
-
-    public bool AddItemToInventory(ItemScrObj newItem) //coll from EquipmentController,CharacterState_GetItemFromHitRay
-    { 
-        for (byte i = 0; i < itemsInventory.Count; i++)
-        {
-            if (itemsInventory[i] == null )
+            itemsInventory = new List<ItemScrObj>(space);
+            for (int i = 0; i < space; i++)
             {
-                // update inventoryController equipmentSlots
-                itemsInventory[i] = newItem;
-                inventoryUI.SetNewItemByInventoryCell(newItem, i);  
-                return true;
-            }
-        } 
-        return false; // InventoryPerson is full 
-    }
-    public void RemoveItemFromInventory(ItemScrObj item) // coll from ItemInSlot
-    {
-        for (byte i = 0; i < itemsInventory.Count; i++)
-        {
-            if (itemsInventory[i] == item)
-            {
-                itemsInventory[i] = null;
-                inventoryUI.ResetItemByInventoryCell(i);// update inventoryController equipmentSlots  
-                return;
+                itemsInventory.Add(null); // Initialize the list with null values 
             }
         }
-    } 
-    public ItemScrObj SwapItemFromInventory(ItemScrObj item, short index)
-    { 
-        if (index >= 0 && index < itemsInventory.Count)
+        private IInventoryUI inventoryUI;
+        private InventoryBoxGameObject inventoryBox;
+
+        public readonly List<ItemScrObj> itemsInventory;
+        private int space = 48;
+
+        public void Initialize()
         {
-            FreeUpOldSlot(item);
-            ItemScrObj oldItem = null;
-            if (itemsInventory[index] != null)
+            inventoryUI.onSetNewItem += GetCurrentItems;
+        }
+        public void Dispose()
+        {
+            inventoryUI.onSetNewItem -= GetCurrentItems;
+        }
+
+        public bool AddItemToInventory(ItemScrObj newItem) //coll from EquipmentController,CharacterState_GetItemFromHitRay
+        {
+            for (byte i = 0; i < itemsInventory.Count; i++)
             {
-                oldItem = itemsInventory[index];
+                if (itemsInventory[i] == null)
+                {
+                    // update inventoryController equipmentSlots
+                    itemsInventory[i] = newItem;
+                    inventoryUI.SetNewItemByInventoryCell(newItem, i);
+                    return true;
+                }
             }
-            itemsInventory[index] = item;
-            inventoryUI.SetNewItemByInventoryCell(item, index);
-            return oldItem;
+            return false; // InventoryPerson is full 
         }
-        else return null;
-    } 
-
-    private void FreeUpOldSlot(ItemScrObj item) 
-    {
-        for (short i = 0; i < itemsInventory.Count; i++)
+        public void RemoveItemFromInventory(ItemScrObj item) // coll from ItemInSlot
         {
-            if (itemsInventory[i] == item)
+            for (byte i = 0; i < itemsInventory.Count; i++)
             {
-                inventoryUI.ResetItemByInventoryCell(i);
-                itemsInventory[i] = null; 
-            }     
+                if (itemsInventory[i] == item)
+                {
+                    itemsInventory[i] = null;
+                    inventoryUI.ResetItemByInventoryCell(i);// update inventoryController equipmentSlots  
+                    return;
+                }
+            }
         }
-    }
-    public ItemScrObj UpdatePickItem(ItemScrObj pickItem, short index, string slotType)
-    {
-        if (slotType == "EquipSlot" && pickItem != null && pickItem.IsEquipmentItem())
+        public ItemScrObj SwapItemFromInventory(ItemScrObj item, short index)
         {
-            return SwapItemFromInventory(pickItem, index);
+            if (index >= 0 && index < itemsInventory.Count)
+            {
+                FreeUpOldSlot(item);
+                ItemScrObj oldItem = null;
+                if (itemsInventory[index] != null)
+                {
+                    oldItem = itemsInventory[index];
+                }
+                itemsInventory[index] = item;
+                inventoryUI.SetNewItemByInventoryCell(item, index);
+                return oldItem;
+            }
+            else return null;
         }
-        else if (slotType == "SlotBox" && pickItem != null)
-        {
-            return SwapItemFromInventory(pickItem, index);
-        }
-        return null;    
-    }
 
-    public bool CheckIsActiveInventoryBox()
-    {
-        return inventoryBox.isActiveInventoryBox;
+        private void FreeUpOldSlot(ItemScrObj item)
+        {
+            for (short i = 0; i < itemsInventory.Count; i++)
+            {
+                if (itemsInventory[i] == item)
+                {
+                    inventoryUI.ResetItemByInventoryCell(i);
+                    itemsInventory[i] = null;
+                }
+            }
+        }
+        public ItemScrObj UpdatePickItem(ItemScrObj pickItem, short index, string slotType)
+        {
+            if (slotType == "EquipSlot" && pickItem != null && pickItem.IsEquipmentItem())
+            {
+                return SwapItemFromInventory(pickItem, index);
+            }
+            else if (slotType == "SlotBox" && pickItem != null)
+            {
+                return SwapItemFromInventory(pickItem, index);
+            }
+            return null;
+        }
+
+        public bool CheckIsActiveInventoryBox()
+        {
+            return inventoryBox.isActiveInventoryBox;
+        }
+        public List<ItemScrObj> GetCurrentItems() //get a list of items from a character's inventoryController
+        {
+            return itemsInventory;
+        }
+        public short GetIndexFreeSlot(ItemScrObj item, string slotType)
+        {
+            return inventoryUI.GetIndexFreeSlot(item, slotType);
+        }
     }
-    public List<ItemScrObj> GetCurrentItems() //get a list of items from a character's inventoryController
-    {
-        return  itemsInventory;
-    }
-    public short GetIndexFreeSlot(ItemScrObj item, string slotType)
-    {
-        return inventoryUI.GetIndexFreeSlot(item, slotType);
-    } 
 }
+

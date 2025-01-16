@@ -1,6 +1,7 @@
 
 using UnityEngine;
 using Zenject;
+using Inventory_;
 
 
 [CreateAssetMenu(fileName = "Installer(Character)", menuName = "Installers/Character")]

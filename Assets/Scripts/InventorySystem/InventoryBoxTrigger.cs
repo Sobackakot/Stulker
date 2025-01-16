@@ -1,7 +1,7 @@
  
 using UnityEngine;
 using Zenject;
-
+using Inventory_;
 public class InventoryBoxTrigger : MonoBehaviour
 {
     private InventoryBoxGameObject boxInventoryPanel; 

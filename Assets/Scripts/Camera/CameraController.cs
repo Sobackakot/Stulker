@@ -1,6 +1,7 @@
  
 using Zenject;
-using System; 
+using System;
+using Inventory_;
 
 public class CameraController: IInitializable, IDisposable 
 {

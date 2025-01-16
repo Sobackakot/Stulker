@@ -36,8 +36,7 @@ public class FirstCameraCharacter : MonoBehaviour, ICameraCharacter
         offset = transformCamera.position - targetLookPoint.position;
     }
     public void FollowCamera()
-    {
-        // Smoothly adjust the position to maintain the offset 
+    { 
         Vector3 newPosition = transformCamera.localRotation * offset + targetLookPoint.position;
         transformCamera.position = Vector3.Lerp(transformCamera.position, newPosition, Time.deltaTime * transitionSpeed);
     }
@@ -75,7 +74,5 @@ public class FirstCameraCharacter : MonoBehaviour, ICameraCharacter
 
     public void SwitchLookPointCamera(bool isLeftPointLook, bool isCrouching)
     { 
-    }
-
-   
+    } 
 }

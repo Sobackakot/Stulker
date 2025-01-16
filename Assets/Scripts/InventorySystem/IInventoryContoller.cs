@@ -1,12 +1,16 @@
  
-using System.Collections.Generic; 
+using System.Collections.Generic;
 
-public interface IInventoryContoller
+namespace Inventory_
 {
-    bool AddItemToInventory(ItemScrObj newItem);
-    void RemoveItemFromInventory(ItemScrObj item);
-    ItemScrObj SwapItemFromInventory(ItemScrObj item, short index);
-    ItemScrObj UpdatePickItem(ItemScrObj pickItem, short index, string slotType);
-    List<ItemScrObj> GetCurrentItems();
-    short GetIndexFreeSlot(ItemScrObj item, string slotType);
+    public interface IInventoryContoller
+    {
+        bool AddItemToInventory(ItemScrObj newItem);
+        void RemoveItemFromInventory(ItemScrObj item);
+        ItemScrObj SwapItemFromInventory(ItemScrObj item, short index);
+        ItemScrObj UpdatePickItem(ItemScrObj pickItem, short index, string slotType);
+        List<ItemScrObj> GetCurrentItems();
+        short GetIndexFreeSlot(ItemScrObj item, string slotType);
+    }
 }
+

@@ -1,6 +1,7 @@
 
 using UnityEngine; 
 using Zenject;
+using Inventory_;
 
 public class PickUpItems : Interactable 
 {   

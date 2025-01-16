@@ -45,14 +45,12 @@ public class TirdCameraCharacter : MonoBehaviour, ICameraCharacter
         offset = transformCamera.position - targetLookPoint.position;
     }
     public void FollowCamera()
-    { 
-        // Smoothly adjust the position to maintain the offset
+    {  
         Vector3 newPosition = transformCamera.localRotation * offset + targetLookPoint.position;
         transformCamera.position = Vector3.Lerp(transformCamera.position, newPosition, Time.deltaTime * transitionSpeed);
     }
     public void RotateCamera(bool isAim)
-    {
-        // Clamp and smooth the rotation
+    { 
         transitionSpeed = isAim ? 15 : 9;
         mouseAxisY = Mathf.Clamp(mouseAxisY, minAngle, maxAngle);  
         Quaternion newRot = Quaternion.Euler(mouseAxisY, mouseAxisX, 0);
@@ -104,11 +102,8 @@ public class TirdCameraCharacter : MonoBehaviour, ICameraCharacter
     public void SwitchLookPointCamera(bool isLeftPointLook, bool isCrouching)
     {
         float heightPoint = isCrouching ? 1.2f : 1.6f;
-        newHeigth = Mathf.Lerp(newHeigth, heightPoint, Time.deltaTime * transitionSpeed); 
-
-        // Smoothly transition to the new height and look pointRay position
-        Vector3 targetPosition = new Vector3(isLeftPointLook ? leftTarget : rightTarget, newHeigth, 0);
-
+        newHeigth = Mathf.Lerp(newHeigth, heightPoint, Time.deltaTime * transitionSpeed);  
+        Vector3 targetPosition = new Vector3(isLeftPointLook ? leftTarget : rightTarget, newHeigth, 0); 
         targetLookPoint.localPosition = Vector3.Lerp(targetLookPoint.localPosition, targetPosition, Time.deltaTime * transitionSpeed); 
     }
      

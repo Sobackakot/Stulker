@@ -1,6 +1,7 @@
 
 using System;
 using Zenject;
+using Inventory_;
 
 public class MoveController : IInitializable, IDisposable , ITickable
 {
