@@ -12,6 +12,7 @@ namespace Inventory_
         List<ItemScrObj> GetCurrentItems();
         short GetIndexFreeSlot(ItemScrObj item, string slotType);
         void SetBoxByInventory(InventoryBoxScrObj box);
+
     }
 }
 

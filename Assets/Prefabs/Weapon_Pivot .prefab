@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6937339320722569005}
   - component: {fileID: 8293604362532915333}
   - component: {fileID: 5728075441737577103}
+  - component: {fileID: 5577606637516456156}
   m_Layer: 7
   m_Name: 'Weapon_Pivot '
   m_TagString: Untagged
@@ -95,8 +96,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3be9ab5498da247499c16e54b4596ffb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <item>k__BackingField: {fileID: 11400000, guid: 48ea461eda2a02d4fb93747a4a0749f8,
+  <item>k__BackingField: {fileID: 11400000, guid: 06f0f0b81ec8f9a4381ceb3981f8b0ee,
     type: 2}
+--- !u!114 &5577606637516456156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4502966251692376938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6af4fb122c25893498e92e89cea44e3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7491607230790986334
 PrefabInstance:
   m_ObjectHideFlags: 0
