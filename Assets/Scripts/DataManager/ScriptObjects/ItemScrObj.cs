@@ -1,8 +1,7 @@
 
 using System;
 using UnityEngine;
-
-[CreateAssetMenu(fileName = "New Item", menuName = "InventoryItems/Item")]
+ 
 public abstract class ItemScrObj : ScriptableObject
 { 
     public string Id { get; private set; }
