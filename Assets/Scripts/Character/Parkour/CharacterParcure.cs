@@ -10,12 +10,9 @@ public class CharacterParcure : MonoBehaviour
     private Animator animator;
     private StateAnimatorCharacter stateMachin;
     [SerializeField] private List<ObstacleData>  obstaclesData = new List<ObstacleData>();
-    private ObstacleData currentObstacle;
+    private ObstacleData curObst;
 
-    public AnimatorStateInfo animState;
-    private Vector3 obstaclePoint;
-    private Vector3 obstacleScale; 
-    private Vector3 offset;
+    public AnimatorStateInfo animState; 
     
     public bool isStartingParcoure {  get; private set; }
 
@@ -40,7 +37,7 @@ public class CharacterParcure : MonoBehaviour
                 
                 if(data.CheckHeightObstacle(hitForward,hitDown, charTrans))
                 {
-                    currentObstacle = data;
+                    curObst = data;
                     anim.StartParcoureAnim(isStartingParcoure, data.nameStateAnim); 
                     break;
                 }
@@ -53,11 +50,13 @@ public class CharacterParcure : MonoBehaviour
         rb.isKinematic = stateMachin.isKinematic;
         if (stateMachin.isParcoureState)
         {
-            //SetMatchTarget(currentObstacle.avatarTarget, obstaclePoint, Quaternion.identity, offset, currentObstacle.startTime, currentObstacle.targetTime); 
-            charTrans.rotation = Quaternion.RotateTowards(charTrans.rotation, currentObstacle.targetRotate, 360f * Time.deltaTime);
+            animator.MatchTarget(curObst.matchPoint, charTrans.rotation, curObst.MatchBody, 
+                new MatchTargetWeightMask(curObst.MatchPosWeight, 0), curObst.StartTime, curObst.TargetTime);
+            charTrans.rotation = Quaternion.RotateTowards(charTrans.rotation, curObst.targetRotate, 360f * Time.deltaTime);
             return true;
         } else return false; 
     }
+
     public void SetMatchTarget(AvatarTarget avatarTarget, Vector3 targetPos, Quaternion targetRot, Vector3 offset, float startnormalizedTime, float targetNormalizedTime)
     {
         if (animator.isMatchingTarget)

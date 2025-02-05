@@ -61,8 +61,8 @@ public class StateAnimatorCharacter : StateMachineBehaviour
 
         isStepUp = stateInfo.IsName("StepUp");
         isJumpingObstacle = stateInfo.IsName("JumpingObstacle");
-
         isJumpOn = stateInfo.IsName("JumpOn"); 
+
         if (isStartClimbing || isStepUp || isJumpOn || isJumpingObstacle)
         {
             isKinematic = true;
@@ -77,8 +77,8 @@ public class StateAnimatorCharacter : StateMachineBehaviour
 
         isStepUp = stateInfo.IsName("StepUp");
         isJumpingObstacle = stateInfo.IsName("JumpingObstacle");
-
         isJumpOn = stateInfo.IsName("JumpOn"); 
+
         if (isFinishClimbing || isJumpingObstacle || isJumpOn || isStepUp)
         {  
             isKinematic = false;

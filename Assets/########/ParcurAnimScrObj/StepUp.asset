@@ -10,8 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d4bdfab03b1a52409429c3c3f8b28d7, type: 3}
-  m_Name: JumpingObstacle
+  m_Name: StepUp
   m_EditorClassIdentifier: 
-  maxHeight: 1.5
-  minHeight: 1
-  nameStateAnim: JumpingObstacle
+  maxHeight: 1
+  minHeight: 0.5
+  nameStateAnim: StepUp
+  matchBody: 3
+  startTime: 0.3
+  targetTime: 0.6

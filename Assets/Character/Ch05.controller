@@ -538,10 +538,9 @@ MonoBehaviour:
   isStartClimbing: 0
   isNextClimbing: 0
   isFinishClimbing: 0
-  isJumpOverClimb: 0
-  isClimbingMini: 0
-  isClimbingUp: 0
-  isStandingClimb: 0
+  isJumpOn: 0
+  isStepUp: 0
+  isJumpingObstacle: 0
   isParcoureState: 0
 --- !u!206 &-6432753301505277038
 BlendTree:
@@ -1658,10 +1657,9 @@ MonoBehaviour:
   isStartClimbing: 0
   isNextClimbing: 0
   isFinishClimbing: 0
-  isJumpOverClimb: 0
-  isClimbingMini: 0
-  isClimbingUp: 0
-  isStandingClimb: 0
+  isJumpOn: 0
+  isStepUp: 0
+  isJumpingObstacle: 0
   isParcoureState: 0
 --- !u!1101 &-3064244802825901275
 AnimatorStateTransition:
@@ -4104,10 +4102,9 @@ MonoBehaviour:
   isStartClimbing: 0
   isNextClimbing: 0
   isFinishClimbing: 0
-  isJumpOverClimb: 0
-  isClimbingMini: 0
-  isClimbingUp: 0
-  isStandingClimb: 0
+  isJumpOn: 0
+  isStepUp: 0
+  isJumpingObstacle: 0
   isParcoureState: 0
 --- !u!1101 &2812061384835897171
 AnimatorStateTransition:
@@ -4517,10 +4514,9 @@ MonoBehaviour:
   isStartClimbing: 0
   isNextClimbing: 0
   isFinishClimbing: 0
-  isJumpOverClimb: 0
-  isClimbingMini: 0
-  isClimbingUp: 0
-  isStandingClimb: 0
+  isJumpOn: 0
+  isStepUp: 0
+  isJumpingObstacle: 0
   isParcoureState: 0
 --- !u!1102 &3406762857820118139
 AnimatorState:

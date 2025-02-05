@@ -151,6 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 228e856b96c653e4698a83596b31de53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnPoints: []
 --- !u!4 &108720834
 Transform:
   m_ObjectHideFlags: 0
@@ -421,6 +422,7 @@ Transform:
   - {fileID: 1285723569}
   - {fileID: 597847864}
   - {fileID: 1510723023}
+  - {fileID: 1629163774}
   - {fileID: 1818087156}
   - {fileID: 1282631186}
   - {fileID: 1040482154}
@@ -1052,7 +1054,6 @@ GameObject:
   - component: {fileID: 597847863}
   - component: {fileID: 597847862}
   - component: {fileID: 597847861}
-  - component: {fileID: 597847860}
   m_Layer: 8
   m_Name: Cube (10)
   m_TagString: Climb
@@ -1060,19 +1061,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &597847860
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 597847859}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73c034c90b27cb247aa616544ffda9f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 76b201e6ad8e5494181add2aa7f9d9a5, type: 2}
 --- !u!65 &597847861
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2300,7 +2288,6 @@ GameObject:
   - component: {fileID: 1282631185}
   - component: {fileID: 1282631184}
   - component: {fileID: 1282631183}
-  - component: {fileID: 1282631182}
   m_Layer: 8
   m_Name: Cube (13)
   m_TagString: Climb
@@ -2308,19 +2295,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1282631182
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1282631181}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73c034c90b27cb247aa616544ffda9f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 76b201e6ad8e5494181add2aa7f9d9a5, type: 2}
 --- !u!65 &1282631183
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2419,7 +2393,6 @@ GameObject:
   - component: {fileID: 1285723568}
   - component: {fileID: 1285723567}
   - component: {fileID: 1285723566}
-  - component: {fileID: 1285723565}
   m_Layer: 8
   m_Name: Cube (9)
   m_TagString: Climb
@@ -2427,19 +2400,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1285723565
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1285723564}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73c034c90b27cb247aa616544ffda9f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 76b201e6ad8e5494181add2aa7f9d9a5, type: 2}
 --- !u!65 &1285723566
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2825,7 +2785,6 @@ GameObject:
   - component: {fileID: 1510723022}
   - component: {fileID: 1510723021}
   - component: {fileID: 1510723020}
-  - component: {fileID: 1510723019}
   m_Layer: 8
   m_Name: Cube (11)
   m_TagString: Climb
@@ -2833,19 +2792,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1510723019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1510723018}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73c034c90b27cb247aa616544ffda9f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 76b201e6ad8e5494181add2aa7f9d9a5, type: 2}
 --- !u!65 &1510723020
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3126,6 +3072,111 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1596662665}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1629163773
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1629163774}
+  - component: {fileID: 1629163777}
+  - component: {fileID: 1629163776}
+  - component: {fileID: 1629163775}
+  m_Layer: 8
+  m_Name: Cube (14)
+  m_TagString: Climb
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1629163774
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1629163773}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 7.9480286, y: -1.824, z: -0.123}
+  m_LocalScale: {x: 2, y: 1, z: 0.5}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 210720393}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1629163775
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1629163773}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1629163776
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1629163773}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 257
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1629163777
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1629163773}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1001 &1638396289
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3357,7 +3408,6 @@ GameObject:
   - component: {fileID: 1818087155}
   - component: {fileID: 1818087154}
   - component: {fileID: 1818087153}
-  - component: {fileID: 1818087152}
   m_Layer: 8
   m_Name: Cube (12)
   m_TagString: Climb
@@ -3365,19 +3415,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1818087152
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1818087151}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73c034c90b27cb247aa616544ffda9f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 76b201e6ad8e5494181add2aa7f9d9a5, type: 2}
 --- !u!65 &1818087153
 BoxCollider:
   m_ObjectHideFlags: 0

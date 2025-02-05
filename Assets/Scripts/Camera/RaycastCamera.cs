@@ -6,10 +6,11 @@ public class RaycastCamera : MonoBehaviour
 {
     [SerializeField] private Transform targetAiming;
     [SerializeField] private float  aimPointSpeed = 45f;
-    [SerializeField] private Vector3 offsetPointRay = new Vector3(0,0.25f,0);
+    [SerializeField] private Vector3 offsetPointRayFor = new Vector3(0,0.25f,0);
+    [SerializeField] private Vector3 offsetPointRayDown = new Vector3(0,6,0.6f);
 
     private Transform pointRay;
-    private Transform charTransPointRay;
+    private Transform charTransPointRay; 
     [SerializeField] private float maxRayInteract = 4f;
     [SerializeField] private float maxRayForwardParcoure = 0.8f;
     [SerializeField] private float maxRayHeightParcoure = 6f;
@@ -127,8 +128,8 @@ public class RaycastCamera : MonoBehaviour
     } 
     public bool SetRayHitParcour(out RaycastHit hitForward,out RaycastHit hitDown)
     {
-        bool isHitForward = RayCharacterForward(charTransPointRay, offsetPointRay);
-        bool isHitDown = RayCharacterDown(this.hitForward, isHitForward);
+        bool isHitForward = RayForward(charTransPointRay, offsetPointRayFor);
+        bool isHitDown = RayDown(this.hitForward, isHitForward); 
         state.SetStateHitToObstacle(isHitDown);
         if (isHitDown)
         {
@@ -143,16 +144,22 @@ public class RaycastCamera : MonoBehaviour
         return isHitDown; 
     }
    
-    private bool RayCharacterForward(Transform charTrans, Vector3 offset)
+    private bool RayForward(Transform charTrans, Vector3 offset)
     {  
         rayForward = new Ray(charTrans.position + offset, charTrans.forward);
         return Physics.Raycast(rayForward, out hitForward, maxRayForwardParcoure, climbLayerMask);  
     }
-    private bool RayCharacterDown(RaycastHit hit, bool isHitForward)
+    private bool RayDown(RaycastHit hit, bool isHitForward)
     {
         if (!isHitForward) return false; 
         rayDown = new Ray(hit.point + (Vector3.up * maxRayHeightParcoure), Vector3.down);
         return Physics.Raycast(rayDown, out hitDown, maxRayHeightParcoure, climbLayerMask);  
+    }
+    private bool RayDownCheckWidth(Transform charTrans, bool isHitDown)
+    {
+        if (!isHitDown) return false;
+        Ray rayDown = new Ray(charTrans.position + (charTrans.position.z * new Vector3(0,6,0.6f)), -charTrans.up);
+        return Physics.Raycast(rayDown, out RaycastHit hitDown, maxRayHeightParcoure, climbLayerMask);  
     }
     
     private Ray GeRayForward()
