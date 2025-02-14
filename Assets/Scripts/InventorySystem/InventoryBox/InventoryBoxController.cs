@@ -4,23 +4,22 @@ using Zenject;
 
 namespace Inventory_
 {
-    public class InventoryBoxController : IInventoryController, IInitializable, IDisposable// не работает бин IInitializable, IDisposable
+    public class InventoryBoxController : IInventoryController 
     {
         public InventoryBoxController([Inject(Id = "inventoryBoxUI")] IInventoryUI inventoryBoxUI)
         {
             this.inventoryBoxUI = inventoryBoxUI;
+            this.inventoryBoxUI.onSetNewItem += GetCurrentItems;
         }
-        private IInventoryUI inventoryBoxUI;
-        public InventoryBox inventoryBox;
-
-        public void Initialize() // не работает bind ---------------------------------------------------------------------------------
-        {
-            inventoryBoxUI.onSetNewItem += GetCurrentItems;
-        }
-        public void Dispose()// не работает bind ---------------------------------------------------------------------------------
+        ~InventoryBoxController()// не работает bind ---------------------------------------------------------------------------------
         {
             inventoryBoxUI.onSetNewItem -= GetCurrentItems;
         }
+
+        private IInventoryUI inventoryBoxUI;
+        public InventoryBox inventoryBox;
+         
+        
         void IInventoryController.SetBoxByInventory(InventoryBoxScrObj box) // coll from class CharacterSwitchSystem
         {
             inventoryBox = box.inventoryBox; // get pick Box for inventory

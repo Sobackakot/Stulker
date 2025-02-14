@@ -2682,7 +2682,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetAiming: {fileID: 322543997}
   aimPointSpeed: 45
-  offsetPointRay: {x: 0, y: 0.25, z: 0}
+  offsetPointRayFor: {x: 0, y: 0.25, z: 0}
+  offsetPointRayDown: {x: 0, y: 6, z: 0.6}
   maxRayInteract: 4
   maxRayForwardParcoure: 1.2
   maxRayHeightParcoure: 6
@@ -3099,8 +3100,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1629163773}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.9480286, y: -1.824, z: -0.123}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 8.84, y: -1.74, z: 0.13}
   m_LocalScale: {x: 2, y: 1, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10356,6 +10357,6 @@ SceneRoots:
   - {fileID: 242681594}
   - {fileID: 934465373}
   - {fileID: 210720393}
-  - {fileID: 1159732550}
   - {fileID: 617829610}
   - {fileID: 108720834}
+  - {fileID: 1159732550}

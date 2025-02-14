@@ -7,7 +7,7 @@ using Debug = UnityEngine.Debug;
 
 namespace Inventory_
 {
-    public class InventoryController : IInventoryController, IInitializable, IDisposable// не работает бин IInitializable, IDisposable
+    public class InventoryController : IInventoryController 
     {
         public InventoryController([Inject(Id = "inventoryUI")] IInventoryUI inventoryUI)
         {
@@ -18,21 +18,18 @@ namespace Inventory_
             {
                 itemsInventory.Add(null); // Initialize the list with null values 
             }
+            this.inventoryUI.onSetNewItem += GetCurrentItems;
         }
-        private IInventoryUI inventoryUI;
-
-        public readonly List<ItemScrObj> itemsInventory;
-        private int space = 48;
-
-        public void Initialize()// не работает bind ---------------------------------------------------------------------------------
-        {
-            inventoryUI.onSetNewItem += GetCurrentItems;
-        }
-        public void Dispose()// не работает bind ---------------------------------------------------------------------------------
+        ~InventoryController()// не работает bind ---------------------------------------------------------------------------------
         {
             inventoryUI.onSetNewItem -= GetCurrentItems;
         }
 
+        private IInventoryUI inventoryUI;
+
+        public readonly List<ItemScrObj> itemsInventory;
+        private int space = 48;
+         
         bool IInventoryController.AddItemToInventory(ItemScrObj newItem) //coll from EquipmentController,CharacterState_GetItemFromHitRay
         {
             for (byte i = 0; i < itemsInventory.Count; i++)

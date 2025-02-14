@@ -6,7 +6,7 @@ using Zenject;
 
 namespace Inventory_
 {
-    public class EquipmentController : IInventoryController, IInitializable, IDisposable// не работает бин IInitializable, IDisposable
+    public class EquipmentController : IInventoryController
     {
         public EquipmentController([Inject(Id = "equipmentUI")] IInventoryUI equipmentUI)
         {
@@ -18,19 +18,18 @@ namespace Inventory_
             {
                 equipmentItems.Add(null); //initialize item equipmentUI equipmentSlots
             }
+            this.equipmentUI.onSetNewItem += GetCurrentItems;
         }
-        private IInventoryUI equipmentUI;
-
-        public readonly List<ItemScrObj> equipmentItems;
-
-        public void Initialize()// не работает bind ---------------------------------------------------------------------------------
-        {
-            equipmentUI.onSetNewItem += GetCurrentItems;
-        }
-        public void Dispose()// не работает bind-------------------------------------------------------------------------------
+        ~EquipmentController()
         {
             equipmentUI.onSetNewItem -= GetCurrentItems;
         }
+
+        private IInventoryUI equipmentUI;
+
+        public readonly List<ItemScrObj> equipmentItems;
+         
+       
 
         bool IInventoryController.AddItemToInventory(ItemScrObj newItem)
         {
