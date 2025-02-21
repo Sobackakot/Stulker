@@ -30,6 +30,7 @@ namespace Inventory_
         {
             Cursor.lockState = CursorLockMode.Locked;
             isActiveInventory = true;
+           
         }
         private void Start()
         {

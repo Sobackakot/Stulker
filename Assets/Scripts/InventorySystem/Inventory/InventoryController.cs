@@ -1,12 +1,11 @@
 
 using System; 
 using System.Collections.Generic; 
-using Zenject;
-using Debug = UnityEngine.Debug;
+using Zenject; 
 
 
 namespace Inventory_
-{
+{ 
     public class InventoryController : IInventoryController 
     {
         public InventoryController([Inject(Id = "inventoryUI")] IInventoryUI inventoryUI)
@@ -36,8 +35,7 @@ namespace Inventory_
             {
                 if (itemsInventory[i] == null)
                 {
-                    // update inventoryController equipmentSlots
-                    Debug.Log("controllr " + newItem.NameItem);
+                    // update inventoryController equipmentSlots 
                     itemsInventory[i] = newItem;
                     inventoryUI.SetNewItemByInventoryCell(newItem, i);
                     return true;
@@ -46,7 +44,7 @@ namespace Inventory_
             return false; // InventoryPerson is full 
         }
         void IInventoryController.RemoveItemFromInventory(ItemScrObj item) // coll from ItemInSlot
-        {
+        { 
             for (byte i = 0; i < itemsInventory.Count; i++)
             {
                 if (itemsInventory[i] == item)

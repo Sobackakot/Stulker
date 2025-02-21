@@ -72,7 +72,7 @@ public class RaycastCamera : MonoBehaviour
     {
         rayForward = GeRayForward(); 
         if (Physics.Raycast(rayForward, out hitForward, maxRayInteract, layerMaskTake.value))
-        {
+        { 
             state.SetStateHitToItem(true);
             state.SetStateHitToInventory(false);
             windowUI.SetInteractText("Take (F)"); 
