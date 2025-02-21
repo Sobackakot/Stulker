@@ -44,7 +44,8 @@ public class MoveController : IInitializable, IDisposable , ITickable
     }
 
     public void Tick()
-    { 
+    {
+        state.UpdateIsDiagonalRunning();
         bool isParcoure = parcoure.UpdateParcour(); 
         state.SetStateParcour(isParcoure);
         bool isActiveInventoryBox = inventoryUI.isActiveInventory;

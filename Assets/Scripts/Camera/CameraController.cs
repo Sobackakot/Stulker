@@ -1,70 +1,61 @@
  
-using Zenject;
-using System;
+using Zenject; 
 using Inventory_;
+using System.Collections.Generic;
 
-public class CameraController: IInitializable, IDisposable 
-{
-    
-    public CameraController(InputCamera input, CharacterState state, WindowUI windowUI, RaycastCamera ray, 
-        [Inject(Id = "inventoryUI")]IInventoryUI inventoryUI , 
+public class CameraController 
+{ 
+    public CameraController(CharacterState state, RaycastCamera ray, [Inject(Id = "inventoryUI")]IInventoryUI inventoryUI , 
     [Inject(Id = "cameraTird")] ICameraCharacter cameraTird, [Inject(Id = "cameraFerst")] ICameraCharacter cameraFerst)
-    {
-        this.input = input;
-        this.windowUI = windowUI;
+    { 
         this.ray = ray;
         this.state = state;
         this.inventoryUI = inventoryUI;
-        this.cameraTird = cameraTird;
-        this.cameraFerst = cameraFerst; 
-    } 
-    private InputCamera input;  
+
+        cameras = new Dictionary<bool, ICameraCharacter>
+        {
+            { true, cameraFerst },
+            { false, cameraTird }
+        };
+        activeCamera = cameras[state.isFerstCamera];
+
+        this.state.OnGetItemFromHitRay += this.ray.CharacterState_IsRaycastHitItem;
+        this.state.OnSearcheInventoryBox += this.ray.CharacterState_OnSearcheInventoryBox;
+    }
+    ~CameraController()
+    {
+        this.state.OnGetItemFromHitRay -= this.ray.CharacterState_IsRaycastHitItem;
+        this.state.OnSearcheInventoryBox -= this.ray.CharacterState_OnSearcheInventoryBox;
+    }
+
     private CharacterState state;
-    private WindowUI windowUI;
     private RaycastCamera ray; 
-    private IInventoryUI inventoryUI;
-    private ICameraCharacter cameraTird;
-    private ICameraCharacter cameraFerst;
+    private IInventoryUI inventoryUI; 
+
     private ICameraCharacter activeCamera;
-     
-    public void Initialize()
-    {
-        input.onInputAxis += cameraTird.InputCamera_OnInputAxis; 
-        input.onInputAxis += cameraFerst.InputCamera_OnInputAxis;
-        state.OnGetItemFromHitRay += ray.CharacterState_GetItemFromHitRay;
-        state.OnSearcheInventoryBox += ray.CharacterState_OnSearcheInventoryBox;
-    }
-    public void Dispose()
-    {
-        input.onInputAxis -= cameraTird.InputCamera_OnInputAxis; 
-        input.onInputAxis -= cameraFerst.InputCamera_OnInputAxis;
-        state.OnGetItemFromHitRay -= ray.CharacterState_GetItemFromHitRay;
-        state.OnSearcheInventoryBox -= ray.CharacterState_OnSearcheInventoryBox;
-    }
+    private readonly Dictionary<bool, ICameraCharacter> cameras; 
+
 
     private void SwitchCamera()
     {
-        activeCamera = state.isFerstCamera ? cameraFerst : cameraTird;
+        activeCamera = cameras[state.isFerstCamera];
     }
-    public void Tick_()
+    public void Tick_Camera()
     {
         SwitchCamera();
-        activeCamera.SwitchLookPointCamera(state.isLeftTargerPoint, state.isCrouch);
-        bool isActive = inventoryUI.isActiveInventory; 
-        state.SetStateRotateCamera(isActive);
-        windowUI.ShowInteractText();
+        activeCamera.SwitchLookPointCamera(state.isLeftTargerPoint, state.isCrouch); 
+        state.SetStateRotateCamera(inventoryUI.isActiveInventory);
         activeCamera.CheckCameraRotateAngle(state);
     }
-    public void LateTick_()
+    public void LateTick_Camera()
     {
-        SwitchCamera(); 
         activeCamera.FollowCamera();     
         if (state.isStopingRotate)  
              activeCamera.RotateCamera(state.isAim);
         activeCamera.ZoomCamera(state.isAim, state.isReloadWeapon); 
     }
       
-    public void FixedTick_()
+    public void FixedTick_Camera()
     { 
         ray.RayHitTakeItemInteract(); 
         if (state.isAim)

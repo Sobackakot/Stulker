@@ -47,7 +47,14 @@ public class RaycastCamera : MonoBehaviour
         windowUI = FindObjectOfType<WindowUI>(); 
         charact = FindObjectOfType<CharacterMove>();
         charTransPointRay = charact.GetComponent<Transform>();
-    } 
+    }
+    private void OnEnable()
+    { 
+    }
+    private void OnDisable()
+    {
+        
+    }
     public void Shooting(bool isLeftButtonDown)
     {
         if (isLeftButtonDown )
@@ -107,7 +114,7 @@ public class RaycastCamera : MonoBehaviour
             inventoryGameObject.SetActiveInventory(isActiveInventoryBox);
         } 
     }
-    public bool CharacterState_GetItemFromHitRay()
+    public bool CharacterState_IsRaycastHitItem()
     {
         rayForward = GeRayForward();
         if (Physics.Raycast(rayForward, out hitForward, maxRayInteract))

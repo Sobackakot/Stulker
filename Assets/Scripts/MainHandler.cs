@@ -16,18 +16,18 @@ public class MainHandler : ITickable, ILateTickable, IFixedTickable
     public void Tick()
     { 
         animator.Tick_();
-        camera.Tick_();
+        camera.Tick_Camera();
     }
     public void LateTick()
     {    
         character.LateTick_();
         animator.LateTick_();
-        camera.LateTick_();
+        camera.LateTick_Camera();
     }
     public void FixedTick()
     { 
         character.FixedTick_();
         animator.FixedTick_();
-        camera.FixedTick_();
+        camera.FixedTick_Camera();
     } 
 }

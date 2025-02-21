@@ -1,17 +1,15 @@
 using System;
 using Zenject;
 
-public class StateCharacterController : IInitializable, IDisposable, ITickable
+public class StateCharacterController : IInitializable, IDisposable
 { 
-    public StateCharacterController(CharacterState state, InputCharacter input, InputCamera inputCamera)
+    public StateCharacterController(CharacterState state, InputCharacter input)
     {
         this.state = state;
-        this.input = input;
-        this.inputCamera = inputCamera;
+        this.input = input; 
     }
     private CharacterState state;
-    private InputCharacter input;
-    private InputCamera inputCamera;
+    private InputCharacter input; 
 
     public void Initialize()
     {
@@ -23,9 +21,8 @@ public class StateCharacterController : IInitializable, IDisposable, ITickable
         input.OnFireInput += state.InputCharacter_OnFire; 
         input.OnCrouchToggle += state.InputCharacter_OnCrouch;
         input.OnEquipWeaponToggle += state.InputCharacter_OnEquipWeapon;
-        //input.OnReloadWeaponInput += state.InputCharacter_OnReloadWeapon;
-
-        inputCamera.OnSwitchCamera += state.InputCamera_OnSwitchCamera;
+        //input.OnReloadWeaponInput += state.InputCharacter_OnReloadWeapon; 
+         
 
         input.OnInventoryBoxToggle += state.InputCharacter_OnSearcheInventoryBox;
         input.OnPickUpItem += state.InputCharacter_OnPickUpItem;
@@ -46,19 +43,12 @@ public class StateCharacterController : IInitializable, IDisposable, ITickable
         input.OnCrouchToggle -= state.InputCharacter_OnCrouch;
         input.OnEquipWeaponToggle -= state.InputCharacter_OnEquipWeapon;
         //input.OnReloadWeaponInput -= state.InputCharacter_OnReloadWeapon;
-
-        inputCamera.OnSwitchCamera -= state.InputCamera_OnSwitchCamera;
-
+          
         input.OnInventoryBoxToggle -= state.InputCharacter_OnSearcheInventoryBox;
         input.OnPickUpItem -= state.InputCharacter_OnPickUpItem;
 
         input.OnLeanRightInput -= state.InputCharacter_OnLeanRight;
         input.OnLeanLeftInput -= state.InputCharacter_OnLeanLeft;
-    }
-
-    public void Tick()
-    {
-        state.UpdateIsDiagonalRunning();
     }
 } 
 

@@ -15,4 +15,8 @@ public class WindowUI : MonoBehaviour
     {
         interactText.text = currentText;  
     }
+    public void FixedUpdate()
+    {
+        ShowInteractText();
+    }
 }

@@ -2,8 +2,16 @@
 using System;
 using UnityEngine;
 
-public class CharacterState  
+public class CharacterState 
 {
+    public CharacterState()
+    {
+        EventBus.Subscribe<CameraSwitchEvent>(InputCamera_OnSwitchCamera);
+    }
+    ~CharacterState()
+    {
+        EventBus.Unsubscribe<CameraSwitchEvent>(InputCamera_OnSwitchCamera);
+    }
     public event Action OnJumping;
     public event Action OnParcoure;
     public event Action<Vector2> OnMoving;
@@ -43,7 +51,7 @@ public class CharacterState
 
     public Vector3 inputAxisCamera { get; private set; }
     public float currentAngleCamera { get; private set; }
-    public bool isFerstCamera { get; private set; }
+    public bool isFerstCamera { get; set; }
     public bool isStopingRotate { get; private set; } 
     public bool isMaxAngleCamera { get; private set; }
 
@@ -70,9 +78,10 @@ public class CharacterState
     {
         isStopingRotate = isRotate;
     }
-    public void InputCamera_OnSwitchCamera()
+    public void InputCamera_OnSwitchCamera(CameraSwitchEvent a)
     {
         isFerstCamera = !isFerstCamera;
+        a.IsFirstPerson = isFerstCamera;
     }
 
 
@@ -111,7 +120,7 @@ public class CharacterState
     public void InputCharacter_OnMove(Vector2 inputAxis)
     {
          inputAxisMove = new Vector3(inputAxis.x, 0, inputAxis.y); 
-        OnMoving.Invoke(inputAxis); 
+        OnMoving?.Invoke(inputAxis); 
     }
     public void InputCharacter_OnRun(bool isKeySprint)
     { 
@@ -145,7 +154,7 @@ public class CharacterState
        {
             if (!isRayHitToObstacle)
                 OnJumping?.Invoke();
-            OnParcoure.Invoke(); 
+            OnParcoure?.Invoke(); 
        }
     }
      
@@ -195,8 +204,8 @@ public class CharacterState
     {
         if (isRayHitToItem && !isReloadWeapon)
         {
-            OnPickUpItemAnim?.Invoke();    
-            if (OnGetItemFromHitRay.Invoke())
+            OnPickUpItemAnim?.Invoke(); 
+            if (OnGetItemFromHitRay != null && OnGetItemFromHitRay.Invoke())
                 isAvailableWeapons = true; 
         }
     }

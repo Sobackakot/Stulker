@@ -1,5 +1,4 @@
-
-using System.Security.Claims;
+ 
 using UnityEngine;
 using Zenject;
 
@@ -40,6 +39,14 @@ public class TirdCameraCharacter : MonoBehaviour, ICameraCharacter
     {
         transformCamera = GetComponent<Transform>();
     }
+    private void OnEnable()
+    {
+        EventBus.Subscribe<CameraInputEvent>(InputCamera_OnInputAxis);
+    }
+    private void OnDisable()
+    {
+        EventBus.Unsubscribe<CameraInputEvent>(InputCamera_OnInputAxis);
+    }
     private void Start()
     { 
         offset = transformCamera.position - targetLookPoint.position;
@@ -64,13 +71,13 @@ public class TirdCameraCharacter : MonoBehaviour, ICameraCharacter
         transformCamera.position = targetLookPoint.position - transformCamera.forward * mouseZoom;
     }
 
-    public void InputCamera_OnInputAxis(Vector2 inputAxis)
+    public void InputCamera_OnInputAxis(CameraInputEvent inputEvent)
     {
         if (state.isStopingRotate)
         {
-            mouseAxisX += inputAxis.x * sensitivityMouse * Time.deltaTime;
-            mouseAxisY -= inputAxis.y * sensitivityMouse * Time.deltaTime;
-            state.SetInputAxisCamera(inputAxis);
+            mouseAxisX += inputEvent.InputAxis.x * sensitivityMouse * Time.deltaTime;
+            mouseAxisY -= inputEvent.InputAxis.y * sensitivityMouse * Time.deltaTime;
+            state.SetInputAxisCamera(inputEvent.InputAxis);
         }   
     }
     public void InputCamera_OnScrollMouse(Vector2 scrollMouse)
