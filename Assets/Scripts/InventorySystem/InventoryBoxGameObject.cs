@@ -1,41 +1,37 @@
  
 using UnityEngine;
 using Zenject;
-
+using Inventory_;
 public class InventoryBoxGameObject : MonoBehaviour
 {
-    private InventoryPersonGameObject inventoryPerson;
-    private CharacterState state;
+    private InventoryBoxObjectUI boxInventoryPanel; 
+    private InventoryObjectUI playerInventoryPanel;
 
+    public InventoryBoxScrObj inventoryBoxScrObj;
+    private IInventoryController inventoryBox;
+
+    [SerializeField] private Material materialBox;
     [Inject]
-    private void Construct(CharacterState state)
+    private void Container([Inject(Id = "inventoryBox")] IInventoryController inventoryBox)
     {
-        this.state = state;
+        this.inventoryBox = inventoryBox;
     }
+
     private void Awake()
     {
-        inventoryPerson = FindObjectOfType<InventoryPersonGameObject>();
+        boxInventoryPanel = FindAnyObjectByType<InventoryBoxObjectUI>();
+        playerInventoryPanel = FindAnyObjectByType<InventoryObjectUI>();
+        inventoryBoxScrObj.inventoryBoxData.SetNewInventoryBoxId();
     }
     private void Start()
     {
-        gameObject.SetActive(false);
+        materialBox.color = Color.red;
     }
-    private void OnEnable()
+    public void OnActiveInventoryBox(bool isActive)
     {
-        state.SetActiveInventory(true);
-        inventoryPerson.onExitInventoryBox += InventoryPerson_OnExitInventoryBox;
-
+        boxInventoryPanel.gameObject.SetActive(isActive);
+        playerInventoryPanel.gameObject.SetActive(isActive);
+        inventoryBox.SetBoxByInventory(inventoryBoxScrObj);
+        materialBox.color = Color.green;
     } 
-    private void OnDisable()
-    {
-        state.SetActiveInventory(false);
-    }
-    private void OnDestroy()
-    {
-        inventoryPerson.onExitInventoryBox -= InventoryPerson_OnExitInventoryBox;
-    }
-    private void InventoryPerson_OnExitInventoryBox(bool isExit)
-    {
-        gameObject.SetActive(isExit); 
-    }
 }

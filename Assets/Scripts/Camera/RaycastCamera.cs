@@ -27,7 +27,7 @@ public class RaycastCamera : MonoBehaviour
     private RaycastHit hitDown;
      
    
-    private InventoryPersonGameObject inventoryGameObject;
+    private InventoryObjectUI inventoryGameObject;
     private WeaponHandle weapon;
     private CharacterMove charact;
     private WindowUI windowUI;
@@ -42,7 +42,7 @@ public class RaycastCamera : MonoBehaviour
     private void Awake()
     {
         pointRay = GetComponent<Transform>();
-        inventoryGameObject = FindObjectOfType<InventoryPersonGameObject>();
+        inventoryGameObject = FindObjectOfType<InventoryObjectUI>();
         weapon = FindObjectOfType<WeaponHandle>();
         windowUI = FindObjectOfType<WindowUI>(); 
         charact = FindObjectOfType<CharacterMove>();
@@ -109,7 +109,7 @@ public class RaycastCamera : MonoBehaviour
         isActiveInventoryBox = isActive;
         if (Physics.Raycast(rayForward, out hitForward, maxRayInteract))
         {
-            InventoryBoxTrigger box = hitForward.collider.transform.GetComponent<InventoryBoxTrigger>();
+            InventoryBoxGameObject box = hitForward.collider.transform.GetComponent<InventoryBoxGameObject>();
             box?.OnActiveInventoryBox(isActiveInventoryBox);
             inventoryGameObject.SetActiveInventory(isActiveInventoryBox);
         } 

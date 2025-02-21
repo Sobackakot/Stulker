@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Zenject;
 
-public class InventoryPersonGameObject : MonoBehaviour
+public class InventoryObjectUI : MonoBehaviour
 { 
     private InputCharacter input;  
     public event Action<bool> onExitInventoryBox;

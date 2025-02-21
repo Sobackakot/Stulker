@@ -68,8 +68,8 @@ public class CharacterInstaller : ScriptableObjectInstaller
 
         Container.Bind<IInventoryUI>().WithId(EquipmentUI_ID).To<EquipmentUI>().FromComponentInHierarchy(this).AsSingle();
 
-        Container.Bind<InventoryPersonGameObject>().FromComponentInHierarchy(this).AsSingle();
-        Container.Bind<InventoryBoxGameObject>().FromComponentInHierarchy(this).AsTransient();
+        Container.Bind<InventoryObjectUI>().FromComponentInHierarchy(this).AsSingle();
+        Container.Bind<InventoryBoxObjectUI>().FromComponentInHierarchy(this).AsTransient();
 
 
         Container.Bind<IInventoryController>().WithId(Inventory_ID).To<InventoryController>().AsSingle().NonLazy(); 
