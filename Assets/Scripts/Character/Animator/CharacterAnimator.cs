@@ -49,7 +49,7 @@ public class CharacterAnimator : MonoBehaviour
     }
     private void OnEnable()
     {
-        state.OnJumping += InputCharacter_OnJump;
+        state.OnJumping += InputCharacter_OnJump; 
         state.OnReadyForBattleAnim += CharacterState_OnReadyForBattle;
         state.OnCrouchAnim += CharacterState_OnCrouch;
         //state.OnReloadWeapon += CharacterState_OnRecharde;
@@ -152,7 +152,7 @@ public class CharacterAnimator : MonoBehaviour
     }
     public void CharacterState_OnCrouch()
     {
-        anim.SetTrigger("IsCrouching");
+        anim.SetTrigger("isCrouching"); 
     }  
     public void CharacterState_OnReadyForBattle()
     {
@@ -174,8 +174,7 @@ public class CharacterAnimator : MonoBehaviour
     {
         if (isParkour)
         {
-            anim.CrossFade(nameAnim, 0.2f);
-            Debug.Log("startAnim");
+            anim.CrossFade(nameAnim, 0.2f); 
         }    
     } 
 }

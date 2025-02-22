@@ -2,7 +2,7 @@
 using System; 
 using Zenject;
 
-public class AnimatorController :IInitializable, IDisposable
+public class AnimatorController  
 {
     public AnimatorController(CharacterAnimator characterAnimator, 
         CharacterState state, CharacterIK characterIK)
@@ -14,27 +14,7 @@ public class AnimatorController :IInitializable, IDisposable
     private CharacterState state; 
     private CharacterAnimator characterAnimator; 
     private CharacterIK characterIK;
-
-    public void Initialize()
-    {
-        state.OnJumping += characterAnimator.InputCharacter_OnJump;
-        state.OnReadyForBattleAnim += characterAnimator.CharacterState_OnReadyForBattle;
-        state.OnCrouchAnim += characterAnimator.CharacterState_OnCrouch;
-        //state.OnReloadWeapon += characterAnimator.CharacterState_OnRecharde;
-        state.OnPickUpItemAnim += characterAnimator.CharacterState_OnPickUpItem;
-        state.OnEquipWeaponAnim += characterAnimator.CharacterState_WeaponEquip;
-    }
-
-    public void Dispose()
-    {
-        state.OnJumping -= characterAnimator.InputCharacter_OnJump;
-        state.OnReadyForBattleAnim -= characterAnimator.CharacterState_OnReadyForBattle;
-        state.OnCrouchAnim -= characterAnimator.CharacterState_OnCrouch;
-        //state.OnReloadWeapon -= characterAnimator.CharacterState_OnRecharde;
-        state.OnPickUpItemAnim -= characterAnimator.CharacterState_OnPickUpItem;
-        state.OnEquipWeaponAnim -= characterAnimator.CharacterState_WeaponEquip;
-    } 
-
+     
     public void Tick_()
     { 
         characterAnimator.SwitchAnimationTurn(state.currentAngleCamera, state.isStopingRotate);

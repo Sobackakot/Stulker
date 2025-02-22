@@ -164,14 +164,7 @@ public class RaycastCamera : MonoBehaviour
         if (!isHitForward) return false; 
         rayDown = new Ray(hit.point + (Vector3.up * maxRayHeightParcoure), Vector3.down);
         return Physics.Raycast(rayDown, out hitDown, maxRayHeightParcoure, climbLayerMask);  
-    }
-    private bool RayDownCheckWidth(Transform charTrans, bool isHitDown)
-    {
-        if (!isHitDown) return false;
-        Ray rayDown = new Ray(charTrans.position + (charTrans.position.z * new Vector3(0,6,0.6f)), -charTrans.up);
-        return Physics.Raycast(rayDown, out RaycastHit hitDown, maxRayHeightParcoure, climbLayerMask);  
-    }
-    
+    } 
     private Ray GeRayForward()
     {
         return new Ray(pointRay.position, pointRay.forward);

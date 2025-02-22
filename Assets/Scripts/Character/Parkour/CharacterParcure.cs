@@ -33,11 +33,11 @@ public class CharacterParcure : MonoBehaviour
         stateMachin = animator.GetBehaviour<StateAnimatorCharacter>();
         anim = GetComponent<CharacterAnimator>();
     }
-    public void Initialize()
+    public void OnEnable()
     {
         state.OnParcoure += CharacterState_OnParcoure;
     }
-    public void Dispose()
+    public void OnDisable()
     {
         state.OnParcoure -= CharacterState_OnParcoure;
     }
@@ -48,6 +48,7 @@ public class CharacterParcure : MonoBehaviour
     }
     public void CharacterState_OnParcoure()
     {
+        Debug.Log("parcour -");
         animState = animator.GetCurrentAnimatorStateInfo(0);
         isStartingParcoure = ray.SetRayHitParcour(out RaycastHit hitForward,out RaycastHit hitDown); 
         if (isStartingParcoure)
@@ -58,7 +59,8 @@ public class CharacterParcure : MonoBehaviour
                 if(data.CheckHeightObstacle(hitForward,hitDown, charTrans))
                 {
                     curObst = data;
-                    anim.StartParcoureAnim(isStartingParcoure, data.nameStateAnim); 
+                    anim.StartParcoureAnim(isStartingParcoure, data.nameStateAnim);
+                    Debug.Log("start parcour anim");
                     break;
                 }
             } 
@@ -70,6 +72,7 @@ public class CharacterParcure : MonoBehaviour
         rb.isKinematic = stateMachin.isKinematic;
         if (stateMachin.isParcoureState)
         {
+            Debug.Log("parcurign");
             animator.MatchTarget(curObst.matchPoint, charTrans.rotation, curObst.MatchBody, 
                 new MatchTargetWeightMask(curObst.MatchPosWeight, 0), curObst.StartTime, curObst.TargetTime);
             charTrans.rotation = Quaternion.RotateTowards(charTrans.rotation, curObst.targetRotate, 360f * Time.deltaTime);

@@ -241,19 +241,16 @@ public class CharacterState
     public void InputCharacter_OnCrouch(CrouchToggleEvent crouchEvent)
     { 
         isCrouch = !isCrouch;
-        crouchEvent.IsCrouching = isCrouch;
+        crouchEvent.IsCrouching = isCrouch; 
         OnCrouchAnim?.Invoke();
     }
     public void InputCharacter_OnPickUpItem(PickUpItemEvent pickEvent)
-    {
-        Debug.Log("pick");
+    { 
         if (isRayHitToItem && !isReloadWeapon)
-        {
-            Debug.Log("pickUpItem");
+        { 
             OnPickUpItemAnim?.Invoke(); 
             if (OnGetItemFromHitRay != null && OnGetItemFromHitRay.Invoke())
-            {
-                Debug.Log("pickUp Weapon");
+            { 
                 isAvailableWeapons = true;
             }    
         }
