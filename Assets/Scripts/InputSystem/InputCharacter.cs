@@ -1,164 +1,150 @@
 
 using System;
-using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine; 
 using Zenject;
 
 public class InputCharacter : IInitializable, IDisposable
 {   
-    public event Action<Vector2> OnMoveInput;
-    public event Action OnJumpInput;
-    public event Action<bool> OnRunInput;
-    public event Action<bool> OnWalkInput;
-    public event Action OnReloadWeaponInput;
-    public event Action<bool> OnAimInput;
-    public event Action<bool> OnFireInput;
-    public event Action<bool> OnLeanRightInput;
-    public event Action<bool> OnLeanLeftInput;
-    public event Action OnInventoryExitInput;
-
-    public event Action OnEquipWeaponToggle;
-    public event Action OnCrouchToggle;  
-    public event Action<bool> OnInventoryToggle;
-    public event Action<bool> OnInventoryBoxToggle;
-    public event Action OnPickUpItem;
-    
-
     private InputActions inputActions;
 
-    private bool isInventoryActive; 
-    
     public void Initialize()
     { 
         inputActions = new InputActions();
         inputActions.Enable();
-        
-
-        inputActions.ActionMaps.Jump.performed += ctx => HandleJumpInput(ctx);      
-        inputActions.ActionMaps.ReloadWeapon.performed += ctx => HandleReloadWeaponInput(ctx);
-        inputActions.ActionMaps.ToggleEquipWeapon.performed += ctx => HandleEquipWeaponToggle(ctx);  
-        inputActions.ActionMaps.Crouch.performed += ctx => HandleCrouchToggle(ctx); 
-        inputActions.ActionMaps.ToggleInventory.performed += ctx => HandleInventoryToggle(ctx);
-        inputActions.ActionMaps.ToggleInventoryBox.performed += ctx => HandleInventoryBoxToggle(ctx);
-        inputActions.ActionMaps.ExitInventory.performed += ctx => HandleInventoryExitInput(ctx);
-
-        inputActions.ActionMaps.Move.performed += ctx => HandleMoveInput(ctx);
-        inputActions.ActionMaps.Move.canceled += ctx => HandleMoveInput(ctx);
-
-        inputActions.ActionMaps.Run.performed += ctx => HandleRunInput(ctx); 
-        inputActions.ActionMaps.Run.canceled += ctx => HandleRunInput(ctx);
-
-        inputActions.ActionMaps.Walk.performed += ctx => HandleWalkInput(ctx);
-        inputActions.ActionMaps.Walk.canceled += ctx => HandleWalkInput(ctx);
          
+        inputActions.ActionMaps.Jump.performed += ctx => EventBus.Publish(new JumpInputEvent());
+        inputActions.ActionMaps.ReloadWeapon.performed += ctx => EventBus.Publish(new ReloadWeaponEvent()); 
+        inputActions.ActionMaps.Crouch.performed += ctx => EventBus.Publish(new CrouchToggleEvent());
 
-        inputActions.ActionMaps.Aim.started += ctx => HandleAimInput(ctx);
-        inputActions.ActionMaps.Aim.canceled += ctx => HandleAimInput(ctx);
+        inputActions.ActionMaps.ExitInventory.performed += ctx => EventBus.Publish(new InventoryExitEvent());
+        inputActions.ActionMaps.ToggleInventory.performed += ctx => EventBus.Publish(new InventoryObjectUIToggleEvent()); 
+        inputActions.ActionMaps.ToggleInventoryBox.performed += ctx => EventBus.Publish(new InventoryBoxObjectUIToggleEvent());
+        inputActions.ActionMaps.PickUpItem.performed += ctx => EventBus.Publish(new PickUpItemEvent());
+        inputActions.ActionMaps.ToggleEquipWeapon.performed += ctx => EventBus.Publish(new EquipWeaponToggleEvent());
 
-        inputActions.ActionMaps.Fire.started += ctx => HandleFireInput(ctx);
-        inputActions.ActionMaps.Fire.canceled += ctx => HandleFireInput(ctx);
+        inputActions.ActionMaps.Move.performed += ctx => EventBus.Publish(new MoveInputEvent(ctx.ReadValue<Vector2>()));
+        inputActions.ActionMaps.Move.canceled += ctx => EventBus.Publish(new MoveInputEvent(Vector2.zero));
 
-        inputActions.ActionMaps.LeanRight.started += ctx => HandleLeanRightInput(ctx);
-        inputActions.ActionMaps.LeanRight.canceled += ctx => HandleLeanRightInput(ctx);
+        inputActions.ActionMaps.Run.performed += ctx => EventBus.Publish(new RunInputEvent(true));
+        inputActions.ActionMaps.Run.canceled += ctx => EventBus.Publish(new RunInputEvent(false));
 
-        inputActions.ActionMaps.LeanLeft.started += ctx => HandleLeanLeftInput(ctx);
-        inputActions.ActionMaps.LeanLeft.canceled += ctx => HandleLeanLeftInput(ctx);
+        inputActions.ActionMaps.Walk.performed += ctx => EventBus.Publish(new WalkInputEvent(true));
+        inputActions.ActionMaps.Walk.canceled += ctx => EventBus.Publish(new WalkInputEvent(false));
+
+        inputActions.ActionMaps.Aim.started += ctx => EventBus.Publish(new AimInputEvent(true));
+        inputActions.ActionMaps.Aim.canceled += ctx => EventBus.Publish(new AimInputEvent(false));
+
+        inputActions.ActionMaps.Fire.started += ctx => EventBus.Publish(new FireInputEvent(true));
+        inputActions.ActionMaps.Fire.canceled += ctx => EventBus.Publish(new FireInputEvent(false));
+
+        inputActions.ActionMaps.LeanRight.started += ctx => EventBus.Publish(new LeanRightInputEvent(true));
+        inputActions.ActionMaps.LeanRight.canceled += ctx => EventBus.Publish(new LeanRightInputEvent(false));
+
+        inputActions.ActionMaps.LeanLeft.started += ctx => EventBus.Publish(new LeanLeftInputEvent(true));
+        inputActions.ActionMaps.LeanLeft.canceled += ctx => EventBus.Publish(new LeanLeftInputEvent(false));
 
     }
 
     public void Dispose()
     {
+        inputActions.ActionMaps.Jump.performed -= ctx => EventBus.Publish(new JumpInputEvent());
+        inputActions.ActionMaps.ReloadWeapon.performed -= ctx => EventBus.Publish(new ReloadWeaponEvent()); 
+        inputActions.ActionMaps.Crouch.performed -= ctx => EventBus.Publish(new CrouchToggleEvent());
+
+        inputActions.ActionMaps.ExitInventory.performed -= ctx => EventBus.Publish(new InventoryExitEvent());
+        inputActions.ActionMaps.ToggleInventory.performed -= ctx => EventBus.Publish(new InventoryObjectUIToggleEvent());
+        inputActions.ActionMaps.ToggleInventoryBox.performed -= ctx => EventBus.Publish(new InventoryBoxObjectUIToggleEvent());
+        inputActions.ActionMaps.PickUpItem.performed -= ctx => EventBus.Publish(new PickUpItemEvent());
+        inputActions.ActionMaps.ToggleEquipWeapon.performed -= ctx => EventBus.Publish(new EquipWeaponToggleEvent());
+
+        inputActions.ActionMaps.Move.performed -= ctx => EventBus.Publish(new MoveInputEvent(ctx.ReadValue<Vector2>()));
+        inputActions.ActionMaps.Move.canceled -= ctx => EventBus.Publish(new MoveInputEvent(Vector2.zero));
+
+        inputActions.ActionMaps.Run.performed -= ctx => EventBus.Publish(new RunInputEvent(true));
+        inputActions.ActionMaps.Run.canceled -= ctx => EventBus.Publish(new RunInputEvent(false));
+
+        inputActions.ActionMaps.Walk.performed -= ctx => EventBus.Publish(new WalkInputEvent(true));
+        inputActions.ActionMaps.Walk.canceled -= ctx => EventBus.Publish(new WalkInputEvent(false));
+
+        inputActions.ActionMaps.Aim.started -= ctx => EventBus.Publish(new AimInputEvent(true));
+        inputActions.ActionMaps.Aim.canceled -= ctx => EventBus.Publish(new AimInputEvent(false));
+
+        inputActions.ActionMaps.Fire.started -= ctx => EventBus.Publish(new FireInputEvent(true));
+        inputActions.ActionMaps.Fire.canceled -= ctx => EventBus.Publish(new FireInputEvent(false));
+
+        inputActions.ActionMaps.LeanRight.started -= ctx => EventBus.Publish(new LeanRightInputEvent(true));
+        inputActions.ActionMaps.LeanRight.canceled -= ctx => EventBus.Publish(new LeanRightInputEvent(false));
+
+        inputActions.ActionMaps.LeanLeft.started -= ctx => EventBus.Publish(new LeanLeftInputEvent(true));
+        inputActions.ActionMaps.LeanLeft.canceled -= ctx => EventBus.Publish(new LeanLeftInputEvent(false));
         inputActions.Dispose(); 
     }
-    private void HandleLeanRightInput(InputAction.CallbackContext context)
-    {
-        if (context.started)
-            OnLeanRightInput?.Invoke(true);
-        else if (context.canceled) OnLeanRightInput?.Invoke(false);
-    }
-    private void HandleLeanLeftInput(InputAction.CallbackContext context)
-    {
-        if (context.started)
-            OnLeanLeftInput?.Invoke(true);
-        else if (context.canceled) OnLeanLeftInput?.Invoke(false);
-    }
-    private void HandleAimInput(InputAction.CallbackContext context)
-    {
-        if (context.started)
-            OnAimInput?.Invoke(true);
-        else if (context.canceled) OnAimInput?.Invoke(false);
-    }
-    private void HandleFireInput(InputAction.CallbackContext context)
-    {
-        if (context.started)
-            OnFireInput?.Invoke(true);
-        else if (context.canceled) OnFireInput?.Invoke(false);
-    }
-    private void HandleEquipWeaponToggle(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            OnEquipWeaponToggle?.Invoke(); 
-        }    
-    }
-    private void HandleReloadWeaponInput(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-            OnReloadWeaponInput?.Invoke(); 
-    } 
-    private void HandleCrouchToggle(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        { 
-            OnCrouchToggle?.Invoke();
-        }
-    }
-    private void HandleInventoryToggle(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            isInventoryActive = !isInventoryActive;
-            OnInventoryToggle?.Invoke(isInventoryActive); 
-        }
-    }
-    private void HandleInventoryBoxToggle(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            isInventoryActive = !isInventoryActive;
-            OnInventoryBoxToggle?.Invoke(isInventoryActive);
-            OnPickUpItem?.Invoke();
-        }  
-    }
-    private void HandleInventoryExitInput(InputAction.CallbackContext context)
-    {
-        if (context.performed && isInventoryActive)
-        {
-            isInventoryActive = false;
-            OnInventoryExitInput?.Invoke(); 
-        }
-    }
-    private void HandleMoveInput(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-            OnMoveInput?.Invoke(context.ReadValue<Vector2>());
-        else
-            OnMoveInput?.Invoke(Vector2.zero);
-
-    }
-    private void HandleJumpInput(InputAction.CallbackContext context)
-    {   
-        if(context.performed)
-            OnJumpInput?.Invoke();
-    }
-     
-    private void HandleRunInput(InputAction.CallbackContext context)
-    {    
-        OnRunInput?.Invoke(context.performed);
-    }
-    private void HandleWalkInput(InputAction.CallbackContext context)
-    { 
-        OnWalkInput?.Invoke(context.performed);
-    }
-
 }
+public struct MoveInputEvent
+{
+    public Vector2 Point;
+    public MoveInputEvent(Vector2 direction) => Point = direction;
+}// char move
+
+public struct JumpInputEvent { }// char move, char anim
+
+public struct RunInputEvent
+{
+    public bool IsRunning;
+    public RunInputEvent(bool isRunning) => IsRunning = isRunning;
+} //char state
+
+public struct WalkInputEvent
+{
+    public bool IsWalking;
+    public WalkInputEvent(bool isWalking) => IsWalking = isWalking;
+} // char state
+
+public struct ReloadWeaponEvent { } // char state
+
+public struct AimInputEvent
+{
+    public bool IsAiming;
+    public AimInputEvent(bool isAiming) => IsAiming = isAiming;
+} // char state
+
+public struct FireInputEvent
+{
+    public bool IsFiring;
+    public FireInputEvent(bool isFiring) => IsFiring = isFiring;
+}  // char state
+
+public struct EquipWeaponToggleEvent { } // char state
+
+public struct LeanRightInputEvent
+{
+    public bool IsLeaningRight;
+    public LeanRightInputEvent(bool isLeaningRight) => IsLeaningRight = isLeaningRight;
+}      // char state
+
+public struct LeanLeftInputEvent
+{
+    public bool IsLeaningLeft;
+    public LeanLeftInputEvent(bool isLeaningLeft) => IsLeaningLeft = isLeaningLeft;
+}  // char state
+  
+public struct CrouchToggleEvent 
+{
+    public bool IsCrouching;
+}  // char state
+
+public struct InventoryExitEvent { } // character state
+public struct InventoryObjectUIToggleEvent
+{
+    public bool IsActive; 
+}// charac state
+
+public struct InventoryBoxObjectUIToggleEvent
+{
+    public bool IsActive; 
+}// camera ray, char state
+
+public struct PickUpItemEvent 
+{
+    public bool isPickUp;
+} // char state

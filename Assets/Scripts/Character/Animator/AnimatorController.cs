@@ -17,7 +17,7 @@ public class AnimatorController :IInitializable, IDisposable
 
     public void Initialize()
     {
-        state.OnJumping += characterAnimator.CharacterState_OnJump;
+        state.OnJumping += characterAnimator.InputCharacter_OnJump;
         state.OnReadyForBattleAnim += characterAnimator.CharacterState_OnReadyForBattle;
         state.OnCrouchAnim += characterAnimator.CharacterState_OnCrouch;
         //state.OnReloadWeapon += characterAnimator.CharacterState_OnRecharde;
@@ -27,7 +27,7 @@ public class AnimatorController :IInitializable, IDisposable
 
     public void Dispose()
     {
-        state.OnJumping -= characterAnimator.CharacterState_OnJump;
+        state.OnJumping -= characterAnimator.InputCharacter_OnJump;
         state.OnReadyForBattleAnim -= characterAnimator.CharacterState_OnReadyForBattle;
         state.OnCrouchAnim -= characterAnimator.CharacterState_OnCrouch;
         //state.OnReloadWeapon -= characterAnimator.CharacterState_OnRecharde;

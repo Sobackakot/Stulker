@@ -32,6 +32,12 @@ public class CharacterAnimator : MonoBehaviour
     bool fourthCheck;
     float inertiaCount = 1.5f;
 
+    private CharacterState state;
+    [Inject]
+    private void Construct(CharacterState state)
+    {
+        this.state = state;
+    }
     private void Awake()
     {     
         anim = GetComponent<Animator>(); 
@@ -41,7 +47,24 @@ public class CharacterAnimator : MonoBehaviour
         equipWeaponLayer = anim.GetLayerIndex("Take_Weapon_Layer");
         runningLayer = anim.GetLayerIndex("Running_Layer"); 
     }
-
+    private void OnEnable()
+    {
+        state.OnJumping += InputCharacter_OnJump;
+        state.OnReadyForBattleAnim += CharacterState_OnReadyForBattle;
+        state.OnCrouchAnim += CharacterState_OnCrouch;
+        //state.OnReloadWeapon += CharacterState_OnRecharde;
+        state.OnPickUpItemAnim += CharacterState_OnPickUpItem;
+        state.OnEquipWeaponAnim += CharacterState_WeaponEquip;
+    }
+    private void OnDisable()
+    {
+        state.OnJumping -= InputCharacter_OnJump;
+        state.OnReadyForBattleAnim -= CharacterState_OnReadyForBattle;
+        state.OnCrouchAnim -= CharacterState_OnCrouch;
+        //state.OnReloadWeapon -= CharacterState_OnRecharde;
+        state.OnPickUpItemAnim -= CharacterState_OnPickUpItem;
+        state.OnEquipWeaponAnim -= CharacterState_WeaponEquip;
+    }
     public void StartingRunning(bool isIdle, bool isSprint)
     {
         if (isIdle) fersCheck = true;
@@ -115,7 +138,7 @@ public class CharacterAnimator : MonoBehaviour
             anim.SetLayerWeight(runningLayer, 0); 
         }
     }
-    public void CharacterState_OnJump()
+    public void InputCharacter_OnJump()
     {
         anim.SetTrigger("isJumping"); 
     } 
@@ -129,7 +152,7 @@ public class CharacterAnimator : MonoBehaviour
     }
     public void CharacterState_OnCrouch()
     {
-        anim.SetTrigger("isCrouching");
+        anim.SetTrigger("IsCrouching");
     }  
     public void CharacterState_OnReadyForBattle()
     {

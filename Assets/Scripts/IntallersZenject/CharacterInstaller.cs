@@ -49,7 +49,6 @@ public class CharacterInstaller : ScriptableObjectInstaller
     {
         Container.BindInterfacesAndSelfTo<InputCharacter>().AsSingle().NonLazy(); 
         Container.BindInterfacesAndSelfTo<MoveController>().AsSingle().NonLazy(); 
-        Container.BindInterfacesAndSelfTo<StateCharacterController>().AsSingle().NonLazy(); 
         Container.BindInterfacesAndSelfTo<CharacterState>().AsSingle().NonLazy(); 
         Container.BindInterfacesAndSelfTo<AnimatorController>().AsSingle().NonLazy(); 
 

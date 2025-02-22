@@ -5,6 +5,7 @@ using System;
 public static class EventBus
 {
     private static readonly Dictionary<Type, List<Delegate>> eventDictionary = new();
+    private static readonly Dictionary<Type, Delegate> requestHandlers = new();
 
     public static void Subscribe<T>(Action<T> listener)
     {
@@ -33,5 +34,26 @@ public static class EventBus
                 ((Action<T>)listener).Invoke(eventData);
             }
         }
+    }
+
+    // ------------------- Request-Response Logic -------------------
+
+    public static void RegisterRequest<TRequest, TResponse>(Func<TRequest, TResponse> handler)
+    {
+        requestHandlers[typeof(TRequest)] = handler;
+    }
+
+    public static void UnregisterRequest<TRequest>()
+    {
+        requestHandlers.Remove(typeof(TRequest));
+    }
+
+    public static TResponse Request<TRequest, TResponse>(TRequest request)
+    {
+        if (requestHandlers.ContainsKey(typeof(TRequest)))
+        {
+            return ((Func<TRequest, TResponse>)requestHandlers[typeof(TRequest)]).Invoke(request);
+        }
+        throw new Exception($"No handler registered for request type: {typeof(TRequest)}");
     }
 }

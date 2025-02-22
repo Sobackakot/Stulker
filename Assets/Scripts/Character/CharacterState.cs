@@ -4,13 +4,53 @@ using UnityEngine;
 
 public class CharacterState 
 {
+    //raycast 
+    // inventory
+    // character anim
+    // character move
+    // camera
+    //weapon
     public CharacterState()
     {
         EventBus.Subscribe<CameraSwitchEvent>(InputCamera_OnSwitchCamera);
+        EventBus.Subscribe<InventoryExitEvent>(InputCharacter_OnExitInventory);
+        EventBus.Subscribe<InventoryBoxObjectUIToggleEvent>(InputCharacter_OnSearcheInventoryBox);
+        EventBus.Subscribe<InventoryObjectUIToggleEvent>(InputCharacter_OnOppenInventory);
+        EventBus.Subscribe<PickUpItemEvent>(InputCharacter_OnPickUpItem);
+
+        EventBus.Subscribe<MoveInputEvent>(InputCharacter_OnMove);
+        EventBus.Subscribe<JumpInputEvent>(InputCharacter_OnJamp);
+        EventBus.Subscribe<RunInputEvent>(InputCharacter_OnRun);
+        EventBus.Subscribe<WalkInputEvent>(InputCharacter_OnWalk);
+        EventBus.Subscribe<CrouchToggleEvent>(InputCharacter_OnCrouch);
+        EventBus.Subscribe<LeanRightInputEvent>(InputCharacter_OnLeanRight);
+        EventBus.Subscribe<LeanLeftInputEvent>(InputCharacter_OnLeanLeft);
+
+        EventBus.Subscribe<ReloadWeaponEvent>(InputCharacter_OnReloadWeapon);
+        EventBus.Subscribe<AimInputEvent>(InputCharacter_OnAim);
+        EventBus.Subscribe<FireInputEvent>(InputCharacter_OnFire);
+        EventBus.Subscribe<EquipWeaponToggleEvent>(InputCharacter_OnEquipWeapon);
     }
     ~CharacterState()
     {
         EventBus.Unsubscribe<CameraSwitchEvent>(InputCamera_OnSwitchCamera);
+        EventBus.Unsubscribe<InventoryExitEvent>(InputCharacter_OnExitInventory);
+        EventBus.Unsubscribe<InventoryBoxObjectUIToggleEvent>(InputCharacter_OnSearcheInventoryBox);
+        EventBus.Unsubscribe<InventoryObjectUIToggleEvent>(InputCharacter_OnOppenInventory);
+        EventBus.Unsubscribe<PickUpItemEvent>(InputCharacter_OnPickUpItem);
+
+        EventBus.Unsubscribe<MoveInputEvent>(InputCharacter_OnMove);
+        EventBus.Unsubscribe<JumpInputEvent>(InputCharacter_OnJamp);
+        EventBus.Unsubscribe<RunInputEvent>(InputCharacter_OnRun);
+        EventBus.Unsubscribe<WalkInputEvent>(InputCharacter_OnWalk);
+        EventBus.Unsubscribe<CrouchToggleEvent>(InputCharacter_OnCrouch);
+        EventBus.Unsubscribe<LeanRightInputEvent>(InputCharacter_OnLeanRight);
+        EventBus.Unsubscribe<LeanLeftInputEvent>(InputCharacter_OnLeanLeft);
+
+        EventBus.Unsubscribe<ReloadWeaponEvent>(InputCharacter_OnReloadWeapon);
+        EventBus.Unsubscribe<AimInputEvent>(InputCharacter_OnAim);
+        EventBus.Unsubscribe<FireInputEvent>(InputCharacter_OnFire);
+        EventBus.Unsubscribe<EquipWeaponToggleEvent>(InputCharacter_OnEquipWeapon);
     }
     public event Action OnJumping;
     public event Action OnParcoure;
@@ -23,6 +63,9 @@ public class CharacterState
     public event Action<bool> OnSearcheInventoryBox;
     public event Func<bool> OnGetItemFromHitRay;
     public event Action OnPickUpItemAnim;
+
+    public event Action<bool> OnActiveInventory;
+    public event Action OnExitInventory;
    
     public bool isIdle { get; private set; }
     public bool isSprint { get; private set; }
@@ -117,14 +160,14 @@ public class CharacterState
             isRun = false;
         }
     } 
-    public void InputCharacter_OnMove(Vector2 inputAxis)
+    public void InputCharacter_OnMove(MoveInputEvent moveEvent)
     {
-         inputAxisMove = new Vector3(inputAxis.x, 0, inputAxis.y); 
-        OnMoving?.Invoke(inputAxis); 
+         inputAxisMove = new Vector3(moveEvent.Point.x, 0, moveEvent.Point.y); 
+        OnMoving?.Invoke(moveEvent.Point); 
     }
-    public void InputCharacter_OnRun(bool isKeySprint)
+    public void InputCharacter_OnRun(RunInputEvent sprintEvent)
     { 
-        if (inputAxisMove.sqrMagnitude > 0.2f && isKeySprint)
+        if (inputAxisMove.sqrMagnitude > 0.2f && sprintEvent.IsRunning)
         {
             isSprint = true;
             isIdle = false;
@@ -137,9 +180,9 @@ public class CharacterState
         bool isDiagonalMovement = Mathf.Abs(inputAxisMove.x) > 0.2f && Mathf.Abs(inputAxisMove.z) > 0.2f;
         isRunDiagonal = isSprint && isDiagonalMovement; 
     }
-    public void InputCharacter_OnWalk(bool isKeyWalk)
+    public void InputCharacter_OnWalk(WalkInputEvent walckEvent)
     {
-        if (inputAxisMove.sqrMagnitude > 0.2f && isKeyWalk)
+        if (inputAxisMove.sqrMagnitude > 0.2f && walckEvent.IsWalking)
         {
             isWalck = true;
             isIdle = false;
@@ -148,7 +191,7 @@ public class CharacterState
         } else isWalck = false;
     }
    
-    public void InputCharacter_OnJamp()
+    public void InputCharacter_OnJamp(JumpInputEvent jumpEvent)
     { 
        if (isCollision && !isAim)
        {
@@ -159,17 +202,17 @@ public class CharacterState
     }
      
 
-    public void InputCharacter_OnLeanRight(bool isTiltRight)
+    public void InputCharacter_OnLeanRight(LeanRightInputEvent leanEvent)
     {
-        this.isLeanRight = isTiltRight;
+        isLeanRight = leanEvent.IsLeaningRight;
         isLeftTargerPoint = false; 
     }
-    public void InputCharacter_OnLeanLeft(bool isTiltLeft)
+    public void InputCharacter_OnLeanLeft(LeanLeftInputEvent leanEvent)
     {
-        this.isLeanLeft = isTiltLeft; 
+        isLeanLeft = leanEvent.IsLeaningLeft;
         isLeftTargerPoint = true; 
     }
-    public void InputCharacter_OnEquipWeapon()
+    public void InputCharacter_OnEquipWeapon(EquipWeaponToggleEvent equipEvent)
     {
         if (!isAim && !isReloadWeapon && isAvailableWeapons)
         {
@@ -178,45 +221,63 @@ public class CharacterState
             OnReadyForBattleAnim?.Invoke();  
         }   
     }
-    public void InputCharacter_OnAim(bool isPressed)
+    public void InputCharacter_OnAim(AimInputEvent aimEvent)
     {
         if (isReadyForBattle && !isReloadWeapon && !isEquippingWeapon)
-            isAim = isPressed;
+            isAim = aimEvent.IsAiming;
     }
-    public void InputCharacter_OnFire(bool isPressed)
+    public void InputCharacter_OnFire(FireInputEvent fireEvent)
     {
         if (isReadyForBattle && isAim)
-            isFire = isPressed;
+            isFire = fireEvent.IsFiring;
     }
-    public void InputCharacter_OnReloadWeapon()
+    public void InputCharacter_OnReloadWeapon(ReloadWeaponEvent reloadEvent)
     {
         if(!isAim && isReadyForBattle && !isReloadWeapon && !isSprint)
         {
             OnReloadWeapon?.Invoke();
         } 
     } 
-    public void InputCharacter_OnCrouch()
+    public void InputCharacter_OnCrouch(CrouchToggleEvent crouchEvent)
     { 
         isCrouch = !isCrouch;
+        crouchEvent.IsCrouching = isCrouch;
         OnCrouchAnim?.Invoke();
     }
-    public void InputCharacter_OnPickUpItem()
+    public void InputCharacter_OnPickUpItem(PickUpItemEvent pickEvent)
     {
+        Debug.Log("pick");
         if (isRayHitToItem && !isReloadWeapon)
         {
+            Debug.Log("pickUpItem");
             OnPickUpItemAnim?.Invoke(); 
             if (OnGetItemFromHitRay != null && OnGetItemFromHitRay.Invoke())
-                isAvailableWeapons = true; 
+            {
+                Debug.Log("pickUp Weapon");
+                isAvailableWeapons = true;
+            }    
         }
     }
-    public void InputCharacter_OnSearcheInventoryBox(bool isActive)
+    public void InputCharacter_OnExitInventory(InventoryExitEvent exitEvent)
+    {
+        isActiveInventory = false;
+        OnExitInventory?.Invoke();
+    }
+    public void InputCharacter_OnSearcheInventoryBox(InventoryBoxObjectUIToggleEvent activeEvent)
     {
         if (isRayHitToInventoryBox)
-        {
-            OnSearcheInventoryBox?.Invoke(isActive);
+        { 
+            isActiveInventory = !isActiveInventory;
+            activeEvent.IsActive = isActiveInventory;
+            OnSearcheInventoryBox?.Invoke(activeEvent.IsActive);
         }
     }
-
+    public void InputCharacter_OnOppenInventory(InventoryObjectUIToggleEvent oppenEvent)
+    {
+        isActiveInventory = !isActiveInventory;
+        oppenEvent.IsActive = isActiveInventory;
+        OnActiveInventory?.Invoke(isActiveInventory);
+    }
 
     public void SetReloadWeaponAnimationState(bool isReload)
     { 

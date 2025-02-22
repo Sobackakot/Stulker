@@ -19,13 +19,6 @@ public class CameraController
         };
         activeCamera = cameras[state.isFerstCamera];
 
-        this.state.OnGetItemFromHitRay += this.ray.CharacterState_IsRaycastHitItem;
-        this.state.OnSearcheInventoryBox += this.ray.CharacterState_OnSearcheInventoryBox;
-    }
-    ~CameraController()
-    {
-        this.state.OnGetItemFromHitRay -= this.ray.CharacterState_IsRaycastHitItem;
-        this.state.OnSearcheInventoryBox -= this.ray.CharacterState_OnSearcheInventoryBox;
     }
 
     private CharacterState state;

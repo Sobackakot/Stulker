@@ -49,11 +49,14 @@ public class RaycastCamera : MonoBehaviour
         charTransPointRay = charact.GetComponent<Transform>();
     }
     private void OnEnable()
-    { 
+    {
+        state.OnSearcheInventoryBox += InputCharacter_OnSearcheInventoryBox;
+        state.OnGetItemFromHitRay += InputCharacter_IsRaycastHitItem;
     }
     private void OnDisable()
     {
-        
+        state.OnSearcheInventoryBox -= InputCharacter_OnSearcheInventoryBox;
+        state.OnGetItemFromHitRay -= InputCharacter_IsRaycastHitItem;
     }
     public void Shooting(bool isLeftButtonDown)
     {
@@ -103,18 +106,18 @@ public class RaycastCamera : MonoBehaviour
         }
             
     } 
-    public void CharacterState_OnSearcheInventoryBox(bool isActive)
+    public void InputCharacter_OnSearcheInventoryBox(bool isActive)
     {
         rayForward = GeRayForward();
         isActiveInventoryBox = isActive;
         if (Physics.Raycast(rayForward, out hitForward, maxRayInteract))
         {
-            InventoryBoxGameObject box = hitForward.collider.transform.GetComponent<InventoryBoxGameObject>();
+            InventoryBoxGameObject box = hitForward.collider.transform.GetComponent<InventoryBoxGameObject>(); 
             box?.OnActiveInventoryBox(isActiveInventoryBox);
             inventoryGameObject.SetActiveInventory(isActiveInventoryBox);
         } 
     }
-    public bool CharacterState_IsRaycastHitItem()
+    public bool InputCharacter_IsRaycastHitItem()
     {
         rayForward = GeRayForward();
         if (Physics.Raycast(rayForward, out hitForward, maxRayInteract))
@@ -175,3 +178,4 @@ public class RaycastCamera : MonoBehaviour
     }
 
 }
+

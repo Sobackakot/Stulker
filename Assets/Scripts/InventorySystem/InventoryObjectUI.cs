@@ -1,16 +1,17 @@
 using System;
 using UnityEngine;
 using Zenject;
+using Zenject.SpaceFighter;
 
 public class InventoryObjectUI : MonoBehaviour
 { 
-    private InputCharacter input;  
+    private CharacterState state;  
     public event Action<bool> onExitInventoryBox;
 
     [Inject]
-    private void Container(InputCharacter input)
+    private void Container(CharacterState state)
     {
-        this.input = input;
+        this.state = state;
     } 
     private void Start()
     {
@@ -18,13 +19,13 @@ public class InventoryObjectUI : MonoBehaviour
     }
     private void OnEnable()
     {
-        input.OnInventoryToggle += Input_OnActivateInventory;
-        input.OnInventoryExitInput += Input_OnExitInventory; 
+        state.OnActiveInventory += Input_OnActivateInventory;
+        state.OnExitInventory += Input_OnExitInventory;
     } 
     private void OnDestroy()
     {
-        input.OnInventoryToggle -= Input_OnActivateInventory;
-        input.OnInventoryExitInput -= Input_OnExitInventory; 
+        state.OnActiveInventory -= Input_OnActivateInventory;
+        state.OnExitInventory -= Input_OnExitInventory;
     }
     private void Input_OnActivateInventory(bool isActive)
     {

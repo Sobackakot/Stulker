@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class CharacterParcure : MonoBehaviour
 {
@@ -16,6 +17,13 @@ public class CharacterParcure : MonoBehaviour
     
     public bool isStartingParcoure {  get; private set; }
 
+    private CharacterState state;
+
+    [Inject]
+    private void Container(CharacterState state)
+    {
+        this.state = state;
+    }
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -25,7 +33,19 @@ public class CharacterParcure : MonoBehaviour
         stateMachin = animator.GetBehaviour<StateAnimatorCharacter>();
         anim = GetComponent<CharacterAnimator>();
     }
-
+    public void Initialize()
+    {
+        state.OnParcoure += CharacterState_OnParcoure;
+    }
+    public void Dispose()
+    {
+        state.OnParcoure -= CharacterState_OnParcoure;
+    }
+    public void Update()
+    {
+        bool isParcoure = UpdateParcour();
+        state.SetStateParcour(isParcoure);
+    }
     public void CharacterState_OnParcoure()
     {
         animState = animator.GetCurrentAnimatorStateInfo(0);

@@ -154,6 +154,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""PickUpItem"",
+                    ""type"": ""Button"",
+                    ""id"": ""7761883c-15c4-4e27-a4f7-e33c363dbec7"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""ExitInventory"",
                     ""type"": ""Button"",
                     ""id"": ""b54b886c-4dbe-4fe7-9297-9a0181ba723d"",
@@ -391,6 +400,17 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""00c39860-7dd0-45ed-af5e-0630c3fdb6f3"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PickUpItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""8a0c7b6c-aee8-40fc-bb03-48cbfe5aaa49"",
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
@@ -454,6 +474,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_ActionMaps_Fire = m_ActionMaps.FindAction("Fire", throwIfNotFound: true);
         m_ActionMaps_ToggleInventory = m_ActionMaps.FindAction("ToggleInventory", throwIfNotFound: true);
         m_ActionMaps_ToggleInventoryBox = m_ActionMaps.FindAction("ToggleInventoryBox", throwIfNotFound: true);
+        m_ActionMaps_PickUpItem = m_ActionMaps.FindAction("PickUpItem", throwIfNotFound: true);
         m_ActionMaps_ExitInventory = m_ActionMaps.FindAction("ExitInventory", throwIfNotFound: true);
         m_ActionMaps_LeanRight = m_ActionMaps.FindAction("LeanRight", throwIfNotFound: true);
         m_ActionMaps_LeanLeft = m_ActionMaps.FindAction("LeanLeft", throwIfNotFound: true);
@@ -538,6 +559,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_ActionMaps_Fire;
     private readonly InputAction m_ActionMaps_ToggleInventory;
     private readonly InputAction m_ActionMaps_ToggleInventoryBox;
+    private readonly InputAction m_ActionMaps_PickUpItem;
     private readonly InputAction m_ActionMaps_ExitInventory;
     private readonly InputAction m_ActionMaps_LeanRight;
     private readonly InputAction m_ActionMaps_LeanLeft;
@@ -560,6 +582,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @Fire => m_Wrapper.m_ActionMaps_Fire;
         public InputAction @ToggleInventory => m_Wrapper.m_ActionMaps_ToggleInventory;
         public InputAction @ToggleInventoryBox => m_Wrapper.m_ActionMaps_ToggleInventoryBox;
+        public InputAction @PickUpItem => m_Wrapper.m_ActionMaps_PickUpItem;
         public InputAction @ExitInventory => m_Wrapper.m_ActionMaps_ExitInventory;
         public InputAction @LeanRight => m_Wrapper.m_ActionMaps_LeanRight;
         public InputAction @LeanLeft => m_Wrapper.m_ActionMaps_LeanLeft;
@@ -615,6 +638,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @ToggleInventoryBox.started += instance.OnToggleInventoryBox;
             @ToggleInventoryBox.performed += instance.OnToggleInventoryBox;
             @ToggleInventoryBox.canceled += instance.OnToggleInventoryBox;
+            @PickUpItem.started += instance.OnPickUpItem;
+            @PickUpItem.performed += instance.OnPickUpItem;
+            @PickUpItem.canceled += instance.OnPickUpItem;
             @ExitInventory.started += instance.OnExitInventory;
             @ExitInventory.performed += instance.OnExitInventory;
             @ExitInventory.canceled += instance.OnExitInventory;
@@ -673,6 +699,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @ToggleInventoryBox.started -= instance.OnToggleInventoryBox;
             @ToggleInventoryBox.performed -= instance.OnToggleInventoryBox;
             @ToggleInventoryBox.canceled -= instance.OnToggleInventoryBox;
+            @PickUpItem.started -= instance.OnPickUpItem;
+            @PickUpItem.performed -= instance.OnPickUpItem;
+            @PickUpItem.canceled -= instance.OnPickUpItem;
             @ExitInventory.started -= instance.OnExitInventory;
             @ExitInventory.performed -= instance.OnExitInventory;
             @ExitInventory.canceled -= instance.OnExitInventory;
@@ -718,6 +747,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnFire(InputAction.CallbackContext context);
         void OnToggleInventory(InputAction.CallbackContext context);
         void OnToggleInventoryBox(InputAction.CallbackContext context);
+        void OnPickUpItem(InputAction.CallbackContext context);
         void OnExitInventory(InputAction.CallbackContext context);
         void OnLeanRight(InputAction.CallbackContext context);
         void OnLeanLeft(InputAction.CallbackContext context);

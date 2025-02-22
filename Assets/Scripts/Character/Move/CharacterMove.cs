@@ -36,7 +36,17 @@ public class CharacterMove : MonoBehaviour
         rbCharacter = GetComponent<Rigidbody>();
         cameraCharacter = FindFirstObjectByType<TirdCameraCharacter>();
         cameraFerst = FindObjectOfType<FirstCameraCharacter>();
-    } 
+    }
+    private void OnEnable()
+    {
+        state.OnMoving += InputCharacter_OnAxisMove;
+        state.OnJumping += InputCharacter_OnJumping;
+    }
+    private void OnDisable()
+    {
+        state.OnMoving -= InputCharacter_OnAxisMove;
+        state.OnJumping -= InputCharacter_OnJumping;
+    }
     private void SetActiveCamera()
     {
         bool isActive = state.isFerstCamera ? true : false;
@@ -65,24 +75,25 @@ public class CharacterMove : MonoBehaviour
             rbCharacter.MoveRotation(rot);
         } 
     }
-    public void Moving(bool isMove)
-    { 
-        if (isMove)
-        {
-            rbCharacter.MovePosition(rbCharacter.position + newDirection * speedMove * Time.fixedDeltaTime);
-        } 
-    }
-    public void CharacterState_OnAxisMove(Vector2 axis)
+    
+    public void InputCharacter_OnAxisMove(Vector2 inputAxis)
     {
-        inputAxis = new Vector3(axis.x, 0, axis.y);
+        this.inputAxis = new Vector3(inputAxis.x, 0, inputAxis.y);
     }
-    public void CharacterState_OnJumping()
+    public void InputCharacter_OnJumping()
     {
         if (state.isCollision)
         { 
             rbCharacter.AddForce(Vector3.up * jumpForce, ForceMode.Impulse); 
         }
-    }  
+    }
+    public void Moving(bool isMove)
+    {
+        if (isMove)
+        {
+            rbCharacter.MovePosition(rbCharacter.position + newDirection * speedMove * Time.fixedDeltaTime);
+        }
+    }
     public void SwitchVelocityMove(CharacterState state)
     {
         if (state.isWalck | state.isAim | state.isCrouch) speedMove = inputAxis.z < 0 ? speedWalkBack : speedWalkForward;

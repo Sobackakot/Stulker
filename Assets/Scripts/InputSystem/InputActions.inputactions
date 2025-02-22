@@ -132,6 +132,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "PickUpItem",
+                    "type": "Button",
+                    "id": "7761883c-15c4-4e27-a4f7-e33c363dbec7",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "ExitInventory",
                     "type": "Button",
                     "id": "b54b886c-4dbe-4fe7-9297-9a0181ba723d",
@@ -364,6 +373,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "ToggleInventoryBox",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "00c39860-7dd0-45ed-af5e-0630c3fdb6f3",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PickUpItem",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
