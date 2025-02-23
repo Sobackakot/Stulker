@@ -56,4 +56,20 @@ public static class EventBus
         }
         throw new Exception($"No handler registered for request type: {typeof(TRequest)}");
     }
+
+
+    // ------------------- Request-Response Logic method overload-------------------
+    public static void RegisterRequest<TRequest, TParam, TResponse>(Func<TParam, TResponse> handler)
+    {
+        requestHandlers[typeof(TRequest)] = handler;
+    }
+     
+    public static TResponse Request<TRequest, TParam, TResponse>(TParam param)
+    {
+        if (requestHandlers.ContainsKey(typeof(TRequest)))
+        {
+            return ((Func<TParam, TResponse>)requestHandlers[typeof(TRequest)]).Invoke(param);
+        }
+        throw new Exception($"No handler registered for request type: {typeof(TRequest)}");
+    }
 }
