@@ -1,6 +1,7 @@
 
+using StateGame;
 using UnityEngine;
-using Zenject;
+using Zenject; 
 
 public class RaycastCamera : MonoBehaviour
 {
@@ -33,11 +34,12 @@ public class RaycastCamera : MonoBehaviour
     private WindowUI windowUI;
     private bool isActiveInventoryBox;
 
-    private CharacterState state;
+    private StateGameHandler handlerState;
+
     [Inject]
-    private void Container(CharacterState state)
-    { 
-        this.state = state;
+    private void Construct(StateGameHandler handlerState)
+    {
+        this.handlerState = handlerState;
     }
     private void Awake()
     {
@@ -50,13 +52,13 @@ public class RaycastCamera : MonoBehaviour
     }
     private void OnEnable()
     {
-        state.OnSearcheInventoryBox += InputCharacter_OnSearcheInventoryBox;
-        state.OnGetItemFromHitRay += InputCharacter_IsRaycastHitItem;
+        handlerState.stateInventory.OnSearcheInventoryBox += InputCharacter_OnSearcheInventoryBox;
+        handlerState.stateItem.OnGetItemFromHitRay += InputCharacter_IsRaycastHitItem;
     }
     private void OnDisable()
     {
-        state.OnSearcheInventoryBox -= InputCharacter_OnSearcheInventoryBox;
-        state.OnGetItemFromHitRay -= InputCharacter_IsRaycastHitItem;
+        handlerState.stateInventory.OnSearcheInventoryBox -= InputCharacter_OnSearcheInventoryBox;
+        handlerState.stateItem.OnGetItemFromHitRay -= InputCharacter_IsRaycastHitItem;
     }
     public void Shooting(bool isLeftButtonDown)
     {
@@ -82,9 +84,9 @@ public class RaycastCamera : MonoBehaviour
     {
         rayForward = GeRayForward(); 
         if (Physics.Raycast(rayForward, out hitForward, maxRayInteract, layerMaskTake.value))
-        { 
-            state.SetStateHitToItem(true);
-            state.SetStateHitToInventory(false);
+        {
+            handlerState.stateItem.SetStateHitToItem(true);
+            handlerState.stateInventory.SetStateHitToInventory(false);
             windowUI.SetInteractText("Take (F)"); 
         }
         else RayHitInventoryBoxInteract();
@@ -94,14 +96,14 @@ public class RaycastCamera : MonoBehaviour
         rayForward = GeRayForward();
         if (Physics.Raycast(rayForward, out hitForward, maxRayInteract, layerMaskBox.value))
         {
-            state.SetStateHitToItem(false);
-            state.SetStateHitToInventory(true);
+            handlerState.stateItem.SetStateHitToItem(false);
+            handlerState.stateInventory.SetStateHitToInventory(true);
             windowUI.SetInteractText("Search (F)");
         }
         else
         {
-            state.SetStateHitToItem(false);
-            state.SetStateHitToInventory(false);
+            handlerState.stateItem.SetStateHitToItem(false);
+            handlerState.stateInventory.SetStateHitToInventory(false);
             windowUI.SetInteractText(" ");
         }
             
@@ -139,8 +141,8 @@ public class RaycastCamera : MonoBehaviour
     public bool SetRayHitParcour(out RaycastHit hitForward,out RaycastHit hitDown)
     {
         bool isHitForward = RayForward(charTransPointRay, offsetPointRayFor);
-        bool isHitDown = RayDown(this.hitForward, isHitForward); 
-        state.SetStateHitToObstacle(isHitDown);
+        bool isHitDown = RayDown(this.hitForward, isHitForward);
+        handlerState.stateRaycast.SetStateHitToObstacle(isHitDown);
         if (isHitDown)
         {
             hitForward = this.hitForward;

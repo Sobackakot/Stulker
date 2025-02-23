@@ -3,6 +3,7 @@ using UnityEngine;
 using Zenject;
 using Inventory_;
 using System;
+using StateGame;
 
 
 [CreateAssetMenu(fileName = "Installer(Character)", menuName = "Installers/Character")]
@@ -26,6 +27,8 @@ public class CharacterInstaller : ScriptableObjectInstaller
         BindCamera();
         BindInventory();
         Container.BindInterfacesAndSelfTo<MainHandler>().AsSingle().NonLazy();
+        Container.Bind<StateGameHandler>().FromNew().AsSingle().NonLazy();
+
 
         Container.Bind<WindowUI>().FromComponentInHierarchy(this).AsSingle();
        
@@ -48,8 +51,7 @@ public class CharacterInstaller : ScriptableObjectInstaller
     private void BindCharacter()
     {
         Container.BindInterfacesAndSelfTo<InputCharacter>().AsSingle().NonLazy(); 
-        Container.BindInterfacesAndSelfTo<MoveController>().AsSingle().NonLazy(); 
-        Container.BindInterfacesAndSelfTo<CharacterState>().AsSingle().NonLazy(); 
+        Container.BindInterfacesAndSelfTo<MoveController>().AsSingle().NonLazy();  
         Container.Bind<AnimatorController>().FromNew().AsSingle().NonLazy(); 
 
         //MonoBehaviour  

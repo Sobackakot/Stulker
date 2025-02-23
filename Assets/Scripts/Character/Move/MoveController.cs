@@ -2,27 +2,28 @@
 using System;
 using Zenject;
 using Inventory_;
+using StateGame;
 
 public class MoveController : ITickable
 {
     public MoveController(CharacterMove character,
-        CharacterState state, [Inject(Id = "inventoryBoxUI")]IInventoryUI inventoryUI)
+        StateGameHandler handlerState, [Inject(Id = "inventoryBoxUI")]IInventoryUI inventoryUI)
     { 
         this.character = character; 
-        this.state = state; 
+        this.handlerState = handlerState; 
         this.inventoryUI = inventoryUI;  
     }
       
     private CharacterMove character;
-    private CharacterState state; 
+    private StateGameHandler handlerState; 
     private IInventoryUI inventoryUI;
      
     
     public void FixedTick_()
     {  
-        character.Moving(state.isMove); 
-        character.SwitchVelocityMove(state); 
-        character.Rotating(state.isMove);
+        character.Moving(handlerState.stateMove.isMove); 
+        character.SwitchVelocityMove(); 
+        character.Rotating(handlerState.stateMove.isMove);
     }
 
     public void LateTick_()
@@ -32,11 +33,11 @@ public class MoveController : ITickable
 
     public void Tick()
     {
-        state.UpdateIsDiagonalRunning();
+        handlerState.stateMove.UpdateIsDiagonalRunning();
         
         bool isActiveInventoryBox = inventoryUI.isActiveInventory;
 
-        if (isActiveInventoryBox || state.isParcour)
+        if (isActiveInventoryBox || handlerState.stateMove.isParcour)
         {
             character.StopingMoveCharacter(true);
         }

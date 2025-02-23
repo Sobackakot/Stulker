@@ -1,4 +1,5 @@
 
+using StateGame;
 using TMPro; 
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -25,16 +26,16 @@ namespace Inventory_
         private IInventoryController inventoryEquip;
         private IInventoryController inventoryBox;
 
-        private CharacterState state;
+        private StateGameHandler stateGameHandler;
 
         [Inject]
         private void Container([Inject(Id = "inventory")] IInventoryController inventory, [Inject(Id = "inventoryEquip")] IInventoryController inventoryEquip,
-            [Inject(Id = "inventoryBox")] IInventoryController inventoryBox, CharacterState state)
+            [Inject(Id = "inventoryBox")] IInventoryController inventoryBox, StateGameHandler stateGameHandler)
         {
             this.inventory = inventory;
             this.inventoryEquip = inventoryEquip;
             this.inventoryBox = inventoryBox;
-            this.state = state;
+            this.stateGameHandler = stateGameHandler;
         }
 
         private void Awake()
@@ -95,7 +96,7 @@ namespace Inventory_
         {
             short index = inventoryBox.GetIndexFreeSlot(dataItem, slotType);
             short index2 = inventoryEquip.GetIndexFreeSlot(dataItem, slotType);
-            if (index != -1 && state.isActiveInventory)
+            if (index != -1 && stateGameHandler.stateInventory.isActiveInventory)
             {
                 inventoryBox.UpdatePickItem(dataItem, index, slotType);
                 inventory.RemoveItemFromInventory(dataItem);

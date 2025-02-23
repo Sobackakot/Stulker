@@ -1,6 +1,7 @@
  
 using UnityEngine;
 using Zenject;
+using StateGame;
 
 public class StateAnimatorCharacter : StateMachineBehaviour
 {  
@@ -17,14 +18,14 @@ public class StateAnimatorCharacter : StateMachineBehaviour
 
     public bool isParcoureState;
 
-    private CharacterState state;
+    private StateGameHandler handlerState;
 
     [Inject]
-    private void Construct(CharacterState state)
+    private void Construct(StateGameHandler handlerState)
     {
-        this.state = state;
+        this.handlerState = handlerState;
     }
-     
+
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         ParkourStateEnter(stateInfo);
@@ -46,7 +47,7 @@ public class StateAnimatorCharacter : StateMachineBehaviour
         // Check if the animation is at the start
         if (stateInfo.normalizedTime < 0.1f)
         {
-            // Compare the shortNameHash of the current state to a target animation
+            // Compare the shortNameHash of the current handlerState to a target animation
             if (stateInfo.shortNameHash == Animator.StringToHash("RunAnimation"))
             {
                 Debug.Log("Run Animation Started!");
@@ -92,11 +93,11 @@ public class StateAnimatorCharacter : StateMachineBehaviour
     private void EquipWeaponEnter(AnimatorStateInfo stateInfo)
     {
         if (stateInfo.IsName("EquipWeapon"))
-            state.SetEquipWeaponAnimationState(true);
+            handlerState.stateWeapon.SetEquipWeaponAnimationState(true);
     }
     private void EquipWeaponExit(AnimatorStateInfo stateInfo)
     {
         if(stateInfo.IsName("EquipWeapon"))
-            state.SetEquipWeaponAnimationState(false);
+            handlerState.stateWeapon.SetEquipWeaponAnimationState(false);
     }
 }

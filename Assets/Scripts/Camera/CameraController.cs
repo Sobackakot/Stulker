@@ -2,14 +2,15 @@
 using Zenject; 
 using Inventory_;
 using System.Collections.Generic;
+using StateGame;
 
 public class CameraController 
 { 
-    public CameraController(CharacterState state, RaycastCamera ray, [Inject(Id = "inventoryUI")]IInventoryUI inventoryUI , 
+    public CameraController(StateGameHandler handlerState, RaycastCamera ray, [Inject(Id = "inventoryUI")]IInventoryUI inventoryUI , 
     [Inject(Id = "cameraTird")] ICameraCharacter cameraTird, [Inject(Id = "cameraFerst")] ICameraCharacter cameraFerst)
     { 
         this.ray = ray;
-        this.state = state;
+        this.handlerState = handlerState;
         this.inventoryUI = inventoryUI;
 
         cameras = new Dictionary<bool, ICameraCharacter>
@@ -17,11 +18,11 @@ public class CameraController
             { true, cameraFerst },
             { false, cameraTird }
         };
-        activeCamera = cameras[state.isFerstCamera];
+        activeCamera = cameras[this.handlerState.stateCamera.isFerstCamera];
 
     }
 
-    private CharacterState state;
+    private StateGameHandler handlerState;
     private RaycastCamera ray; 
     private IInventoryUI inventoryUI; 
 
@@ -31,30 +32,30 @@ public class CameraController
 
     private void SwitchCamera()
     {
-        activeCamera = cameras[state.isFerstCamera];
+        activeCamera = cameras[handlerState.stateCamera.isFerstCamera];
     }
     public void Tick_Camera()
     {
         SwitchCamera();
-        activeCamera.SwitchLookPointCamera(state.isLeftTargerPoint, state.isCrouch); 
-        state.SetStateRotateCamera(inventoryUI.isActiveInventory);
-        activeCamera.CheckCameraRotateAngle(state);
+        activeCamera.SwitchLookPointCamera(handlerState.stateMove.isLeftTargerPoint, handlerState.stateMove.isCrouch);
+        handlerState.stateCamera.SetStateRotateCamera(inventoryUI.isActiveInventory);
+        activeCamera.CheckCameraRotateAngle();
     }
     public void LateTick_Camera()
     {
         activeCamera.FollowCamera();     
-        if (state.isStopingRotate)  
-             activeCamera.RotateCamera(state.isAim);
-        activeCamera.ZoomCamera(state.isAim, state.isReloadWeapon); 
+        if (handlerState.stateCamera.isStopingRotate)  
+             activeCamera.RotateCamera(handlerState.stateWeapon.isAim);
+        activeCamera.ZoomCamera(handlerState.stateWeapon.isAim, handlerState.stateWeapon.isReloadWeapon); 
     }
       
     public void FixedTick_Camera()
     { 
         ray.RayHitTakeItemInteract(); 
-        if (state.isAim)
+        if (handlerState.stateWeapon.isAim)
         {
             ray.GetPointRayAim(); 
-            ray.Shooting(state.isFire); 
+            ray.Shooting(handlerState.stateWeapon.isFire); 
         } 
     }
 }

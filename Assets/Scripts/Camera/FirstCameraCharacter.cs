@@ -1,6 +1,7 @@
  
 using UnityEngine;
 using Zenject;
+using StateGame;
 
 public class FirstCameraCharacter : MonoBehaviour, ICameraCharacter
 {
@@ -21,11 +22,12 @@ public class FirstCameraCharacter : MonoBehaviour, ICameraCharacter
     private float minZoom = 0f;
     private float maxZoom = 0f;
 
-    private CharacterState state;
+    private StateGameHandler handlerState;
+
     [Inject]
-    private void Construct(CharacterState state)
+    private void Construct(StateGameHandler handlerState)
     {
-        this.state = state;
+        this.handlerState = handlerState;
     }
     private void Awake()
     {
@@ -64,11 +66,11 @@ public class FirstCameraCharacter : MonoBehaviour, ICameraCharacter
 
     public void InputCamera_OnInputAxis(CameraInputEvent inputEvent)
     {
-        if (state.isStopingRotate)
+        if (handlerState.stateCamera.isStopingRotate)
         {
             mouseAxisX += inputEvent.InputAxis.x * sensitivityMouse * Time.deltaTime;
             mouseAxisY -= inputEvent.InputAxis.y * sensitivityMouse * Time.deltaTime;
-            state.SetInputAxisCamera(inputEvent.InputAxis); 
+            handlerState.stateCamera.SetInputAxisCamera(inputEvent.InputAxis); 
         }
     }
     public void InputCamera_OnScrollMouse(Vector2 scrollMouse)
@@ -76,7 +78,7 @@ public class FirstCameraCharacter : MonoBehaviour, ICameraCharacter
          
     }
 
-    public void CheckCameraRotateAngle(CharacterState state)
+    public void CheckCameraRotateAngle()
     { 
     }
 

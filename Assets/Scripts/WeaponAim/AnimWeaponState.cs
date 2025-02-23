@@ -1,15 +1,16 @@
  
 using UnityEngine;
 using Zenject;
+using StateGame;
 
 public class AnimWeaponState : StateMachineBehaviour
 {
-    private CharacterState state;
+    private StateGameHandler handlerState;
 
     [Inject]
-    private void Construct(CharacterState state)
+    private void Construct(StateGameHandler handlerState)
     {
-        this.state = state;
+        this.handlerState = handlerState;
     }
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -23,7 +24,7 @@ public class AnimWeaponState : StateMachineBehaviour
     { 
         if (stateInfo.IsName("ReloadWeapon"))
         {
-            //state.SetReloadWeaponAnimationState(true); 
+            //handlerState.SetReloadWeaponAnimationState(true); 
         }
 
     }
@@ -31,7 +32,7 @@ public class AnimWeaponState : StateMachineBehaviour
     { 
         if (stateInfo.IsName("ReloadWeapon"))
         {
-            //state.SetReloadWeaponAnimationState(false); 
+            //handlerState.SetReloadWeaponAnimationState(false); 
         }
     }
 }

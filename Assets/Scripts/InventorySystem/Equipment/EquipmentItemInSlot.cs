@@ -1,6 +1,7 @@
 
+using StateGame;
 using UnityEngine;
-using UnityEngine.EventSystems; 
+using UnityEngine.EventSystems;
 using Zenject;
 
 namespace Inventory_
@@ -12,19 +13,19 @@ namespace Inventory_
         private IInventoryController inventory;
         private IInventoryController inventoryEquip;
         private IInventoryController inventoryBox;
-        private CharacterState state;
+        private StateGameHandler stateGameHandler;
 
         private Transform originEquipSlot;
         public int equipSlotIndex { get; set; }
 
         [Inject]
         private void Container([Inject(Id = "inventory")] IInventoryController inventory, [Inject(Id = "inventoryEquip")] IInventoryController inventoryEquip,
-            [Inject(Id = "inventoryBox")] IInventoryController inventoryBox,CharacterState state)
+            [Inject(Id = "inventoryBox")] IInventoryController inventoryBox, StateGameHandler stateGameHandler)
         {
             this.inventory = inventory;
             this.inventoryEquip = inventoryEquip;
             this.inventoryBox = inventoryBox;
-            this.state = state;
+            this.stateGameHandler = stateGameHandler;
         }
         public override void SetItem(ItemScrObj newItem)
         {
@@ -65,7 +66,7 @@ namespace Inventory_
                 inventory.UpdatePickItem(dataItem, index, slotType);
                 inventoryEquip.RemoveItemFromInventory(dataItem);
             }
-            else if (index1 != -1 && state.isActiveInventory)
+            else if (index1 != -1 && stateGameHandler.stateInventory.isActiveInventory)
             {
                 inventoryBox.UpdatePickItem(dataItem, index, slotType);
                 inventoryEquip.RemoveItemFromInventory(dataItem);

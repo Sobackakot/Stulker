@@ -1,6 +1,7 @@
  
 using UnityEngine;
 using Zenject;
+using StateGame;
 
 public class TirdCameraCharacter : MonoBehaviour, ICameraCharacter
 {
@@ -28,12 +29,12 @@ public class TirdCameraCharacter : MonoBehaviour, ICameraCharacter
     private float limitAngleAim = 5f;
     private float newHeigth;
 
-    private CharacterState state;
+    private StateGameHandler handlerState;
 
     [Inject]
-    private void Construct(CharacterState state)
+    private void Construct(StateGameHandler handlerState)
     {
-        this.state = state;
+        this.handlerState = handlerState;
     }
     private void Awake()
     {
@@ -73,37 +74,37 @@ public class TirdCameraCharacter : MonoBehaviour, ICameraCharacter
 
     public void InputCamera_OnInputAxis(CameraInputEvent inputEvent)
     {
-        if (state.isStopingRotate)
+        if (handlerState.stateCamera.isStopingRotate)
         {
             mouseAxisX += inputEvent.InputAxis.x * sensitivityMouse * Time.deltaTime;
             mouseAxisY -= inputEvent.InputAxis.y * sensitivityMouse * Time.deltaTime;
-            state.SetInputAxisCamera(inputEvent.InputAxis);
+            handlerState.stateCamera.SetInputAxisCamera(inputEvent.InputAxis);
         }   
     }
     public void InputCamera_OnScrollMouse(Vector2 scrollMouse)
     {
-        if (state.isStopingRotate)
+        if (handlerState.stateCamera.isStopingRotate)
         {
             mouseZoom -= scrollMouse.y * scrollSpeed * Time.deltaTime;
         }
     }
 
 
-    public void CheckCameraRotateAngle(CharacterState state)
+    public void CheckCameraRotateAngle()
     {   
         Vector3 cameraZ = Vector3.ProjectOnPlane(transformCamera.forward, Vector3.up).normalized;
         Vector3 characterZ = Vector3.ProjectOnPlane(targetLookPoint.forward, Vector3.up).normalized;
         float currentAngleCamera = Vector3.SignedAngle(cameraZ, characterZ, Vector3.up);
-        state.SetAngleForCamera(currentAngleCamera);
-        if (state.isAim && Mathf.Abs(state.currentAngleCamera) > limitAngleAim)
+        handlerState.stateCamera.SetAngleForCamera(currentAngleCamera);
+        if (handlerState.stateWeapon.isAim && Mathf.Abs(handlerState.stateCamera.currentAngleCamera) > limitAngleAim)
         {
-            state.SetStateCameraAngle(true);
+            handlerState.stateCamera.SetStateCameraAngle(true);
         }
-        else if(Mathf.Abs(state.currentAngleCamera) > limitAngle)
+        else if(Mathf.Abs(handlerState.stateCamera.currentAngleCamera) > limitAngle)
         {
-            state.SetStateCameraAngle(true);
+            handlerState.stateCamera.SetStateCameraAngle(true);
         }
-        else state.SetStateCameraAngle(false);
+        else handlerState.stateCamera.SetStateCameraAngle(false);
     }
 
     public void SwitchLookPointCamera(bool isLeftPointLook, bool isCrouching)

@@ -1,36 +1,37 @@
- 
+
 using Zenject;
+using StateGame;
 
 public class EffectsController : ITickable, IFixedTickable
 {   
-    public EffectsController(Audios audios, CharacterState state, Particles particles, Lights lights)
+    public EffectsController(Audios audios,StateGameHandler handlerState, Particles particles, Lights lights)
     {
         this.audios = audios;
-        this.state = state;
+        this.handlerState = handlerState;
         this.particles = particles;
         this.lights = lights;
     }
     private Audios audios;
-    private CharacterState state;
+    private StateGameHandler handlerState;
     private Particles particles;
     private Lights lights; 
      
     public void Tick()
     {
-        if (state.isAim)
+        if (handlerState.stateWeapon.isAim)
         {
-            bool isNextTime = particles.PlayParticleShooting(state.isFire);
+            bool isNextTime = particles.PlayParticleShooting(handlerState.stateWeapon.isFire);
             if (isNextTime)
             {
-                audios.PlayAudioShooting(state.isFire);
-                lights.TurnOnLightShooting(state.isFire);
+                audios.PlayAudioShooting(handlerState.stateWeapon.isFire);
+                lights.TurnOnLightShooting(handlerState.stateWeapon.isFire);
             }
         } 
     }
 
     public void FixedTick()
     {
-        if (state.isAim)
-           lights.TurnOfLightShooting(state.isFire);
+        if (handlerState.stateWeapon.isAim)
+           lights.TurnOfLightShooting(handlerState.stateWeapon.isFire);
     }
 }

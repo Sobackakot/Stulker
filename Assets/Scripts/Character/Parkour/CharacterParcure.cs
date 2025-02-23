@@ -1,3 +1,4 @@
+using StateGame;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
@@ -17,12 +18,12 @@ public class CharacterParcure : MonoBehaviour
     
     public bool isStartingParcoure {  get; private set; }
 
-    private CharacterState state;
+    private StateGameHandler handlerState;
 
     [Inject]
-    private void Container(CharacterState state)
+    private void Construct(StateGameHandler handlerState)
     {
-        this.state = state;
+        this.handlerState = handlerState;
     }
     private void Awake()
     {
@@ -35,16 +36,16 @@ public class CharacterParcure : MonoBehaviour
     }
     public void OnEnable()
     {
-        state.OnParcoure += CharacterState_OnParcoure;
+        handlerState.stateMove.OnParcoure += CharacterState_OnParcoure;
     }
     public void OnDisable()
     {
-        state.OnParcoure -= CharacterState_OnParcoure;
+        handlerState.stateMove.OnParcoure -= CharacterState_OnParcoure;
     }
     public void Update()
     {
         bool isParcoure = UpdateParcour();
-        state.SetStateParcour(isParcoure);
+        handlerState.stateMove.SetStateParcour(isParcoure);
     }
     public void CharacterState_OnParcoure()
     {

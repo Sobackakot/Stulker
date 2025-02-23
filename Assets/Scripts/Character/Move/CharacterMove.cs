@@ -1,6 +1,7 @@
  
 using UnityEngine;
 using Zenject;
+using StateGame;
 
 public class CharacterMove : MonoBehaviour
 {  
@@ -22,14 +23,14 @@ public class CharacterMove : MonoBehaviour
     public Vector3 inputAxis { get; private set; }
     public Vector3 newDirection { get; private set; }
     public Vector3 cameraZ { get; private set; }
-    public float speedMove { get; private set; } 
-     
-    private CharacterState state;
+    public float speedMove { get; private set; }
+
+    private StateGameHandler handlerState;
 
     [Inject]
-    private void Container(CharacterState state)
+    private void Construct(StateGameHandler handlerState)
     {
-        this.state = state;
+        this.handlerState = handlerState;
     }
     private void Awake()
     {
@@ -39,20 +40,20 @@ public class CharacterMove : MonoBehaviour
     }
     private void OnEnable()
     {
-        state.OnMoving += InputCharacter_OnAxisMove;
-        state.OnJumping += InputCharacter_OnJumping;
+        handlerState.stateMove.OnMoving += InputCharacter_OnAxisMove;
+        handlerState.stateMove.OnJumping += InputCharacter_OnJumping;
     }
     private void OnDisable()
     {
-        state.OnMoving -= InputCharacter_OnAxisMove;
-        state.OnJumping -= InputCharacter_OnJumping;
+        handlerState.stateMove.OnMoving -= InputCharacter_OnAxisMove;
+        handlerState.stateMove.OnJumping -= InputCharacter_OnJumping;
     }
     private void SetActiveCamera()
     {
-        bool isActive = state.isFerstCamera ? true : false;
+        bool isActive = handlerState.stateCamera.isFerstCamera ? true : false;
         cameraFerst.enabled = isActive;
         cameraCharacter.enabled = !isActive;
-        currentCamera = state.isFerstCamera ? cameraFerst.transform : cameraCharacter.transform; 
+        currentCamera = handlerState.stateCamera.isFerstCamera ? cameraFerst.transform : cameraCharacter.transform; 
     }
     public void RotateWithCamera()
     {
@@ -63,12 +64,12 @@ public class CharacterMove : MonoBehaviour
     }
     public void Rotating(bool isMove)
     {
-        if (state.isAim | !state.isIdle && isMove)
+        if (handlerState.stateWeapon.isAim | !handlerState.stateMove.isIdle && isMove)
         {
             Quaternion rot = Quaternion.LookRotation(cameraZ, Vector3.up);
             rbCharacter.MoveRotation(rot);
         }
-        else if(state.isMaxAngleCamera && state.isIdle && isMove) 
+        else if(handlerState.stateCamera.isMaxAngleCamera && handlerState.stateMove.isIdle && isMove) 
         {
             Quaternion direction = Quaternion.LookRotation(cameraZ, Vector3.up); 
             Quaternion rot = Quaternion.Lerp(rbCharacter.rotation, direction, Time.fixedDeltaTime * speedRotate);
@@ -82,7 +83,7 @@ public class CharacterMove : MonoBehaviour
     }
     public void InputCharacter_OnJumping()
     {
-        if (state.isCollision)
+        if (handlerState.stateMove.isCollision)
         { 
             rbCharacter.AddForce(Vector3.up * jumpForce, ForceMode.Impulse); 
         }
@@ -94,32 +95,32 @@ public class CharacterMove : MonoBehaviour
             rbCharacter.MovePosition(rbCharacter.position + newDirection * speedMove * Time.fixedDeltaTime);
         }
     }
-    public void SwitchVelocityMove(CharacterState state)
+    public void SwitchVelocityMove()
     {
-        if (state.isWalck | state.isAim | state.isCrouch) speedMove = inputAxis.z < 0 ? speedWalkBack : speedWalkForward;
-        else speedMove = inputAxis.z < 0 ? speedRunBack : (state.isSprint ? (inputAxis.z > 0 ? speedSprint : speedRunForward) : speedRunForward); 
+        if (handlerState.stateMove.isWalck | handlerState.stateWeapon.isAim | handlerState.stateMove.isCrouch) speedMove = inputAxis.z < 0 ? speedWalkBack : speedWalkForward;
+        else speedMove = inputAxis.z < 0 ? speedRunBack : (handlerState.stateMove.isSprint ? (inputAxis.z > 0 ? speedSprint : speedRunForward) : speedRunForward); 
     }
     public void StopingMoveCharacter(bool isActiveInventoryBox )
     {
         if (isActiveInventoryBox)    
         {
-            state.SetStateMove(false);
+            handlerState.stateMove.SetStateMove(false);
         } 
-        else state.SetStateMove(true);
+        else handlerState.stateMove.SetStateMove(true);
     }
     
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == OnCollisionTag)
         {
-            state.SetCollision(true); 
+            handlerState.stateMove.SetCollision(true); 
         }
     }
     private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.tag == OnCollisionTag)
         {
-            state.SetCollision(false); 
+            handlerState.stateMove.SetCollision(false); 
         }
     }
 }

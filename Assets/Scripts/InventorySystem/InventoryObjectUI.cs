@@ -1,31 +1,32 @@
 using System;
 using UnityEngine;
 using Zenject;
-using Zenject.SpaceFighter;
+using StateGame;
 
 public class InventoryObjectUI : MonoBehaviour
-{ 
-    private CharacterState state;  
+{  
     public event Action<bool> onExitInventoryBox;
 
+    private StateGameHandler handlerState;
+
     [Inject]
-    private void Container(CharacterState state)
+    private void Construct(StateGameHandler handlerState)
     {
-        this.state = state;
-    } 
+        this.handlerState = handlerState;
+    }
     private void Start()
     {
         gameObject.SetActive(false);
     }
     private void OnEnable()
     {
-        state.OnActiveInventory += Input_OnActivateInventory;
-        state.OnExitInventory += Input_OnExitInventory;
+        handlerState.stateInventory.OnActiveInventory += Input_OnActivateInventory;
+        handlerState.stateInventory.OnExitInventory += Input_OnExitInventory;
     } 
     private void OnDestroy()
     {
-        state.OnActiveInventory -= Input_OnActivateInventory;
-        state.OnExitInventory -= Input_OnExitInventory;
+        handlerState.stateInventory.OnActiveInventory -= Input_OnActivateInventory;
+        handlerState.stateInventory.OnExitInventory -= Input_OnExitInventory;
     }
     private void Input_OnActivateInventory(bool isActive)
     {

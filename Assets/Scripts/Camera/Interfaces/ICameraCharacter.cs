@@ -1,5 +1,5 @@
  
-using UnityEngine;
+using UnityEngine; 
 
 public interface ICameraCharacter  
 {
@@ -8,7 +8,7 @@ public interface ICameraCharacter
     void ZoomCamera(bool isAiming, bool isReload);
     void InputCamera_OnInputAxis(CameraInputEvent inputEvent);
     void InputCamera_OnScrollMouse(Vector2 scrollMouse);
-    void CheckCameraRotateAngle(CharacterState state);
+    void CheckCameraRotateAngle();
     void SwitchLookPointCamera(bool isLeftPointLook, bool isCrouching); 
 
 }
