@@ -51,18 +51,18 @@ public class CharacterAnimator : MonoBehaviour
         state.Move.OnJumping += InputCharacter_OnJump;
         state.Weapon.OnReadyForBattleAnim += CharacterState_OnReadyForBattle;
         state.Move.OnCrouchAnim += CharacterState_OnCrouch;
-        //state.Weapon.OnReloadWeapon += CharacterState_OnRecharde;
+        //state.Weapon.OnReload += CharacterState_OnRecharde;
         state.Item.OnPickUpItemAnim += CharacterState_OnPickUpItem;
-        state.Weapon.OnEquipWeaponAnim += CharacterState_WeaponEquip;
+        state.Weapon.OnEquipAnim += CharacterState_WeaponEquip;
     }
     private void OnDisable()
     {
         state.Move.OnJumping -= InputCharacter_OnJump;
         state.Weapon.OnReadyForBattleAnim -= CharacterState_OnReadyForBattle;
         state.Move.OnCrouchAnim -= CharacterState_OnCrouch;
-        //state.Weapon.OnReloadWeapon -= CharacterState_OnRecharde;
+        //state.Weapon.OnReload -= CharacterState_OnRecharde;
         state.Item.OnPickUpItemAnim -= CharacterState_OnPickUpItem;
-        state.Weapon.OnEquipWeaponAnim -= CharacterState_WeaponEquip;
+        state.Weapon.OnEquipAnim -= CharacterState_WeaponEquip;
     }
     public void StartingRunning(bool isIdle, bool isSprint)
     {

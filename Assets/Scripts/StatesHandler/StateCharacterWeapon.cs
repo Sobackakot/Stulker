@@ -25,8 +25,8 @@ public class StateCharacterWeapon : StateGameBase
     { 
     }   
     public event Action OnReadyForBattleAnim; 
-    public event Action OnReloadWeapon;
-    public event Action<bool> OnEquipWeaponAnim;
+    public event Action OnReload;
+    public event Action<bool> OnEquipAnim;
      
 
     public bool isAim { get; private set; }
@@ -42,7 +42,7 @@ public class StateCharacterWeapon : StateGameBase
         if (!isAim && !isReload && isAvailable)
         {
             isReadyForBattle = !isReadyForBattle;
-            OnEquipWeaponAnim?.Invoke(isReadyForBattle);
+            OnEquipAnim?.Invoke(isReadyForBattle);
             OnReadyForBattleAnim?.Invoke();
         }
     }
@@ -60,7 +60,7 @@ public class StateCharacterWeapon : StateGameBase
     {
         if (!isAim && isReadyForBattle && !isReload && !stateGameHandler.Move.isSprint)
         {
-            OnReloadWeapon?.Invoke();
+            OnReload?.Invoke();
         }
     } 
 
