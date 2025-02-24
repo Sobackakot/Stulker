@@ -22,12 +22,12 @@ public class FirstCameraCharacter : MonoBehaviour, ICameraCharacter
     private float minZoom = 0f;
     private float maxZoom = 0f;
 
-    private StateGameHandler handlerState;
+    private StateGameHandler state;
 
     [Inject]
-    private void Construct(StateGameHandler handlerState)
+    private void Construct(StateGameHandler state)
     {
-        this.handlerState = handlerState;
+        this.state = state;
     }
     private void Awake()
     {
@@ -35,11 +35,11 @@ public class FirstCameraCharacter : MonoBehaviour, ICameraCharacter
     }
     private void OnEnable()
     {
-        EventBus.Subscribe<CameraInputEvent>(InputCamera_OnInputAxis);
+        state.Camera.OnInputAxis += InputCamera_OnInputAxis;
     }
     private void OnDisable()
     {
-        EventBus.Unsubscribe<CameraInputEvent>(InputCamera_OnInputAxis);
+        state.Camera.OnInputAxis -= InputCamera_OnInputAxis;
     }
     void Start()
     { 
@@ -64,13 +64,12 @@ public class FirstCameraCharacter : MonoBehaviour, ICameraCharacter
         transformCamera.position = targetLookPoint.position - transformCamera.forward * mouseZoom;
     }
 
-    public void InputCamera_OnInputAxis(CameraInputEvent inputEvent)
+    public void InputCamera_OnInputAxis(Vector2 inputAxis)
     {
-        if (handlerState.Camera.isStopingRotate)
+        if (state.Camera.isStopingRotate)
         {
-            mouseAxisX += inputEvent.InputAxis.x * sensitivityMouse * Time.deltaTime;
-            mouseAxisY -= inputEvent.InputAxis.y * sensitivityMouse * Time.deltaTime;
-            handlerState.Camera.SetInputAxisCamera(inputEvent.InputAxis); 
+            mouseAxisX += inputAxis.x * sensitivityMouse * Time.deltaTime;
+            mouseAxisY -= inputAxis.y * sensitivityMouse * Time.deltaTime; 
         }
     }
     public void InputCamera_OnScrollMouse(Vector2 scrollMouse)

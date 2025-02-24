@@ -1,4 +1,5 @@
 using StateGame;
+using System;
 using UnityEngine;
 
 public class StateCharacterCamera : StateGameBase
@@ -9,27 +10,31 @@ public class StateCharacterCamera : StateGameBase
 
     public override void EnterState()
     {
-        EventBus.Subscribe<CameraSwitchEvent>(InputCamera_OnSwitchCamera); 
+        EventBus.Subscribe<CameraSwitchEvent>(InputCamera_OnSwitchCamera);
+        EventBus.Subscribe<CameraInputEvent>(InputCamera_OnInputAxisCamera);
+
     }
 
     public override void ExitState()
     {
-        EventBus.Unsubscribe<CameraSwitchEvent>(InputCamera_OnSwitchCamera); 
+        EventBus.Unsubscribe<CameraSwitchEvent>(InputCamera_OnSwitchCamera);
+        EventBus.Unsubscribe<CameraInputEvent>(InputCamera_OnInputAxisCamera);
     }
 
     public override void UpdatState()
     { 
-    }   
-     
-    public Vector3 inputAxis { get; private set; }
+    }
+    public event Action<Vector2> OnInputAxis;
+    public Vector3 inputAxis;
     public float currentAngle { get; private set; }
     public bool isFerst { get; set; }
     public bool isStopingRotate { get; private set; }
     public bool isMaxAngle { get; private set; }
 
-    public void SetInputAxisCamera(Vector2 inputAxis)
+    public void InputCamera_OnInputAxisCamera(CameraInputEvent inputAxis)
     {
-        this.inputAxis = new Vector3(inputAxis.x, 0, inputAxis.y);
+        this.inputAxis = new Vector3(inputAxis.InputAxis.x, 0, inputAxis.InputAxis.y);
+        OnInputAxis?.Invoke(inputAxis.InputAxis);
     }
     public void SetAngleForCamera(float angle)
     {

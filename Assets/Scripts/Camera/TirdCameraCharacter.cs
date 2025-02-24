@@ -42,11 +42,11 @@ public class TirdCameraCharacter : MonoBehaviour, ICameraCharacter
     }
     private void OnEnable()
     {
-        EventBus.Subscribe<CameraInputEvent>(InputCamera_OnInputAxis);
+        state.Camera.OnInputAxis += InputCamera_OnInputAxis;
     }
     private void OnDisable()
     {
-        EventBus.Unsubscribe<CameraInputEvent>(InputCamera_OnInputAxis);
+        state.Camera.OnInputAxis -= InputCamera_OnInputAxis;
     }
     private void Start()
     { 
@@ -72,13 +72,12 @@ public class TirdCameraCharacter : MonoBehaviour, ICameraCharacter
         transformCamera.position = targetLookPoint.position - transformCamera.forward * mouseZoom;
     }
 
-    public void InputCamera_OnInputAxis(CameraInputEvent inputEvent)
+    public void InputCamera_OnInputAxis(Vector2 inputAxis)
     {
         if (state.Camera.isStopingRotate)
         {
-            mouseAxisX += inputEvent.InputAxis.x * sensitivityMouse * Time.deltaTime;
-            mouseAxisY -= inputEvent.InputAxis.y * sensitivityMouse * Time.deltaTime;
-            state.Camera.SetInputAxisCamera(inputEvent.InputAxis);
+            mouseAxisX += inputAxis.x * sensitivityMouse * Time.deltaTime;
+            mouseAxisY -= inputAxis.y * sensitivityMouse * Time.deltaTime; 
         }   
     }
     public void InputCamera_OnScrollMouse(Vector2 scrollMouse)
