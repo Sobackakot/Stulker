@@ -30,12 +30,12 @@ public class StateInventoryItem : StateGameBase
     }
     public void InputCharacter_OnPickUpItem(PickUpItemEvent pickEvent)
     {
-        if (isRayHitToItem && !stateGameHandler.stateWeapon.isReloadWeapon)
+        if (isRayHitToItem && !stateGameHandler.Weapon.isReload)
         {
             OnPickUpItemAnim?.Invoke();
             if (OnGetItemFromHitRay != null && OnGetItemFromHitRay.Invoke())
             {
-                stateGameHandler.stateWeapon.SetAvailableWeapon(true);
+                stateGameHandler.Weapon.SetAvailableWeapon(true);
             }
         }
     }

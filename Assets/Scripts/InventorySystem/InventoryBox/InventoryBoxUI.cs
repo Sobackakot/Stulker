@@ -10,8 +10,7 @@ namespace Inventory_
         private List<InventorySlotBox> inventorySlotsBox = new List<InventorySlotBox>();
 
         public event Func<List<ItemScrObj>> onSetNewItem;
-
-        public bool isActiveInventory { get; set; }
+         
 
         private void Awake()
         {
@@ -20,13 +19,11 @@ namespace Inventory_
         }
         private void OnEnable()
         {
-            Cursor.lockState = CursorLockMode.None;
-            isActiveInventory = true;
+            Cursor.lockState = CursorLockMode.None; 
         }
         private void OnDisable()
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            isActiveInventory = false;
+            Cursor.lockState = CursorLockMode.Locked; 
         }
         private void Start()
         {

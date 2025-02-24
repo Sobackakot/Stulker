@@ -25,12 +25,12 @@ public class CharacterMove : MonoBehaviour
     public Vector3 cameraZ { get; private set; }
     public float speedMove { get; private set; }
 
-    private StateGameHandler handlerState;
+    private StateGameHandler state;
 
     [Inject]
-    private void Construct(StateGameHandler handlerState)
+    private void Construct(StateGameHandler state)
     {
-        this.handlerState = handlerState;
+        this.state = state;
     }
     private void Awake()
     {
@@ -40,20 +40,20 @@ public class CharacterMove : MonoBehaviour
     }
     private void OnEnable()
     {
-        handlerState.stateMove.OnMoving += InputCharacter_OnAxisMove;
-        handlerState.stateMove.OnJumping += InputCharacter_OnJumping;
+        state.Move.OnMoving += InputCharacter_OnAxisMove;
+        state.Move.OnJumping += InputCharacter_OnJumping;
     }
     private void OnDisable()
     {
-        handlerState.stateMove.OnMoving -= InputCharacter_OnAxisMove;
-        handlerState.stateMove.OnJumping -= InputCharacter_OnJumping;
+        state.Move.OnMoving -= InputCharacter_OnAxisMove;
+        state.Move.OnJumping -= InputCharacter_OnJumping;
     }
     private void SetActiveCamera()
     {
-        bool isActive = handlerState.stateCamera.isFerstCamera ? true : false;
+        bool isActive = state.Camera.isFerst ? true : false;
         cameraFerst.enabled = isActive;
         cameraCharacter.enabled = !isActive;
-        currentCamera = handlerState.stateCamera.isFerstCamera ? cameraFerst.transform : cameraCharacter.transform; 
+        currentCamera = state.Camera.isFerst ? cameraFerst.transform : cameraCharacter.transform; 
     }
     public void RotateWithCamera()
     {
@@ -64,12 +64,12 @@ public class CharacterMove : MonoBehaviour
     }
     public void Rotating(bool isMove)
     {
-        if (handlerState.stateWeapon.isAim | !handlerState.stateMove.isIdle && isMove)
+        if (state.Weapon.isAim | !state.Move.isIdle && isMove)
         {
             Quaternion rot = Quaternion.LookRotation(cameraZ, Vector3.up);
             rbCharacter.MoveRotation(rot);
         }
-        else if(handlerState.stateCamera.isMaxAngleCamera && handlerState.stateMove.isIdle && isMove) 
+        else if(state.Camera.isMaxAngle && state.Move.isIdle && isMove) 
         {
             Quaternion direction = Quaternion.LookRotation(cameraZ, Vector3.up); 
             Quaternion rot = Quaternion.Lerp(rbCharacter.rotation, direction, Time.fixedDeltaTime * speedRotate);
@@ -83,7 +83,7 @@ public class CharacterMove : MonoBehaviour
     }
     public void InputCharacter_OnJumping()
     {
-        if (handlerState.stateMove.isCollision)
+        if (state.Move.isCollision)
         { 
             rbCharacter.AddForce(Vector3.up * jumpForce, ForceMode.Impulse); 
         }
@@ -97,30 +97,30 @@ public class CharacterMove : MonoBehaviour
     }
     public void SwitchVelocityMove()
     {
-        if (handlerState.stateMove.isWalck | handlerState.stateWeapon.isAim | handlerState.stateMove.isCrouch) speedMove = inputAxis.z < 0 ? speedWalkBack : speedWalkForward;
-        else speedMove = inputAxis.z < 0 ? speedRunBack : (handlerState.stateMove.isSprint ? (inputAxis.z > 0 ? speedSprint : speedRunForward) : speedRunForward); 
+        if (state.Move.isWalck | state.Weapon.isAim | state.Move.isCrouch) speedMove = inputAxis.z < 0 ? speedWalkBack : speedWalkForward;
+        else speedMove = inputAxis.z < 0 ? speedRunBack : (state.Move.isSprint ? (inputAxis.z > 0 ? speedSprint : speedRunForward) : speedRunForward); 
     }
     public void StopingMoveCharacter(bool isActiveInventoryBox )
     {
         if (isActiveInventoryBox)    
         {
-            handlerState.stateMove.SetStateMove(false);
+            state.Move.SetStateMove(false);
         } 
-        else handlerState.stateMove.SetStateMove(true);
+        else state.Move.SetStateMove(true);
     }
     
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == OnCollisionTag)
         {
-            handlerState.stateMove.SetCollision(true); 
+            state.Move.SetCollision(true); 
         }
     }
     private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.tag == OnCollisionTag)
         {
-            handlerState.stateMove.SetCollision(false); 
+            state.Move.SetCollision(false); 
         }
     }
 }

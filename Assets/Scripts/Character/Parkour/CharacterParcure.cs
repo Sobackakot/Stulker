@@ -18,12 +18,12 @@ public class CharacterParcure : MonoBehaviour
     
     public bool isStartingParcoure {  get; private set; }
 
-    private StateGameHandler handlerState;
+    private StateGameHandler state;
 
     [Inject]
-    private void Construct(StateGameHandler handlerState)
+    private void Construct(StateGameHandler state)
     {
-        this.handlerState = handlerState;
+        this.state = state;
     }
     private void Awake()
     {
@@ -36,20 +36,19 @@ public class CharacterParcure : MonoBehaviour
     }
     public void OnEnable()
     {
-        handlerState.stateMove.OnParcoure += CharacterState_OnParcoure;
+        state.Move.OnParcoure += CharacterState_OnParcoure;
     }
     public void OnDisable()
     {
-        handlerState.stateMove.OnParcoure -= CharacterState_OnParcoure;
+        state.Move.OnParcoure -= CharacterState_OnParcoure;
     }
     public void Update()
     {
         bool isParcoure = UpdateParcour();
-        handlerState.stateMove.SetStateParcour(isParcoure);
+        state.Move.SetStateParcour(isParcoure);
     }
     public void CharacterState_OnParcoure()
-    {
-        Debug.Log("parcour -");
+    { 
         animState = animator.GetCurrentAnimatorStateInfo(0);
         isStartingParcoure = ray.SetRayHitParcour(out RaycastHit hitForward,out RaycastHit hitDown); 
         if (isStartingParcoure)
@@ -60,8 +59,7 @@ public class CharacterParcure : MonoBehaviour
                 if(data.CheckHeightObstacle(hitForward,hitDown, charTrans))
                 {
                     curObst = data;
-                    anim.StartParcoureAnim(isStartingParcoure, data.nameStateAnim);
-                    Debug.Log("start parcour anim");
+                    anim.StartParcoureAnim(isStartingParcoure, data.nameStateAnim); 
                     break;
                 }
             } 
@@ -72,8 +70,7 @@ public class CharacterParcure : MonoBehaviour
     {
         rb.isKinematic = stateMachin.isKinematic;
         if (stateMachin.isParcoureState)
-        {
-            Debug.Log("parcurign");
+        { 
             animator.MatchTarget(curObst.matchPoint, charTrans.rotation, curObst.MatchBody, 
                 new MatchTargetWeightMask(curObst.MatchPosWeight, 0), curObst.StartTime, curObst.TargetTime);
             charTrans.rotation = Quaternion.RotateTowards(charTrans.rotation, curObst.targetRotate, 360f * Time.deltaTime);

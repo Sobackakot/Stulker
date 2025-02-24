@@ -20,13 +20,13 @@ public class InventoryObjectUI : MonoBehaviour
     }
     private void OnEnable()
     {
-        handlerState.stateInventory.OnActiveInventory += Input_OnActivateInventory;
-        handlerState.stateInventory.OnExitInventory += Input_OnExitInventory;
+        handlerState.Invent.OnActiveInventory += Input_OnActivateInventory;
+        handlerState.Invent.OnExitInventory += Input_OnExitInventory;
     } 
     private void OnDestroy()
     {
-        handlerState.stateInventory.OnActiveInventory -= Input_OnActivateInventory;
-        handlerState.stateInventory.OnExitInventory -= Input_OnExitInventory;
+        handlerState.Invent.OnActiveInventory -= Input_OnActivateInventory;
+        handlerState.Invent.OnExitInventory -= Input_OnExitInventory;
     }
     private void Input_OnActivateInventory(bool isActive)
     {

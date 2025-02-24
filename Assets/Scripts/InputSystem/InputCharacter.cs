@@ -92,59 +92,59 @@ public struct RunInputEvent
 {
     public bool IsRunning;
     public RunInputEvent(bool isRunning) => IsRunning = isRunning;
-} //char handlerState
+} //char state
 
 public struct WalkInputEvent
 {
     public bool IsWalking;
     public WalkInputEvent(bool isWalking) => IsWalking = isWalking;
-} // char handlerState
+} // char state
 
-public struct ReloadWeaponEvent { } // char handlerState
+public struct ReloadWeaponEvent { } // char state
 
 public struct AimInputEvent
 {
     public bool IsAiming;
     public AimInputEvent(bool isAiming) => IsAiming = isAiming;
-} // char handlerState
+} // char state
 
 public struct FireInputEvent
 {
     public bool IsFiring;
     public FireInputEvent(bool isFiring) => IsFiring = isFiring;
-}  // char handlerState
+}  // char state
 
-public struct EquipWeaponToggleEvent { } // char handlerState
+public struct EquipWeaponToggleEvent { } // char state
 
 public struct LeanRightInputEvent
 {
     public bool IsLeaningRight;
     public LeanRightInputEvent(bool isLeaningRight) => IsLeaningRight = isLeaningRight;
-}      // char handlerState
+}      // char state
 
 public struct LeanLeftInputEvent
 {
     public bool IsLeaningLeft;
     public LeanLeftInputEvent(bool isLeaningLeft) => IsLeaningLeft = isLeaningLeft;
-}  // char handlerState
+}  // char state
   
 public struct CrouchToggleEvent 
 {
     public bool IsCrouching;
-}  // char handlerState
+}  // char state
 
-public struct InventoryExitEvent { } // character handlerState
+public struct InventoryExitEvent { } // character state
 public struct InventoryObjectUIToggleEvent
 {
     public bool IsActive; 
-}// charac handlerState
+}// charac state
 
 public struct InventoryBoxObjectUIToggleEvent
 {
     public bool IsActive; 
-}// camera ray, char handlerState
+}// camera ray, char state
 
 public struct PickUpItemEvent 
 {
     public bool isPickUp;
-} // char handlerState
+} // char state

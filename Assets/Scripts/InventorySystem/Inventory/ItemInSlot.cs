@@ -96,7 +96,7 @@ namespace Inventory_
         {
             short index = inventoryBox.GetIndexFreeSlot(dataItem, slotType);
             short index2 = inventoryEquip.GetIndexFreeSlot(dataItem, slotType);
-            if (index != -1 && stateGameHandler.stateInventory.isActiveInventory)
+            if (index != -1 && stateGameHandler.Invent.isActive)
             {
                 inventoryBox.UpdatePickItem(dataItem, index, slotType);
                 inventory.RemoveItemFromInventory(dataItem);

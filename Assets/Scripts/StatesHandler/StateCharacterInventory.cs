@@ -30,11 +30,11 @@ public class StateCharacterInventory : StateGameBase
     public event Action<bool> OnActiveInventory;
     public event Action OnExitInventory;
 
-    public bool isActiveInventory { get; private set; }
+    public bool isActive { get; private set; }
     public bool isRayHitToInventoryBox { get; private set; }
     public void SetActiveInventory(bool isActive)
     {
-        isActiveInventory = isActive;
+        this.isActive = isActive;
     }
     public void SetStateHitToInventory(bool isHit)
     {
@@ -42,23 +42,23 @@ public class StateCharacterInventory : StateGameBase
     }
     public void InputCharacter_OnExitInventory(InventoryExitEvent exitEvent)
     {
-        isActiveInventory = false;
+        isActive = false;
         OnExitInventory?.Invoke();
     }
     public void InputCharacter_OnSearcheInventoryBox(InventoryBoxObjectUIToggleEvent activeEvent)
     {
         if (isRayHitToInventoryBox)
         {
-            isActiveInventory = !isActiveInventory;
-            activeEvent.IsActive = isActiveInventory;
+            isActive = !isActive;
+            activeEvent.IsActive = isActive;
             OnSearcheInventoryBox?.Invoke(activeEvent.IsActive);
         }
     }
     public void InputCharacter_OnOppenInventory(InventoryObjectUIToggleEvent oppenEvent)
     {
-        isActiveInventory = !isActiveInventory;
-        oppenEvent.IsActive = isActiveInventory;
-        OnActiveInventory?.Invoke(isActiveInventory);
+        isActive = !isActive;
+        oppenEvent.IsActive = isActive;
+        OnActiveInventory?.Invoke(isActive);
     }
    
 }

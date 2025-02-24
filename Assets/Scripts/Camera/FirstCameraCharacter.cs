@@ -66,11 +66,11 @@ public class FirstCameraCharacter : MonoBehaviour, ICameraCharacter
 
     public void InputCamera_OnInputAxis(CameraInputEvent inputEvent)
     {
-        if (handlerState.stateCamera.isStopingRotate)
+        if (handlerState.Camera.isStopingRotate)
         {
             mouseAxisX += inputEvent.InputAxis.x * sensitivityMouse * Time.deltaTime;
             mouseAxisY -= inputEvent.InputAxis.y * sensitivityMouse * Time.deltaTime;
-            handlerState.stateCamera.SetInputAxisCamera(inputEvent.InputAxis); 
+            handlerState.Camera.SetInputAxisCamera(inputEvent.InputAxis); 
         }
     }
     public void InputCamera_OnScrollMouse(Vector2 scrollMouse)

@@ -54,17 +54,17 @@ public class StateCharacterMove : StateGameBase
     public bool isLeanLeft { get; private set; }
     public bool isCrouch { get; private set; }
     public bool isLeftTargerPoint { get; private set; }
-    public Vector3 inputAxisMove { get; private set; }
+    public Vector3 inputAxis { get; private set; }
 
     
     public void InputCharacter_OnMove(MoveInputEvent moveEvent)
     {
-        inputAxisMove = new Vector3(moveEvent.Point.x, 0, moveEvent.Point.y);
+        inputAxis = new Vector3(moveEvent.Point.x, 0, moveEvent.Point.y);
         OnMoving?.Invoke(moveEvent.Point);
     }
     public void InputCharacter_OnRun(RunInputEvent sprintEvent)
     {
-        if (inputAxisMove.sqrMagnitude > 0.2f && sprintEvent.IsRunning)
+        if (inputAxis.sqrMagnitude > 0.2f && sprintEvent.IsRunning)
         {
             isSprint = true;
             isIdle = false;
@@ -75,7 +75,7 @@ public class StateCharacterMove : StateGameBase
     }
     public void InputCharacter_OnWalk(WalkInputEvent walckEvent)
     {
-        if (inputAxisMove.sqrMagnitude > 0.2f && walckEvent.IsWalking)
+        if (inputAxis.sqrMagnitude > 0.2f && walckEvent.IsWalking)
         {
             isWalck = true;
             isIdle = false;
@@ -86,9 +86,9 @@ public class StateCharacterMove : StateGameBase
     }
     public void InputCharacter_OnJamp(JumpInputEvent jumpEvent)
     {
-        if (isCollision && !stateGameHandler.stateWeapon.isAim)
+        if (isCollision && !stateGameHandler.Weapon.isAim)
         {
-            if (!stateGameHandler.stateRaycast.isRayHitToObstacle)
+            if (!stateGameHandler.Raycast.isRayHitToObstacle)
                 OnJumping?.Invoke();
             OnParcoure?.Invoke();
         }
@@ -111,7 +111,7 @@ public class StateCharacterMove : StateGameBase
     }
     public void UpdateIsDiagonalRunning()
     {
-        bool isDiagonalMovement = Mathf.Abs(inputAxisMove.x) > 0.2f && Mathf.Abs(inputAxisMove.z) > 0.2f;
+        bool isDiagonalMovement = Mathf.Abs(inputAxis.x) > 0.2f && Mathf.Abs(inputAxis.z) > 0.2f;
         isRunDiagonal = isSprint && isDiagonalMovement;
     }
      
@@ -126,7 +126,7 @@ public class StateCharacterMove : StateGameBase
     public void SetStateMove(bool isMoving)
     {
         this.isMove = isMoving;
-        if (!isSprint | !isWalck && inputAxisMove.sqrMagnitude > 0.2f)
+        if (!isSprint | !isWalck && inputAxis.sqrMagnitude > 0.2f)
         {
             isRun = true;
             isIdle = false;

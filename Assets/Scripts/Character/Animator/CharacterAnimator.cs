@@ -28,15 +28,14 @@ public class CharacterAnimator : MonoBehaviour
     bool fersCheck;
     bool secondCheck;
     bool thirdCheck;
-    bool fourthCheck;
-    float inertiaCount = 1.5f;
+    bool fourthCheck; 
 
-    private StateGameHandler handlerState;
+    private StateGameHandler state;
 
     [Inject]
-    private void Construct(StateGameHandler handlerState)
+    private void Construct(StateGameHandler state)
     {
-        this.handlerState = handlerState;
+        this.state = state;
     }
     private void Awake()
     {     
@@ -49,21 +48,21 @@ public class CharacterAnimator : MonoBehaviour
     }
     private void OnEnable()
     {
-        handlerState.stateMove.OnJumping += InputCharacter_OnJump;
-        handlerState.stateWeapon.OnReadyForBattleAnim += CharacterState_OnReadyForBattle;
-        handlerState.stateMove.OnCrouchAnim += CharacterState_OnCrouch;
-        //handlerState.stateWeapon.OnReloadWeapon += CharacterState_OnRecharde;
-        handlerState.stateItem.OnPickUpItemAnim += CharacterState_OnPickUpItem;
-        handlerState.stateWeapon.OnEquipWeaponAnim += CharacterState_WeaponEquip;
+        state.Move.OnJumping += InputCharacter_OnJump;
+        state.Weapon.OnReadyForBattleAnim += CharacterState_OnReadyForBattle;
+        state.Move.OnCrouchAnim += CharacterState_OnCrouch;
+        //state.Weapon.OnReloadWeapon += CharacterState_OnRecharde;
+        state.Item.OnPickUpItemAnim += CharacterState_OnPickUpItem;
+        state.Weapon.OnEquipWeaponAnim += CharacterState_WeaponEquip;
     }
     private void OnDisable()
     {
-        handlerState.stateMove.OnJumping -= InputCharacter_OnJump;
-        handlerState.stateWeapon.OnReadyForBattleAnim -= CharacterState_OnReadyForBattle;
-        handlerState.stateMove.OnCrouchAnim -= CharacterState_OnCrouch;
-        //handlerState.stateWeapon.OnReloadWeapon -= CharacterState_OnRecharde;
-        handlerState.stateItem.OnPickUpItemAnim -= CharacterState_OnPickUpItem;
-        handlerState.stateWeapon.OnEquipWeaponAnim -= CharacterState_WeaponEquip;
+        state.Move.OnJumping -= InputCharacter_OnJump;
+        state.Weapon.OnReadyForBattleAnim -= CharacterState_OnReadyForBattle;
+        state.Move.OnCrouchAnim -= CharacterState_OnCrouch;
+        //state.Weapon.OnReloadWeapon -= CharacterState_OnRecharde;
+        state.Item.OnPickUpItemAnim -= CharacterState_OnPickUpItem;
+        state.Weapon.OnEquipWeaponAnim -= CharacterState_WeaponEquip;
     }
     public void StartingRunning(bool isIdle, bool isSprint)
     {

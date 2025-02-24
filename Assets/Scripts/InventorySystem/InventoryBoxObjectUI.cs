@@ -23,13 +23,13 @@ public class InventoryBoxObjectUI : MonoBehaviour
     }
     private void OnEnable()
     {
-        handlerState.stateInventory.SetActiveInventory(true);
+        handlerState.Invent.SetActiveInventory(true);
         inventoryPerson.onExitInventoryBox += InventoryPerson_OnExitInventoryBox;
 
     } 
     private void OnDisable()
     {
-        handlerState.stateInventory.SetActiveInventory(false);
+        handlerState.Invent.SetActiveInventory(false);
     }
     private void OnDestroy()
     {

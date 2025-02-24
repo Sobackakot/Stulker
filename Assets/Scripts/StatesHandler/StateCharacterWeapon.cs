@@ -32,14 +32,14 @@ public class StateCharacterWeapon : StateGameBase
     public bool isAim { get; private set; }
     public bool isFire { get; private set; } 
     public bool isReadyForBattle { get; private set; }    
-    public bool isEquippingWeapon { get; private set; }
-    public bool isAvailableWeapons { get; private set; }
-    public bool isReloadWeapon { get; private set; }      
+    public bool isEquipping { get; private set; }
+    public bool isAvailable { get; private set; }
+    public bool isReload { get; private set; }      
 
      
     public void InputCharacter_OnEquipWeapon(EquipWeaponToggleEvent equipEvent)
     {
-        if (!isAim && !isReloadWeapon && isAvailableWeapons)
+        if (!isAim && !isReload && isAvailable)
         {
             isReadyForBattle = !isReadyForBattle;
             OnEquipWeaponAnim?.Invoke(isReadyForBattle);
@@ -48,7 +48,7 @@ public class StateCharacterWeapon : StateGameBase
     }
     public void InputCharacter_OnAim(AimInputEvent aimEvent)
     {
-        if (isReadyForBattle && !isReloadWeapon && !isEquippingWeapon)
+        if (isReadyForBattle && !isReload && !isEquipping)
             isAim = aimEvent.IsAiming;
     }
     public void InputCharacter_OnFire(FireInputEvent fireEvent)
@@ -58,7 +58,7 @@ public class StateCharacterWeapon : StateGameBase
     }
     public void InputCharacter_OnReloadWeapon(ReloadWeaponEvent reloadEvent)
     {
-        if (!isAim && isReadyForBattle && !isReloadWeapon && !stateGameHandler.stateMove.isSprint)
+        if (!isAim && isReadyForBattle && !isReload && !stateGameHandler.Move.isSprint)
         {
             OnReloadWeapon?.Invoke();
         }
@@ -66,14 +66,14 @@ public class StateCharacterWeapon : StateGameBase
 
     public void SetAvailableWeapon(bool isAvailableWeapons)
     {
-        this.isAvailableWeapons = isAvailableWeapons;
+        this.isAvailable = isAvailableWeapons;
     }
     public void SetReloadWeaponAnimationState(bool isReload)
     {
-        isReloadWeapon = isReload;
+        this.isReload = isReload;
     }
     public void SetEquipWeaponAnimationState(bool isEquiping)
     {
-        isEquippingWeapon = isEquiping;
+        isEquipping = isEquiping;
     } 
 }

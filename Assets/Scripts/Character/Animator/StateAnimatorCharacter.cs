@@ -18,12 +18,12 @@ public class StateAnimatorCharacter : StateMachineBehaviour
 
     public bool isParcoureState;
 
-    private StateGameHandler handlerState;
+    private StateGameHandler state;
 
     [Inject]
-    private void Construct(StateGameHandler handlerState)
+    private void Construct(StateGameHandler state)
     {
-        this.handlerState = handlerState;
+        this.state = state;
     }
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -47,7 +47,7 @@ public class StateAnimatorCharacter : StateMachineBehaviour
         // Check if the animation is at the start
         if (stateInfo.normalizedTime < 0.1f)
         {
-            // Compare the shortNameHash of the current handlerState to a target animation
+            // Compare the shortNameHash of the current state to a target animation
             if (stateInfo.shortNameHash == Animator.StringToHash("RunAnimation"))
             {
                 Debug.Log("Run Animation Started!");
@@ -93,11 +93,11 @@ public class StateAnimatorCharacter : StateMachineBehaviour
     private void EquipWeaponEnter(AnimatorStateInfo stateInfo)
     {
         if (stateInfo.IsName("EquipWeapon"))
-            handlerState.stateWeapon.SetEquipWeaponAnimationState(true);
+            state.Weapon.SetEquipWeaponAnimationState(true);
     }
     private void EquipWeaponExit(AnimatorStateInfo stateInfo)
     {
         if(stateInfo.IsName("EquipWeapon"))
-            handlerState.stateWeapon.SetEquipWeaponAnimationState(false);
+            state.Weapon.SetEquipWeaponAnimationState(false);
     }
 }

@@ -6,26 +6,26 @@ using Zenject;
 public class AnimatorController  
 { 
     public AnimatorController(CharacterAnimator characterAnimator,
-        StateGameHandler handlerState, CharacterIK characterIK)
+        StateGameHandler state, CharacterIK characterIK)
     {
         this.characterAnimator = characterAnimator; 
-        this.handlerState = handlerState;
+        this.state = state;
         this.characterIK = characterIK; 
     }
-    private StateGameHandler handlerState;
+    private StateGameHandler state;
     private CharacterAnimator characterAnimator; 
     private CharacterIK characterIK;
      
     public void Tick_()
     { 
-        characterAnimator.SwitchAnimationTurn(handlerState.stateCamera.currentAngleCamera, handlerState.stateCamera.isStopingRotate);
-        characterAnimator.TurnAnimation(handlerState.stateCamera.inputAxisCamera, handlerState.stateCamera.isStopingRotate, handlerState.stateCamera.isMaxAngleCamera);
-        characterAnimator.MovAnimation(handlerState.stateMove.inputAxisMove, handlerState.stateMove.isMove);
-        characterAnimator.SwithAnimationMove(handlerState.stateMove.isSprint, handlerState.stateMove.isWalck, handlerState.stateWeapon.isAim, handlerState.stateMove.inputAxisMove);
-        characterAnimator.AimingAnimation(handlerState.stateWeapon.isAim); 
-        characterAnimator.RunningDiagonal(handlerState.stateMove.isRunDiagonal);
-        characterAnimator.StoppingRunning(handlerState.stateMove.isIdle, handlerState.stateMove.isSprint);   
-        characterAnimator.StartingRunning(handlerState.stateMove.isIdle, handlerState.stateMove.isSprint);   
+        characterAnimator.SwitchAnimationTurn(state.Camera.currentAngle, state.Camera.isStopingRotate);
+        characterAnimator.TurnAnimation(state.Camera.inputAxis, state.Camera.isStopingRotate, state.Camera.isMaxAngle);
+        characterAnimator.MovAnimation(state.Move.inputAxis, state.Move.isMove);
+        characterAnimator.SwithAnimationMove(state.Move.isSprint, state.Move.isWalck, state.Weapon.isAim, state.Move.inputAxis);
+        characterAnimator.AimingAnimation(state.Weapon.isAim); 
+        characterAnimator.RunningDiagonal(state.Move.isRunDiagonal);
+        characterAnimator.StoppingRunning(state.Move.isIdle, state.Move.isSprint);   
+        characterAnimator.StartingRunning(state.Move.isIdle, state.Move.isSprint);   
     }  
     public void LateTick_()
     {
@@ -33,10 +33,10 @@ public class AnimatorController
     }
     public void FixedTick_()
     {   
-        characterIK.BodyLoockTargetIK(handlerState.stateMove.isIdle, handlerState.stateWeapon.isAim);
-        characterIK.WeaponParentIK(handlerState.stateWeapon.isReadyForBattle, handlerState.stateWeapon.isEquippingWeapon);
-        characterIK.AimWeaponParentIK(handlerState.stateWeapon.isAim, handlerState.stateWeapon.isReloadWeapon);
-        characterIK.EquipWeaponParentIK(handlerState.stateWeapon.isReadyForBattle, handlerState.stateWeapon.isAvailableWeapons);
+        characterIK.BodyLoockTargetIK(state.Move.isIdle, state.Weapon.isAim);
+        characterIK.WeaponParentIK(state.Weapon.isReadyForBattle, state.Weapon.isEquipping);
+        characterIK.AimWeaponParentIK(state.Weapon.isAim, state.Weapon.isReload);
+        characterIK.EquipWeaponParentIK(state.Weapon.isReadyForBattle, state.Weapon.isAvailable);
     }
 
 }
