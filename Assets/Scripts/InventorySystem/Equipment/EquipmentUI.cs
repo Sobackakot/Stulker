@@ -1,7 +1,9 @@
 
+using StateGame;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 
 namespace Inventory_
@@ -13,10 +15,25 @@ namespace Inventory_
          
 
         public event Func<List<ItemScrObj>> onSetNewItem;
+        private StateGameHandler state;
+
+        [Inject]
+        private void Construct(StateGameHandler state)
+        {
+            this.state = state;
+        } 
         private void Awake()
         {
             equipmentSlots.AddRange(GetComponentsInChildren<EquipmentSlot>(false));
             equipItemInSlots.AddRange(GetComponentsInChildren<EquipmentItemInSlot>(false));
+        }
+        private void OnEnable()
+        {
+            state.Invent.SetActiveInventory(true);
+        }
+        private void OnDisable()
+        {
+            state.Invent.SetActiveInventory(false);
         }
         private void Start()
         {

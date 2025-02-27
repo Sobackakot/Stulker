@@ -30,11 +30,16 @@ public class StateCharacterInventory : StateGameBase
     public event Action<bool> OnActiveInventory;
     public event Action OnExitInventory;
 
-    public bool isActive { get; private set; }
+    public bool isActiveInvent { get; private set; }
+    public bool isActiveInventBox { get; private set; }
     public bool isRayHitToInventoryBox { get; private set; }
     public void SetActiveInventory(bool isActive)
     {
-        this.isActive = isActive;
+        this.isActiveInvent = isActive;
+    }
+    public void SetActiveInventoryBox(bool isActive)
+    {
+        this.isActiveInventBox = isActive;
     }
     public void SetStateHitToInventory(bool isHit)
     {
@@ -42,23 +47,23 @@ public class StateCharacterInventory : StateGameBase
     }
     public void InputCharacter_OnExitInventory(InventoryExitEvent exitEvent)
     {
-        isActive = false;
+        isActiveInvent = false;
         OnExitInventory?.Invoke();
     }
     public void InputCharacter_OnSearcheInventoryBox(InventoryBoxObjectUIToggleEvent activeEvent)
     {
         if (isRayHitToInventoryBox)
         {
-            isActive = !isActive;
-            activeEvent.IsActive = isActive;
+            isActiveInvent = !isActiveInvent;
+            activeEvent.IsActive = isActiveInvent;
             OnSearcheInventoryBox?.Invoke(activeEvent.IsActive);
         }
     }
     public void InputCharacter_OnOppenInventory(InventoryObjectUIToggleEvent oppenEvent)
     {
-        isActive = !isActive;
-        oppenEvent.IsActive = isActive;
-        OnActiveInventory?.Invoke(isActive);
+        isActiveInvent = !isActiveInvent;
+        oppenEvent.IsActive = isActiveInvent;
+        OnActiveInventory?.Invoke(isActiveInvent);
     }
    
 }

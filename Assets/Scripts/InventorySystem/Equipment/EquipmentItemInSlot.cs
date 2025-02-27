@@ -13,19 +13,19 @@ namespace Inventory_
         private IInventoryController inventory;
         private IInventoryController inventoryEquip;
         private IInventoryController inventoryBox;
-        private StateGameHandler stateGameHandler;
+        private StateGameHandler state;
 
         private Transform originEquipSlot;
         public int equipSlotIndex { get; set; }
 
         [Inject]
         private void Container([Inject(Id = "inventory")] IInventoryController inventory, [Inject(Id = "inventoryEquip")] IInventoryController inventoryEquip,
-            [Inject(Id = "inventoryBox")] IInventoryController inventoryBox, StateGameHandler stateGameHandler)
+            [Inject(Id = "inventoryBox")] IInventoryController inventoryBox, StateGameHandler state)
         {
             this.inventory = inventory;
             this.inventoryEquip = inventoryEquip;
             this.inventoryBox = inventoryBox;
-            this.stateGameHandler = stateGameHandler;
+            this.state = state;
         }
         public override void SetItem(ItemScrObj newItem)
         {
@@ -66,7 +66,7 @@ namespace Inventory_
                 inventory.UpdatePickItem(dataItem, index, slotType);
                 inventoryEquip.RemoveItemFromInventory(dataItem);
             }
-            else if (index1 != -1 && stateGameHandler.Invent.isActive)
+            else if (index1 != -1 && state.Invent.isActiveInventBox)
             {
                 inventoryBox.UpdatePickItem(dataItem, index, slotType);
                 inventoryEquip.RemoveItemFromInventory(dataItem);

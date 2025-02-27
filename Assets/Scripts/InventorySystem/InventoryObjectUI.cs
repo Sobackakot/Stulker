@@ -3,43 +3,48 @@ using UnityEngine;
 using Zenject;
 using StateGame;
 
-public class InventoryObjectUI : MonoBehaviour
-{  
-    public event Action<bool> onExitInventoryBox;
 
-    private StateGameHandler handlerState;
+namespace Inventory_
+{
+    public class InventoryObjectUI : MonoBehaviour
+    {
+        public event Action<bool> onExitInventoryBox;
 
-    [Inject]
-    private void Construct(StateGameHandler handlerState)
-    {
-        this.handlerState = handlerState;
-    }
-    private void Start()
-    {
-        gameObject.SetActive(false);
-    }
-    private void OnEnable()
-    {
-        handlerState.Invent.OnActiveInventory += Input_OnActivateInventory;
-        handlerState.Invent.OnExitInventory += Input_OnExitInventory;
-    } 
-    private void OnDestroy()
-    {
-        handlerState.Invent.OnActiveInventory -= Input_OnActivateInventory;
-        handlerState.Invent.OnExitInventory -= Input_OnExitInventory;
-    }
-    private void Input_OnActivateInventory(bool isActive)
-    {
-        gameObject.SetActive(isActive);
-        onExitInventoryBox?.Invoke(false);
-    }
-    private void Input_OnExitInventory()
-    { 
-        gameObject.SetActive(false);
-        onExitInventoryBox?.Invoke(false);
-    } 
-    public void SetActiveInventory(bool isActive)
-    {
-        gameObject.SetActive(isActive);
+        private StateGameHandler handlerState;
+
+        [Inject]
+        private void Construct(StateGameHandler handlerState)
+        {
+            this.handlerState = handlerState;
+        }
+        private void Start()
+        {
+            gameObject.SetActive(false);
+        }
+        private void OnEnable()
+        {
+            handlerState.Invent.OnActiveInventory += Input_OnActivateInventory;
+            handlerState.Invent.OnExitInventory += Input_OnExitInventory;
+        }
+        private void OnDestroy()
+        {
+            handlerState.Invent.OnActiveInventory -= Input_OnActivateInventory;
+            handlerState.Invent.OnExitInventory -= Input_OnExitInventory;
+        }
+        private void Input_OnActivateInventory(bool isActive)
+        {
+            gameObject.SetActive(isActive);
+            onExitInventoryBox?.Invoke(false);
+        }
+        private void Input_OnExitInventory()
+        {
+            gameObject.SetActive(false);
+            onExitInventoryBox?.Invoke(false);
+        }
+        public void SetActiveInventory(bool isActive)
+        {
+            gameObject.SetActive(isActive);
+        }
     }
 }
+

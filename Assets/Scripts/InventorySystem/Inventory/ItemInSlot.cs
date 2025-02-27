@@ -26,16 +26,16 @@ namespace Inventory_
         private IInventoryController inventoryEquip;
         private IInventoryController inventoryBox;
 
-        private StateGameHandler stateGameHandler;
+        private StateGameHandler state;
 
         [Inject]
         private void Container([Inject(Id = "inventory")] IInventoryController inventory, [Inject(Id = "inventoryEquip")] IInventoryController inventoryEquip,
-            [Inject(Id = "inventoryBox")] IInventoryController inventoryBox, StateGameHandler stateGameHandler)
+            [Inject(Id = "inventoryBox")] IInventoryController inventoryBox, StateGameHandler state)
         {
             this.inventory = inventory;
             this.inventoryEquip = inventoryEquip;
             this.inventoryBox = inventoryBox;
-            this.stateGameHandler = stateGameHandler;
+            this.state = state;
         }
 
         private void Awake()
@@ -88,15 +88,15 @@ namespace Inventory_
         {
             originalSlot = transform.parent;
             if (eventData.button == PointerEventData.InputButton.Left)
-            {
-                Equipping(originalSlot.gameObject.tag);
+            { 
+                Equipping(originalSlot.gameObject.tag); 
             }
         }
         private void Equipping(string slotType)
-        {
+        { 
             short index = inventoryBox.GetIndexFreeSlot(dataItem, slotType);
             short index2 = inventoryEquip.GetIndexFreeSlot(dataItem, slotType);
-            if (index != -1 && stateGameHandler.Invent.isActive)
+            if (index != -1 && state.Invent.isActiveInventBox)
             {
                 inventoryBox.UpdatePickItem(dataItem, index, slotType);
                 inventory.RemoveItemFromInventory(dataItem);

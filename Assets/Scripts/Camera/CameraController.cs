@@ -36,7 +36,7 @@ public class CameraController
     {
         SwitchCamera();
         activeCamera.SwitchLookPointCamera(state.Move.isLeftTargerPoint, state.Move.isCrouch);
-        state.Camera.SetStateRotateCamera(state.Invent.isActive);
+        state.Camera.SetStateRotateCamera(state.Invent.isActiveInvent);
         activeCamera.CheckCameraRotateAngle();
     }
     public void LateTick_Camera()

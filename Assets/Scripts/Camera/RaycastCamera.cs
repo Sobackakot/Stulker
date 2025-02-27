@@ -1,7 +1,8 @@
 
 using StateGame;
 using UnityEngine;
-using Zenject; 
+using Zenject;
+using Inventory_;
 
 public class RaycastCamera : MonoBehaviour
 {

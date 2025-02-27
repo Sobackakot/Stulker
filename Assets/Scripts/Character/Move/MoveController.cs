@@ -3,6 +3,7 @@ using System;
 using Zenject;
 using Inventory_;
 using StateGame;
+using UnityEngine;
 
 public class MoveController : ITickable
 {
@@ -31,10 +32,11 @@ public class MoveController : ITickable
     public void Tick()
     {
         state.Move.UpdateIsDiagonalRunning(); 
-        if (state.Invent.isActive || state.Move.isParcour)
+        if (state.Invent.isActiveInvent || state.Move.isParcour)
         {
             character.StopingMoveCharacter(true);
         }
         else character.StopingMoveCharacter(false);
     }
+   
 }

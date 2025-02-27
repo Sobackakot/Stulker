@@ -1,6 +1,8 @@
+using StateGame;
 using System; 
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace Inventory_
 {
@@ -10,21 +12,29 @@ namespace Inventory_
         private List<InventorySlotBox> inventorySlotsBox = new List<InventorySlotBox>();
 
         public event Func<List<ItemScrObj>> onSetNewItem;
-         
 
+        private StateGameHandler state;
+
+        [Inject]
+        private void Construct(StateGameHandler state)
+        {
+            this.state = state;
+        }
+        private void OnEnable()
+        {
+            Cursor.lockState = CursorLockMode.None;
+            state.Invent.SetActiveInventoryBox(true);
+        }
+        private void OnDisable()
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            state.Invent.SetActiveInventoryBox(false);
+        }
         private void Awake()
         {
             itemsInSlotsBox.AddRange(GetComponentsInChildren<ItemInSlotBox>(false));
             inventorySlotsBox.AddRange(GetComponentsInChildren<InventorySlotBox>(false));
-        }
-        private void OnEnable()
-        {
-            Cursor.lockState = CursorLockMode.None; 
-        }
-        private void OnDisable()
-        {
-            Cursor.lockState = CursorLockMode.Locked; 
-        }
+        } 
         private void Start()
         {
             for (short i = 0; i < inventorySlotsBox.Count; i++)
@@ -82,11 +92,11 @@ namespace Inventory_
             {
                 if (itemsInSlotsBox[i].dataItem == null && item != null)
                 {
-                    index = i;
+                    index = i; 
                     return true;
                 }
             }
-            index = -1;
+            index = -1; 
             return false;
         }
     }
