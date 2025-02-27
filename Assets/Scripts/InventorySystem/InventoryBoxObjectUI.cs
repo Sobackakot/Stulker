@@ -6,40 +6,33 @@ using StateGame;
 namespace Inventory_
 {
     public class InventoryBoxObjectUI : MonoBehaviour
-    {
-        private InventoryObjectUI inventoryPerson;
-        private StateGameHandler handlerState;
+    { 
+        private StateGameHandler state;
 
         [Inject]
-        private void Construct(StateGameHandler handlerState)
+        private void Construct(StateGameHandler state)
         {
-            this.handlerState = handlerState;
-        }
-        private void Awake()
-        {
-            inventoryPerson = FindObjectOfType<InventoryObjectUI>();
-        }
+            this.state = state;
+        } 
         private void Start()
         {
             gameObject.SetActive(false);
+            state.Invent.SetActiveInventoryBox(false);
         }
         private void OnEnable()
         {
-            handlerState.Invent.SetActiveInventory(true);
-            inventoryPerson.onExitInventoryBox += InventoryPerson_OnExitInventoryBox;
+            state.Invent.OnActiveInventory += InputCharacter_OnExitInventoryBox;
+            state.Invent.SetActiveInventoryBox(true); 
 
         }
         private void OnDisable()
         {
-            handlerState.Invent.SetActiveInventory(false);
-        }
-        private void OnDestroy()
+            state.Invent.OnActiveInventory -= InputCharacter_OnExitInventoryBox;
+            state.Invent.SetActiveInventoryBox(false);
+        }  
+        public void InputCharacter_OnExitInventoryBox(bool isActive)
         {
-            inventoryPerson.onExitInventoryBox -= InventoryPerson_OnExitInventoryBox;
-        }
-        private void InventoryPerson_OnExitInventoryBox(bool isExit)
-        {
-            gameObject.SetActive(isExit);
+            gameObject.SetActive(false);
         }
     }
 }

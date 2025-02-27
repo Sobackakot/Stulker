@@ -8,38 +8,38 @@ namespace Inventory_
 {
     public class InventoryObjectUI : MonoBehaviour
     {
-        public event Action<bool> onExitInventoryBox;
-
-        private StateGameHandler handlerState;
+        private StateGameHandler state;
 
         [Inject]
-        private void Construct(StateGameHandler handlerState)
+        private void Construct(StateGameHandler state)
         {
-            this.handlerState = handlerState;
+            this.state = state;
         }
         private void Start()
         {
             gameObject.SetActive(false);
+            state.Invent.SetActiveInventory(false);
+            state.Invent.SetActiveInventoryBox(false);
         }
         private void OnEnable()
         {
-            handlerState.Invent.OnActiveInventory += Input_OnActivateInventory;
-            handlerState.Invent.OnExitInventory += Input_OnExitInventory;
+            state.Invent.OnActiveInventory += Input_OnActivateInventory;
+            state.Invent.OnExitInventory += Input_OnExitInventory;
+            state.Invent.SetActiveInventory(true); 
         }
         private void OnDestroy()
         {
-            handlerState.Invent.OnActiveInventory -= Input_OnActivateInventory;
-            handlerState.Invent.OnExitInventory -= Input_OnExitInventory;
+            state.Invent.OnActiveInventory -= Input_OnActivateInventory;
+            state.Invent.OnExitInventory -= Input_OnExitInventory;
+            state.Invent.SetActiveInventory(false); 
         }
         private void Input_OnActivateInventory(bool isActive)
         {
             gameObject.SetActive(isActive);
-            onExitInventoryBox?.Invoke(false);
         }
         private void Input_OnExitInventory()
         {
             gameObject.SetActive(false);
-            onExitInventoryBox?.Invoke(false);
         }
         public void SetActiveInventory(bool isActive)
         {

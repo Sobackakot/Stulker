@@ -15,14 +15,7 @@ namespace Inventory_
         private List<InventorySlot> inventorySlots = new List<InventorySlot>();
 
         public event Func<List<ItemScrObj>> onSetNewItem;
-
-        private StateGameHandler state;
-
-        [Inject]
-        private void Construct(StateGameHandler state)
-        {
-            this.state = state;
-        }
+         
         private void Awake()
         {
             itemsInSlots.AddRange(GetComponentsInChildren<ItemInSlot>(false));
@@ -30,13 +23,11 @@ namespace Inventory_
         }
         private void OnEnable()
         {
-            Cursor.lockState = CursorLockMode.None;
-            state.Invent.SetActiveInventory(true);
+            Cursor.lockState = CursorLockMode.None; 
         }
         private void OnDisable()
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            state.Invent.SetActiveInventory(false);
+            Cursor.lockState = CursorLockMode.Locked; 
 
         }
         private void Start()
